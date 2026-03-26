@@ -197,7 +197,7 @@
 
     .features-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 20px;
     }
 
@@ -354,6 +354,10 @@
       nav { padding: 12px 20px; }
       .section { padding: 70px 20px; }
       footer { padding: 30px 20px; flex-direction: column; align-items: flex-start; }
+      .features-grid { grid-template-columns: 1fr; }
+      .feature-card { padding: 24px; }
+      .hero h1 { font-size: clamp(2.5rem, 12vw, 4rem); }
+      .section-title { font-size: clamp(1.8rem, 8vw, 2.5rem); }
     }
 
     .gumroad-wrap {
@@ -468,7 +472,6 @@
       <p style="color:var(--muted);font-size:1rem;max-width:480px;margin:0 auto 8px;line-height:1.6">
         Pay once, use forever. Free updates included. Windows only.
       </p>
-      <div class="price-badge">🔥 Launch Price — $29.99</div>
 
       <div class="gumroad-wrap">
         <div
@@ -527,7 +530,7 @@
           Can I try it before buying?
           <span class="faq-arrow">+</span>
         </button>
-        <div class="faq-a">Yes — contact <a href="mailto:info@selectahub.com" style="color:var(--green);">info@selectahub.com</a> to try the tool for 10 minutes through our beta program before committing to a purchase. No credit card needed.</div>
+        <div class="faq-a">Yes — contact <a href="/cdn-cgi/l/email-protection#90f9fef6ffd0e3f5fcf5f3e4f1f8e5f2bef3fffd" style="color:var(--green);"><span class="__cf_email__" data-cfemail="8be2e5ede4cbf8eee7eee8ffeae3fee9a5e8e4e6">[email&#160;protected]</span></a> to try the tool for 10 minutes through our beta program before committing to a purchase. No credit card needed.</div>
   
 
       <div class="faq-item">
@@ -550,14 +553,6 @@
     <p>© 2026 Juggernaut Music Group. All rights reserved.</p>
   </footer>
 
-  <script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     function toggleFaq(btn) {
-      const item = btn.closest('.faq-item');
-      const isOpen = item.classList.contains('open');
-      document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
-      if (!isOpen) item.classList.add('open');
-    }
-  </script>
-
-</body>
-</html>
+      const item = btn.closest('
