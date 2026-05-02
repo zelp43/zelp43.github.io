@@ -126,6 +126,22 @@
       padding: 6px 14px; border-radius: 100px;
     }
 
+    .dl-btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: rgba(46,204,64,0.1);
+      border: 1px solid rgba(46,204,64,0.4);
+      color: var(--green);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1rem; font-weight: 700; letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 16px 36px; border-radius: 8px;
+      text-decoration: none;
+      transition: background 0.2s, border-color 0.2s, transform 0.2s;
+      animation: fadeUp 0.6s 0.45s ease both;
+      margin-bottom: 16px;
+    }
+    .dl-btn:hover { background: rgba(46,204,64,0.18); border-color: var(--green); transform: translateY(-2px); }
+
     .back-btn {
       display: inline-flex; align-items: center; gap: 8px;
       background: transparent;
@@ -174,6 +190,7 @@
       <span class="pill">📦 Instant Download</span>
     </div>
 
+    <a href="https://juggernautmusic.gumroad.com/l/soundefx1" target="_blank" rel="noopener noreferrer" class="dl-btn">⬇ Download Sound FX Pack</a>
     <a href="index.html" class="back-btn">← Back to Home</a>
 
     <p class="footer-note">© 2026 Juggernaut Music Group. All rights reserved.</p>
