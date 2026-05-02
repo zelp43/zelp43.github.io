@@ -33,7 +33,7 @@
     .nav-back { font-size: 0.8rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; color: var(--muted); transition: color 0.2s; }
     .nav-back:hover { color: var(--text); }
     .container { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; text-align: center; padding: 110px 24px 60px; width: 100%; max-width: 540px; }
-    .logo { width: 88px; height: 88px; object-fit: contain; margin-bottom: 20px; filter: drop-shadow(0 0 36px rgba(255,193,7,0.2)); animation: fadeUp 0.5s ease both; }
+    .logo { width: 88px; height: 88px; object-fit: contain; margin-bottom: 20px; filter: drop-shadow(0 0 36px rgba(255,193,7,0.2)); animation: fadeUp 0.5s ease both; transform: translateZ(0); -webkit-transform: translateZ(0); }
     .cs-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,193,7,0.08); border: 1px solid rgba(255,193,7,0.3); color: var(--gold); font-size: 0.72rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; padding: 5px 14px; border-radius: 100px; margin-bottom: 20px; animation: fadeUp 0.5s 0.05s ease both; }
     h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.8rem, 8vw, 4.2rem); letter-spacing: 3px; line-height: 1; animation: fadeUp 0.5s 0.1s ease both; }
     h1 span { color: var(--gold); }
@@ -57,8 +57,8 @@
     .genres { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 24px; animation: fadeUp 0.5s 0.25s ease both; }
     .genre-tag { background: var(--card); border: 1px solid var(--border); color: var(--muted); font-size: 0.75rem; padding: 5px 12px; border-radius: 100px; cursor: not-allowed; }
     /* Coming soon overlay on player */
-    .player-wrap { position: relative; }
-    .player-wrap::after { content: 'COMING SOON'; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 5px; color: rgba(255,255,255,0.9); background: rgba(0,0,0,0.65); border-radius: 20px; }
+    .player-wrap { position: relative; transform: translateZ(0); -webkit-transform: translateZ(0); }
+    .player-wrap::after { content: 'COMING SOON'; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 5px; color: rgba(255,255,255,0.9); background: rgba(10,10,10,0.92); border-radius: 20px; }
     .notify-text { margin-top: 32px; font-size: 0.8rem; color: var(--muted); animation: fadeUp 0.5s 0.3s ease both; }
     .notify-text a { color: var(--gold); text-decoration: none; }
     .notify-text a:hover { text-decoration: underline; }
