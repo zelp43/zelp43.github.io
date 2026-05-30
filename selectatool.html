@@ -171,8 +171,22 @@
       display: flex; flex-direction: column;
     }
     .tier-card.pro {
-      border-color: rgba(46,204,64,0.35);
-      box-shadow: 0 0 0 1px rgba(46,204,64,0.08), 0 24px 64px rgba(46,204,64,0.06);
+      border-color: rgba(212,175,55,0.4);
+      box-shadow: 0 0 0 1px rgba(255,215,0,0.06), 0 24px 64px rgba(212,175,55,0.1);
+      background: linear-gradient(180deg, rgba(212,175,55,0.04) 0%, var(--card) 28%);
+    }
+    .tier-card.pro.live {
+      animation: goldGlow 2.5s ease-in-out infinite;
+    }
+    @keyframes goldGlow {
+      0%, 100% {
+        border-color: rgba(212,175,55,0.52);
+        box-shadow: 0 0 0 1px rgba(255,215,0,0.1), 0 0 32px rgba(255,215,0,0.24), 0 24px 64px rgba(212,175,55,0.2);
+      }
+      50% {
+        border-color: rgba(255,215,0,0.9);
+        box-shadow: 0 0 0 1px rgba(255,215,0,0.32), 0 0 72px rgba(255,215,0,0.52), 0 24px 64px rgba(212,175,55,0.36);
+      }
     }
 
     /* card header */
@@ -187,7 +201,12 @@
     .tier-name {
       font-size: 0.95rem; font-weight: 800; letter-spacing: -0.2px;
     }
-    .tier-card.pro .tier-name { color: var(--green); }
+    .tier-card.pro .tier-name {
+      background: linear-gradient(135deg, #8B6914 0%, #D4AF37 20%, #FFD700 40%, #FFF3A3 50%, #FFD700 60%, #D4AF37 80%, #8B6914 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
     .tier-badge {
       font-size: 0.6rem; font-weight: 700; letter-spacing: 1.2px;
       text-transform: uppercase; padding: 3px 9px; border-radius: 100px;
@@ -244,8 +263,14 @@
     }
     .btn-basic:hover { opacity: 0.88; }
     .btn-pro {
-      background: var(--green);
-      color: var(--black);
+      background: linear-gradient(105deg, #8B6914 0%, #C8960C 25%, #E8C547 45%, #D4AF37 55%, #C8960C 75%, #8B6914 100%);
+      background-size: 250% auto;
+      color: #1a0e00;
+      animation: goldShimmer 5s ease-in-out infinite alternate;
+    }
+    @keyframes goldShimmer {
+      0%   { background-position: 0% center; }
+      100% { background-position: 250% center; }
     }
     .btn-pro-soon {
       background: rgba(46,204,64,0.12);
@@ -273,7 +298,7 @@
     }
     .feat-icon.check { color: var(--green); }
     .feat-icon.dash  { color: var(--border-h); }
-    .feat-item.pro-only { background: rgba(46,204,64,0.03); }
+    .feat-item.pro-only { background: rgba(212,175,55,0.025); }
     .feat-label { font-weight: 500; }
     .feat-label-note {
       display: block;
@@ -291,13 +316,14 @@
     }
 
     .btn-pro-locked {
-      background: rgba(46,204,64,0.08) !important;
-      border: 1px solid rgba(46,204,64,0.2) !important;
-      color: rgba(46,204,64,0.4) !important;
+      background: rgba(212,175,55,0.08) !important;
+      border: 1px solid rgba(212,175,55,0.22) !important;
+      color: rgba(212,175,55,0.45) !important;
       cursor: not-allowed !important;
       pointer-events: none;
       opacity: 1 !important;
       transform: none !important;
+      animation: none !important;
     }
     .btn-pro-locked:hover { opacity: 1 !important; transform: none !important; }
     .btn-orig-price {
@@ -306,6 +332,44 @@
       opacity: 0.55;
       margin-left: 4px;
     }
+
+    /* ── PRO GOLD OVERRIDES ── */
+    .tier-card.pro .tier-price {
+      background: linear-gradient(135deg, #8B6914 0%, #D4AF37 20%, #FFD700 40%, #FFF3A3 50%, #FFD700 60%, #D4AF37 80%, #8B6914 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .tier-card.pro .tier-price-orig {
+      -webkit-text-fill-color: var(--muted);
+      background: none; background-clip: unset; -webkit-background-clip: unset;
+    }
+    .tier-card.pro .tier-version { color: rgba(212,175,55,0.55); }
+    .tier-card.pro .feat-icon.check { color: #D4AF37; }
+    .tier-card.pro .badge-date {
+      background: rgba(212,175,55,0.07);
+      border-color: rgba(212,175,55,0.24);
+      color: rgba(212,175,55,0.65);
+    }
+    .tier-card.pro .badge-live {
+      background: rgba(212,175,55,0.14);
+      border-color: rgba(212,175,55,0.45);
+      color: #D4AF37;
+      animation: goldBadgePulse 2s ease-in-out infinite;
+    }
+    @keyframes goldBadgePulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(255,215,0,0); opacity: 1; }
+      50%       { box-shadow: 0 0 0 5px rgba(255,215,0,0.2); opacity: 0.85; }
+    }
+    .tier-card.pro .pro-countdown {
+      background: rgba(212,175,55,0.06);
+      border-color: rgba(212,175,55,0.2);
+    }
+    .tier-card.pro .countdown-label { color: #D4AF37; }
+    .tier-card.pro .countdown-unit { background: rgba(212,175,55,0.09); border-color: rgba(212,175,55,0.2); }
+    .tier-card.pro .countdown-num  { color: #D4AF37; }
+    .tier-card.pro .countdown-sep  { color: rgba(212,175,55,0.4); }
+    .tier-card.pro .countdown-done { color: #D4AF37; }
 
     /* card footer */
     .tier-foot {
@@ -598,7 +662,7 @@
         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#ffffff">
           <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
         </svg>
-        <span>macOS &mdash; Intel &amp; Apple Silicon</span>
+        <span>macOS Big Sur and later &mdash; Intel &amp; Apple Silicon</span>
       </div>
 
       <!-- Windows -->
@@ -627,7 +691,7 @@
           </div>
           <div class="tier-price">$29.99</div>
           <p class="tier-price-note">One-time purchase. Yours forever.</p>
-          <span class="tier-version" id="basicVersion">v1.1.2</span>
+          <span class="tier-version" id="basicVersion">v1.1.2 &middot; 2.0 coming June 15</span>
           <a href="https://juggernautmusic.gumroad.com/l/selectatool" target="_blank" rel="noopener noreferrer" class="btn-tier btn-basic">
             Get Basic &mdash; $29.99
           </a>
@@ -1116,6 +1180,8 @@
         var badge = document.getElementById('proBadge');
         var b1    = document.getElementById('proBtn1');
         var b2    = document.getElementById('proBtn2');
+        var proCard = document.querySelector('.tier-card.pro');
+        if (proCard) proCard.classList.add('live');
         // Replace countdown cleanly
         if (cd) cd.innerHTML = '<span class="countdown-done">&#10003; Now available</span>';
         // Flip badge: dimmed-green date → pulsing Live
