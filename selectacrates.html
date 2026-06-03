@@ -221,6 +221,42 @@
     }
     .genre-card:hover .genre-arrow { color: var(--green); transform: translateX(3px); }
 
+    /* ── COMING SOON BADGE ── */
+    .date-badge {
+      display: inline-flex; align-items: center;
+      background: rgba(46,204,64,0.05); border: 1px solid rgba(46,204,64,0.2);
+      color: rgba(46,204,64,0.55); font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase;
+      padding: 5px 14px; border-radius: 100px; margin-bottom: 22px;
+    }
+
+    /* ── COUNTDOWN ── */
+    .page-countdown {
+      display: flex; align-items: center; justify-content: center;
+      gap: 10px; flex-wrap: wrap;
+      background: rgba(46,204,64,0.06); border: 1px solid rgba(46,204,64,0.2);
+      border-radius: 10px; padding: 12px 18px;
+      margin-top: 20px; margin-bottom: 0;
+    }
+    .countdown-label {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 1.5px;
+      text-transform: uppercase; color: var(--green); flex-shrink: 0;
+    }
+    .countdown-blocks { display: flex; align-items: center; gap: 6px; }
+    .countdown-unit {
+      display: flex; flex-direction: column; align-items: center;
+      background: rgba(46,204,64,0.08); border: 1px solid rgba(46,204,64,0.18);
+      border-radius: 6px; padding: 5px 9px; min-width: 42px;
+    }
+    .countdown-num { font-size: 1.1rem; font-weight: 900; color: var(--green); letter-spacing: -0.5px; line-height: 1; }
+    .countdown-tag { font-size: 0.55rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); margin-top: 2px; }
+    .countdown-sep { font-size: 1rem; font-weight: 700; color: rgba(46,204,64,0.4); margin-bottom: 4px; }
+
+    /* ── LOCKED GENRE CARDS ── */
+    .genre-card.locked {
+      pointer-events: none; opacity: 0.38; cursor: default;
+    }
+
     /* ── NOTE CARD ── */
     .note-card {
       margin-top: 14px;
@@ -292,10 +328,22 @@
   <!-- HERO -->
   <section class="hero">
     <img src="SH_TRANSPARENT_NEW.png" alt="Selecta Hub" class="hero-logo" width="72" height="72"/>
-    <div class="live-badge"><span class="live-dot"></span>Live</div>
+    <div class="date-badge" id="cratesBadge">June 15</div>
     <h1 class="hero-title">SELECTA <span class="g">CRATES</span></h1>
-    <p class="hero-desc">Years of curated music, genre-sorted and ready to load into any DJ software. Pick your genre and download instantly.</p>
-    <div class="hero-pills">
+    <p class="hero-desc">Years of curated music, genre-sorted and ready to load into any DJ software. Browse the genres below — downloads go live June 15.</p>
+    <div class="page-countdown" id="pageCountdown">
+      <span class="countdown-label">Live in</span>
+      <div class="countdown-blocks">
+        <div class="countdown-unit"><span class="countdown-num" id="cdDays">--</span><span class="countdown-tag">Days</span></div>
+        <span class="countdown-sep">:</span>
+        <div class="countdown-unit"><span class="countdown-num" id="cdHours">--</span><span class="countdown-tag">Hrs</span></div>
+        <span class="countdown-sep">:</span>
+        <div class="countdown-unit"><span class="countdown-num" id="cdMins">--</span><span class="countdown-tag">Min</span></div>
+        <span class="countdown-sep">:</span>
+        <div class="countdown-unit"><span class="countdown-num" id="cdSecs">--</span><span class="countdown-tag">Sec</span></div>
+      </div>
+    </div>
+    <div class="hero-pills" style="margin-top:20px;">
       <span class="hero-pill">Curated Music Packs</span>
       <span class="hero-pill">Ready-made Crates</span>
       <span class="hero-pill">Any DJ Software</span>
@@ -312,92 +360,92 @@
 
     <div class="genre-grid">
 
-      <a class="genre-card" href="https://juggernautmusic.gumroad.com/l/dancehalllib" target="_blank" rel="noopener noreferrer">
+      <a class="genre-card locked" href="https://juggernautmusic.gumroad.com/l/dancehalllib" target="_blank" rel="noopener noreferrer">
         <span class="genre-name">Dancehall</span>
         <span class="genre-arrow">&#8594;</span>
       </a>
 
-      <a class="genre-card" href="https://juggernautmusic.gumroad.com/l/reggaelib" target="_blank" rel="noopener noreferrer">
+      <a class="genre-card locked" href="https://juggernautmusic.gumroad.com/l/reggaelib" target="_blank" rel="noopener noreferrer">
         <span class="genre-name">Reggae</span>
         <span class="genre-arrow">&#8594;</span>
       </a>
 
-      <a class="genre-card" href="https://juggernautmusic.gumroad.com/l/socalib" target="_blank" rel="noopener noreferrer">
+      <a class="genre-card locked" href="https://juggernautmusic.gumroad.com/l/socalib" target="_blank" rel="noopener noreferrer">
         <span class="genre-name">Soca</span>
         <span class="genre-arrow">&#8594;</span>
       </a>
 
-      <a class="genre-card" href="https://juggernautmusic.gumroad.com/l/hiphoplib" target="_blank" rel="noopener noreferrer">
+      <a class="genre-card locked" href="https://juggernautmusic.gumroad.com/l/hiphoplib" target="_blank" rel="noopener noreferrer">
         <span class="genre-name">Hip Hop &amp; Trap</span>
         <span class="genre-arrow">&#8594;</span>
       </a>
 
-      <a class="genre-card" href="https://juggernautmusic.gumroad.com/l/rblib" target="_blank" rel="noopener noreferrer">
+      <a class="genre-card locked" href="https://juggernautmusic.gumroad.com/l/rblib" target="_blank" rel="noopener noreferrer">
         <span class="genre-name">R&amp;B</span>
         <span class="genre-arrow">&#8594;</span>
       </a>
 
-      <a class="genre-card" href="https://juggernautmusic.gumroad.com/l/afrolib" target="_blank" rel="noopener noreferrer">
+      <a class="genre-card locked" href="https://juggernautmusic.gumroad.com/l/afrolib" target="_blank" rel="noopener noreferrer">
         <span class="genre-name">Afrobeats &amp; Amapiano</span>
         <span class="genre-arrow">&#8594;</span>
       </a>
 
-      <a class="genre-card" href="https://juggernautmusic.gumroad.com/l/basshalllib" target="_blank" rel="noopener noreferrer">
+      <a class="genre-card locked" href="https://juggernautmusic.gumroad.com/l/basshalllib" target="_blank" rel="noopener noreferrer">
         <span class="genre-name">Basshall</span>
         <span class="genre-arrow">&#8594;</span>
       </a>
 
-      <a class="genre-card" href="https://juggernautmusic.gumroad.com/l/bailefunklib" target="_blank" rel="noopener noreferrer">
+      <a class="genre-card locked" href="https://juggernautmusic.gumroad.com/l/bailefunklib" target="_blank" rel="noopener noreferrer">
         <span class="genre-name">Baile Funk</span>
         <span class="genre-arrow">&#8594;</span>
       </a>
 
-      <a class="genre-card" href="https://juggernautmusic.gumroad.com/l/countryrocklib" target="_blank" rel="noopener noreferrer">
+      <a class="genre-card locked" href="https://juggernautmusic.gumroad.com/l/countryrocklib" target="_blank" rel="noopener noreferrer">
         <span class="genre-name">Country, Rock &amp; Heavy Metal</span>
         <span class="genre-arrow">&#8594;</span>
       </a>
 
-      <a class="genre-card" href="https://juggernautmusic.gumroad.com/l/ukdrillgrimelib" target="_blank" rel="noopener noreferrer">
+      <a class="genre-card locked" href="https://juggernautmusic.gumroad.com/l/ukdrillgrimelib" target="_blank" rel="noopener noreferrer">
         <span class="genre-name">Drill, Grime &amp; UK Garage</span>
         <span class="genre-arrow">&#8594;</span>
       </a>
 
-      <a class="genre-card" href="https://juggernautmusic.gumroad.com/l/gospellib" target="_blank" rel="noopener noreferrer">
+      <a class="genre-card locked" href="https://juggernautmusic.gumroad.com/l/gospellib" target="_blank" rel="noopener noreferrer">
         <span class="genre-name">Gospel</span>
         <span class="genre-arrow">&#8594;</span>
       </a>
 
-      <a class="genre-card" href="https://juggernautmusic.gumroad.com/l/clubhouseedm" target="_blank" rel="noopener noreferrer">
+      <a class="genre-card locked" href="https://juggernautmusic.gumroad.com/l/clubhouseedm" target="_blank" rel="noopener noreferrer">
         <span class="genre-name">Club, EDM &amp; House</span>
         <span class="genre-arrow">&#8594;</span>
       </a>
 
-      <a class="genre-card" href="https://juggernautmusic.gumroad.com/l/jerseyclublib" target="_blank" rel="noopener noreferrer">
+      <a class="genre-card locked" href="https://juggernautmusic.gumroad.com/l/jerseyclublib" target="_blank" rel="noopener noreferrer">
         <span class="genre-name">Jersey Club</span>
         <span class="genre-arrow">&#8594;</span>
       </a>
 
-      <a class="genre-card" href="https://juggernautmusic.gumroad.com/l/kompalib" target="_blank" rel="noopener noreferrer">
+      <a class="genre-card locked" href="https://juggernautmusic.gumroad.com/l/kompalib" target="_blank" rel="noopener noreferrer">
         <span class="genre-name">Kompa &amp; Zouk</span>
         <span class="genre-arrow">&#8594;</span>
       </a>
 
-      <a class="genre-card" href="https://juggernautmusic.gumroad.com/l/latinlib" target="_blank" rel="noopener noreferrer">
+      <a class="genre-card locked" href="https://juggernautmusic.gumroad.com/l/latinlib" target="_blank" rel="noopener noreferrer">
         <span class="genre-name">Latin &amp; Reggaeton</span>
         <span class="genre-arrow">&#8594;</span>
       </a>
 
-      <a class="genre-card" href="https://juggernautmusic.gumroad.com/l/dancediscolib" target="_blank" rel="noopener noreferrer">
+      <a class="genre-card locked" href="https://juggernautmusic.gumroad.com/l/dancediscolib" target="_blank" rel="noopener noreferrer">
         <span class="genre-name">New Disco &amp; New Jack Swing</span>
         <span class="genre-arrow">&#8594;</span>
       </a>
 
-      <a class="genre-card" href="https://juggernautmusic.gumroad.com/l/popurbanlib" target="_blank" rel="noopener noreferrer">
+      <a class="genre-card locked" href="https://juggernautmusic.gumroad.com/l/popurbanlib" target="_blank" rel="noopener noreferrer">
         <span class="genre-name">Pop</span>
         <span class="genre-arrow">&#8594;</span>
       </a>
 
-      <a class="genre-card" href="https://juggernautmusic.gumroad.com/l/freecrates" target="_blank" rel="noopener noreferrer">
+      <a class="genre-card locked" href="https://juggernautmusic.gumroad.com/l/freecrates" target="_blank" rel="noopener noreferrer">
         <span class="genre-name">Free Music</span>
         <span class="genre-arrow">&#8594;</span>
       </a>
@@ -445,6 +493,38 @@
       document.body.style.overflow = '';
     }
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+
+    // ── CRATES COUNTDOWN ──
+    (function() {
+      var TARGET = new Date('2026-06-14T10:01:00Z');
+      var dEl = document.getElementById('cdDays');
+      var hEl = document.getElementById('cdHours');
+      var mEl = document.getElementById('cdMins');
+      var sEl = document.getElementById('cdSecs');
+      function pad(n) { return String(n).padStart(2, '0'); }
+
+      function goLive() {
+        clearInterval(timer);
+        var badge = document.getElementById('cratesBadge');
+        if (badge) { badge.innerHTML = '<span class="live-dot"></span>Live'; badge.className = 'live-badge'; }
+        var cd = document.getElementById('pageCountdown');
+        if (cd) cd.style.display = 'none';
+        document.querySelectorAll('.genre-card.locked').forEach(function(el) { el.classList.remove('locked'); });
+      }
+
+      function tick() {
+        var diff = TARGET - Date.now();
+        if (diff <= 0) { goLive(); return; }
+        dEl.textContent = pad(Math.floor(diff / 86400000));
+        hEl.textContent = pad(Math.floor((diff % 86400000) / 3600000));
+        mEl.textContent = pad(Math.floor((diff % 3600000) / 60000));
+        sEl.textContent = pad(Math.floor((diff % 60000) / 1000));
+      }
+
+      var timer;
+      if (Date.now() >= TARGET) { goLive(); }
+      else { tick(); timer = setInterval(tick, 1000); }
+    })();
   </script>
 
 </body>

@@ -167,6 +167,31 @@
       transition: opacity 0.18s, transform 0.18s;
     }
     .btn-download:hover { opacity: 0.86; transform: translateY(-1px); }
+    .btn-download.locked { pointer-events: none; opacity: 0.38; cursor: not-allowed; }
+
+    /* ── COMING SOON BADGE ── */
+    .date-badge {
+      display: inline-flex; align-items: center;
+      background: rgba(46,204,64,0.05); border: 1px solid rgba(46,204,64,0.2);
+      color: rgba(46,204,64,0.55); font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase;
+      padding: 5px 14px; border-radius: 100px; margin-bottom: 22px;
+    }
+
+    /* ── COUNTDOWN ── */
+    .page-countdown {
+      display: flex; align-items: center; justify-content: center;
+      gap: 10px; flex-wrap: wrap;
+      background: rgba(46,204,64,0.06); border: 1px solid rgba(46,204,64,0.2);
+      border-radius: 10px; padding: 12px 18px;
+      margin-top: 20px;
+    }
+    .countdown-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--green); flex-shrink: 0; }
+    .countdown-blocks { display: flex; align-items: center; gap: 6px; }
+    .countdown-unit { display: flex; flex-direction: column; align-items: center; background: rgba(46,204,64,0.08); border: 1px solid rgba(46,204,64,0.18); border-radius: 6px; padding: 5px 9px; min-width: 42px; }
+    .countdown-num { font-size: 1.1rem; font-weight: 900; color: var(--green); letter-spacing: -0.5px; line-height: 1; }
+    .countdown-tag { font-size: 0.55rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); margin-top: 2px; }
+    .countdown-sep { font-size: 1rem; font-weight: 700; color: rgba(46,204,64,0.4); margin-bottom: 4px; }
 
     /* ── FX SECTION ── */
     .fx-section {
@@ -317,12 +342,24 @@
   <!-- HERO -->
   <section class="hero">
     <img src="SH_TRANSPARENT_NEW.png" alt="Selecta Hub" class="hero-logo" width="72" height="72"/>
-    <div class="live-badge"><span class="live-dot"></span>Live</div>
+    <div class="date-badge" id="sfxBadge">June 7</div>
     <h1 class="hero-title">SELECTA <span class="g">SOUND FX</span></h1>
     <p class="hero-desc">Premium DJ sound effects packs — drops, sirens, horns, stabs and more. Built for live sets in any genre.</p>
-    <a href="https://juggernautmusic.gumroad.com/l/soundefx1" target="_blank" rel="noopener noreferrer" class="btn-download">
+    <a href="https://juggernautmusic.gumroad.com/l/soundefx1" target="_blank" rel="noopener noreferrer" class="btn-download locked" id="sfxDownloadBtn">
       Download Sound FX Pack
     </a>
+    <div class="page-countdown" id="pageCountdown">
+      <span class="countdown-label">Live in</span>
+      <div class="countdown-blocks">
+        <div class="countdown-unit"><span class="countdown-num" id="cdDays">--</span><span class="countdown-tag">Days</span></div>
+        <span class="countdown-sep">:</span>
+        <div class="countdown-unit"><span class="countdown-num" id="cdHours">--</span><span class="countdown-tag">Hrs</span></div>
+        <span class="countdown-sep">:</span>
+        <div class="countdown-unit"><span class="countdown-num" id="cdMins">--</span><span class="countdown-tag">Min</span></div>
+        <span class="countdown-sep">:</span>
+        <div class="countdown-unit"><span class="countdown-num" id="cdSecs">--</span><span class="countdown-tag">Sec</span></div>
+      </div>
+    </div>
   </section>
 
   <!-- FX DETAILS -->
@@ -425,6 +462,39 @@
       document.body.style.overflow = '';
     }
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+
+    // ── SOUND FX COUNTDOWN ──
+    (function() {
+      var TARGET = new Date('2026-06-06T10:01:00Z');
+      var dEl = document.getElementById('cdDays');
+      var hEl = document.getElementById('cdHours');
+      var mEl = document.getElementById('cdMins');
+      var sEl = document.getElementById('cdSecs');
+      function pad(n) { return String(n).padStart(2, '0'); }
+
+      function goLive() {
+        clearInterval(timer);
+        var badge = document.getElementById('sfxBadge');
+        if (badge) { badge.innerHTML = '<span class="live-dot"></span>Live'; badge.className = 'live-badge'; }
+        var cd = document.getElementById('pageCountdown');
+        if (cd) cd.style.display = 'none';
+        var btn = document.getElementById('sfxDownloadBtn');
+        if (btn) btn.classList.remove('locked');
+      }
+
+      function tick() {
+        var diff = TARGET - Date.now();
+        if (diff <= 0) { goLive(); return; }
+        dEl.textContent = pad(Math.floor(diff / 86400000));
+        hEl.textContent = pad(Math.floor((diff % 86400000) / 3600000));
+        mEl.textContent = pad(Math.floor((diff % 3600000) / 60000));
+        sEl.textContent = pad(Math.floor((diff % 60000) / 1000));
+      }
+
+      var timer;
+      if (Date.now() >= TARGET) { goLive(); }
+      else { tick(); timer = setInterval(tick, 1000); }
+    })();
   </script>
 
 </body>

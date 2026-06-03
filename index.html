@@ -200,22 +200,30 @@
     .section-rule { flex: 1; height: 1px; background: var(--border); }
 
     /* ── FEATURED CARD ── */
-    @keyframes featuredPulse {
-      0%, 100% {
-        border-color: rgba(46,204,64,0.3);
-        box-shadow: 0 0 0 1px rgba(46,204,64,0.06), 0 24px 64px rgba(46,204,64,0.05), 0 0 0 0 rgba(46,204,64,0);
-      }
-      50% {
-        border-color: rgba(46,204,64,0.55);
-        box-shadow: 0 0 0 1px rgba(46,204,64,0.1), 0 24px 64px rgba(46,204,64,0.08), 0 0 18px 4px rgba(46,204,64,0.07);
-      }
+    /* Glow lives on a wrapper pseudo-element — opacity only = zero repaints */
+    @keyframes featuredGlow {
+      0%, 100% { opacity: 0; }
+      50%       { opacity: 1; }
+    }
+    .featured-wrap {
+      position: relative;
+      margin-bottom: 12px;
+      animation: fadeUp 0.5s 0.15s ease both;
+    }
+    .featured-wrap::before {
+      content: '';
+      position: absolute; inset: 0;
+      border-radius: 16px;
+      border: 1px solid rgba(46,204,64,0.55);
+      box-shadow: 0 0 20px 6px rgba(46,204,64,0.1);
+      opacity: 0;
+      pointer-events: none;
+      animation: featuredGlow 3.5s ease-in-out 0.65s infinite;
     }
     .featured-card {
       background: var(--card); border: 1px solid rgba(46,204,64,0.3);
       border-radius: 16px; overflow: hidden;
       box-shadow: 0 0 0 1px rgba(46,204,64,0.06), 0 24px 64px rgba(46,204,64,0.05);
-      margin-bottom: 12px;
-      animation: fadeUp 0.5s 0.15s ease both, featuredPulse 3.5s ease-in-out 0.65s infinite;
       text-decoration: none; color: var(--text);
       display: block;
       transition: border-color 0.22s, transform 0.22s, box-shadow 0.22s;
@@ -224,8 +232,8 @@
       border-color: rgba(46,204,64,0.5);
       transform: translateY(-2px);
       box-shadow: 0 0 0 1px rgba(46,204,64,0.1), 0 32px 80px rgba(46,204,64,0.08);
-      animation: none;
     }
+    .featured-wrap:hover::before { opacity: 0; }
     .featured-inner {
       padding: 28px 28px 24px;
     }
@@ -250,23 +258,29 @@
 
     /* pricing row */
     .featured-pricing {
-      display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+      display: flex; align-items: center; gap: 10px; flex-wrap: nowrap;
       margin-bottom: 20px;
     }
     .tier-pill {
       display: flex; align-items: baseline; gap: 6px;
       background: var(--card-2); border: 1px solid var(--border);
-      border-radius: 8px; padding: 9px 16px;
+      border-radius: 8px; padding: 8px 14px;
     }
     .tier-pill-label {
-      font-size: 0.8rem; font-weight: 700; letter-spacing: 1.5px;
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 1.5px;
       text-transform: uppercase; color: var(--muted);
     }
     .tier-pill-price {
-      font-size: 1.22rem; font-weight: 800; letter-spacing: -0.5px;
+      font-size: 1.1rem; font-weight: 800; letter-spacing: -0.5px;
     }
-    .tier-pill.pro-pill { border-color: rgba(46,204,64,0.25); }
-    .tier-pill.pro-pill .tier-pill-price { color: var(--green); }
+    .tier-pill.pro-pill { border-color: rgba(212,175,55,0.35); }
+    .tier-pill.pro-pill .tier-pill-price {
+      background: linear-gradient(135deg, #8B6914 0%, #D4AF37 20%, #FFD700 40%, #FFF3A3 50%, #FFD700 60%, #D4AF37 80%, #8B6914 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .tier-pill.pro-pill .tier-pill-label { color: rgba(212,175,55,0.7); }
     .tier-pill.pro-pill.locked {
       position: relative; opacity: 0.45; overflow: hidden;
     }
@@ -530,8 +544,8 @@
     </a>
     <div class="nav-links">
       <a href="selectatool.html"    class="nav-link">Selecta Tool</a>
-      <a href="selectacrates.html"  class="nav-link nav-link-disabled" id="navCrates">Crates</a>
-      <a href="selectasoundfx.html" class="nav-link nav-link-disabled" id="navSfx">Sound FX</a>
+      <a href="selectacrates.html"  class="nav-link" id="navCrates">Crates</a>
+      <a href="selectasoundfx.html" class="nav-link" id="navSfx">Sound FX</a>
       <a href="mailto:info@selectahub.com" class="nav-link">Contact</a>
     </div>
     <button class="hamburger" id="hamburger" aria-label="Open menu">
@@ -542,8 +556,8 @@
   <!-- MOBILE MENU -->
   <div class="mobile-menu" id="mobileMenu">
     <a href="selectatool.html"    class="mobile-link" onclick="closeMenu()">Selecta Tool</a>
-    <a href="selectacrates.html"  class="mobile-link nav-link-disabled" id="mobileCrates">Crates</a>
-    <a href="selectasoundfx.html" class="mobile-link nav-link-disabled" id="mobileSfx">Sound FX</a>
+    <a href="selectacrates.html"  class="mobile-link" id="mobileCrates">Crates</a>
+    <a href="selectasoundfx.html" class="mobile-link" id="mobileSfx">Sound FX</a>
     <a href="mailto:info@selectahub.com" class="mobile-link" onclick="closeMenu()">Contact</a>
     <div class="mobile-socials">
       <a href="https://www.instagram.com/selecta.hub/" target="_blank" rel="noopener noreferrer" class="mobile-social-btn" aria-label="Instagram">
@@ -578,6 +592,7 @@
     </div>
 
     <!-- FEATURED: SELECTA TOOL -->
+    <div class="featured-wrap">
     <a href="selectatool.html" class="featured-card">
       <div class="featured-inner">
         <div class="featured-top">
@@ -601,6 +616,11 @@
             <span class="tier-pill-orig" id="homePillProOrig">$59.99</span>
           </div>
         </div>
+        <p id="homeProNote" style="font-size:0.72rem;color:var(--muted);margin-bottom:16px;margin-top:-8px;">
+          <span style="color:var(--green);">&#10003; v1.1.2 available now</span>
+          &nbsp;&middot;&nbsp;
+          <span style="color:var(--gold);">v2.0.0 + Pro launching June 15</span>
+        </p>
 
         <div class="featured-cta">
           <span class="btn-feat-primary">Compare Tiers &amp; Purchase</span>
@@ -608,11 +628,12 @@
         </div>
       </div>
     </a>
+    </div><!-- /featured-wrap -->
 
     <!-- SECONDARY PRODUCTS -->
     <div class="secondary-grid">
 
-      <a href="selectacrates.html" class="sec-card green sec-card-locked" id="cratesCard">
+      <a href="selectacrates.html" class="sec-card green" id="cratesCard">
         <div class="sec-top">
           <div style="display:flex;align-items:center;gap:8px;">
             <svg width="20" height="20" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -637,7 +658,7 @@
         </div>
       </a>
 
-      <a href="selectasoundfx.html" class="sec-card green sec-card-locked" id="sfxCard">
+      <a href="selectasoundfx.html" class="sec-card green" id="sfxCard">
         <div class="sec-top">
           <div style="display:flex;align-items:center;gap:8px;">
             <svg width="20" height="20" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -806,10 +827,12 @@
         if (origEl)  origEl.remove();
       }
 
-      // ── Pro pill: launch → unlock pill, start discount watch ──
+      // ── Pro pill: launch → unlock pill, hide note, start discount watch ──
       function proGoLive() {
         var pill = document.getElementById('homePillPro');
+        var note = document.getElementById('homeProNote');
         if (pill) pill.classList.remove('locked');
+        if (note) note.innerHTML = '<span style="color:var(--green);">&#10003; v2.0.0 available now</span>';
         clearInterval(proLaunchTimer);
         if (Date.now() >= DISCOUNT_END) { proDiscountExpired(); return; }
         var discountTimer = setInterval(function() {
