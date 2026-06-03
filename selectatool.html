@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
+  <link rel="icon" type="image/x-icon" href="SH_TRANSPARENT_NEW.ico"/>
+  <link rel="apple-touch-icon" href="SH_TRANSPARENT_NEW.png"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Selecta Tool — Basic &amp; Pro | Selecta Hub</title>
   <meta property="og:type" content="website"/>
@@ -689,9 +691,12 @@
             <span class="tier-name">Selecta Tool</span>
             <span class="tier-badge badge-live" id="basicBadge">Live</span>
           </div>
-          <div class="tier-price">$29.99</div>
+          <div class="tier-price">$29.99 <span class="tier-price-orig">$34.99</span></div>
           <p class="tier-price-note">One-time purchase. Yours forever.</p>
           <span class="tier-version" id="basicVersion">v1.1.2 &middot; 2.0 coming June 15</span>
+          <div class="pro-countdown" id="basicAvailable">
+            <span class="countdown-done">&#10003; Now available</span>
+          </div>
           <a href="https://juggernautmusic.gumroad.com/l/selectatool" target="_blank" rel="noopener noreferrer" class="btn-tier btn-basic">
             Get Basic &mdash; $29.99
           </a>
@@ -1158,44 +1163,94 @@
 
     // ── PRO COUNTDOWN ──
     (function() {
-      // June 15 00:01 UTC+14 (first timezone in world) = June 14 10:01 UTC
-      const target    = new Date('2026-06-14T10:01:00Z');
-      const badgeDate = 'June 15';
+      // June 15 00:01 UTC+14 (first timezone in world) = June 14 10:01 UTC = June 14 6:01 AM EDT
+      const target      = new Date('2026-06-14T10:01:00Z');
+      // Intro price window: 21 days → July 5 10:01 UTC = July 5 6:01 AM EDT
+      const discountEnd = new Date(target.getTime() + 21 * 24 * 60 * 60 * 1000);
 
-      const countdown = document.getElementById('proCountdown');
-      const dEl       = document.getElementById('cdDays');
-      const hEl       = document.getElementById('cdHours');
-      const mEl       = document.getElementById('cdMins');
-      const sEl       = document.getElementById('cdSecs');
-      const btn1      = document.getElementById('proBtn1');
-      const btn2      = document.getElementById('proBtn2');
-      const proBadge  = document.getElementById('proBadge');
+      const dEl = document.getElementById('cdDays');
+      const hEl = document.getElementById('cdHours');
+      const mEl = document.getElementById('cdMins');
+      const sEl = document.getElementById('cdSecs');
 
       function pad(n) { return String(n).padStart(2, '0'); }
 
+      function introLabel(diff) {
+        var days  = Math.floor(diff / 86400000);
+        var hours = Math.floor((diff % 86400000) / 3600000);
+        var mins  = Math.floor((diff % 3600000)  / 60000);
+        var secs  = Math.floor((diff % 60000)    / 1000);
+        if (days > 0)  return days  + 'd ' + pad(hours) + 'h left';
+        if (hours > 0) return hours + 'h ' + pad(mins)  + 'm left';
+        if (mins > 0)  return mins  + 'm ' + pad(secs)  + 's left';
+        return secs + 's left';
+      }
+
+      function priceExpired() {
+        clearInterval(discountTimer);
+
+        // Remove the inline intro label, leave just "✓ Now available"
+        var lbl = document.getElementById('introTimeLeft');
+        if (lbl) lbl.remove();
+
+        // Flip price to $59.99 permanently
+        var priceEl = document.querySelector('.tier-card.pro .tier-price');
+        if (priceEl) priceEl.innerHTML = '$59.99';
+
+        var noteEl = document.querySelector('.tier-card.pro .tier-price-note');
+        if (noteEl) noteEl.textContent = 'One-time purchase. Yours forever.';
+
+        var b1 = document.getElementById('proBtn1');
+        var b2 = document.getElementById('proBtn2');
+        if (b1) b1.innerHTML = 'Get Pro &mdash; $59.99';
+        if (b2) b2.innerHTML = 'Get Pro &mdash; $59.99';
+      }
+
+      var discountTimer;
+
+      function startDiscountCountdown() {
+        var cd = document.getElementById('proCountdown');
+        if (cd) {
+          cd.innerHTML =
+            '<span class="countdown-done">&#10003; Now available</span>' +
+            '<span id="introTimeLeft" style="margin-left:auto;font-size:0.68rem;font-weight:600;color:rgba(212,175,55,0.65);white-space:nowrap;letter-spacing:0.3px;">Intro · --</span>';
+        }
+
+        function discountTick() {
+          var diff = discountEnd - Date.now();
+          if (diff <= 0) { priceExpired(); return; }
+          var lbl = document.getElementById('introTimeLeft');
+          if (lbl) lbl.textContent = 'Intro price · ' + introLabel(diff);
+        }
+
+        if (Date.now() >= discountEnd) { priceExpired(); return; }
+        discountTick();
+        discountTimer = setInterval(discountTick, 1000);
+      }
+
       function goLive() {
         clearInterval(timer);
-        // Re-query fresh to avoid any stale reference issues
-        var cd    = document.getElementById('proCountdown');
-        var badge = document.getElementById('proBadge');
-        var b1    = document.getElementById('proBtn1');
-        var b2    = document.getElementById('proBtn2');
+        var badge   = document.getElementById('proBadge');
+        var b1      = document.getElementById('proBtn1');
+        var b2      = document.getElementById('proBtn2');
         var proCard = document.querySelector('.tier-card.pro');
+
         if (proCard) proCard.classList.add('live');
-        // Replace countdown cleanly
-        if (cd) cd.innerHTML = '<span class="countdown-done">&#10003; Now available</span>';
-        // Flip badge: dimmed-green date → pulsing Live
+
         if (badge) {
           badge.classList.remove('badge-date', 'badge-soon');
           badge.classList.add('badge-live');
           badge.textContent = 'Live';
         }
-        // Silently bump Basic version to match Pro (same DMG ships both)
+
         var basicVer = document.getElementById('basicVersion');
         if (basicVer) basicVer.textContent = 'v2.0.0';
-        // Unlock both buttons
+
         if (b1) b1.classList.remove('btn-pro-locked');
         if (b2) b2.classList.remove('btn-pro-locked');
+
+        // Discount countdown inline inside the Now available pill
+        startDiscountCountdown();
       }
 
       function tick() {
@@ -1211,7 +1266,6 @@
         sEl.textContent = pad(secs);
       }
 
-      // If page loads after the target date, go live immediately
       var timer;
       if (Date.now() >= target) { goLive(); }
       else { tick(); timer = setInterval(tick, 1000); }

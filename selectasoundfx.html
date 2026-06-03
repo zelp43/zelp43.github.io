@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
+  <link rel="icon" type="image/x-icon" href="SH_TRANSPARENT_NEW.ico"/>
+  <link rel="apple-touch-icon" href="SH_TRANSPARENT_NEW.png"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Selecta Sound FX | Selecta Hub</title>
   <meta property="og:type" content="website"/>
@@ -166,6 +168,95 @@
     }
     .btn-download:hover { opacity: 0.86; transform: translateY(-1px); }
 
+    /* ── FX SECTION ── */
+    .fx-section {
+      position: relative; z-index: 1;
+      max-width: 860px; margin: 0 auto;
+      padding: 0 24px 80px;
+      display: flex; flex-direction: column; gap: 12px;
+      animation: fadeUp 0.5s 0.15s ease both;
+    }
+
+    @keyframes countPulse {
+      0%, 100% {
+        box-shadow: 0 0 0 0 rgba(46,204,64,0), 0 0 0 4px rgba(46,204,64,0);
+        border-color: rgba(46,204,64,0.25);
+      }
+      50% {
+        box-shadow: 0 0 0 6px rgba(46,204,64,0.08), 0 0 32px rgba(46,204,64,0.12);
+        border-color: rgba(46,204,64,0.6);
+      }
+    }
+    .fx-count-card {
+      background: var(--card); border: 1px solid rgba(46,204,64,0.25);
+      border-radius: 14px; padding: 28px 28px;
+      text-align: center;
+      animation: countPulse 2.4s ease-in-out infinite;
+    }
+    .fx-count-num {
+      font-size: clamp(2.8rem, 8vw, 4.5rem);
+      font-weight: 900; letter-spacing: -2px; line-height: 1;
+      color: var(--green);
+    }
+    .fx-count-label {
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--muted); margin-top: 6px;
+    }
+
+    .fx-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+    @media (max-width: 620px) { .fx-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 380px) { .fx-grid { grid-template-columns: 1fr; } }
+
+    .fx-cat-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 18px 18px;
+      display: flex; flex-direction: column; gap: 6px;
+      position: relative; overflow: hidden;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .fx-cat-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0;
+      height: 2px; background: linear-gradient(90deg, var(--green), transparent 70%);
+      opacity: 0; transition: opacity 0.2s;
+    }
+    .fx-cat-card:hover { border-color: rgba(46,204,64,0.3); transform: translateY(-2px); }
+    .fx-cat-card:hover::before { opacity: 1; }
+    .fx-cat-icon { font-size: 1.4rem; line-height: 1; margin-bottom: 2px; }
+    .fx-cat-name { font-size: 0.88rem; font-weight: 700; color: var(--text); }
+    .fx-cat-desc { font-size: 0.72rem; color: var(--muted); line-height: 1.5; }
+
+    .fx-info-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 20px 24px;
+      font-size: 0.85rem; color: var(--muted); line-height: 1.7;
+    }
+    .fx-info-card strong { color: var(--text); }
+    .fx-info-card a { color: var(--green); text-decoration: none; }
+    .fx-info-card a:hover { text-decoration: underline; }
+    .fx-info-head {
+      font-size: 0.62rem; font-weight: 700; letter-spacing: 2.5px;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 8px;
+    }
+
+    .format-pills {
+      display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px;
+    }
+    .format-pill {
+      font-size: 0.72rem; font-weight: 600;
+      color: var(--text); background: var(--card-2);
+      border: 1px solid var(--border);
+      padding: 5px 12px; border-radius: 100px;
+    }
+
+    @media (max-width: 480px) {
+      .fx-section { padding: 0 14px 60px; }
+      .fx-count-card { padding: 22px 18px; }
+    }
+
     /* ── FOOTER ── */
     .footer-wrap { position: relative; z-index: 1; border-top: 1px solid var(--border); }
     footer {
@@ -232,6 +323,71 @@
     <a href="https://juggernautmusic.gumroad.com/l/soundefx1" target="_blank" rel="noopener noreferrer" class="btn-download">
       Download Sound FX Pack
     </a>
+  </section>
+
+  <!-- FX DETAILS -->
+  <section class="fx-section">
+
+    <!-- Count banner -->
+    <div class="fx-count-card">
+      <div class="fx-count-num">250+</div>
+      <div class="fx-count-label">Premium DJ Sound Effects</div>
+    </div>
+
+    <!-- Category grid -->
+    <div class="fx-grid">
+
+      <div class="fx-cat-card">
+        <div class="fx-cat-name">Pull Ups</div>
+        <div class="fx-cat-desc">Classic rewinds, crowd pull ups and selector specials for any genre.</div>
+      </div>
+
+      <div class="fx-cat-card">
+        <div class="fx-cat-name">Lasers</div>
+        <div class="fx-cat-desc">Zap shots, laser bursts, and sci-fi stabs to fire up the crowd.</div>
+      </div>
+
+      <div class="fx-cat-card">
+        <div class="fx-cat-name">Sirens</div>
+        <div class="fx-cat-desc">Air horns, emergency sirens, police sirens, and wailing alerts.</div>
+      </div>
+
+      <div class="fx-cat-card">
+        <div class="fx-cat-name">Explosions</div>
+        <div class="fx-cat-desc">Big drops, bomb drops, and impact hits that land hard every time.</div>
+      </div>
+
+      <div class="fx-cat-card">
+        <div class="fx-cat-name">Sweeps</div>
+        <div class="fx-cat-desc">Risers, downlifters, and transition sweeps to glue every mix together.</div>
+      </div>
+
+      <div class="fx-cat-card">
+        <div class="fx-cat-name">Stabs &amp; Hits</div>
+        <div class="fx-cat-desc">Horn stabs, synth hits, vocal chops, and one-shot accents.</div>
+      </div>
+
+    </div>
+
+    <!-- Format / compatibility -->
+    <div class="fx-info-card">
+      <p class="fx-info-head">Format &amp; Compatibility</p>
+      All effects are delivered as <strong>high-quality audio files</strong>, ready to drop into any DJ software or sampler — Serato, rekordbox, Traktor, VirtualDJ, and more.
+      <div class="format-pills">
+        <span class="format-pill">MP3 320kbps</span>
+        <span class="format-pill">WAV</span>
+        <span class="format-pill">Serato</span>
+        <span class="format-pill">rekordbox</span>
+        <span class="format-pill">Traktor</span>
+        <span class="format-pill">VirtualDJ</span>
+      </div>
+    </div>
+
+    <!-- Note -->
+    <div class="fx-info-card">
+      Want a custom FX pack or have a request? Reach out at <a href="mailto:info@selectahub.com">info@selectahub.com</a> or through our socials.
+    </div>
+
   </section>
 
   <!-- FOOTER -->

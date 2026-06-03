@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  body {
+    background: #111;
+    display: flex;
+    gap: 48px;
+    padding: 60px;
+    align-items: flex-start;
+    font-family: -apple-system, sans-serif;
+    min-width: 600px;
+  }
+  .item { display: flex; flex-direction: column; align-items: center; gap: 16px; }
+  .label { color: #555; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; }
+  .box {
+    background: #181818;
+    border: 1px solid #2a2a2a;
+    border-radius: 16px;
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+</style>
+</head>
+<body>
+
+<!-- CRATES: Records seen from above in a row -->
+<div class="item">
+  <div class="box">
+    <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Crate outline -->
+      <rect x="8" y="28" width="56" height="32" rx="4" stroke="#2ecc40" stroke-width="2.5" fill="none"/>
+      <!-- Crate slats -->
+      <line x1="26" y1="28" x2="26" y2="60" stroke="#2ecc40" stroke-width="1.8" opacity="0.5"/>
+      <line x1="46" y1="28" x2="46" y2="60" stroke="#2ecc40" stroke-width="1.8" opacity="0.5"/>
+      <!-- Records (vinyl discs) sticking up out of crate - side view = thin tall rects -->
+      <rect x="13" y="13" width="10" height="18" rx="5" stroke="#2ecc40" stroke-width="2.2" fill="none"/>
+      <circle cx="18" cy="22" r="1.5" fill="#2ecc40"/>
+      <rect x="31" y="10" width="10" height="21" rx="5" stroke="#2ecc40" stroke-width="2.2" fill="none"/>
+      <circle cx="36" cy="20" r="1.5" fill="#2ecc40"/>
+      <rect x="49" y="13" width="10" height="18" rx="5" stroke="#2ecc40" stroke-width="2.2" fill="none"/>
+      <circle cx="54" cy="22" r="1.5" fill="#2ecc40"/>
+    </svg>
+  </div>
+  <span class="label">Crates</span>
+</div>
+
+<!-- SOUND FX: Equalizer bars -->
+<div class="item">
+  <div class="box">
+    <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- EQ bars from left to right, varying heights -->
+      <rect x="9"  y="38" width="8" height="22" rx="4" stroke="#2ecc40" stroke-width="2.2" fill="none"/>
+      <rect x="21" y="22" width="8" height="38" rx="4" stroke="#2ecc40" stroke-width="2.2" fill="none"/>
+      <rect x="33" y="12" width="8" height="48" rx="4" stroke="#2ecc40" stroke-width="2.2" fill="none"/>
+      <rect x="45" y="28" width="8" height="32" rx="4" stroke="#2ecc40" stroke-width="2.2" fill="none"/>
+      <rect x="57" y="42" width="8" height="18" rx="4" stroke="#2ecc40" stroke-width="2.2" fill="none"/>
+    </svg>
+  </div>
+  <span class="label">Sound FX</span>
+</div>
+
+<!-- BOOKINGS: Calendar with checkmark -->
+<div class="item">
+  <div class="box">
+    <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Calendar body -->
+      <rect x="9" y="16" width="54" height="46" rx="5" stroke="#ffc107" stroke-width="2.5" fill="none"/>
+      <!-- Header band -->
+      <line x1="9" y1="30" x2="63" y2="30" stroke="#ffc107" stroke-width="2.5"/>
+      <!-- Left hook -->
+      <line x1="23" y1="10" x2="23" y2="22" stroke="#ffc107" stroke-width="2.5" stroke-linecap="round"/>
+      <!-- Right hook -->
+      <line x1="49" y1="10" x2="49" y2="22" stroke="#ffc107" stroke-width="2.5" stroke-linecap="round"/>
+      <!-- Checkmark -->
+      <polyline points="24,46 32,54 48,38" stroke="#ffc107" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
+  <span class="label">Bookings</span>
+</div>
+
+</body>
+</html>
