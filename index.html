@@ -613,7 +613,7 @@
           <div class="tier-pill pro-pill locked" id="homePillPro">
             <span class="tier-pill-label">Pro</span>
             <span class="tier-pill-price" id="homePillProPrice">$54.99</span>
-            <span class="tier-pill-orig" id="homePillProOrig">$59.99</span>
+            <span class="tier-pill-orig" id="homePillProOrig">$64.99</span>
           </div>
         </div>
         <p id="homeProNote" style="font-size:0.72rem;color:var(--muted);margin-bottom:16px;margin-top:-8px;">
@@ -819,11 +819,11 @@
       var TARGET_CRATES = new Date('2026-06-14T10:01:00Z');
       var TARGET_SFX    = new Date('2026-06-06T10:01:00Z');
 
-      // ── Pro pill: discount expired → flip to $59.99, remove strikethrough ──
+      // ── Pro pill: discount expired → flip to $64.99, remove strikethrough ──
       function proDiscountExpired() {
         var priceEl = document.getElementById('homePillProPrice');
         var origEl  = document.getElementById('homePillProOrig');
-        if (priceEl) priceEl.textContent = '$59.99';
+        if (priceEl) priceEl.textContent = '$64.99';
         if (origEl)  origEl.remove();
       }
 
