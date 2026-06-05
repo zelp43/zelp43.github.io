@@ -110,6 +110,10 @@
       background: var(--green); animation: pulse 1.5s infinite;
     }
 
+    @keyframes pillPulse {
+      0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(46,204,64,0.4); }
+      50% { opacity: 0.75; box-shadow: 0 0 0 6px rgba(46,204,64,0); }
+    }
     .version-pill {
       display: inline-block;
       background: rgba(46,204,64,0.06); border: 1px solid rgba(46,204,64,0.2);
@@ -117,6 +121,7 @@
       letter-spacing: 1.5px; text-transform: uppercase;
       padding: 4px 12px; border-radius: 100px;
       margin-bottom: 20px;
+      animation: pillPulse 4s ease-in-out infinite;
     }
 
     .page-title {
@@ -218,12 +223,7 @@
   <!-- CONTENT -->
   <div class="container">
 
-    <img src="SH_TRANSPARENT_NEW.png" alt="Selecta Hub" class="hero-logo" width="80" height="80"/>
-
-    <div class="update-badge">
-      <span class="pulse-dot"></span>
-      Update Available
-    </div>
+    <img src="st2logo.png" alt="Selecta Tool" class="hero-logo" width="80" height="80"/>
 
     <div class="version-pill">v2.0.0</div>
 
@@ -259,7 +259,7 @@
         </div>
         <div class="option-body">
           <div class="option-title">Apple Silicon</div>
-          <p class="option-desc">Mac with M1, M2, M3, M4 or M5 chip &mdash; .dmg</p>
+          <p class="option-desc">Apple Silicon (M1 &amp; later) &mdash; arm.dmg</p>
         </div>
         <span class="option-arrow">&#8594;</span>
       </a>
