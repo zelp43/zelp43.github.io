@@ -607,8 +607,8 @@
         <div class="featured-pricing">
           <div class="tier-pill">
             <span class="tier-pill-label">Basic</span>
-            <span class="tier-pill-price">$29.99</span>
-            <span class="tier-pill-orig">$34.99</span>
+            <span class="tier-pill-price" id="homePillBasicPrice">$29.99</span>
+            <span class="tier-pill-orig" id="homePillBasicOrig">$39.99</span>
           </div>
           <div class="tier-pill pro-pill locked" id="homePillPro">
             <span class="tier-pill-label">Pro</span>
@@ -780,6 +780,8 @@
       <div class="footer-left">
         <span class="footer-copy">&copy; 2026 Juggernaut Music Group. All rights reserved.</span>
         <a href="mailto:info@selectahub.com" class="footer-link">info@selectahub.com</a>
+        <a href="privacy.html" class="footer-link">Privacy Policy</a>
+        <a href="terms.html"   class="footer-link">Terms of Use</a>
       </div>
       <div class="footer-right">
         <a href="https://www.instagram.com/selecta.hub/" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Instagram">
@@ -813,9 +815,11 @@
     // ── LAUNCH COUNTDOWNS ──
     (function() {
       // June 15 00:01 UTC+14 = June 14 10:01 UTC = June 14 6:01 AM EDT
-      var TARGET_PRO    = new Date('2026-06-14T10:01:00Z');
-      // Intro price window: 21 days → July 5 10:01 UTC = July 5 6:01 AM EDT
-      var DISCOUNT_END  = new Date(TARGET_PRO.getTime() + 21 * 24 * 60 * 60 * 1000);
+      var TARGET_PRO         = new Date('2026-06-14T10:01:00Z');
+      // Pro intro price ends July 17
+      var DISCOUNT_END       = new Date('2026-07-17T10:01:00Z');
+      // Basic intro price ends July 15
+      var BASIC_DISCOUNT_END = new Date('2026-07-15T10:01:00Z');
       var TARGET_CRATES = new Date('2026-06-14T10:01:00Z');
       var TARGET_SFX    = new Date('2026-06-06T10:01:00Z');
 
@@ -827,17 +831,37 @@
         if (origEl)  origEl.remove();
       }
 
-      // ── Pro pill: launch → unlock pill, hide note, start discount watch ──
+      // ── Basic pill: intro expired → flip to $39.99, remove strikethrough ──
+      function basicDiscountExpired() {
+        var priceEl = document.getElementById('homePillBasicPrice');
+        var origEl  = document.getElementById('homePillBasicOrig');
+        if (priceEl) priceEl.textContent = '$39.99';
+        if (origEl)  origEl.remove();
+      }
+
+      // ── Pro pill: launch → unlock pill, hide note, start discount watches ──
       function proGoLive() {
         var pill = document.getElementById('homePillPro');
         var note = document.getElementById('homeProNote');
         if (pill) pill.classList.remove('locked');
         if (note) note.innerHTML = '<span style="color:var(--green);">&#10003; v2.0.0 available now</span>';
         clearInterval(proLaunchTimer);
-        if (Date.now() >= DISCOUNT_END) { proDiscountExpired(); return; }
-        var discountTimer = setInterval(function() {
-          if (Date.now() >= DISCOUNT_END) { clearInterval(discountTimer); proDiscountExpired(); }
-        }, 60000);
+
+        // Pro discount watch
+        if (Date.now() >= DISCOUNT_END) { proDiscountExpired(); }
+        else {
+          var proDiscTimer = setInterval(function() {
+            if (Date.now() >= DISCOUNT_END) { clearInterval(proDiscTimer); proDiscountExpired(); }
+          }, 60000);
+        }
+
+        // Basic discount watch
+        if (Date.now() >= BASIC_DISCOUNT_END) { basicDiscountExpired(); }
+        else {
+          var basicDiscTimer = setInterval(function() {
+            if (Date.now() >= BASIC_DISCOUNT_END) { clearInterval(basicDiscTimer); basicDiscountExpired(); }
+          }, 60000);
+        }
       }
       var proLaunchTimer = setInterval(function() {
         if (Date.now() >= TARGET_PRO) proGoLive();

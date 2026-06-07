@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <link rel="icon" type="image/x-icon" href="SH_TRANSPARENT_NEW.ico"/>
+  <link rel="apple-touch-icon" href="SH_TRANSPARENT_NEW.png"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Privacy Policy — Selecta Hub</title>
+  <meta name="description" content="Selecta Hub Privacy Policy — how we collect, use, and protect your information."/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --black:    #0a0a0a;
+      --card:     #111111;
+      --card-2:   #161616;
+      --border:   #222222;
+      --border-h: #333333;
+      --text:     #eeeeee;
+      --muted:    #666666;
+      --green:    #2ecc40;
+      --gold:     #ffc107;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--black);
+      color: var(--text);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      background-size: 200px; opacity: 0.35;
+    }
+    nav {
+      position: sticky; top: 0; z-index: 200;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 32px; height: 64px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(10,10,10,0.88);
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+    }
+    .nav-brand {
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none; color: var(--text);
+    }
+    .nav-logo { width: 30px; height: 30px; object-fit: contain; display: block; }
+    .nav-wordmark { font-size: 1rem; font-weight: 800; letter-spacing: 1.5px; }
+    .nav-back {
+      font-size: 0.82rem; font-weight: 500; color: var(--muted);
+      text-decoration: none; padding: 6px 12px; border-radius: 6px;
+      transition: color 0.18s, background 0.18s;
+    }
+    .nav-back:hover { color: var(--text); background: rgba(255,255,255,0.06); }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .page-wrap {
+      position: relative; z-index: 1;
+      max-width: 720px; margin: 0 auto; padding: 56px 24px 96px;
+      animation: fadeUp 0.5s ease both;
+    }
+    .page-eyebrow {
+      font-size: 0.6rem; font-weight: 700; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 10px;
+    }
+    .page-title {
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
+      font-weight: 900; letter-spacing: -1px; line-height: 1.05;
+      margin-bottom: 8px;
+    }
+    .page-title .g { color: var(--green); }
+    .page-updated {
+      font-size: 0.75rem; color: var(--muted); margin-bottom: 40px;
+    }
+
+    .doc-section { margin-bottom: 36px; }
+    .doc-section h2 {
+      font-size: 0.95rem; font-weight: 700; color: var(--text);
+      margin-bottom: 10px; padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    .doc-section p, .doc-section li {
+      font-size: 0.88rem; color: var(--muted); line-height: 1.8;
+    }
+    .doc-section p + p { margin-top: 10px; }
+    .doc-section ul { padding-left: 18px; margin-top: 8px; }
+    .doc-section li { margin-bottom: 6px; }
+    .doc-section a { color: var(--green); text-decoration: none; }
+    .doc-section a:hover { text-decoration: underline; }
+    strong { color: var(--text); font-weight: 600; }
+
+    .footer-wrap { position: relative; z-index: 1; border-top: 1px solid var(--border); }
+    footer {
+      max-width: 1100px; margin: 0 auto; padding: 24px;
+      display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    }
+    .footer-left { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+    .footer-copy { font-size: 0.75rem; color: var(--muted); }
+    .footer-link { font-size: 0.75rem; color: var(--muted); text-decoration: none; transition: color 0.18s; }
+    .footer-link:hover { color: var(--text); }
+
+    @media (max-width: 480px) {
+      nav { padding: 0 18px; }
+      .page-wrap { padding: 40px 18px 72px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="/" class="nav-brand">
+      <img src="SH_TRANSPARENT_NEW.png" alt="Selecta Hub logo" class="nav-logo" width="30" height="30"/>
+      <span class="nav-wordmark">SELECTA HUB</span>
+    </a>
+    <a href="/" class="nav-back">&#8592; Back to Home</a>
+  </nav>
+
+  <div class="page-wrap">
+    <p class="page-eyebrow">Legal</p>
+    <h1 class="page-title">PRIVACY <span class="g">POLICY</span></h1>
+    <p class="page-updated">Last updated: June 6, 2026</p>
+
+    <div class="doc-section">
+      <h2>1. Overview</h2>
+      <p>Selecta Hub ("we", "us", or "our") is operated by Juggernaut Music Group. This Privacy Policy explains how we collect, use, and safeguard your information when you visit <strong>selectahub.com</strong> or use any of our products, including Selecta Tool, Selecta Crates, Selecta Sound FX, and FolderFix.</p>
+      <p>By using the site or our products, you agree to the practices described in this policy.</p>
+    </div>
+
+    <div class="doc-section">
+      <h2>2. Information We Collect</h2>
+      <p>We collect only what we need to provide our services:</p>
+      <ul>
+        <li><strong>Contact form submissions</strong> — your name and email address when you reach out to us via the contact form on the homepage.</li>
+        <li><strong>Purchase information</strong> — when you purchase a product, payment and order details are processed by our third-party payment providers (e.g. Gumroad). We do not store your payment card details.</li>
+        <li><strong>License keys</strong> — we may generate and associate a license key with your email address to validate product purchases.</li>
+        <li><strong>Usage data</strong> — basic, non-personal technical data (such as app version and OS type) may be collected to help us improve our software. No personally identifiable information is included.</li>
+      </ul>
+    </div>
+
+    <div class="doc-section">
+      <h2>3. How We Use Your Information</h2>
+      <ul>
+        <li>To respond to your contact form messages.</li>
+        <li>To deliver and validate product licenses.</li>
+        <li>To send important product updates (e.g. new versions, security notices). You may opt out at any time.</li>
+        <li>To improve our products and website based on aggregate usage patterns.</li>
+      </ul>
+      <p>We do not sell, rent, or trade your personal information to any third party.</p>
+    </div>
+
+    <div class="doc-section">
+      <h2>4. Third-Party Services</h2>
+      <p>We use the following third-party services that may process data on our behalf:</p>
+      <ul>
+        <li><strong>Web3Forms</strong> — processes contact form submissions.</li>
+        <li><strong>Gumroad</strong> — handles payment processing for FolderFix and other products sold via Gumroad.</li>
+        <li><strong>Google Fonts</strong> — loads the Inter typeface; Google may log the request.</li>
+      </ul>
+      <p>Each third party operates under its own privacy policy. We are not responsible for their data practices.</p>
+    </div>
+
+    <div class="doc-section">
+      <h2>5. Cookies</h2>
+      <p>Selecta Hub does not use tracking or advertising cookies. Third-party services embedded in the site (such as Google Fonts) may set their own cookies in accordance with their policies.</p>
+    </div>
+
+    <div class="doc-section">
+      <h2>6. Data Retention</h2>
+      <p>Contact form messages are retained only as long as necessary to respond to your inquiry. License records are kept for the duration of your purchase to support validation and support requests. You may request deletion of your data at any time by emailing us.</p>
+    </div>
+
+    <div class="doc-section">
+      <h2>7. Your Rights</h2>
+      <p>Depending on your location, you may have rights to access, correct, or delete personal data we hold about you. To exercise any of these rights, contact us at <a href="mailto:info@selectahub.com">info@selectahub.com</a>.</p>
+    </div>
+
+    <div class="doc-section">
+      <h2>8. Children's Privacy</h2>
+      <p>Selecta Hub is not directed at anyone under 16. We do not knowingly collect personal information from anyone under 16. If you believe we have inadvertently collected such data, please contact us and we will promptly delete it.</p>
+    </div>
+
+    <div class="doc-section">
+      <h2>9. Changes to This Policy</h2>
+      <p>We may update this Privacy Policy from time to time. When we do, we will revise the "Last updated" date at the top of this page. Continued use of our site or products after changes constitutes your acceptance of the updated policy.</p>
+    </div>
+
+    <div class="doc-section">
+      <h2>10. Contact</h2>
+      <p>Questions about this Privacy Policy? Reach us at <a href="mailto:info@selectahub.com">info@selectahub.com</a>.</p>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer-wrap">
+    <footer>
+      <div class="footer-left">
+        <span class="footer-copy">&copy; 2026 Juggernaut Music Group. All rights reserved.</span>
+        <a href="privacy.html" class="footer-link">Privacy Policy</a>
+        <a href="terms.html"   class="footer-link">Terms of Use</a>
+      </div>
+    </footer>
+  </div>
+
+</body>
+</html>

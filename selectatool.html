@@ -691,13 +691,13 @@
             <span class="tier-name">Selecta Tool</span>
             <span class="tier-badge badge-live" id="basicBadge">Live</span>
           </div>
-          <div class="tier-price">$29.99 <span class="tier-price-orig">$34.99</span></div>
-          <p class="tier-price-note">One-time purchase. Yours forever.</p>
+          <div class="tier-price">$29.99 <span class="tier-price-orig">$39.99</span></div>
+          <p class="tier-price-note" id="basicPriceNote">One-time purchase. Yours forever.</p>
           <span class="tier-version" id="basicVersion">v1.1.2 &middot; 2.0 coming June 15</span>
           <div class="pro-countdown" id="basicAvailable">
             <span class="countdown-done">&#10003; Now available</span>
           </div>
-          <a href="https://juggernautmusic.gumroad.com/l/selectatool" target="_blank" rel="noopener noreferrer" class="btn-tier btn-basic">
+          <a href="https://juggernautmusic.gumroad.com/l/selectatool" target="_blank" rel="noopener noreferrer" class="btn-tier btn-basic" id="basicBtn1">
             Get Basic &mdash; $29.99
           </a>
         </div>
@@ -739,7 +739,7 @@
         </ul>
 
         <div class="tier-foot">
-          <a href="https://juggernautmusic.gumroad.com/l/selectatool" target="_blank" rel="noopener noreferrer" class="btn-tier btn-basic">
+          <a href="https://juggernautmusic.gumroad.com/l/selectatool" target="_blank" rel="noopener noreferrer" class="btn-tier btn-basic" id="basicBtn2">
             Get Basic &mdash; $29.99
           </a>
         </div>
@@ -832,6 +832,20 @@
             <span>
               <span class="feat-label">Library Snapshots</span>
               <span class="feat-label-note">Multiple libraries on one machine — no duplicates</span>
+            </span>
+          </li>
+          <li class="feat-item pro-only">
+            <span class="feat-icon check">&#10003;</span>
+            <span>
+              <span class="feat-label">Send Tracks Between Crates</span>
+              <span class="feat-label-note">Move or copy tracks across crates instantly</span>
+            </span>
+          </li>
+          <li class="feat-item pro-only">
+            <span class="feat-icon check">&#10003;</span>
+            <span>
+              <span class="feat-label">Replace Records in Library Database</span>
+              <span class="feat-label-note">Replace existing records directly in the Serato database</span>
             </span>
           </li>
           <li class="feat-item pro-only">
@@ -1243,9 +1257,11 @@
     // ── PRO COUNTDOWN ──
     (function() {
       // June 15 00:01 UTC+14 (first timezone in world) = June 14 10:01 UTC = June 14 6:01 AM EDT
-      const target      = new Date('2026-06-14T10:01:00Z');
-      // Intro price window: 21 days → July 5 10:01 UTC = July 5 6:01 AM EDT
-      const discountEnd = new Date(target.getTime() + 21 * 24 * 60 * 60 * 1000);
+      const target           = new Date('2026-06-14T10:01:00Z');
+      // Pro intro price ends July 17
+      const discountEnd      = new Date('2026-07-17T10:01:00Z');
+      // Basic intro price ends July 15
+      const basicDiscountEnd = new Date('2026-07-15T10:01:00Z');
 
       const dEl = document.getElementById('cdDays');
       const hEl = document.getElementById('cdHours');
@@ -1283,6 +1299,41 @@
         var b2 = document.getElementById('proBtn2');
         if (b1) b1.innerHTML = 'Get Pro &mdash; $64.99';
         if (b2) b2.innerHTML = 'Get Pro &mdash; $64.99';
+      }
+
+      // ── Basic intro price expiry ──
+      function basicPriceExpired() {
+        clearInterval(basicDiscountTimer);
+        var avail = document.getElementById('basicAvailable');
+        if (avail) avail.innerHTML = '<span class="countdown-done">&#10003; Now available</span>';
+        var priceEl = document.querySelector('.tier-card:not(.pro) .tier-price');
+        if (priceEl) priceEl.innerHTML = '$39.99';
+        var noteEl = document.getElementById('basicPriceNote');
+        if (noteEl) noteEl.textContent = 'One-time purchase. Yours forever.';
+        var b1 = document.getElementById('basicBtn1');
+        var b2 = document.getElementById('basicBtn2');
+        if (b1) b1.innerHTML = 'Get Basic &mdash; $39.99';
+        if (b2) b2.innerHTML = 'Get Basic &mdash; $39.99';
+      }
+
+      var basicDiscountTimer;
+
+      function startBasicCountdown() {
+        var avail = document.getElementById('basicAvailable');
+        if (avail) {
+          avail.innerHTML =
+            '<span class="countdown-done">&#10003; Now available</span>' +
+            '<span id="basicIntroTimeLeft" style="margin-left:auto;font-size:0.68rem;font-weight:600;color:rgba(46,204,64,0.65);white-space:nowrap;letter-spacing:0.3px;">Intro · --</span>';
+        }
+        function basicDiscountTick() {
+          var diff = basicDiscountEnd - Date.now();
+          if (diff <= 0) { basicPriceExpired(); return; }
+          var lbl = document.getElementById('basicIntroTimeLeft');
+          if (lbl) lbl.textContent = 'Intro price ends · ' + introLabel(diff);
+        }
+        if (Date.now() >= basicDiscountEnd) { basicPriceExpired(); return; }
+        basicDiscountTick();
+        basicDiscountTimer = setInterval(basicDiscountTick, 1000);
       }
 
       var discountTimer;
@@ -1325,10 +1376,16 @@
         var basicVer = document.getElementById('basicVersion');
         if (basicVer) basicVer.textContent = 'v2.0.0';
 
+        var basicNote = document.getElementById('basicPriceNote');
+        if (basicNote) basicNote.textContent = 'Introductory price · One-time purchase.';
+
         if (b1) b1.classList.remove('btn-pro-locked');
         if (b2) b2.classList.remove('btn-pro-locked');
 
-        // Discount countdown inline inside the Now available pill
+        // Basic intro countdown inside the Now available pill
+        startBasicCountdown();
+
+        // Pro discount countdown inline inside the Now available pill
         startDiscountCountdown();
       }
 
