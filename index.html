@@ -10,7 +10,7 @@
   <meta property="og:url" content="https://selectahub.com"/>
   <meta property="og:title" content="Selecta Hub — The Ultimate DJ Resource"/>
   <meta property="og:description" content="DJ tools, crates, and sound effects built for serious DJs."/>
-  <meta property="og:image" content="https://selectahub.com/SH_TRANSPARENT_NEW.png"/>
+  <meta property="og:image" content="https://selectahub.com/og-social-card.png"/>
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="description" content="DJ tools, crates, and sound effects built for serious DJs. Selecta Tool, Crates, Sound FX and more."/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
@@ -616,11 +616,12 @@
             <span class="tier-pill-orig" id="homePillProOrig">$64.99</span>
           </div>
         </div>
-        <p id="homeProNote" style="font-size:0.72rem;color:var(--muted);margin-bottom:16px;margin-top:-8px;">
+        <p id="homeProNote" style="font-size:0.72rem;color:var(--muted);margin-bottom:4px;margin-top:-8px;">
           <span style="color:var(--green);">&#10003; v1.1.2 available now</span>
           &nbsp;&middot;&nbsp;
           <span style="color:var(--gold);">v2.0.0 + Pro launching June 15</span>
         </p>
+        <p id="homeIntroNote" style="display:none;font-size:0.7rem;color:var(--muted);margin-bottom:16px;letter-spacing:0.2px;"></p>
 
         <div class="featured-cta">
           <span class="btn-feat-primary">Compare Tiers &amp; Purchase</span>
@@ -814,29 +815,56 @@
 
     // ── LAUNCH COUNTDOWNS ──
     (function() {
-      // June 15 00:01 UTC+14 = June 14 10:01 UTC = June 14 6:01 AM EDT
-      var TARGET_PRO         = new Date('2026-06-14T10:01:00Z');
-      // Pro intro price ends July 17
-      var DISCOUNT_END       = new Date('2026-07-17T10:01:00Z');
-      // Basic intro price ends July 15
-      var BASIC_DISCOUNT_END = new Date('2026-07-15T10:01:00Z');
-      var TARGET_CRATES = new Date('2026-06-14T10:01:00Z');
+      // June 15 03:00 AM EDT = June 15 07:00 UTC
+      var TARGET_PRO         = new Date('2026-06-15T07:00:00Z');
+      // Pro intro price ends July 13 (28 days)
+      var DISCOUNT_END       = new Date('2026-07-13T07:00:00Z');
+      // Basic intro price ends July 6 (21 days)
+      var BASIC_DISCOUNT_END = new Date('2026-07-06T07:00:00Z');
+      var TARGET_CRATES = new Date('2026-06-15T07:00:00Z');
       var TARGET_SFX    = new Date('2026-06-06T10:01:00Z');
 
-      // ── Pro pill: discount expired → flip to $64.99, remove strikethrough ──
+      function updateMetaTags() {
+        var basicPrice = Date.now() >= BASIC_DISCOUNT_END ? '$39.99' : '$29.99';
+        var proPrice   = Date.now() >= DISCOUNT_END       ? '$64.99' : '$54.99';
+        var desc   = document.querySelector('meta[name="description"]');
+        var ogDesc = document.querySelector('meta[property="og:description"]');
+        if (desc)   desc.setAttribute('content',  'Selecta Hub — DJ tools for Serato. Selecta Tool Basic ' + basicPrice + ' \xb7 Pro ' + proPrice + '. Crates & Sound FX available now.');
+        if (ogDesc) ogDesc.setAttribute('content', 'DJ tools for Serato. Selecta Tool Basic ' + basicPrice + ' \xb7 Pro ' + proPrice + ' \xb7 Selecta Crates \xb7 Sound FX.');
+      }
+      updateMetaTags();
+
+      function updateIntroNote() {
+        var el = document.getElementById('homeIntroNote');
+        if (!el) return;
+        var basicDone = Date.now() >= BASIC_DISCOUNT_END;
+        var proDone   = Date.now() >= DISCOUNT_END;
+        if (basicDone && proDone) { el.style.display = 'none'; return; }
+        var parts = [];
+        if (!basicDone) parts.push('<span style="color:rgba(46,204,64,0.55);">Basic intro ends Jul 6</span>');
+        if (!proDone)   parts.push('<span style="color:rgba(212,175,55,0.55);">Pro intro ends Jul 13</span>');
+        el.innerHTML = parts.join('<span style="color:#333;"> &nbsp;&middot;&nbsp; </span>');
+        el.style.display = 'block';
+      }
+
+      // ── Pro pill: discount expired → flip to $64.99, strikethrough becomes $99.99 ──
       function proDiscountExpired() {
         var priceEl = document.getElementById('homePillProPrice');
         var origEl  = document.getElementById('homePillProOrig');
         if (priceEl) priceEl.textContent = '$64.99';
-        if (origEl)  origEl.remove();
+        if (origEl)  origEl.textContent  = '$99.99';
+        updateIntroNote();
+        updateMetaTags();
       }
 
-      // ── Basic pill: intro expired → flip to $39.99, remove strikethrough ──
+      // ── Basic pill: intro expired → flip to $39.99, strikethrough becomes $49.99 ──
       function basicDiscountExpired() {
         var priceEl = document.getElementById('homePillBasicPrice');
         var origEl  = document.getElementById('homePillBasicOrig');
         if (priceEl) priceEl.textContent = '$39.99';
-        if (origEl)  origEl.remove();
+        if (origEl)  origEl.textContent  = '$49.99';
+        updateIntroNote();
+        updateMetaTags();
       }
 
       // ── Pro pill: launch → unlock pill, hide note, start discount watches ──
@@ -845,6 +873,7 @@
         var note = document.getElementById('homeProNote');
         if (pill) pill.classList.remove('locked');
         if (note) note.innerHTML = '<span style="color:var(--green);">&#10003; v2.0.0 available now</span>';
+        updateIntroNote();
         clearInterval(proLaunchTimer);
 
         // Pro discount watch
@@ -852,7 +881,7 @@
         else {
           var proDiscTimer = setInterval(function() {
             if (Date.now() >= DISCOUNT_END) { clearInterval(proDiscTimer); proDiscountExpired(); }
-          }, 60000);
+          }, 5000);
         }
 
         // Basic discount watch
@@ -860,7 +889,7 @@
         else {
           var basicDiscTimer = setInterval(function() {
             if (Date.now() >= BASIC_DISCOUNT_END) { clearInterval(basicDiscTimer); basicDiscountExpired(); }
-          }, 60000);
+          }, 5000);
         }
       }
       var proLaunchTimer = setInterval(function() {

@@ -9,10 +9,10 @@
   <meta property="og:type" content="website"/>
   <meta property="og:url" content="https://selectahub.com/selectatool.html"/>
   <meta property="og:title" content="Selecta Tool — Choose Your Tier"/>
-  <meta property="og:description" content="Serato crate management for serious DJs. Compare Basic ($29.99) and Pro ($59.99)."/>
-  <meta property="og:image" content="https://selectahub.com/SH_TRANSPARENT_NEW.png"/>
+  <meta property="og:description" content="Serato crate management for serious DJs. Compare Basic ($29.99) and Pro ($54.99)."/>
+  <meta property="og:image" content="https://selectahub.com/og-social-card.png"/>
   <meta name="twitter:card" content="summary_large_image"/>
-  <meta name="description" content="Selecta Tool — DJ crate management for Serato. Basic $29.99 · Pro $59.99. Mac Intel, Apple Silicon &amp; Windows 10/11."/>
+  <meta name="description" content="Selecta Tool — DJ crate management for Serato. Basic $29.99 · Pro $54.99. Mac Intel, Apple Silicon &amp; Windows 10/11."/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
   <style>
     :root {
@@ -1256,12 +1256,24 @@
 
     // ── PRO COUNTDOWN ──
     (function() {
-      // June 15 00:01 UTC+14 (first timezone in world) = June 14 10:01 UTC = June 14 6:01 AM EDT
-      const target           = new Date('2026-06-14T10:01:00Z');
-      // Pro intro price ends July 17
-      const discountEnd      = new Date('2026-07-17T10:01:00Z');
-      // Basic intro price ends July 15
-      const basicDiscountEnd = new Date('2026-07-15T10:01:00Z');
+      // June 15 03:00 AM EDT = June 15 07:00 UTC
+      const target           = new Date('2026-06-15T07:00:00Z');
+      // Pro intro price ends July 13 (28 days)
+      const discountEnd      = new Date('2026-07-13T07:00:00Z');
+      // Basic intro price ends July 6 (21 days)
+      const basicDiscountEnd = new Date('2026-07-06T07:00:00Z');
+
+      function updateMetaTags() {
+        var basicPrice = Date.now() >= basicDiscountEnd ? '$39.99' : '$29.99';
+        var proPrice   = Date.now() >= discountEnd      ? '$64.99' : '$54.99';
+        var desc    = 'Selecta Tool — DJ crate management for Serato. Basic ' + basicPrice + ' \xb7 Pro ' + proPrice + '. Mac Intel, Apple Silicon & Windows 10/11.';
+        var ogDesc  = 'Serato crate management for serious DJs. Compare Basic (' + basicPrice + ') and Pro (' + proPrice + ').';
+        var metaD   = document.querySelector('meta[name="description"]');
+        var metaOG  = document.querySelector('meta[property="og:description"]');
+        if (metaD)  metaD.setAttribute('content', desc);
+        if (metaOG) metaOG.setAttribute('content', ogDesc);
+      }
+      updateMetaTags();
 
       const dEl = document.getElementById('cdDays');
       const hEl = document.getElementById('cdHours');
@@ -1288,17 +1300,18 @@
         var lbl = document.getElementById('introTimeLeft');
         if (lbl) lbl.remove();
 
-        // Flip price to $64.99 permanently
+        // Flip price to $64.99 with $99.99 strikethrough
         var priceEl = document.querySelector('.tier-card.pro .tier-price');
-        if (priceEl) priceEl.innerHTML = '$64.99';
+        if (priceEl) priceEl.innerHTML = '$64.99 <span class="tier-price-orig">$99.99</span>';
 
         var noteEl = document.querySelector('.tier-card.pro .tier-price-note');
         if (noteEl) noteEl.textContent = 'One-time purchase. Yours forever.';
 
         var b1 = document.getElementById('proBtn1');
         var b2 = document.getElementById('proBtn2');
-        if (b1) b1.innerHTML = 'Get Pro &mdash; $64.99';
-        if (b2) b2.innerHTML = 'Get Pro &mdash; $64.99';
+        if (b1) b1.innerHTML = 'Get Pro &mdash; $64.99 <span class="btn-orig-price">$99.99</span>';
+        if (b2) b2.innerHTML = 'Get Pro &mdash; $64.99 <span class="btn-orig-price">$99.99</span>';
+        updateMetaTags();
       }
 
       // ── Basic intro price expiry ──
@@ -1307,13 +1320,14 @@
         var avail = document.getElementById('basicAvailable');
         if (avail) avail.innerHTML = '<span class="countdown-done">&#10003; Now available</span>';
         var priceEl = document.querySelector('.tier-card:not(.pro) .tier-price');
-        if (priceEl) priceEl.innerHTML = '$39.99';
+        if (priceEl) priceEl.innerHTML = '$39.99 <span class="tier-price-orig">$49.99</span>';
         var noteEl = document.getElementById('basicPriceNote');
         if (noteEl) noteEl.textContent = 'One-time purchase. Yours forever.';
         var b1 = document.getElementById('basicBtn1');
         var b2 = document.getElementById('basicBtn2');
         if (b1) b1.innerHTML = 'Get Basic &mdash; $39.99';
         if (b2) b2.innerHTML = 'Get Basic &mdash; $39.99';
+        updateMetaTags();
       }
 
       var basicDiscountTimer;
@@ -1350,7 +1364,7 @@
           var diff = discountEnd - Date.now();
           if (diff <= 0) { priceExpired(); return; }
           var lbl = document.getElementById('introTimeLeft');
-          if (lbl) lbl.textContent = 'Intro price · ' + introLabel(diff);
+          if (lbl) lbl.textContent = 'Intro price ends · ' + introLabel(diff);
         }
 
         if (Date.now() >= discountEnd) { priceExpired(); return; }
