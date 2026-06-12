@@ -693,12 +693,21 @@
           </div>
           <div class="tier-price">$29.99 <span class="tier-price-orig">$39.99</span></div>
           <p class="tier-price-note" id="basicPriceNote">One-time purchase. Yours forever.</p>
-          <span class="tier-version" id="basicVersion">v1.1.2 &middot; 2.0 coming June 15</span>
+          <span class="tier-version" id="basicVersion">v2.0 coming June 15</span>
           <div class="pro-countdown" id="basicAvailable">
-            <span class="countdown-done">&#10003; Now available</span>
+            <span class="countdown-label"><img src="st2logo.png" alt="" style="width:14px;height:14px;object-fit:contain;vertical-align:middle;margin-right:6px;">v2.0 live in</span>
+            <div class="countdown-blocks" id="basicCountdownBlocks">
+              <div class="countdown-unit"><span class="countdown-num" id="basicCdDays">--</span><span class="countdown-tag">Days</span></div>
+              <span class="countdown-sep">:</span>
+              <div class="countdown-unit"><span class="countdown-num" id="basicCdHours">--</span><span class="countdown-tag">Hrs</span></div>
+              <span class="countdown-sep">:</span>
+              <div class="countdown-unit"><span class="countdown-num" id="basicCdMins">--</span><span class="countdown-tag">Min</span></div>
+              <span class="countdown-sep">:</span>
+              <div class="countdown-unit"><span class="countdown-num" id="basicCdSecs">--</span><span class="countdown-tag">Sec</span></div>
+            </div>
           </div>
           <a href="https://juggernautmusic.gumroad.com/l/selectatool" target="_blank" rel="noopener noreferrer" class="btn-tier btn-basic" id="basicBtn1">
-            Get Basic &mdash; $29.99
+            Can't wait? Get 1.1.2 now
           </a>
         </div>
 
@@ -740,7 +749,7 @@
 
         <div class="tier-foot">
           <a href="https://juggernautmusic.gumroad.com/l/selectatool" target="_blank" rel="noopener noreferrer" class="btn-tier btn-basic" id="basicBtn2">
-            Get Basic &mdash; $29.99
+            Can't wait? Get 1.1.2 now
           </a>
         </div>
       </div>
@@ -1199,17 +1208,6 @@
       Running a <strong>business, radio station or sound system?</strong> Multi-seat and corporate licenses are available. Contact us at <a href="mailto:info@selectahub.com">info@selectahub.com</a> or through our social channels for more info.
     </div>
 
-    <!-- Walkthrough video -->
-    <a href="https://youtu.be/DJWF3TTpxwg" target="_blank" rel="noopener noreferrer" class="yt-card">
-      <div class="yt-icon">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-      </div>
-      <div class="yt-body">
-        <div class="yt-title">v1.1.2 Walkthrough</div>
-        <div class="yt-sub">v2.0 walkthrough available at release &mdash; June 15</div>
-      </div>
-      <span class="yt-arrow">&#8594;</span>
-    </a>
 
   </section>
 
@@ -1390,6 +1388,11 @@
         var basicVer = document.getElementById('basicVersion');
         if (basicVer) basicVer.textContent = 'v2.0.0';
 
+        var basicBtn1 = document.getElementById('basicBtn1');
+        var basicBtn2 = document.getElementById('basicBtn2');
+        if (basicBtn1) basicBtn1.innerHTML = 'Get Basic &mdash; $29.99';
+        if (basicBtn2) basicBtn2.innerHTML = 'Get Basic &mdash; $29.99';
+
         var basicNote = document.getElementById('basicPriceNote');
         if (basicNote) basicNote.textContent = 'Introductory price · One-time purchase.';
 
@@ -1414,6 +1417,14 @@
         hEl.textContent = pad(hours);
         mEl.textContent = pad(mins);
         sEl.textContent = pad(secs);
+        var bD = document.getElementById('basicCdDays');
+        var bH = document.getElementById('basicCdHours');
+        var bM = document.getElementById('basicCdMins');
+        var bS = document.getElementById('basicCdSecs');
+        if (bD) bD.textContent = pad(days);
+        if (bH) bH.textContent = pad(hours);
+        if (bM) bM.textContent = pad(mins);
+        if (bS) bS.textContent = pad(secs);
       }
 
       var timer;

@@ -619,7 +619,7 @@
         <p id="homeProNote" style="font-size:0.72rem;color:var(--muted);margin-bottom:4px;margin-top:-8px;">
           <span style="color:var(--green);">&#10003; v1.1.2 available now</span>
           &nbsp;&middot;&nbsp;
-          <span style="color:var(--gold);">v2.0.0 + Pro launching June 15</span>
+          <span style="color:var(--gold);">v2.0.0 + Pro launching in <span id="homeLaunchTimer">--:--:--</span></span>
         </p>
         <p id="homeIntroNote" style="display:none;font-size:0.7rem;color:var(--muted);margin-bottom:16px;letter-spacing:0.2px;"></p>
 
@@ -650,7 +650,7 @@
             </svg>
             <div class="sec-name">Selecta Crates</div>
           </div>
-          <span class="sec-badge badge-date" id="cratesBadge">June 15</span>
+          <span class="sec-badge badge-date" id="cratesBadge">July 1</span>
         </div>
         <p class="sec-desc">Premium DJ library packs — years of curated music, organized and ready to drop.</p>
         <div class="sec-foot">
@@ -707,11 +707,11 @@
             </svg>
             <div class="sec-name">Selecta Bookings</div>
           </div>
-          <span class="sec-badge badge-soon">Soon</span>
+          <span class="sec-badge badge-date">Aug 1</span>
         </div>
-        <p class="sec-desc">DJ booking management — gigs, contracts, invoices, and client communications.</p>
+        <p class="sec-desc">DJ booking management — gigs, contracts, invoices, and client communications. To be listed, contact <a href="mailto:info@selectahub.com" style="color:inherit;text-decoration:underline;" onclick="event.stopPropagation()">support</a>.</p>
         <div class="sec-foot">
-          <span class="sec-meta">In Development</span>
+          <span class="sec-meta">Coming Aug 1</span>
         </div>
       </div>
 
@@ -821,7 +821,7 @@
       var DISCOUNT_END       = new Date('2026-07-13T07:00:00Z');
       // Basic intro price ends July 6 (21 days)
       var BASIC_DISCOUNT_END = new Date('2026-07-06T07:00:00Z');
-      var TARGET_CRATES = new Date('2026-06-15T07:00:00Z');
+      var TARGET_CRATES = new Date('2026-07-01T07:00:00Z');
       var TARGET_SFX    = new Date('2026-06-06T10:01:00Z');
 
       function updateMetaTags() {
@@ -892,10 +892,23 @@
           }, 5000);
         }
       }
-      var proLaunchTimer = setInterval(function() {
-        if (Date.now() >= TARGET_PRO) proGoLive();
-      }, 30000);
-      if (Date.now() >= TARGET_PRO) proGoLive();
+      function pad2(n) { return String(n).padStart(2, '0'); }
+      function updateProLaunchTimer() {
+        var diff = TARGET_PRO - Date.now();
+        if (diff <= 0) { proGoLive(); return; }
+        var el = document.getElementById('homeLaunchTimer');
+        if (!el) return;
+        var days  = Math.floor(diff / 86400000);
+        var hours = Math.floor((diff % 86400000) / 3600000);
+        var mins  = Math.floor((diff % 3600000)  / 60000);
+        var secs  = Math.floor((diff % 60000)    / 1000);
+        el.textContent = days > 0
+          ? days + 'd ' + pad2(hours) + ':' + pad2(mins) + ':' + pad2(secs)
+          : pad2(hours) + ':' + pad2(mins) + ':' + pad2(secs);
+      }
+      var proLaunchTimer;
+      if (Date.now() >= TARGET_PRO) { proGoLive(); }
+      else { updateProLaunchTimer(); proLaunchTimer = setInterval(updateProLaunchTimer, 1000); }
 
       // ── Crates flip ──
       function cratesGoLive() {
