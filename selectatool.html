@@ -614,9 +614,38 @@
       .compare-section { padding: 0 14px 48px; }
       .info-section { padding: 0 14px 60px; }
     }
+
+    /* ── LAUNCH BANNER ── */
+    #launchBanner {
+      position: relative;
+      width: 100vw;
+      left: 50%;
+      transform: translateX(-50%);
+      margin-top: 20px;
+      display: flex; align-items: center; justify-content: center;
+      gap: 14px; flex-wrap: wrap;
+      padding: 16px 24px;
+      background: rgba(46,204,64,0.05);
+      border-top: 1px solid rgba(46,204,64,0.18);
+      border-bottom: 1px solid rgba(46,204,64,0.18);
+      text-align: center;
+      transition: opacity 0.6s ease;
+    }
+    .launch-label {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: rgba(46,204,64,0.6);
+    }
+    #launchTimer {
+      font-size: 2rem; font-weight: 900; color: var(--green);
+      letter-spacing: -1.5px; font-variant-numeric: tabular-nums;
+      line-height: 1;
+    }
+    @media (max-width: 480px) {
+      #launchTimer { font-size: 1.5rem; }
+    }
   </style>
 </head>
-<body>
+<body class="pre-launch">
 
   <div class="glow"></div>
 
@@ -678,6 +707,10 @@
         <span>Windows 10 / 11</span>
       </div>
     </div>
+    <div id="launchBanner">
+      <span class="launch-label">v2.0.0 goes live in</span>
+      <span id="launchTimer">--:--:--</span>
+    </div>
   </section>
 
   <!-- TIER COMPARISON -->
@@ -693,21 +726,9 @@
           </div>
           <div class="tier-price">$29.99 <span class="tier-price-orig">$39.99</span></div>
           <p class="tier-price-note" id="basicPriceNote">One-time purchase. Yours forever.</p>
-          <span class="tier-version" id="basicVersion">v2.0 coming June 15</span>
-          <div class="pro-countdown" id="basicAvailable">
-            <span class="countdown-label"><img src="st2logo.png" alt="" style="width:14px;height:14px;object-fit:contain;vertical-align:middle;margin-right:6px;">v2.0 live in</span>
-            <div class="countdown-blocks" id="basicCountdownBlocks">
-              <div class="countdown-unit"><span class="countdown-num" id="basicCdDays">--</span><span class="countdown-tag">Days</span></div>
-              <span class="countdown-sep">:</span>
-              <div class="countdown-unit"><span class="countdown-num" id="basicCdHours">--</span><span class="countdown-tag">Hrs</span></div>
-              <span class="countdown-sep">:</span>
-              <div class="countdown-unit"><span class="countdown-num" id="basicCdMins">--</span><span class="countdown-tag">Min</span></div>
-              <span class="countdown-sep">:</span>
-              <div class="countdown-unit"><span class="countdown-num" id="basicCdSecs">--</span><span class="countdown-tag">Sec</span></div>
-            </div>
-          </div>
+          <span class="tier-version" id="basicVersion">v2.0.0</span>
           <a href="https://juggernautmusic.gumroad.com/l/selectatool" target="_blank" rel="noopener noreferrer" class="btn-tier btn-basic" id="basicBtn1">
-            Can't wait? Get 1.1.2 now
+            Get Basic &mdash; $29.99
           </a>
         </div>
 
@@ -749,34 +770,22 @@
 
         <div class="tier-foot">
           <a href="https://juggernautmusic.gumroad.com/l/selectatool" target="_blank" rel="noopener noreferrer" class="btn-tier btn-basic" id="basicBtn2">
-            Can't wait? Get 1.1.2 now
+            Get Basic &mdash; $29.99
           </a>
         </div>
       </div>
 
       <!-- ── PRO ── -->
-      <div class="tier-card pro">
+      <div class="tier-card pro live">
         <div class="tier-head">
           <div class="tier-name-row">
             <span class="tier-name">Selecta Tool Pro</span>
-            <span class="tier-badge badge-date" id="proBadge">June 15</span>
+            <span class="tier-badge badge-live" id="proBadge">Live</span>
           </div>
           <div class="tier-price">$54.99 <span class="tier-price-orig">$64.99</span></div>
           <p class="tier-price-note">Introductory price &middot; One-time purchase.</p>
           <span class="tier-version">v2.0.0</span>
-          <div class="pro-countdown" id="proCountdown">
-            <span class="countdown-label"><img src="st2logo.png" alt="" style="width:14px;height:14px;object-fit:contain;vertical-align:middle;margin-right:6px;">Live in</span>
-            <div class="countdown-blocks" id="countdownBlocks">
-              <div class="countdown-unit"><span class="countdown-num" id="cdDays">--</span><span class="countdown-tag">Days</span></div>
-              <span class="countdown-sep">:</span>
-              <div class="countdown-unit"><span class="countdown-num" id="cdHours">--</span><span class="countdown-tag">Hrs</span></div>
-              <span class="countdown-sep">:</span>
-              <div class="countdown-unit"><span class="countdown-num" id="cdMins">--</span><span class="countdown-tag">Min</span></div>
-              <span class="countdown-sep">:</span>
-              <div class="countdown-unit"><span class="countdown-num" id="cdSecs">--</span><span class="countdown-tag">Sec</span></div>
-            </div>
-          </div>
-          <a href="https://juggernautmusic.gumroad.com/l/selectatoolpro" target="_blank" rel="noopener noreferrer" class="btn-tier btn-pro btn-pro-locked" id="proBtn1">
+          <a href="https://juggernautmusic.gumroad.com/l/selectatoolpro" target="_blank" rel="noopener noreferrer" class="btn-tier btn-pro" id="proBtn1">
             Get Pro &mdash; $54.99 <span class="btn-orig-price">$64.99</span>
           </a>
         </div>
@@ -913,7 +922,7 @@
         </ul>
 
         <div class="tier-foot">
-          <a href="https://juggernautmusic.gumroad.com/l/selectatoolpro" target="_blank" rel="noopener noreferrer" class="btn-tier btn-pro btn-pro-locked" id="proBtn2">
+          <a href="https://juggernautmusic.gumroad.com/l/selectatoolpro" target="_blank" rel="noopener noreferrer" class="btn-tier btn-pro" id="proBtn2">
             Get Pro &mdash; $54.99 <span class="btn-orig-price">$64.99</span>
           </a>
         </div>
@@ -1233,11 +1242,12 @@
   </div>
 
   <script>
-    const hamburger = document.getElementById('hamburger');
-    const mobileMenu = document.getElementById('mobileMenu');
+    // ── NAV ──
+    var hamburger = document.getElementById('hamburger');
+    var mobileMenu = document.getElementById('mobileMenu');
 
-    hamburger.addEventListener('click', () => {
-      const open = mobileMenu.classList.toggle('open');
+    hamburger.addEventListener('click', function() {
+      var open = mobileMenu.classList.toggle('open');
       hamburger.classList.toggle('open', open);
       document.body.style.overflow = open ? 'hidden' : '';
     });
@@ -1248,188 +1258,100 @@
       document.body.style.overflow = '';
     }
 
-    document.addEventListener('keydown', e => {
+    document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape') closeMenu();
     });
 
-    // ── PRO COUNTDOWN ──
+    // ── LAUNCH COUNTDOWN ──
     (function() {
-      // June 15 03:00 AM EDT = June 15 07:00 UTC
-      const target           = new Date('2026-06-15T07:00:00Z');
-      // Pro intro price ends July 13 (28 days)
-      const discountEnd      = new Date('2026-07-13T07:00:00Z');
-      // Basic intro price ends July 6 (21 days)
-      const basicDiscountEnd = new Date('2026-07-06T07:00:00Z');
-
-      function updateMetaTags() {
-        var basicPrice = Date.now() >= basicDiscountEnd ? '$39.99' : '$29.99';
-        var proPrice   = Date.now() >= discountEnd      ? '$64.99' : '$54.99';
-        var desc    = 'Selecta Tool — DJ crate management for Serato. Basic ' + basicPrice + ' \xb7 Pro ' + proPrice + '. Mac Intel, Apple Silicon & Windows 10/11.';
-        var ogDesc  = 'Serato crate management for serious DJs. Compare Basic (' + basicPrice + ') and Pro (' + proPrice + ').';
-        var metaD   = document.querySelector('meta[name="description"]');
-        var metaOG  = document.querySelector('meta[property="og:description"]');
-        if (metaD)  metaD.setAttribute('content', desc);
-        if (metaOG) metaOG.setAttribute('content', ogDesc);
-      }
-      updateMetaTags();
-
-      const dEl = document.getElementById('cdDays');
-      const hEl = document.getElementById('cdHours');
-      const mEl = document.getElementById('cdMins');
-      const sEl = document.getElementById('cdSecs');
+      var target         = new Date('2026-06-15T07:00:00Z'); // June 15 03:00 AM EDT
+      var basicDiscount  = new Date('2026-07-06T07:00:00Z'); // Basic intro ends July 6
+      var proDiscount    = new Date('2026-07-13T07:00:00Z'); // Pro intro ends July 13
 
       function pad(n) { return String(n).padStart(2, '0'); }
 
-      function introLabel(diff) {
+      // Block clicks on all tier buttons until live
+      document.addEventListener('click', function(e) {
+        if (document.body.classList.contains('pre-launch') && e.target.closest('.btn-tier')) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+      }, true);
+
+      function updateMeta() {
+        var bp = Date.now() >= basicDiscount ? '$39.99' : '$29.99';
+        var pp = Date.now() >= proDiscount   ? '$64.99' : '$54.99';
+        var d  = document.querySelector('meta[name="description"]');
+        var og = document.querySelector('meta[property="og:description"]');
+        if (d)  d.setAttribute('content',  'Selecta Tool — DJ crate management for Serato. Basic ' + bp + ' \xb7 Pro ' + pp + '. Mac Intel, Apple Silicon & Windows 10/11.');
+        if (og) og.setAttribute('content', 'Serato crate management for serious DJs. Compare Basic (' + bp + ') and Pro (' + pp + ').');
+      }
+      updateMeta();
+
+      // Silent discount expiry timers (run after launch)
+      function watchDiscounts() {
+        var t = setInterval(function() {
+          var now = Date.now();
+          if (now >= basicDiscount) {
+            var priceEl = document.querySelector('.tier-card:not(.pro) .tier-price');
+            if (priceEl) priceEl.innerHTML = '$39.99 <span class="tier-price-orig">$49.99</span>';
+            var noteEl = document.getElementById('basicPriceNote');
+            if (noteEl) noteEl.textContent = 'One-time purchase. Yours forever.';
+            var b1 = document.getElementById('basicBtn1'), b2 = document.getElementById('basicBtn2');
+            if (b1) b1.innerHTML = 'Get Basic &mdash; $39.99';
+            if (b2) b2.innerHTML = 'Get Basic &mdash; $39.99';
+            updateMeta();
+          }
+          if (now >= proDiscount) {
+            var pEl = document.querySelector('.tier-card.pro .tier-price');
+            if (pEl) pEl.innerHTML = '$64.99 <span class="tier-price-orig">$99.99</span>';
+            var pNote = document.querySelector('.tier-card.pro .tier-price-note');
+            if (pNote) pNote.textContent = 'One-time purchase. Yours forever.';
+            var p1 = document.getElementById('proBtn1'), p2 = document.getElementById('proBtn2');
+            if (p1) p1.innerHTML = 'Get Pro &mdash; $64.99 <span class="btn-orig-price">$99.99</span>';
+            if (p2) p2.innerHTML = 'Get Pro &mdash; $64.99 <span class="btn-orig-price">$99.99</span>';
+            updateMeta();
+          }
+          if (now >= basicDiscount && now >= proDiscount) clearInterval(t);
+        }, 60000);
+      }
+
+      function goLive() {
+        clearInterval(launchTimer);
+        // Fade banner out then remove
+        var banner = document.getElementById('launchBanner');
+        if (banner) {
+          banner.style.opacity = '0';
+          setTimeout(function() { if (banner.parentNode) banner.parentNode.removeChild(banner); }, 650);
+        }
+        // Unlock all buttons
+        document.body.classList.remove('pre-launch');
+        // Update Basic price note to show introductory pricing
+        var basicNote = document.getElementById('basicPriceNote');
+        if (basicNote) basicNote.textContent = 'Introductory price \xb7 One-time purchase.';
+        // Start silent discount timers
+        watchDiscounts();
+        updateMeta();
+      }
+
+      function tick() {
+        var diff = target - Date.now();
+        if (diff <= 0) { goLive(); return; }
         var days  = Math.floor(diff / 86400000);
         var hours = Math.floor((diff % 86400000) / 3600000);
         var mins  = Math.floor((diff % 3600000)  / 60000);
         var secs  = Math.floor((diff % 60000)    / 1000);
-        if (days > 0)  return days  + 'd ' + pad(hours) + 'h left';
-        if (hours > 0) return hours + 'h ' + pad(mins)  + 'm left';
-        if (mins > 0)  return mins  + 'm ' + pad(secs)  + 's left';
-        return secs + 's left';
-      }
-
-      function priceExpired() {
-        clearInterval(discountTimer);
-
-        // Remove the inline intro label, leave just "✓ Now available"
-        var lbl = document.getElementById('introTimeLeft');
-        if (lbl) lbl.remove();
-
-        // Flip price to $64.99 with $99.99 strikethrough
-        var priceEl = document.querySelector('.tier-card.pro .tier-price');
-        if (priceEl) priceEl.innerHTML = '$64.99 <span class="tier-price-orig">$99.99</span>';
-
-        var noteEl = document.querySelector('.tier-card.pro .tier-price-note');
-        if (noteEl) noteEl.textContent = 'One-time purchase. Yours forever.';
-
-        var b1 = document.getElementById('proBtn1');
-        var b2 = document.getElementById('proBtn2');
-        if (b1) b1.innerHTML = 'Get Pro &mdash; $64.99 <span class="btn-orig-price">$99.99</span>';
-        if (b2) b2.innerHTML = 'Get Pro &mdash; $64.99 <span class="btn-orig-price">$99.99</span>';
-        updateMetaTags();
-      }
-
-      // ── Basic intro price expiry ──
-      function basicPriceExpired() {
-        clearInterval(basicDiscountTimer);
-        var avail = document.getElementById('basicAvailable');
-        if (avail) avail.innerHTML = '<span class="countdown-done">&#10003; Now available</span>';
-        var priceEl = document.querySelector('.tier-card:not(.pro) .tier-price');
-        if (priceEl) priceEl.innerHTML = '$39.99 <span class="tier-price-orig">$49.99</span>';
-        var noteEl = document.getElementById('basicPriceNote');
-        if (noteEl) noteEl.textContent = 'One-time purchase. Yours forever.';
-        var b1 = document.getElementById('basicBtn1');
-        var b2 = document.getElementById('basicBtn2');
-        if (b1) b1.innerHTML = 'Get Basic &mdash; $39.99';
-        if (b2) b2.innerHTML = 'Get Basic &mdash; $39.99';
-        updateMetaTags();
-      }
-
-      var basicDiscountTimer;
-
-      function startBasicCountdown() {
-        var avail = document.getElementById('basicAvailable');
-        if (avail) {
-          avail.innerHTML =
-            '<span class="countdown-done">&#10003; Now available</span>' +
-            '<span id="basicIntroTimeLeft" style="margin-left:auto;font-size:0.68rem;font-weight:600;color:rgba(46,204,64,0.65);white-space:nowrap;letter-spacing:0.3px;">Intro · --</span>';
+        var el    = document.getElementById('launchTimer');
+        if (el) {
+          el.textContent = days > 0
+            ? days + 'd ' + pad(hours) + ':' + pad(mins) + ':' + pad(secs)
+            : pad(hours) + ':' + pad(mins) + ':' + pad(secs);
         }
-        function basicDiscountTick() {
-          var diff = basicDiscountEnd - Date.now();
-          if (diff <= 0) { basicPriceExpired(); return; }
-          var lbl = document.getElementById('basicIntroTimeLeft');
-          if (lbl) lbl.textContent = 'Intro price ends · ' + introLabel(diff);
-        }
-        if (Date.now() >= basicDiscountEnd) { basicPriceExpired(); return; }
-        basicDiscountTick();
-        basicDiscountTimer = setInterval(basicDiscountTick, 1000);
       }
 
-      var discountTimer;
-
-      function startDiscountCountdown() {
-        var cd = document.getElementById('proCountdown');
-        if (cd) {
-          cd.innerHTML =
-            '<span class="countdown-done">&#10003; Now available</span>' +
-            '<span id="introTimeLeft" style="margin-left:auto;font-size:0.68rem;font-weight:600;color:rgba(212,175,55,0.65);white-space:nowrap;letter-spacing:0.3px;">Intro · --</span>';
-        }
-
-        function discountTick() {
-          var diff = discountEnd - Date.now();
-          if (diff <= 0) { priceExpired(); return; }
-          var lbl = document.getElementById('introTimeLeft');
-          if (lbl) lbl.textContent = 'Intro price ends · ' + introLabel(diff);
-        }
-
-        if (Date.now() >= discountEnd) { priceExpired(); return; }
-        discountTick();
-        discountTimer = setInterval(discountTick, 1000);
-      }
-
-      function goLive() {
-        clearInterval(timer);
-        var badge   = document.getElementById('proBadge');
-        var b1      = document.getElementById('proBtn1');
-        var b2      = document.getElementById('proBtn2');
-        var proCard = document.querySelector('.tier-card.pro');
-
-        if (proCard) proCard.classList.add('live');
-
-        if (badge) {
-          badge.classList.remove('badge-date', 'badge-soon');
-          badge.classList.add('badge-live');
-          badge.textContent = 'Live';
-        }
-
-        var basicVer = document.getElementById('basicVersion');
-        if (basicVer) basicVer.textContent = 'v2.0.0';
-
-        var basicBtn1 = document.getElementById('basicBtn1');
-        var basicBtn2 = document.getElementById('basicBtn2');
-        if (basicBtn1) basicBtn1.innerHTML = 'Get Basic &mdash; $29.99';
-        if (basicBtn2) basicBtn2.innerHTML = 'Get Basic &mdash; $29.99';
-
-        var basicNote = document.getElementById('basicPriceNote');
-        if (basicNote) basicNote.textContent = 'Introductory price · One-time purchase.';
-
-        if (b1) b1.classList.remove('btn-pro-locked');
-        if (b2) b2.classList.remove('btn-pro-locked');
-
-        // Basic intro countdown inside the Now available pill
-        startBasicCountdown();
-
-        // Pro discount countdown inline inside the Now available pill
-        startDiscountCountdown();
-      }
-
-      function tick() {
-        const diff = target - Date.now();
-        if (diff <= 0) { goLive(); return; }
-        const days  = Math.floor(diff / 86400000);
-        const hours = Math.floor((diff % 86400000) / 3600000);
-        const mins  = Math.floor((diff % 3600000)  / 60000);
-        const secs  = Math.floor((diff % 60000)    / 1000);
-        dEl.textContent = pad(days);
-        hEl.textContent = pad(hours);
-        mEl.textContent = pad(mins);
-        sEl.textContent = pad(secs);
-        var bD = document.getElementById('basicCdDays');
-        var bH = document.getElementById('basicCdHours');
-        var bM = document.getElementById('basicCdMins');
-        var bS = document.getElementById('basicCdSecs');
-        if (bD) bD.textContent = pad(days);
-        if (bH) bH.textContent = pad(hours);
-        if (bM) bM.textContent = pad(mins);
-        if (bS) bS.textContent = pad(secs);
-      }
-
-      var timer;
+      var launchTimer;
       if (Date.now() >= target) { goLive(); }
-      else { tick(); timer = setInterval(tick, 1000); }
+      else { tick(); launchTimer = setInterval(tick, 1000); }
     })();
   </script>
 

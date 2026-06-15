@@ -281,10 +281,10 @@
       background-clip: text;
     }
     .tier-pill.pro-pill .tier-pill-label { color: rgba(212,175,55,0.7); }
-    .tier-pill.pro-pill.locked {
+    .tier-pill.locked {
       position: relative; opacity: 0.45; overflow: hidden;
     }
-    .tier-pill.pro-pill.locked::after {
+    .tier-pill.locked::after {
       content: ''; position: absolute;
       left: -10%; right: -10%; top: 50%;
       height: 1px; background: var(--muted);
@@ -600,12 +600,12 @@
             <img src="st2logo.png" alt="Selecta Tool" style="width:30px;height:30px;object-fit:contain;filter:drop-shadow(0 0 8px rgba(46,204,64,0.3))"/>
             <span class="featured-name">Selecta Tool</span>
           </div>
-          <span class="featured-status" id="toolStatus">Live</span>
+          <span class="featured-status" id="toolStatus" style="background:rgba(255,193,7,0.08);border-color:rgba(255,193,7,0.28);color:var(--gold);">June 15</span>
         </div>
         <p class="featured-desc">Serato crate management for serious DJs — build, sort, export, fix and master your library. Available for Serato DJ Pro on Mac &amp; Windows.</p>
 
         <div class="featured-pricing">
-          <div class="tier-pill">
+          <div class="tier-pill locked" id="homePillBasic">
             <span class="tier-pill-label">Basic</span>
             <span class="tier-pill-price" id="homePillBasicPrice">$29.99</span>
             <span class="tier-pill-orig" id="homePillBasicOrig">$39.99</span>
@@ -617,9 +617,7 @@
           </div>
         </div>
         <p id="homeProNote" style="font-size:0.72rem;color:var(--muted);margin-bottom:4px;margin-top:-8px;">
-          <span style="color:var(--green);">&#10003; v1.1.2 available now</span>
-          &nbsp;&middot;&nbsp;
-          <span style="color:var(--gold);">v2.0.0 + Pro launching in <span id="homeLaunchTimer">--:--:--</span></span>
+          <span style="color:var(--green);">v2.0.0 goes live in <span id="homeLaunchTimer">--:--:--</span></span>
         </p>
         <p id="homeIntroNote" style="display:none;font-size:0.7rem;color:var(--muted);margin-bottom:16px;letter-spacing:0.2px;"></p>
 
@@ -815,7 +813,7 @@
 
     // ── LAUNCH COUNTDOWNS ──
     (function() {
-      // June 15 03:00 AM EDT = June 15 07:00 UTC
+      // TEST: 1 minute from load
       var TARGET_PRO         = new Date('2026-06-15T07:00:00Z');
       // Pro intro price ends July 13 (28 days)
       var DISCOUNT_END       = new Date('2026-07-13T07:00:00Z');
@@ -841,8 +839,8 @@
         var proDone   = Date.now() >= DISCOUNT_END;
         if (basicDone && proDone) { el.style.display = 'none'; return; }
         var parts = [];
-        if (!basicDone) parts.push('<span style="color:rgba(46,204,64,0.55);">Basic intro ends Jul 6</span>');
-        if (!proDone)   parts.push('<span style="color:rgba(212,175,55,0.55);">Pro intro ends Jul 13</span>');
+        if (!basicDone) parts.push('<span style="color:rgba(46,204,64,0.55);">Basic intro price ends Jul 6</span>');
+        if (!proDone)   parts.push('<span style="color:rgba(212,175,55,0.55);">Pro intro price ends Jul 13</span>');
         el.innerHTML = parts.join('<span style="color:#333;"> &nbsp;&middot;&nbsp; </span>');
         el.style.display = 'block';
       }
@@ -867,12 +865,19 @@
         updateMetaTags();
       }
 
-      // ── Pro pill: launch → unlock pill, hide note, start discount watches ──
+      // ── Launch → unlock both pills, flip status badge, start discount watches ──
       function proGoLive() {
-        var pill = document.getElementById('homePillPro');
-        var note = document.getElementById('homeProNote');
-        if (pill) pill.classList.remove('locked');
+        var pillPro   = document.getElementById('homePillPro');
+        var pillBasic = document.getElementById('homePillBasic');
+        var note      = document.getElementById('homeProNote');
+        var status    = document.getElementById('toolStatus');
+        if (pillPro)   pillPro.classList.remove('locked');
+        if (pillBasic) pillBasic.classList.remove('locked');
         if (note) note.innerHTML = '<span style="color:var(--green);">&#10003; v2.0.0 available now</span>';
+        if (status) {
+          status.removeAttribute('style');
+          status.textContent = 'Live';
+        }
         updateIntroNote();
         clearInterval(proLaunchTimer);
 
