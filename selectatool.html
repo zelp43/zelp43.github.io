@@ -783,7 +783,7 @@
             <span class="tier-badge badge-live" id="proBadge">Live</span>
           </div>
           <div class="tier-price">$54.99 <span class="tier-price-orig">$64.99</span></div>
-          <p class="tier-price-note">Introductory price &middot; One-time purchase.</p>
+          <p class="tier-price-note" id="proPriceNote">Introductory price &middot; One-time purchase.</p>
           <span class="tier-version">v2.0.0</span>
           <a href="https://juggernautmusic.gumroad.com/l/selectatoolpro" target="_blank" rel="noopener noreferrer" class="btn-tier btn-pro" id="proBtn1">
             Get Pro &mdash; $54.99 <span class="btn-orig-price">$64.99</span>
@@ -1316,6 +1316,56 @@
         }, 60000);
       }
 
+      var basicFlipped = false, proFlipped = false;
+
+      function tickIntroCountdowns() {
+        var now = Date.now();
+
+        // Basic inline countdown
+        var basicNote = document.getElementById('basicPriceNote');
+        if (basicNote) {
+          var diff = basicDiscount - now;
+          if (diff > 0) {
+            var d = Math.floor(diff / 86400000);
+            var h = Math.floor((diff % 86400000) / 3600000);
+            var m = Math.floor((diff % 3600000) / 60000);
+            var s = Math.floor((diff % 60000) / 1000);
+            basicNote.innerHTML = 'Introductory price &middot; ends in ' + d + 'd ' + pad(h) + 'h ' + pad(m) + 'm ' + pad(s) + 's &middot; One-time purchase.';
+          } else if (!basicFlipped) {
+            basicFlipped = true;
+            var priceEl = document.querySelector('.tier-card:not(.pro) .tier-price');
+            if (priceEl) priceEl.innerHTML = '$39.99 <span class="tier-price-orig">$49.99</span>';
+            basicNote.textContent = 'One-time purchase. Yours forever.';
+            var b1 = document.getElementById('basicBtn1'), b2 = document.getElementById('basicBtn2');
+            if (b1) b1.innerHTML = 'Get Basic &mdash; $39.99';
+            if (b2) b2.innerHTML = 'Get Basic &mdash; $39.99';
+            updateMeta();
+          }
+        }
+
+        // Pro inline countdown
+        var proNote = document.getElementById('proPriceNote');
+        if (proNote) {
+          var diff2 = proDiscount - now;
+          if (diff2 > 0) {
+            var d2 = Math.floor(diff2 / 86400000);
+            var h2 = Math.floor((diff2 % 86400000) / 3600000);
+            var m2 = Math.floor((diff2 % 3600000) / 60000);
+            var s2 = Math.floor((diff2 % 60000) / 1000);
+            proNote.innerHTML = 'Introductory price &middot; ends in ' + d2 + 'd ' + pad(h2) + 'h ' + pad(m2) + 'm ' + pad(s2) + 's &middot; One-time purchase.';
+          } else if (!proFlipped) {
+            proFlipped = true;
+            var pEl = document.querySelector('.tier-card.pro .tier-price');
+            if (pEl) pEl.innerHTML = '$64.99 <span class="tier-price-orig">$99.99</span>';
+            proNote.textContent = 'One-time purchase. Yours forever.';
+            var p1 = document.getElementById('proBtn1'), p2 = document.getElementById('proBtn2');
+            if (p1) p1.innerHTML = 'Get Pro &mdash; $64.99 <span class="btn-orig-price">$99.99</span>';
+            if (p2) p2.innerHTML = 'Get Pro &mdash; $64.99 <span class="btn-orig-price">$99.99</span>';
+            updateMeta();
+          }
+        }
+      }
+
       function goLive() {
         clearInterval(launchTimer);
         // Fade banner out then remove
@@ -1329,6 +1379,9 @@
         // Update Basic price note to show introductory pricing
         var basicNote = document.getElementById('basicPriceNote');
         if (basicNote) basicNote.textContent = 'Introductory price \xb7 One-time purchase.';
+        // Start intro price countdowns
+        tickIntroCountdowns();
+        setInterval(tickIntroCountdowns, 1000);
         // Start silent discount timers
         watchDiscounts();
         updateMeta();
