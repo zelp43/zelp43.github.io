@@ -531,6 +531,7 @@
       .featured-inner { padding: 20px 18px 18px; }
     }
   </style>
+  <script src="version.js"></script>
 </head>
 <body>
 
@@ -608,16 +609,16 @@
           <div class="tier-pill locked" id="homePillBasic">
             <span class="tier-pill-label">Basic</span>
             <span class="tier-pill-price" id="homePillBasicPrice">$29.99</span>
-            <span class="tier-pill-orig" id="homePillBasicOrig">$39.99</span>
+            <span class="tier-pill-orig" id="homePillBasicOrig">$49.99</span>
           </div>
           <div class="tier-pill pro-pill locked" id="homePillPro">
             <span class="tier-pill-label">Pro</span>
             <span class="tier-pill-price" id="homePillProPrice">$54.99</span>
-            <span class="tier-pill-orig" id="homePillProOrig">$64.99</span>
+            <span class="tier-pill-orig" id="homePillProOrig">$99.99</span>
           </div>
         </div>
         <p id="homeProNote" style="font-size:0.72rem;color:var(--muted);margin-bottom:4px;margin-top:-8px;">
-          <span style="color:var(--green);">v2.0.0 goes live in <span id="homeLaunchTimer">--:--:--</span></span>
+          <span style="color:var(--green);"><span id="homeVersionLabel">v2.0.1</span> goes live in <span id="homeLaunchTimer">--:--:--</span></span>
         </p>
         <p id="homeIntroNote" style="display:none;font-size:0.7rem;color:var(--muted);margin-bottom:16px;letter-spacing:0.2px;"></p>
 
@@ -813,18 +814,16 @@
 
     // ── LAUNCH COUNTDOWNS ──
     (function() {
-      // TEST: 1 minute from load
-      var TARGET_PRO         = new Date('2026-06-15T07:00:00Z');
-      // Pro intro price ends July 13 (28 days)
-      var DISCOUNT_END       = new Date('2026-07-13T07:00:00Z');
-      // Basic intro price ends July 6 (21 days)
-      var BASIC_DISCOUNT_END = new Date('2026-07-06T07:00:00Z');
+      var TARGET_PRO    = new Date('2026-06-15T07:00:00Z');
+      var INTRO_END     = new Date('2026-07-29T07:00:00Z'); // Both intro prices end July 29
       var TARGET_CRATES = new Date('2026-07-01T07:00:00Z');
       var TARGET_SFX    = new Date('2026-06-06T10:01:00Z');
 
+      function pad2(n) { return String(n).padStart(2, '0'); }
+
       function updateMetaTags() {
-        var basicPrice = Date.now() >= BASIC_DISCOUNT_END ? '$39.99' : '$29.99';
-        var proPrice   = Date.now() >= DISCOUNT_END       ? '$64.99' : '$54.99';
+        var basicPrice = Date.now() >= INTRO_END ? '$39.99' : '$29.99';
+        var proPrice   = Date.now() >= INTRO_END ? '$64.99' : '$54.99';
         var desc   = document.querySelector('meta[name="description"]');
         var ogDesc = document.querySelector('meta[property="og:description"]');
         if (desc)   desc.setAttribute('content',  'Selecta Hub — DJ tools for Serato. Selecta Tool Basic ' + basicPrice + ' \xb7 Pro ' + proPrice + '. Crates & Sound FX available now.');
@@ -832,40 +831,45 @@
       }
       updateMetaTags();
 
+      var introCountdownTimer = null;
+
       function updateIntroNote() {
         var el = document.getElementById('homeIntroNote');
         if (!el) return;
-        var basicDone = Date.now() >= BASIC_DISCOUNT_END;
-        var proDone   = Date.now() >= DISCOUNT_END;
-        if (basicDone && proDone) { el.style.display = 'none'; return; }
-        var parts = [];
-        if (!basicDone) parts.push('<span style="color:rgba(46,204,64,0.55);">Basic intro price ends Jul 6</span>');
-        if (!proDone)   parts.push('<span style="color:rgba(212,175,55,0.55);">Pro intro price ends Jul 13</span>');
-        el.innerHTML = parts.join('<span style="color:#333;"> &nbsp;&middot;&nbsp; </span>');
+        var diff = INTRO_END - Date.now();
+        if (diff <= 0) {
+          el.style.display = 'none';
+          if (introCountdownTimer) { clearInterval(introCountdownTimer); introCountdownTimer = null; }
+          return;
+        }
+        var d = Math.floor(diff / 86400000);
+        var h = Math.floor((diff % 86400000) / 3600000);
+        var m = Math.floor((diff % 3600000)  / 60000);
+        var s = Math.floor((diff % 60000)    / 1000);
+        el.innerHTML =
+          '<span style="color:rgba(212,175,55,0.75);font-weight:600;">Intro prices end in&nbsp;</span>' +
+          '<span style="color:#D4AF37;font-weight:800;font-variant-numeric:tabular-nums;">' +
+          d + 'd&nbsp;' + pad2(h) + ':' + pad2(m) + ':' + pad2(s) +
+          '</span>' +
+          '<span style="color:var(--muted);"> &nbsp;&middot;&nbsp; Basic $29.99 &middot; Pro $54.99</span>';
         el.style.display = 'block';
       }
 
-      // ── Pro pill: discount expired → flip to $64.99, strikethrough becomes $99.99 ──
-      function proDiscountExpired() {
-        var priceEl = document.getElementById('homePillProPrice');
-        var origEl  = document.getElementById('homePillProOrig');
-        if (priceEl) priceEl.textContent = '$64.99';
-        if (origEl)  origEl.textContent  = '$99.99';
+      // ── Both prices expire together on July 29 ──
+      function introExpired() {
+        var priceBasic = document.getElementById('homePillBasicPrice');
+        var origBasic  = document.getElementById('homePillBasicOrig');
+        if (priceBasic) priceBasic.textContent = '$39.99';
+        if (origBasic)  origBasic.textContent  = '$49.99';
+        var pricePro = document.getElementById('homePillProPrice');
+        var origPro  = document.getElementById('homePillProOrig');
+        if (pricePro) pricePro.textContent = '$64.99';
+        if (origPro)  origPro.textContent  = '$99.99';
         updateIntroNote();
         updateMetaTags();
       }
 
-      // ── Basic pill: intro expired → flip to $39.99, strikethrough becomes $49.99 ──
-      function basicDiscountExpired() {
-        var priceEl = document.getElementById('homePillBasicPrice');
-        var origEl  = document.getElementById('homePillBasicOrig');
-        if (priceEl) priceEl.textContent = '$39.99';
-        if (origEl)  origEl.textContent  = '$49.99';
-        updateIntroNote();
-        updateMetaTags();
-      }
-
-      // ── Launch → unlock both pills, flip status badge, start discount watches ──
+      // ── Launch → unlock both pills, flip status badge, start intro countdown ──
       function proGoLive() {
         var pillPro   = document.getElementById('homePillPro');
         var pillBasic = document.getElementById('homePillBasic');
@@ -873,31 +877,25 @@
         var status    = document.getElementById('toolStatus');
         if (pillPro)   pillPro.classList.remove('locked');
         if (pillBasic) pillBasic.classList.remove('locked');
-        if (note) note.innerHTML = '<span style="color:var(--green);">&#10003; v2.0.0 available now</span>';
+        if (note) note.innerHTML = '<span style="color:var(--green);">&#10003; v' + APP_VERSION + ' available now</span>';
         if (status) {
           status.removeAttribute('style');
           status.textContent = 'Live';
         }
-        updateIntroNote();
         clearInterval(proLaunchTimer);
 
-        // Pro discount watch
-        if (Date.now() >= DISCOUNT_END) { proDiscountExpired(); }
-        else {
-          var proDiscTimer = setInterval(function() {
-            if (Date.now() >= DISCOUNT_END) { clearInterval(proDiscTimer); proDiscountExpired(); }
-          }, 5000);
-        }
-
-        // Basic discount watch
-        if (Date.now() >= BASIC_DISCOUNT_END) { basicDiscountExpired(); }
-        else {
-          var basicDiscTimer = setInterval(function() {
-            if (Date.now() >= BASIC_DISCOUNT_END) { clearInterval(basicDiscTimer); basicDiscountExpired(); }
+        if (Date.now() >= INTRO_END) {
+          introExpired();
+        } else {
+          updateIntroNote();
+          introCountdownTimer = setInterval(updateIntroNote, 1000);
+          // Fallback: fire introExpired when time is up
+          var discTimer = setInterval(function() {
+            if (Date.now() >= INTRO_END) { clearInterval(discTimer); introExpired(); }
           }, 5000);
         }
       }
-      function pad2(n) { return String(n).padStart(2, '0'); }
+
       function updateProLaunchTimer() {
         var diff = TARGET_PRO - Date.now();
         if (diff <= 0) { proGoLive(); return; }
@@ -949,6 +947,11 @@
       }, 30000);
       if (Date.now() >= TARGET_SFX) sfxGoLive();
     })();
+  </script>
+
+  <script>
+    var homeVersionLabel = document.getElementById('homeVersionLabel');
+    if (homeVersionLabel) homeVersionLabel.textContent = 'v' + APP_VERSION;
   </script>
 
 </body>
