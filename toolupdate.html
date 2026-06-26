@@ -195,9 +195,25 @@
       letter-spacing: 2px; text-transform: uppercase; white-space: nowrap;
     }
 
+    /* ── DOC LINKS ── */
+    .doc-links {
+      display: flex; gap: 8px; flex-wrap: wrap; justify-content: center;
+      margin-top: 20px; width: 100%;
+    }
+    .doc-link {
+      display: inline-flex; align-items: center; gap: 5px;
+      background: transparent; border: 1px solid var(--border);
+      border-radius: 8px; padding: 6px 12px;
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.3px;
+      color: var(--muted); text-decoration: none;
+      transition: border-color 0.18s, color 0.18s;
+    }
+    .doc-link:hover { border-color: var(--border-h); color: var(--text); }
+    .doc-link svg { width: 13px; height: 13px; flex-shrink: 0; fill: currentColor; }
+
     /* ── FOOTER NOTE ── */
     .footer-note {
-      margin-top: 36px; font-size: 0.72rem;
+      margin-top: 24px; font-size: 0.72rem;
       color: var(--muted); letter-spacing: 0.5px;
     }
 
@@ -227,7 +243,7 @@
 
     <img src="st2logo.png" alt="Selecta Tool" class="hero-logo" width="80" height="80"/>
 
-    <div class="version-pill" id="versionPill">v2.0.1</div>
+    <div class="version-pill" id="versionPill">v2.0.3</div>
 
     <h1 class="page-title">NEW <span class="g">UPDATE</span></h1>
     <p class="subtitle">
@@ -284,10 +300,26 @@
         <div class="option-body">
           <div class="option-title">Windows</div>
           <p class="option-desc">Windows 10 / 11 &mdash; .exe</p>
+          <p class="option-desc" style="margin-top:4px;color:rgba(255,193,7,0.65);font-size:0.72rem;">Major updates &amp; bug fixes only &mdash; not actively developed alongside Mac</p>
         </div>
         <span class="option-arrow">&#8594;</span>
       </a>
 
+    </div>
+
+    <div class="doc-links">
+      <a id="doc-readme" href="#" target="_blank" rel="noopener noreferrer" class="doc-link">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 1.5L18.5 9H13V3.5zM6 20V4h5v7h7v9H6z"/></svg>
+        README
+      </a>
+      <a id="doc-eula" href="#" target="_blank" rel="noopener noreferrer" class="doc-link">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-1 6h2v2h-2V7zm0 4h2v6h-2v-6z"/></svg>
+        EULA
+      </a>
+      <a id="doc-manual" href="#" target="_blank" rel="noopener noreferrer" class="doc-link">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 5c-1.11-.35-2.33-.5-3.5-.5-1.95 0-4.05.4-5.5 1.5-1.45-1.1-3.55-1.5-5.5-1.5S2.45 4.9 1 6v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1zm0 13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V8c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5v11.5z"/></svg>
+        Manual
+      </a>
     </div>
 
     <p class="footer-note">&copy; 2026 Juggernaut Music Group. All rights reserved.</p>
@@ -299,6 +331,9 @@
     document.getElementById('dl-mac-silicon').href = DOWNLOADS.mac_silicon;
     document.getElementById('dl-mac-intel').href   = DOWNLOADS.mac_intel;
     document.getElementById('dl-windows').href     = DOWNLOADS.windows;
+    document.getElementById('doc-readme').href     = DOWNLOADS.readme;
+    document.getElementById('doc-eula').href       = DOWNLOADS.eula;
+    document.getElementById('doc-manual').href     = DOWNLOADS.manual;
   </script>
 </body>
 </html>

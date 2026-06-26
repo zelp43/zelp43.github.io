@@ -25,6 +25,7 @@
       --muted:    #666666;
       --green:    #2ecc40;
       --gold:     #ffc107;
+      --purple:   #7B6EE8;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -150,18 +151,63 @@
     /* ── COMPARE SECTION ── */
     .compare-section {
       position: relative; z-index: 1;
-      max-width: 860px; margin: 0 auto;
+      max-width: 1080px; margin: 0 auto;
       padding: 0 20px 60px;
       animation: fadeUp 0.5s 0.2s ease both;
     }
     .tier-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(3, 1fr);
       gap: 16px;
       align-items: start;
     }
-    @media (max-width: 620px) {
-      .tier-grid { grid-template-columns: 1fr; }
+    /* ── MOBILE PLAN TABS ── */
+    .tier-tabs {
+      display: none;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+    .tier-tab {
+      flex: 1;
+      padding: 9px 4px;
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.2px;
+      text-align: center; border-radius: 8px;
+      border: 1px solid var(--border);
+      background: transparent; color: var(--muted);
+      cursor: pointer; font-family: 'Inter', sans-serif;
+      transition: background 0.18s, color 0.18s, border-color 0.18s;
+      white-space: nowrap;
+    }
+    .tier-tab[data-target="basic"] {
+      border-color: rgba(46,204,64,0.35);
+      background: rgba(46,204,64,0.08);
+      color: rgba(46,204,64,0.7);
+    }
+    .tier-tab[data-target="pro"] {
+      border-color: rgba(212,175,55,0.35);
+      background: rgba(212,175,55,0.08);
+      color: rgba(212,175,55,0.7);
+    }
+    .tier-tab[data-target="pro-plus"] {
+      border-color: rgba(123,110,232,0.35);
+      background: rgba(123,110,232,0.08);
+      color: rgba(123,110,232,0.7);
+    }
+    .tier-tab[data-target="basic"].tab-on {
+      background: var(--green); border-color: var(--green); color: var(--black);
+    }
+    .tier-tab[data-target="pro"].tab-on {
+      background: linear-gradient(105deg, #C8960C, #E8C547, #D4AF37);
+      border-color: #D4AF37; color: #1a0e00;
+    }
+    .tier-tab[data-target="pro-plus"].tab-on {
+      background: linear-gradient(105deg, #7B6EE8, #9B8EFF, #BEB4FF);
+      border-color: #9B8EFF; color: #fff;
+    }
+    @media (max-width: 900px) {
+      .tier-tabs { display: flex; }
+      .tier-grid { display: flex; flex-direction: column; gap: 16px; align-items: stretch; }
+      .tier-card { width: 100%; }
     }
 
     /* ── TIER CARD ── */
@@ -190,6 +236,30 @@
         box-shadow: 0 0 0 1px rgba(255,215,0,0.32), 0 0 72px rgba(255,215,0,0.52), 0 24px 64px rgba(212,175,55,0.36);
       }
     }
+    .tier-card.pro-plus {
+      border-color: rgba(123,110,232,0.4);
+      box-shadow: 0 0 0 1px rgba(123,110,232,0.06), 0 24px 64px rgba(123,110,232,0.1);
+      background: linear-gradient(180deg, rgba(123,110,232,0.04) 0%, var(--card) 28%);
+    }
+    .tier-card.pro-plus.live {
+      animation: purpleGlow 2.5s ease-in-out infinite;
+    }
+    .tier-card.pro-plus .badge-live {
+      background: rgba(123,110,232,0.14);
+      border-color: rgba(123,110,232,0.45);
+      color: #9B8EFF;
+      animation: purpleBadgePulse 2s ease-in-out infinite;
+    }
+    @keyframes purpleGlow {
+      0%, 100% {
+        border-color: rgba(123,110,232,0.52);
+        box-shadow: 0 0 0 1px rgba(123,110,232,0.1), 0 0 32px rgba(123,110,232,0.28), 0 24px 64px rgba(123,110,232,0.2);
+      }
+      50% {
+        border-color: rgba(165,152,255,0.9);
+        box-shadow: 0 0 0 1px rgba(165,152,255,0.32), 0 0 72px rgba(165,152,255,0.52), 0 24px 64px rgba(123,110,232,0.36);
+      }
+    }
 
     /* card header */
     .tier-head {
@@ -205,6 +275,12 @@
     }
     .tier-card.pro .tier-name {
       background: linear-gradient(135deg, #8B6914 0%, #D4AF37 20%, #FFD700 40%, #FFF3A3 50%, #FFD700 60%, #D4AF37 80%, #8B6914 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .tier-card.pro-plus .tier-name {
+      background: linear-gradient(135deg, #9B8EFF 0%, #BEB4FF 25%, #DDD8FF 45%, #EDE9FF 50%, #DDD8FF 60%, #BEB4FF 80%, #9B8EFF 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -274,6 +350,25 @@
       0%   { background-position: 0% center; }
       100% { background-position: 250% center; }
     }
+    .btn-pro-plus {
+      background: linear-gradient(105deg, #5B4ECC 0%, #7B6EE8 25%, #9B8EFF 45%, #BEB4FF 55%, #9B8EFF 75%, #7B6EE8 100%);
+      background-size: 250% auto;
+      color: #fff;
+      animation: purpleShimmer 5s ease-in-out infinite alternate;
+    }
+    @keyframes purpleShimmer {
+      0%   { background-position: 0% center; }
+      100% { background-position: 250% center; }
+    }
+    .btn-pro-plus-soon {
+      background: rgba(123,110,232,0.08) !important;
+      border: 1px solid rgba(123,110,232,0.22) !important;
+      color: rgba(165,152,255,0.55) !important;
+      cursor: not-allowed !important;
+      pointer-events: none;
+      opacity: 1 !important; transform: none !important; animation: none !important;
+    }
+    .btn-pro-plus-soon:hover { opacity: 1 !important; transform: none !important; }
     .btn-pro-soon {
       background: rgba(46,204,64,0.12);
       border: 1px solid rgba(46,204,64,0.35);
@@ -316,6 +411,23 @@
       background: rgba(255,255,255,0.015);
       border-bottom: 1px solid rgba(255,255,255,0.04);
     }
+    .feat-includes-banner {
+      padding: 12px 24px;
+      font-size: 0.82rem; font-weight: 700; color: var(--text);
+      background: rgba(255,255,255,0.03);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      display: flex; align-items: center; gap: 10px;
+      line-height: 1.35;
+    }
+    .feat-includes-banner .inc-check {
+      font-size: 1rem; flex-shrink: 0;
+    }
+    .feat-includes-banner .inc-note {
+      display: block; font-size: 0.7rem; font-weight: 500;
+      color: var(--muted); margin-top: 2px;
+    }
+    .tier-card.pro .feat-includes-banner .inc-check { color: #D4AF37; }
+    .tier-card.pro-plus .feat-includes-banner .inc-check { color: #9B8EFF; }
 
     .btn-pro-locked {
       background: rgba(212,175,55,0.08) !important;
@@ -348,6 +460,7 @@
     }
     .tier-card.pro .tier-version { color: rgba(212,175,55,0.55); }
     .tier-card.pro .feat-icon.check { color: #D4AF37; }
+    .tier-card.pro .feat-item.pro-only { background: rgba(212,175,55,0.025); }
     .tier-card.pro .badge-date {
       background: rgba(212,175,55,0.07);
       border-color: rgba(212,175,55,0.24);
@@ -372,6 +485,54 @@
     .tier-card.pro .countdown-num  { color: #D4AF37; }
     .tier-card.pro .countdown-sep  { color: rgba(212,175,55,0.4); }
     .tier-card.pro .countdown-done { color: #D4AF37; }
+
+    /* ── PRO PLUS PURPLE OVERRIDES ── */
+    .tier-card.pro-plus .tier-price {
+      background: linear-gradient(135deg, #9B8EFF 0%, #BEB4FF 25%, #DDD8FF 45%, #EDE9FF 50%, #DDD8FF 60%, #BEB4FF 80%, #9B8EFF 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .tier-card.pro-plus .tier-price-orig {
+      -webkit-text-fill-color: var(--muted);
+      background: none; background-clip: unset; -webkit-background-clip: unset;
+    }
+    .tier-card.pro-plus .tier-version { color: rgba(123,110,232,0.55); }
+    .tier-card.pro-plus .feat-icon.check { color: #9B8EFF; }
+    .tier-card.pro-plus .feat-item.pro-plus-only { background: rgba(123,110,232,0.025); }
+    .tier-card.pro-plus .badge-date {
+      background: rgba(123,110,232,0.07);
+      border-color: rgba(123,110,232,0.24);
+      color: rgba(123,110,232,0.65);
+    }
+    .tier-card.pro-plus .badge-soon {
+      background: rgba(123,110,232,0.14);
+      border-color: rgba(123,110,232,0.45);
+      color: #9B8EFF;
+      animation: purpleBadgePulse 2s ease-in-out infinite;
+    }
+    @keyframes purpleBadgePulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(123,110,232,0); opacity: 1; }
+      50%       { box-shadow: 0 0 0 5px rgba(123,110,232,0.2); opacity: 0.85; }
+    }
+    .badge-best-value {
+      background: linear-gradient(105deg, #5B4ECC, #9B8EFF);
+      border: 1px solid rgba(155,142,255,0.5);
+      color: #fff;
+    }
+    .tier-seats {
+      display: flex; align-items: center; gap: 8px; margin-bottom: 8px;
+    }
+    .seat-pips { display: flex; align-items: center; gap: 3px; }
+    .seat-computer {
+      width: 20px; height: 20px;
+      color: rgba(155,142,255,0.85);
+      flex-shrink: 0;
+    }
+    .tier-seats-label {
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.2px;
+      color: rgba(165,152,255,0.7);
+    }
 
     /* card footer */
     .tier-foot {
@@ -611,7 +772,7 @@
     @media (max-width: 480px) {
       nav { padding: 0 18px; }
       .hero { padding: 52px 18px 40px; }
-      .compare-section { padding: 0 14px 48px; }
+      .compare-section { padding-bottom: 40px; }
       .info-section { padding: 0 14px 60px; }
     }
 
@@ -652,8 +813,9 @@
       margin-left: 7px;
     }
     .tier-intro-cd.visible { display: inline; }
-    .basic-cd { color: var(--green); }
-    .pro-cd   { color: #D4AF37; }
+    .basic-cd    { color: var(--green); }
+    .pro-cd      { color: #D4AF37; }
+    .pro-plus-cd { color: #9B8EFF; }
   </style>
   <script src="version.js"></script>
 </head>
@@ -720,7 +882,7 @@
       </div>
     </div>
     <div id="launchBanner">
-      <span class="launch-label" id="launchLabel">v2.0.1 goes live in</span>
+      <span class="launch-label" id="launchLabel">v2.0.3 goes live in</span>
       <span id="launchTimer">--:--:--</span>
     </div>
   </section>
@@ -728,20 +890,35 @@
   <!-- TIER COMPARISON -->
   <section class="compare-section">
 
+    <div class="tier-tabs">
+      <button class="tier-tab tab-on" data-target="basic">Basic</button>
+      <button class="tier-tab" data-target="pro">Pro</button>
+      <button class="tier-tab" data-target="pro-plus">Pro Plus</button>
+    </div>
+
     <div class="tier-grid">
 
       <!-- ── BASIC ── -->
-      <div class="tier-card">
+      <div class="tier-card basic tab-active">
         <div class="tier-head">
           <div class="tier-name-row">
             <span class="tier-name">Selecta Tool</span>
             <span class="tier-badge badge-live" id="basicBadge">Live</span>
           </div>
+          <div class="tier-seats">
+            <div class="seat-pips">
+              <svg class="seat-computer" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="color:rgba(46,204,64,0.7);">
+                <rect x="2" y="3" width="20" height="13" rx="2" stroke="currentColor" stroke-width="1.8"/>
+                <path d="M8 19h8M12 16v3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <span class="tier-seats-label" style="color:rgba(46,204,64,0.6);">1-seat license</span>
+          </div>
           <div class="tier-price">$29.99 <span class="tier-price-orig">$49.99</span></div>
           <p class="tier-price-note" id="basicPriceNote">Introductory price &middot; One-time purchase.</p>
-          <span class="tier-version" id="basicVersion">v2.0.1</span><span class="tier-intro-cd basic-cd" id="basicCountdown"></span>
+          <span class="tier-version" id="basicVersion">v2.0.3</span><span class="tier-intro-cd basic-cd" id="basicCountdown"></span>
           <a href="https://juggernautmusic.gumroad.com/l/selectatool" target="_blank" rel="noopener noreferrer" class="btn-tier btn-basic" id="basicBtn1">
-            Get Basic &mdash; $29.99
+            Get Basic &mdash; $29.99 <span class="btn-orig-price">$49.99</span>
           </a>
         </div>
 
@@ -749,41 +926,65 @@
         <ul class="feat-list">
           <li class="feat-item">
             <span class="feat-icon check">&#10003;</span>
-            <span class="feat-label">Build Crates from Folder Structure</span>
+            <span>
+              <span class="feat-label">Build Crates from Folder Structure</span>
+              <span class="feat-label-note">Turn any folder hierarchy into Serato crates in one click</span>
+            </span>
           </li>
           <li class="feat-item">
             <span class="feat-icon check">&#10003;</span>
-            <span class="feat-label">Build &amp; export Serato crates</span>
+            <span>
+              <span class="feat-label">Build &amp; export Serato crates</span>
+              <span class="feat-label-note">Create ready-to-load .crate files Serato recognises instantly</span>
+            </span>
           </li>
           <li class="feat-item">
             <span class="feat-icon check">&#10003;</span>
-            <span class="feat-label">Scan folder &mdash; auto-populate crate tracks</span>
+            <span>
+              <span class="feat-label">Scan folder &mdash; auto-populate crate tracks</span>
+              <span class="feat-label-note">Drop a folder and every track inside is added to the crate automatically</span>
+            </span>
           </li>
           <li class="feat-item">
             <span class="feat-icon check">&#10003;</span>
-            <span class="feat-label">Import Apple Music, iTunes &amp; playlist files</span>
+            <span>
+              <span class="feat-label">Import Apple Music, iTunes &amp; playlist files</span>
+              <span class="feat-label-note">Pull playlists straight from Apple Music or iTunes into Serato crates</span>
+            </span>
           </li>
           <li class="feat-item">
             <span class="feat-icon check">&#10003;</span>
-            <span class="feat-label">Live Library viewer with search &amp; refresh</span>
+            <span>
+              <span class="feat-label">Live Library viewer with search &amp; refresh</span>
+              <span class="feat-label-note">Browse your entire Serato library in real time — search and refresh without reopening</span>
+            </span>
           </li>
           <li class="feat-item">
             <span class="feat-icon check">&#10003;</span>
-            <span class="feat-label">In-app mini player &mdash; preview any track</span>
+            <span>
+              <span class="feat-label">In-app mini player &mdash; preview any track</span>
+              <span class="feat-label-note">Click any track to hear it before you crate it — no DJ software needed</span>
+            </span>
           </li>
           <li class="feat-item">
             <span class="feat-icon check">&#10003;</span>
-            <span class="feat-label">Duplicate Finder (and Resolver)</span>
+            <span>
+              <span class="feat-label">Duplicate Finder (and Resolver)</span>
+              <span class="feat-label-note">Finds duplicate tracks across the database, removes the copies, and keeps the winning file</span>
+            </span>
           </li>
           <li class="feat-item">
             <span class="feat-icon check">&#10003;</span>
-            <span class="feat-label">Crate export (audio files + tracklist TXT)</span>
+            <span>
+              <span class="feat-label">Crate export (audio files + tracklist TXT)</span>
+              <span class="feat-label-note">Export the audio files and a plain-text tracklist from any crate</span>
+            </span>
           </li>
         </ul>
 
         <div class="tier-foot">
           <a href="https://juggernautmusic.gumroad.com/l/selectatool" target="_blank" rel="noopener noreferrer" class="btn-tier btn-basic" id="basicBtn2">
-            Get Basic &mdash; $29.99
+            Get Basic &mdash; $29.99 <span class="btn-orig-price">$49.99</span>
           </a>
         </div>
       </div>
@@ -795,48 +996,30 @@
             <span class="tier-name">Selecta Tool Pro</span>
             <span class="tier-badge badge-live" id="proBadge">Live</span>
           </div>
+          <div class="tier-seats">
+            <div class="seat-pips">
+              <svg class="seat-computer" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="color:rgba(212,175,55,0.7);">
+                <rect x="2" y="3" width="20" height="13" rx="2" stroke="currentColor" stroke-width="1.8"/>
+                <path d="M8 19h8M12 16v3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <span class="tier-seats-label" style="color:rgba(212,175,55,0.6);">1-seat license</span>
+          </div>
           <div class="tier-price">$54.99 <span class="tier-price-orig">$99.99</span></div>
           <p class="tier-price-note" id="proPriceNote">Introductory price &middot; One-time purchase.</p>
-          <span class="tier-version" id="proVersion">v2.0.1</span><span class="tier-intro-cd pro-cd" id="proCountdown"></span>
+          <span class="tier-version" id="proVersion">v2.0.3</span><span class="tier-intro-cd pro-cd" id="proCountdown"></span>
           <a href="https://juggernautmusic.gumroad.com/l/selectatoolpro" target="_blank" rel="noopener noreferrer" class="btn-tier btn-pro" id="proBtn1">
             Get Pro &mdash; $54.99 <span class="btn-orig-price">$99.99</span>
           </a>
         </div>
 
-        <p class="feat-section-label">Everything in Basic and More</p>
+        <div class="feat-includes-banner">
+          <span class="inc-check">&#10003;</span>
+          <span>Includes all Basic + Pro features
+            <span class="inc-note">Everything in Basic, plus the Pro-exclusive tools below</span>
+          </span>
+        </div>
         <ul class="feat-list">
-          <li class="feat-item">
-            <span class="feat-icon check">&#10003;</span>
-            <span class="feat-label">Build Crates from Folder Structure</span>
-          </li>
-          <li class="feat-item">
-            <span class="feat-icon check">&#10003;</span>
-            <span class="feat-label">Build &amp; export Serato crates</span>
-          </li>
-          <li class="feat-item">
-            <span class="feat-icon check">&#10003;</span>
-            <span class="feat-label">Scan folder &mdash; auto-populate crate tracks</span>
-          </li>
-          <li class="feat-item">
-            <span class="feat-icon check">&#10003;</span>
-            <span class="feat-label">Import Apple Music, iTunes &amp; playlist files</span>
-          </li>
-          <li class="feat-item">
-            <span class="feat-icon check">&#10003;</span>
-            <span class="feat-label">Live Library viewer with search &amp; refresh</span>
-          </li>
-          <li class="feat-item">
-            <span class="feat-icon check">&#10003;</span>
-            <span class="feat-label">In-app mini player &mdash; preview any track</span>
-          </li>
-          <li class="feat-item">
-            <span class="feat-icon check">&#10003;</span>
-            <span class="feat-label">Duplicate Finder (and Resolver)</span>
-          </li>
-          <li class="feat-item">
-            <span class="feat-icon check">&#10003;</span>
-            <span class="feat-label">Crate export (audio files + tracklist TXT)</span>
-          </li>
           <li class="feat-item pro-only">
             <span class="feat-icon check">&#10003;</span>
             <span>
@@ -884,6 +1067,13 @@
             <span>
               <span class="feat-label">File Doctor</span>
               <span class="feat-label-note">Find and fix every missing or broken file link</span>
+            </span>
+          </li>
+          <li class="feat-item pro-only">
+            <span class="feat-icon check">&#10003;</span>
+            <span>
+              <span class="feat-label">Import Streaming Playlist Links</span>
+              <span class="feat-label-note">Paste an Apple Music, Deezer or Spotify link — matches tracks to your current library. Missing tracks can be added later with File Doctor</span>
             </span>
           </li>
           <li class="feat-item pro-only">
@@ -941,7 +1131,120 @@
         </div>
       </div>
 
+      <!-- ── PRO PLUS ── -->
+      <div class="tier-card pro-plus live">
+        <div class="tier-head">
+          <div class="tier-name-row">
+            <span class="tier-name">Selecta Tool Pro Plus</span>
+            <div style="display:flex;gap:5px;align-items:center;flex-shrink:0;">
+              <span class="tier-badge badge-best-value">Best Value</span>
+              <span class="tier-badge badge-live">Live</span>
+            </div>
+          </div>
+          <div class="tier-seats">
+            <div class="seat-pips">
+              <!-- monitor icon × 3 -->
+              <svg class="seat-computer" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="2" y="3" width="20" height="13" rx="2" stroke="currentColor" stroke-width="1.8"/>
+                <path d="M8 19h8M12 16v3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+              </svg>
+              <svg class="seat-computer" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="2" y="3" width="20" height="13" rx="2" stroke="currentColor" stroke-width="1.8"/>
+                <path d="M8 19h8M12 16v3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+              </svg>
+              <svg class="seat-computer" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="2" y="3" width="20" height="13" rx="2" stroke="currentColor" stroke-width="1.8"/>
+                <path d="M8 19h8M12 16v3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <span class="tier-seats-label">3-seat license</span>
+          </div>
+          <p style="font-size:0.72rem;color:rgba(123,110,232,0.6);margin-top:6px;display:flex;align-items:center;gap:4px;">
+            <svg viewBox="0 0 170 170" xmlns="http://www.w3.org/2000/svg" fill="currentColor" style="width:11px;height:11px;flex-shrink:0;"><path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.2-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.93.21-9.84-1.96-14.75-6.52-3.13-2.73-7.04-7.41-11.73-14.04-5.03-7.08-9.17-15.29-12.41-24.65-3.47-10.11-5.21-19.9-5.21-29.38 0-10.86 2.35-20.22 7.05-28.07 3.69-6.3 8.61-11.27 14.75-14.92 6.15-3.65 12.79-5.51 19.95-5.63 3.91 0 9.05 1.21 15.43 3.59 6.36 2.39 10.45 3.6 12.24 3.6 1.34 0 5.88-1.42 13.57-4.24 7.28-2.62 13.42-3.7 18.45-3.27 13.63 1.1 23.87 6.47 30.68 16.15-12.19 7.39-18.22 17.73-18.1 31 .11 10.34 3.86 18.94 11.23 25.77 3.34 3.17 7.07 5.62 11.22 7.36-.9 2.61-1.85 5.11-2.86 7.51zM119.11 7.24c0 8.1-2.96 15.67-8.86 22.67-7.12 8.32-15.73 13.13-25.07 12.37a25.1 25.1 0 0 1-.19-3.07c0-7.78 3.39-16.1 9.4-22.91 3-3.45 6.82-6.31 11.45-8.6 4.62-2.25 8.99-3.5 13.1-3.71.12 1.08.17 2.17.17 3.25z"/></svg>
+            macOS only &middot; v2.0.3 or later
+          </p>
+          <div class="tier-price" id="proPlusPrice">$144.99 <span class="tier-price-orig" id="proPlusOrig">$270</span></div>
+          <p class="tier-price-note" id="proPlusPriceNote">Introductory price &middot; One-time purchase.</p>
+          <span class="tier-version" id="proPlusVersion">v2.0.3</span><span class="tier-intro-cd pro-plus-cd" id="proPlusCountdown"></span>
+          <a href="https://juggernautmusic.gumroad.com/l/toolproplus" target="_blank" rel="noopener noreferrer" class="btn-tier btn-pro-plus" id="proPlusBtn1">
+            Get Pro Plus &mdash; $144.99 <span class="btn-orig-price">$270</span>
+          </a>
+        </div>
+
+        <div class="feat-includes-banner">
+          <span class="inc-check">&#10003;</span>
+          <span>Includes everything in Pro &amp; Basic
+            <span class="inc-note">Every Basic and Pro feature included, plus Pro Plus exclusives below</span>
+          </span>
+        </div>
+        <ul class="feat-list">
+          <li class="feat-item pro-plus-only">
+            <span class="feat-icon check">&#10003;</span>
+            <span>
+              <span class="feat-label">3-seat license</span>
+              <span class="feat-label-note">Install on up to 3 machines or assign to 3 users</span>
+            </span>
+          </li>
+          <li class="feat-item pro-plus-only">
+            <span class="feat-icon check">&#10003;</span>
+            <span>
+              <span class="feat-label">Seat revoke &amp; transfer</span>
+              <span class="feat-label-note">Revoke a seat up to 3&times; within 30 days &mdash; move machines or reassign users</span>
+            </span>
+          </li>
+          <li class="feat-item pro-plus-only">
+            <span class="feat-icon check">&#10003;</span>
+            <span>
+              <span class="feat-label">Extra seats at a discounted rate</span>
+              <span class="feat-label-note">Need more than 3 seats? Purchase additional seats at the intro price for up to 60 days after your purchase</span>
+            </span>
+          </li>
+          <li class="feat-item pro-plus-only">
+            <span class="feat-icon check">&#10003;</span>
+            <span>
+              <span class="feat-label">Import Streaming Playlist Links</span>
+              <span class="feat-label-note">Paste an Apple Music, Deezer or Spotify link — matches tracks to your current library. Missing tracks can be added later with File Doctor</span>
+            </span>
+          </li>
+          <li class="feat-item pro-plus-only">
+            <span class="feat-icon check">&#10003;</span>
+            <span>
+              <span class="feat-label">WhatsApp &amp; SMS support</span>
+              <span class="feat-label-note">Direct line &mdash; skip the email queue</span>
+            </span>
+          </li>
+          <li class="feat-item pro-plus-only">
+            <span class="feat-icon check">&#10003;</span>
+            <span>
+              <span class="feat-label">Exclusive special genre crates</span>
+              <span class="feat-label-note">Curated genre crate packs &mdash; included and updated</span>
+            </span>
+          </li>
+          <li class="feat-item pro-plus-only">
+            <span class="feat-icon check">&#10003;</span>
+            <span>
+              <span class="feat-label">Sound FX bundle included</span>
+              <span class="feat-label-note">Pre-organised SFX crates ready to drop in Serato</span>
+            </span>
+          </li>
+          <li class="feat-item pro-plus-only">
+            <span class="feat-icon check">&#10003;</span>
+            <span>
+              <span class="feat-label">Early beta access</span>
+              <span class="feat-label-note">Test new features 2–4 weeks before general release</span>
+            </span>
+          </li>
+        </ul>
+
+        <div class="tier-foot">
+          <a href="https://juggernautmusic.gumroad.com/l/toolproplus" target="_blank" rel="noopener noreferrer" class="btn-tier btn-pro-plus" id="proPlusBtn2">
+            Get Pro Plus &mdash; $144.99 <span class="btn-orig-price">$270</span>
+          </a>
+        </div>
+      </div>
+
     </div><!-- /tier-grid -->
+
   </section>
 
   <!-- INFO BLOCKS -->
@@ -1156,6 +1459,11 @@
         </details>
 
         <details class="faq-item-toggle">
+          <summary class="faq-q">What is Pro Plus and who is it for?<span class="faq-q-icon">&#43;</span></summary>
+          <p class="faq-a">Pro Plus includes everything in Basic and Pro, plus a <strong>3-seat license</strong> — install on up to 3 machines or share with up to 3 users. It also adds seat revoke &amp; transfer (up to 3× within 30 days), the ability to purchase extra seats at the intro price for up to 60 days, WhatsApp &amp; SMS direct support, exclusive special genre crates, a Sound FX bundle, early beta access, and streaming playlist import from Apple Music, Deezer &amp; Spotify. It's built for DJs who work across multiple setups, run a sound system, or want the best value across a crew. <strong>Pro Plus is available on Mac only (v2.0.3 and later).</strong> Windows users interested in Pro Plus should contact us at <a href="mailto:info@selectahub.com">info@selectahub.com</a>.</p>
+        </details>
+
+        <details class="faq-item-toggle">
           <summary class="faq-q">Is it a subscription or a one-time purchase?<span class="faq-q-icon">&#43;</span></summary>
           <p class="faq-a">One-time purchase. Pay once, own it forever. No recurring fees, no expiry.</p>
         </details>
@@ -1222,6 +1530,12 @@
     <div class="info-card">
       <p class="info-card-head">Upgrading from Basic to Pro?</p>
       <strong>No redownload needed.</strong> Basic users can upgrade directly inside the app &mdash; go to Settings and enter your Pro license key. That's it.
+    </div>
+
+    <!-- Windows notice -->
+    <div class="info-card" style="border-color:rgba(255,193,7,0.2);">
+      <p class="info-card-head" style="color:rgba(255,193,7,0.6);">Windows support</p>
+      Due to low download numbers, <strong>Windows versions will receive major updates and bug fixes only</strong> and will not be actively developed alongside the Mac version. Mac (Intel &amp; Apple Silicon) remains the primary platform. <strong>Windows is currently on v2.0.1.</strong> <strong>Pro Plus is not available on Windows.</strong> Windows users interested in Pro Plus should contact support at <a href="mailto:info@selectahub.com">info@selectahub.com</a>.
     </div>
 
     <!-- Corporate / multi-seat -->
@@ -1291,8 +1605,8 @@
       }, true);
 
       function updateMeta() {
-        var bp = Date.now() >= introPriceEnd ? '$39.99' : '$29.99';
-        var pp = Date.now() >= introPriceEnd ? '$64.99' : '$54.99';
+        var bp = Date.now() >= introPriceEnd ? PRICES.basic.regular : PRICES.basic.intro;
+        var pp = Date.now() >= introPriceEnd ? PRICES.pro.regular   : PRICES.pro.intro;
         var d  = document.querySelector('meta[name="description"]');
         var og = document.querySelector('meta[property="og:description"]');
         if (d)  d.setAttribute('content',  'Selecta Tool — DJ crate management for Serato. Basic ' + bp + ' \xb7 Pro ' + pp + '. Mac Intel, Apple Silicon & Windows 10/11.');
@@ -1314,31 +1628,43 @@
           var label = '· intro price ends in ' + d + 'd ' + pad(h) + ':' + pad(m) + ':' + pad(s);
           var bc = document.getElementById('basicCountdown');
           var pc = document.getElementById('proCountdown');
-          if (bc) { bc.textContent = label; bc.classList.add('visible'); }
-          if (pc) { pc.textContent = label; pc.classList.add('visible'); }
+          var ppc = document.getElementById('proPlusCountdown');
+          if (bc)  { bc.textContent  = label; bc.classList.add('visible'); }
+          if (pc)  { pc.textContent  = label; pc.classList.add('visible'); }
+          if (ppc) { ppc.textContent = label; ppc.classList.add('visible'); }
         } else if (!introFlipped) {
           introFlipped = true;
           // Hide inline countdowns
           var bc = document.getElementById('basicCountdown');
           var pc = document.getElementById('proCountdown');
-          if (bc) bc.classList.remove('visible');
-          if (pc) pc.classList.remove('visible');
+          var ppc = document.getElementById('proPlusCountdown');
+          if (bc)  bc.classList.remove('visible');
+          if (pc)  pc.classList.remove('visible');
+          if (ppc) ppc.classList.remove('visible');
           // Flip Basic
-          var bPrice = document.querySelector('.tier-card:not(.pro) .tier-price');
-          if (bPrice) bPrice.innerHTML = '$39.99 <span class="tier-price-orig">$49.99</span>';
+          var bPrice = document.querySelector('.tier-card.basic .tier-price');
+          if (bPrice) bPrice.innerHTML = PRICES.basic.regular + ' <span class="tier-price-orig">' + PRICES.basic.orig + '</span>';
           var bNote = document.getElementById('basicPriceNote');
           if (bNote) bNote.textContent = 'One-time purchase. Yours forever.';
           var b1 = document.getElementById('basicBtn1'), b2 = document.getElementById('basicBtn2');
-          if (b1) b1.innerHTML = 'Get Basic — $39.99';
-          if (b2) b2.innerHTML = 'Get Basic — $39.99';
+          if (b1) b1.innerHTML = 'Get Basic — ' + PRICES.basic.regular + ' <span class="btn-orig-price">' + PRICES.basic.orig + '</span>';
+          if (b2) b2.innerHTML = 'Get Basic — ' + PRICES.basic.regular + ' <span class="btn-orig-price">' + PRICES.basic.orig + '</span>';
           // Flip Pro
           var pEl = document.querySelector('.tier-card.pro .tier-price');
-          if (pEl) pEl.innerHTML = '$64.99 <span class="tier-price-orig">$99.99</span>';
+          if (pEl) pEl.innerHTML = PRICES.pro.regular + ' <span class="tier-price-orig">' + PRICES.pro.orig + '</span>';
           var pNote = document.getElementById('proPriceNote');
           if (pNote) pNote.textContent = 'One-time purchase. Yours forever.';
           var p1 = document.getElementById('proBtn1'), p2 = document.getElementById('proBtn2');
-          if (p1) p1.innerHTML = 'Get Pro — $64.99 <span class="btn-orig-price">$99.99</span>';
-          if (p2) p2.innerHTML = 'Get Pro — $64.99 <span class="btn-orig-price">$99.99</span>';
+          if (p1) p1.innerHTML = 'Get Pro — ' + PRICES.pro.regular + ' <span class="btn-orig-price">' + PRICES.pro.orig + '</span>';
+          if (p2) p2.innerHTML = 'Get Pro — ' + PRICES.pro.regular + ' <span class="btn-orig-price">' + PRICES.pro.orig + '</span>';
+          // Flip Pro Plus
+          var ppEl = document.getElementById('proPlusPrice');
+          if (ppEl) ppEl.innerHTML = PRICES.proPlus.regular + ' <span class="tier-price-orig" id="proPlusOrig">' + PRICES.proPlus.orig + '</span>';
+          var ppNote = document.getElementById('proPlusPriceNote');
+          if (ppNote) ppNote.textContent = 'One-time purchase. Yours forever.';
+          var pp1 = document.getElementById('proPlusBtn1'), pp2 = document.getElementById('proPlusBtn2');
+          if (pp1) pp1.innerHTML = 'Get Pro Plus &mdash; ' + PRICES.proPlus.regular + ' <span class="btn-orig-price">' + PRICES.proPlus.orig + '</span>';
+          if (pp2) pp2.innerHTML = 'Get Pro Plus &mdash; ' + PRICES.proPlus.regular + ' <span class="btn-orig-price">' + PRICES.proPlus.orig + '</span>';
           updateMeta();
         }
       }
@@ -1378,12 +1704,38 @@
       if (Date.now() >= target) { goLive(); }
       else { tick(); launchTimer = setInterval(tick, 1000); }
     })();
+
+    // Mobile plan tabs — carousel: clicked card floats to top, rest follow in original order
+    (function() {
+      var tabs = document.querySelectorAll('.tier-tab');
+      if (!tabs.length) return;
+      var cardOrder = ['basic', 'pro', 'pro-plus'];
+      var cardMap = {};
+      document.querySelectorAll('.tier-card').forEach(function(c) {
+        if (c.classList.contains('basic'))         cardMap['basic']    = c;
+        else if (c.classList.contains('pro-plus')) cardMap['pro-plus'] = c;
+        else if (c.classList.contains('pro'))      cardMap['pro']      = c;
+      });
+      var grid = document.querySelector('.tier-grid');
+      function activateTab(tab) {
+        tabs.forEach(function(t) { t.classList.remove('tab-on'); });
+        tab.classList.add('tab-on');
+        var target = tab.dataset.target;
+        if (!grid) return;
+        var newOrder = [target].concat(cardOrder.filter(function(k) { return k !== target; }));
+        newOrder.forEach(function(k) { if (cardMap[k]) grid.appendChild(cardMap[k]); });
+      }
+      tabs.forEach(function(tab) {
+        tab.addEventListener('click', function() { activateTab(this); });
+      });
+    })();
   </script>
 
   <script>
     document.getElementById('launchLabel').textContent = 'v' + APP_VERSION + ' goes live in';
     document.getElementById('basicVersion').textContent = 'v' + APP_VERSION;
     document.getElementById('proVersion').textContent = 'v' + APP_VERSION;
+    document.getElementById('proPlusVersion').textContent = 'v' + APP_VERSION;
   </script>
 
 </body>
