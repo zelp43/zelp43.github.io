@@ -1,1034 +1,140 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <link rel="icon" type="image/x-icon" href="SH_TRANSPARENT_NEW.ico"/>
-  <link rel="apple-touch-icon" href="SH_TRANSPARENT_NEW.png"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Selecta Hub — DJ Tools &amp; Resources</title>
-  <meta property="og:type" content="website"/>
-  <meta property="og:url" content="https://selectahub.com"/>
-  <meta property="og:title" content="Selecta Hub — The Ultimate DJ Resource"/>
-  <meta property="og:description" content="DJ tools, crates, and sound effects built for serious DJs."/>
-  <meta property="og:image" content="https://selectahub.com/og-social-card.png"/>
-  <meta name="twitter:card" content="summary_large_image"/>
-  <meta name="description" content="DJ tools, crates, and sound effects built for serious DJs. Selecta Tool, Crates, Sound FX and more."/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Selecta Hub — Scheduled Maintenance</title>
+  <link rel="icon" href="SH_TRANSPARENT_NEW.ico" />
+  <link rel="apple-touch-icon" href="SH_TRANSPARENT_NEW.png" />
+  <meta name="robots" content="noindex" />
   <style>
     :root {
-      --black:    #0a0a0a;
-      --card:     #111111;
-      --card-2:   #161616;
-      --border:   #222222;
-      --border-h: #333333;
-      --text:     #eeeeee;
-      --muted:    #666666;
-      --green:    #2ecc40;
-      --gold:     #ffc107;
-      --wa:       #25d366;
+      --bg: #0b0d12;
+      --bg2: #141821;
+      --fg: #f2f4f8;
+      --muted: #9aa3b2;
+      --accent: #4f8cff;
     }
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
     body {
-      background: var(--black);
-      color: var(--text);
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: radial-gradient(circle at 50% 30%, var(--bg2), var(--bg) 70%);
+      color: var(--fg);
       min-height: 100vh;
-      -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 24px;
     }
-
-    body::before {
-      content: '';
-      position: fixed; inset: 0; z-index: 0; pointer-events: none;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-      background-size: 200px; opacity: 0.35;
+    .logo {
+      width: 140px;
+      height: auto;
+      margin-bottom: 28px;
+      filter: drop-shadow(0 6px 24px rgba(0,0,0,0.5));
     }
-
-    .glow {
-      position: fixed; top: 0; left: 50%; transform: translateX(-50%);
-      width: 900px; height: 500px;
-      background: radial-gradient(ellipse at 50% 0%, rgba(46,204,64,0.07) 0%, transparent 65%);
-      pointer-events: none; z-index: 0;
-    }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(16px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    /* ── NAV ── */
-    nav {
-      position: sticky; top: 0; z-index: 200;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 32px; height: 64px;
-      border-bottom: 1px solid var(--border);
-      background: rgba(10,10,10,0.88);
-      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-    }
-    .nav-brand {
-      display: flex; align-items: center; gap: 10px;
-      text-decoration: none; color: var(--text); flex-shrink: 0;
-    }
-    .nav-logo { width: 30px; height: 30px; object-fit: contain; display: block; }
-    .nav-wordmark { font-size: 1rem; font-weight: 800; letter-spacing: 1.5px; }
-    .nav-links { display: flex; align-items: center; gap: 4px; }
-    .nav-link {
-      font-size: 0.82rem; font-weight: 500; color: var(--muted);
-      text-decoration: none; padding: 6px 12px; border-radius: 6px;
-      transition: color 0.18s, background 0.18s;
-    }
-    .nav-link:hover { color: var(--text); background: rgba(255,255,255,0.06); }
-    .nav-cta {
-      margin-left: 8px; font-size: 0.82rem; font-weight: 700;
-      color: var(--black); background: var(--green);
-      text-decoration: none; padding: 8px 18px; border-radius: 6px;
-      transition: opacity 0.18s;
-    }
-    .nav-cta:hover { opacity: 0.85; }
-    .hamburger {
-      display: none; flex-direction: column; gap: 5px;
-      cursor: pointer; padding: 6px; background: none; border: none; outline: none;
-    }
-    .hamburger span {
-      display: block; width: 22px; height: 2px;
-      background: var(--text); border-radius: 2px;
-      transition: transform 0.25s, opacity 0.25s;
-    }
-    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-    .hamburger.open span:nth-child(2) { opacity: 0; }
-    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-    .mobile-menu {
-      display: none; position: fixed; top: 64px; left: 0; right: 0; bottom: 0;
-      background: rgba(10,10,10,0.98); backdrop-filter: blur(16px);
-      z-index: 190; flex-direction: column; align-items: center; justify-content: center;
-      gap: 8px; opacity: 0; transition: opacity 0.22s;
-      border-top: 1px solid var(--border);
-    }
-    .mobile-menu.open { display: flex; opacity: 1; }
-    .mobile-link {
-      font-size: 1.15rem; font-weight: 700; letter-spacing: 0px;
-      color: var(--muted); text-decoration: none; padding: 10px 20px;
-      transition: color 0.18s;
-    }
-    .mobile-link:hover { color: var(--text); }
-    .mobile-cta {
-      margin-top: 16px; font-size: 0.9rem; font-weight: 700;
-      color: var(--black); background: var(--green);
-      text-decoration: none; padding: 12px 32px; border-radius: 8px;
-      letter-spacing: 1px; text-transform: uppercase;
-    }
-    @media (max-width: 720px) { .nav-links { display: none; } .hamburger { display: flex; } }
-
-    .mobile-socials {
-      display: flex; align-items: center; gap: 12px;
-      margin-top: 24px;
-    }
-    .mobile-social-btn {
-      display: flex; align-items: center; justify-content: center;
-      width: 44px; height: 44px; border-radius: 10px;
-      background: var(--card-2); border: 1px solid var(--border);
-      color: var(--muted); text-decoration: none;
-      transition: border-color 0.18s, color 0.18s;
-    }
-    .mobile-social-btn:hover { border-color: var(--border-h); color: var(--text); }
-    .mobile-social-btn svg { width: 18px; height: 18px; fill: currentColor; }
-
-    /* ── HERO ── */
-    .hero {
-      position: relative; z-index: 1;
-      display: flex; flex-direction: column; align-items: center;
-      text-align: center; padding: 72px 24px 28px;
-      max-width: 820px; margin: 0 auto;
-      animation: fadeUp 0.5s ease both;
-    }
-    .hero-logo {
-      width: 76px; height: 76px; object-fit: contain; display: block;
-      margin-bottom: 22px;
-      filter: drop-shadow(0 0 32px rgba(46,204,64,0.26));
-      will-change: filter;
-    }
-    .hero-title {
-      font-size: clamp(2.6rem, 8vw, 5rem);
-      font-weight: 900; letter-spacing: -1.5px; line-height: 1;
-      margin-bottom: 8px;
-    }
-    .hero-title .g { color: var(--green); }
-    .hero-sub {
-      font-size: clamp(0.7rem, 1.8vw, 0.82rem);
-      font-weight: 700; letter-spacing: 4px;
-      text-transform: uppercase; color: var(--gold);
-      margin-bottom: 18px;
-    }
-    .hero-desc {
-      font-size: 0.92rem; color: var(--muted);
-      line-height: 1.7; max-width: 440px; margin-bottom: 32px;
-    }
-    .hero-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: center; }
-    .btn-green {
-      font-size: 0.875rem; font-weight: 700; color: var(--black);
-      background: var(--green); text-decoration: none;
-      padding: 11px 24px; border-radius: 7px;
-      transition: opacity 0.18s;
-    }
-    .btn-green:hover { opacity: 0.86; }
-    .btn-ghost {
-      font-size: 0.875rem; font-weight: 600; color: var(--muted);
-      background: transparent; border: 1px solid var(--border);
-      text-decoration: none; padding: 11px 24px; border-radius: 7px;
-      transition: border-color 0.18s, color 0.18s;
-    }
-    .btn-ghost:hover { border-color: var(--border-h); color: var(--text); }
-
-    /* ── PAGE BODY ── */
-    .page-body {
-      position: relative; z-index: 1;
-      max-width: 1060px; margin: 0 auto; padding: 0 24px 80px;
-    }
-
-    /* ── SECTION LABEL ── */
-    .section-label-row {
-      display: flex; align-items: center; gap: 14px; margin-bottom: 16px;
-      animation: fadeUp 0.5s 0.1s ease both;
-    }
-    .section-label {
-      font-size: 0.6rem; font-weight: 700; letter-spacing: 3px;
-      text-transform: uppercase; color: var(--muted); white-space: nowrap;
-    }
-    .section-rule { flex: 1; height: 1px; background: var(--border); }
-
-    /* ── FEATURED CARD ── */
-    /* Glow lives on a wrapper pseudo-element — opacity only = zero repaints */
-    @keyframes featuredGlow {
-      0%, 100% { opacity: 0; }
-      50%       { opacity: 1; }
-    }
-    .featured-wrap {
-      position: relative;
+    h1 {
+      font-size: clamp(1.5rem, 4vw, 2.4rem);
+      font-weight: 700;
+      letter-spacing: -0.5px;
       margin-bottom: 12px;
-      animation: fadeUp 0.5s 0.15s ease both;
     }
-    .featured-wrap::before {
-      content: '';
-      position: absolute; inset: 0;
-      border-radius: 16px;
-      border: 1px solid rgba(46,204,64,0.55);
-      box-shadow: 0 0 20px 6px rgba(46,204,64,0.1);
-      opacity: 0;
-      pointer-events: none;
-      animation: featuredGlow 3.5s ease-in-out 0.65s infinite;
+    p.sub {
+      color: var(--muted);
+      font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+      max-width: 520px;
+      line-height: 1.55;
+      margin-bottom: 36px;
     }
-    .featured-card {
-      background: var(--card); border: 1px solid rgba(46,204,64,0.3);
-      border-radius: 16px; overflow: hidden;
-      box-shadow: 0 0 0 1px rgba(46,204,64,0.06), 0 24px 64px rgba(46,204,64,0.05);
-      text-decoration: none; color: var(--text);
-      display: block;
-      transition: border-color 0.22s, transform 0.22s, box-shadow 0.22s;
+    .countdown {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
     }
-    .featured-card:hover {
-      border-color: rgba(46,204,64,0.5);
-      transform: translateY(-2px);
-      box-shadow: 0 0 0 1px rgba(46,204,64,0.1), 0 32px 80px rgba(46,204,64,0.08);
+    .unit {
+      background: var(--bg2);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 14px;
+      padding: 18px 20px;
+      min-width: 84px;
     }
-    .featured-wrap:hover::before { opacity: 0; }
-    .featured-inner {
-      padding: 28px 28px 24px;
+    .unit .num {
+      font-size: clamp(1.8rem, 6vw, 2.8rem);
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      color: var(--fg);
     }
-    .featured-top {
-      display: flex; align-items: center; justify-content: space-between;
-      gap: 12px; flex-wrap: wrap; margin-bottom: 6px;
+    .unit .label {
+      margin-top: 6px;
+      font-size: 0.7rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--muted);
     }
-    .featured-name {
-      font-size: 1.25rem; font-weight: 900; letter-spacing: -0.3px;
-      color: var(--green);
+    .done-msg {
+      display: none;
+      font-size: clamp(1.1rem, 3vw, 1.5rem);
+      font-weight: 600;
+      color: var(--accent);
+      max-width: 520px;
+      line-height: 1.5;
     }
-    .featured-status {
-      font-size: 0.6rem; font-weight: 700; letter-spacing: 1.2px;
-      text-transform: uppercase; padding: 3px 9px; border-radius: 100px;
-      background: rgba(46,204,64,0.1); border: 1px solid rgba(46,204,64,0.3);
-      color: var(--green);
-    }
-    .featured-desc {
-      font-size: 0.875rem; color: var(--muted); line-height: 1.65;
-      margin-bottom: 20px; max-width: 560px;
-    }
-
-    /* pricing row */
-    .featured-pricing {
-      display: flex; align-items: center; gap: 10px; flex-wrap: nowrap;
-      margin-bottom: 20px;
-    }
-    .tier-pill {
-      display: flex; align-items: baseline; gap: 6px;
-      background: var(--card-2); border: 1px solid var(--border);
-      border-radius: 8px; padding: 8px 14px;
-    }
-    .tier-pill-label {
-      font-size: 0.68rem; font-weight: 700; letter-spacing: 1.5px;
-      text-transform: uppercase; color: var(--muted);
-    }
-    .tier-pill-price {
-      font-size: 1.1rem; font-weight: 800; letter-spacing: -0.5px;
-    }
-    .tier-pill.pro-pill { border-color: rgba(212,175,55,0.35); }
-    .tier-pill.pro-pill .tier-pill-price {
-      background: linear-gradient(135deg, #8B6914 0%, #D4AF37 20%, #FFD700 40%, #FFF3A3 50%, #FFD700 60%, #D4AF37 80%, #8B6914 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    .tier-pill.pro-pill .tier-pill-label { color: rgba(212,175,55,0.7); }
-    .tier-pill.pro-plus-pill {
-      border-color: rgba(123,110,232,0.35);
-      flex-direction: column; align-items: flex-start; gap: 5px;
-    }
-    .tier-pill.pro-plus-pill .tier-pill-price {
-      background: linear-gradient(135deg, #9B8EFF 0%, #BEB4FF 25%, #DDD8FF 45%, #EDE9FF 50%, #DDD8FF 60%, #BEB4FF 80%, #9B8EFF 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    .tier-pill.pro-plus-pill .tier-pill-label { color: rgba(123,110,232,0.7); }
-    .tier-pill.pro-plus-pill .tier-pill-price-row { display: flex; align-items: baseline; gap: 6px; }
-    .pill-machines { display: flex; align-items: center; gap: 3px; }
-    .pill-machine-icon { width: 13px; height: 13px; color: rgba(155,142,255,0.7); flex-shrink: 0; }
-    .pill-seats-label { font-size: 0.58rem; font-weight: 600; color: rgba(155,142,255,0.6); margin-left: 3px; letter-spacing: 0.2px; }
-    .tier-pill.soon { opacity: 0.65; }
-    .tier-pill.locked {
-      position: relative; opacity: 0.45; overflow: hidden;
-    }
-    .tier-pill.locked::after {
-      content: ''; position: absolute;
-      left: -10%; right: -10%; top: 50%;
-      height: 1px; background: var(--muted);
-      transform: rotate(-20deg);
-    }
-    .nav-link-disabled {
-      pointer-events: none !important; cursor: default !important;
-      opacity: 0.3;
-    }
-    .tier-pill-orig {
-      font-size: 0.78rem; font-weight: 500; color: var(--muted);
-      text-decoration: line-through;
-    }
-
-    /* feature chips */
-    .featured-feats {
-      display: flex; flex-wrap: wrap; gap: 6px;
-      margin-bottom: 22px;
-    }
-    .feat-chip {
-      font-size: 0.72rem; font-weight: 500; color: var(--muted);
-      background: var(--card-2); border: 1px solid var(--border);
-      padding: 4px 10px; border-radius: 6px;
-    }
-    .feat-chip.highlight {
-      color: var(--green);
-      background: rgba(46,204,64,0.06);
-      border-color: rgba(46,204,64,0.2);
-    }
-
-    /* cta row */
-    .featured-cta {
-      display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
-      padding-top: 18px; border-top: 1px solid var(--border);
-    }
-    .btn-feat-primary {
-      font-size: 0.85rem; font-weight: 700;
-      color: var(--black); background: var(--green);
-      text-decoration: none; padding: 10px 22px; border-radius: 7px;
-      transition: opacity 0.18s;
-    }
-    .btn-feat-primary:hover { opacity: 0.86; }
-    .btn-feat-ghost {
-      font-size: 0.85rem; font-weight: 600; color: var(--muted);
-      background: transparent; border: 1px solid var(--border);
-      text-decoration: none; padding: 10px 22px; border-radius: 7px;
-      transition: border-color 0.18s, color 0.18s;
-    }
-    .btn-feat-ghost:hover { border-color: var(--border-h); color: var(--text); }
-    .featured-cta-note {
-      font-size: 0.72rem; color: var(--muted); margin-left: 4px;
-    }
-
-    /* ── SECONDARY GRID ── */
-    .secondary-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
-      animation: fadeUp 0.5s 0.22s ease both;
-    }
-    @media (max-width: 860px) { .secondary-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 480px) { .secondary-grid { grid-template-columns: 1fr 1fr; gap: 8px; } }
-
-    .sec-card {
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: 14px; padding: 18px 18px;
-      text-decoration: none; color: var(--text);
-      display: flex; flex-direction: column; gap: 4px;
-      min-height: 140px; position: relative; overflow: hidden;
-      transition: border-color 0.22s, transform 0.22s, box-shadow 0.22s;
-    }
-    .sec-card::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0;
-      height: 2px; opacity: 0; transition: opacity 0.22s;
-    }
-    .sec-card.green::before { background: linear-gradient(90deg, var(--green), transparent 70%); }
-    .sec-card.gold::before  { background: linear-gradient(90deg, var(--gold), transparent 70%); }
-    a.sec-card:hover { transform: translateY(-2px); box-shadow: 0 12px 36px rgba(0,0,0,0.5); }
-    a.sec-card.green:hover { border-color: rgba(46,204,64,0.35); }
-    a.sec-card.gold:hover  { border-color: rgba(255,193,7,0.35); }
-    a.sec-card:hover::before { opacity: 1; }
-    .sec-card.dim { opacity: 0.5; cursor: default; }
-    .sec-card.dim:hover { transform: none; box-shadow: none; opacity: 0.6; }
-
-    .sec-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 6px; margin-bottom: 6px; }
-    .sec-name { font-size: 0.85rem; font-weight: 800; letter-spacing: -0.1px; line-height: 1.25; }
-    .sec-card.green .sec-name { color: var(--green); }
-    .sec-card.gold  .sec-name { color: var(--gold); }
-    .sec-badge {
-      font-size: 0.55rem; font-weight: 700; letter-spacing: 1px;
-      text-transform: uppercase; padding: 2px 7px; border-radius: 100px;
-      white-space: nowrap; flex-shrink: 0;
-    }
-    @keyframes badgePulse {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(46,204,64,0); opacity: 1; }
-      50%       { box-shadow: 0 0 0 5px rgba(46,204,64,0.18); opacity: 0.82; }
-    }
-    .badge-live  {
-      background: rgba(46,204,64,0.1); border: 1px solid rgba(46,204,64,0.3); color: var(--green);
-      animation: badgePulse 2s ease-in-out infinite;
-    }
-    .badge-date  { background: rgba(46,204,64,0.05); border: 1px solid rgba(46,204,64,0.18); color: rgba(46,204,64,0.5); }
-    .badge-soon  { background: rgba(255,193,7,0.08); border: 1px solid rgba(255,193,7,0.28); color: var(--gold); }
-    .featured-status { animation: badgePulse 2s ease-in-out infinite; }
-
-    /* locked secondary card */
-    .sec-card-locked { pointer-events: none !important; opacity: 0.55; }
-    .sec-card-locked .sec-arrow { opacity: 0; }
-
-    .sec-desc { font-size: 0.75rem; color: var(--muted); line-height: 1.55; flex: 1; }
-    .sec-foot {
-      display: flex; align-items: center; justify-content: space-between;
-      margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border);
-    }
-    .sec-meta { font-size: 0.68rem; font-weight: 600; color: var(--muted); }
-    .sec-arrow { font-size: 0.9rem; color: var(--muted); transition: color 0.18s, transform 0.18s; }
-    a.sec-card:hover .sec-arrow { color: var(--text); transform: translateX(3px); }
-
-    /* ── ABOUT & COMMUNITY ── */
-    .lower-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-top: 12px;
-      animation: fadeUp 0.5s 0.28s ease both;
-    }
-    @media (max-width: 640px) { .lower-grid { grid-template-columns: 1fr; } }
-
-    .about-card {
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: 14px; padding: 24px 24px;
-    }
-    .about-eyebrow {
-      font-size: 0.58rem; font-weight: 700; letter-spacing: 3px;
-      text-transform: uppercase; color: var(--muted); margin-bottom: 8px;
-    }
-    .about-heading {
-      font-size: 1.5rem; font-weight: 900; letter-spacing: -0.5px;
-      line-height: 1.1; margin-bottom: 12px;
-    }
-    .about-heading .g { color: var(--green); }
-    .about-body { font-size: 0.82rem; color: var(--muted); line-height: 1.75; }
-    .about-body strong { color: var(--text); font-weight: 600; }
-
-    .community-card {
-      display: flex; align-items: center; gap: 16px;
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: 14px; padding: 24px 24px;
-      text-decoration: none; color: var(--text);
-      position: relative; overflow: hidden;
-      transition: border-color 0.22s, transform 0.22s, box-shadow 0.22s;
-    }
-    .community-card::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-      background: linear-gradient(90deg, var(--wa), transparent 60%);
-      opacity: 0; transition: opacity 0.22s;
-    }
-    .community-card:hover {
-      border-color: rgba(37,211,102,0.35); transform: translateY(-2px);
-      box-shadow: 0 12px 36px rgba(0,0,0,0.5);
-    }
-    .community-card:hover::before { opacity: 1; }
-    .wa-icon { width: 40px; height: 40px; object-fit: contain; flex-shrink: 0; }
-    .comm-body { flex: 1; }
-    .comm-title { font-size: 0.9rem; font-weight: 700; color: var(--wa); margin-bottom: 4px; }
-    .comm-desc { font-size: 0.78rem; color: var(--muted); line-height: 1.6; }
-    .comm-arrow { color: var(--muted); font-size: 1rem; flex-shrink: 0; transition: color 0.18s, transform 0.18s; }
-    .community-card:hover .comm-arrow { color: var(--text); transform: translateX(4px); }
-
-    /* ── CONTACT TOGGLE ── */
-    .contact-toggle {
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: 14px; overflow: hidden;
-      margin-top: 12px;
-      animation: fadeUp 0.5s 0.32s ease both;
-    }
-    .contact-toggle[open] { border-color: var(--border-h); }
-    .contact-summary {
-      padding: 20px 24px; cursor: pointer;
-      display: flex; align-items: center; justify-content: space-between; gap: 12px;
-      list-style: none; user-select: none;
-    }
-    .contact-summary::-webkit-details-marker { display: none; }
-    .contact-eyebrow {
-      font-size: 0.6rem; font-weight: 700; letter-spacing: 3px;
-      text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 3px;
-    }
-    .contact-title { font-size: 0.92rem; font-weight: 700; color: var(--text); }
-    .contact-chevron { color: var(--muted); font-size: 0.75rem; transition: transform 0.22s; flex-shrink: 0; }
-    .contact-toggle[open] .contact-chevron { transform: rotate(180deg); }
-
-    .contact-body { padding: 0 24px 24px; }
-    .contact-form { display: flex; flex-direction: column; gap: 12px; }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    @media (max-width: 540px) { .form-row { grid-template-columns: 1fr; } }
-    .form-group { display: flex; flex-direction: column; gap: 6px; }
-    .form-label {
-      font-size: 0.62rem; font-weight: 700; letter-spacing: 1.5px;
-      text-transform: uppercase; color: var(--muted);
-    }
-    .form-input {
-      background: var(--card-2); border: 1px solid var(--border);
-      border-radius: 8px; padding: 10px 14px;
-      font-family: 'Inter', sans-serif; font-size: 0.85rem;
-      color: var(--text); outline: none; width: 100%;
-      transition: border-color 0.18s;
-    }
-    .form-input::placeholder { color: var(--muted); }
-    .form-input:focus { border-color: var(--border-h); }
-    .form-textarea { min-height: 110px; resize: vertical; }
-    .form-submit {
-      align-self: flex-start;
-      font-family: 'Inter', sans-serif; font-size: 0.85rem; font-weight: 700;
-      color: var(--black); background: var(--green);
-      border: none; border-radius: 7px; padding: 10px 22px;
-      cursor: pointer; transition: opacity 0.18s;
-    }
-    .form-submit:hover { opacity: 0.86; }
-
-    /* ── FOOTER ── */
-    .footer-wrap { position: relative; z-index: 1; border-top: 1px solid var(--border); margin-top: 52px; }
     footer {
-      max-width: 1100px; margin: 0 auto; padding: 24px;
-      display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
-    }
-    .footer-left { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
-    .footer-copy { font-size: 0.75rem; color: var(--muted); }
-    .footer-link { font-size: 0.75rem; color: var(--muted); text-decoration: none; transition: color 0.18s; }
-    .footer-link:hover { color: var(--text); }
-    .footer-right { display: flex; align-items: center; gap: 6px; }
-    .social-btn {
-      display: flex; align-items: center; justify-content: center;
-      width: 34px; height: 34px; border-radius: 7px;
-      background: transparent; border: 1px solid var(--border); color: var(--muted);
-      text-decoration: none; transition: background 0.18s, border-color 0.18s, color 0.18s;
-    }
-    .social-btn:hover { background: rgba(255,255,255,0.06); border-color: var(--border-h); color: var(--text); }
-    .social-btn svg { width: 14px; height: 14px; fill: currentColor; }
-
-    @media (max-width: 600px) {
-      .featured-pricing {
-        flex-direction: column;
-        gap: 6px;
-      }
-      .tier-pill {
-        width: 100%;
-      }
-    }
-
-    @media (max-width: 480px) {
-      nav { padding: 0 18px; }
-      .hero { padding: 52px 18px 48px; }
-      .page-body { padding: 0 14px 60px; }
-      .featured-inner { padding: 20px 18px 18px; }
+      position: absolute;
+      bottom: 20px;
+      color: var(--muted);
+      font-size: 0.8rem;
     }
   </style>
-  <script src="version.js"></script>
 </head>
 <body>
+  <img class="logo" src="SH_TRANSPARENT_NEW.png" alt="Selecta Hub" />
+  <h1>Scheduled Maintenance</h1>
+  <p class="sub">We're making improvements behind the scenes. Selecta Hub will be back online shortly — thanks for your patience.</p>
 
-  <div class="glow"></div>
-
-  <!-- NAV -->
-  <nav>
-    <a href="/" class="nav-brand">
-      <img src="SH_TRANSPARENT_NEW.png" alt="Selecta Hub logo" class="nav-logo" width="30" height="30"/>
-      <span class="nav-wordmark">SELECTA HUB</span>
-    </a>
-    <div class="nav-links">
-      <a href="selectatool.html"    class="nav-link">Selecta Tool</a>
-      <a href="selectacrates.html"  class="nav-link" id="navCrates">Crates</a>
-      <a href="selectasoundfx.html" class="nav-link" id="navSfx">Sound FX</a>
-      <a href="mailto:info@selectahub.com" class="nav-link">Contact</a>
-    </div>
-    <button class="hamburger" id="hamburger" aria-label="Open menu">
-      <span></span><span></span><span></span>
-    </button>
-  </nav>
-
-  <!-- MOBILE MENU -->
-  <div class="mobile-menu" id="mobileMenu">
-    <a href="selectatool.html"    class="mobile-link" onclick="closeMenu()">Selecta Tool</a>
-    <a href="selectacrates.html"  class="mobile-link" id="mobileCrates">Crates</a>
-    <a href="selectasoundfx.html" class="mobile-link" id="mobileSfx">Sound FX</a>
-    <a href="mailto:info@selectahub.com" class="mobile-link" onclick="closeMenu()">Contact</a>
-    <div class="mobile-socials">
-      <a href="https://www.instagram.com/selecta.hub/" target="_blank" rel="noopener noreferrer" class="mobile-social-btn" aria-label="Instagram">
-        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-      </a>
-      <a href="https://x.com/selectahub" target="_blank" rel="noopener noreferrer" class="mobile-social-btn" aria-label="X">
-        <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.747l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-      </a>
-      <a href="https://www.tiktok.com/@selecta.hub" target="_blank" rel="noopener noreferrer" class="mobile-social-btn" aria-label="TikTok">
-        <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.79 1.52V6.78a4.85 4.85 0 01-1.02-.09z"/></svg>
-      </a>
-      <a href="https://chat.whatsapp.com/BCyfZkn0THvGNXu088QtlU?mode=gi_t" target="_blank" rel="noopener noreferrer" class="mobile-social-btn" aria-label="WhatsApp">
-        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-      </a>
-    </div>
+  <div class="countdown" id="countdown">
+    <div class="unit"><div class="num" id="hh">24</div><div class="label">Hours</div></div>
+    <div class="unit"><div class="num" id="mm">00</div><div class="label">Minutes</div></div>
+    <div class="unit"><div class="num" id="ss">00</div><div class="label">Seconds</div></div>
   </div>
 
-  <!-- HERO -->
-  <section class="hero">
-    <img src="SH_TRANSPARENT_NEW.png" alt="Selecta Hub" class="hero-logo" width="76" height="76"/>
-    <h1 class="hero-title">SELECTA <span class="g">HUB</span></h1>
-    <p class="hero-sub">The Ultimate DJ Resource</p>
-    <p class="hero-desc">Tools, curated music libraries, and community — everything a selector and DJ needs, all in one place.</p>
-  </section>
+  <p class="done-msg" id="doneMsg">Under maintenance — redeploying soon.</p>
 
-  <!-- PRODUCTS -->
-  <main class="page-body" id="products">
-
-    <div class="section-label-row">
-      <span class="section-label">Products and Services</span>
-      <div class="section-rule"></div>
-    </div>
-
-    <!-- FEATURED: SELECTA TOOL -->
-    <div class="featured-wrap">
-    <a href="selectatool.html" class="featured-card">
-      <div class="featured-inner">
-        <div class="featured-top">
-          <div style="display:flex;align-items:center;gap:10px;">
-            <img src="st2logo.png" alt="Selecta Tool" style="width:30px;height:30px;object-fit:contain;filter:drop-shadow(0 0 8px rgba(46,204,64,0.3))"/>
-            <span class="featured-name">Selecta Tool</span>
-          </div>
-          <span class="featured-status" id="toolStatus" style="background:rgba(255,193,7,0.08);border-color:rgba(255,193,7,0.28);color:var(--gold);">June 15</span>
-        </div>
-        <p class="featured-desc">Serato crate management for serious DJs — build, sort, export, fix and master your library. Available for Serato DJ Pro on Mac &amp; Windows.</p>
-
-        <div class="featured-pricing" style="flex-wrap:wrap;">
-          <div class="tier-pill locked" id="homePillBasic" style="flex-direction:column;align-items:flex-start;gap:5px;">
-            <div class="tier-pill-price-row">
-              <span class="tier-pill-label">Basic</span>
-              <span class="tier-pill-price" id="homePillBasicPrice">$29.99</span>
-              <span class="tier-pill-orig" id="homePillBasicOrig">$49.99</span>
-            </div>
-            <div class="pill-machines">
-              <svg class="pill-machine-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="color:rgba(46,204,64,0.7);">
-                <rect x="2" y="3" width="20" height="13" rx="2" stroke="currentColor" stroke-width="1.8"/>
-                <path d="M8 19h8M12 16v3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-              </svg>
-              <span class="pill-seats-label" style="color:rgba(46,204,64,0.6);">1 seat</span>
-            </div>
-          </div>
-          <div class="tier-pill pro-pill locked" id="homePillPro" style="flex-direction:column;align-items:flex-start;gap:5px;">
-            <div class="tier-pill-price-row">
-              <span class="tier-pill-label">Pro</span>
-              <span class="tier-pill-price" id="homePillProPrice">$54.99</span>
-              <span class="tier-pill-orig" id="homePillProOrig">$99.99</span>
-            </div>
-            <div class="pill-machines">
-              <svg class="pill-machine-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="color:rgba(212,175,55,0.7);">
-                <rect x="2" y="3" width="20" height="13" rx="2" stroke="currentColor" stroke-width="1.8"/>
-                <path d="M8 19h8M12 16v3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-              </svg>
-              <span class="pill-seats-label" style="color:rgba(212,175,55,0.6);">1 seat</span>
-            </div>
-          </div>
-          <div class="tier-pill pro-plus-pill" id="homePillProPlus">
-            <div class="tier-pill-price-row">
-              <span class="tier-pill-label">Pro Plus</span>
-              <span class="tier-pill-price" id="homePillProPlusPrice">$144.99</span>
-              <span class="tier-pill-orig" id="homePillProPlusOrig">$270</span>
-            </div>
-            <div class="pill-machines" style="gap:4px 6px;">
-              <svg class="pill-machine-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="2" y="3" width="20" height="13" rx="2" stroke="currentColor" stroke-width="1.8"/>
-                <path d="M8 19h8M12 16v3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-              </svg>
-              <svg class="pill-machine-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="2" y="3" width="20" height="13" rx="2" stroke="currentColor" stroke-width="1.8"/>
-                <path d="M8 19h8M12 16v3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-              </svg>
-              <svg class="pill-machine-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="2" y="3" width="20" height="13" rx="2" stroke="currentColor" stroke-width="1.8"/>
-                <path d="M8 19h8M12 16v3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-              </svg>
-              <span class="pill-seats-label" style="display:flex;align-items:center;gap:3px;">3 seats &middot; <svg viewBox="0 0 170 170" xmlns="http://www.w3.org/2000/svg" fill="currentColor" style="width:10px;height:10px;flex-shrink:0;color:rgba(123,110,232,0.6);"><path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.2-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.93.21-9.84-1.96-14.75-6.52-3.13-2.73-7.04-7.41-11.73-14.04-5.03-7.08-9.17-15.29-12.41-24.65-3.47-10.11-5.21-19.9-5.21-29.38 0-10.86 2.35-20.22 7.05-28.07 3.69-6.3 8.61-11.27 14.75-14.92 6.15-3.65 12.79-5.51 19.95-5.63 3.91 0 9.05 1.21 15.43 3.59 6.36 2.39 10.45 3.6 12.24 3.6 1.34 0 5.88-1.42 13.57-4.24 7.28-2.62 13.42-3.7 18.45-3.27 13.63 1.1 23.87 6.47 30.68 16.15-12.19 7.39-18.22 17.73-18.1 31 .11 10.34 3.86 18.94 11.23 25.77 3.34 3.17 7.07 5.62 11.22 7.36-.9 2.61-1.85 5.11-2.86 7.51zM119.11 7.24c0 8.1-2.96 15.67-8.86 22.67-7.12 8.32-15.73 13.13-25.07 12.37a25.1 25.1 0 0 1-.19-3.07c0-7.78 3.39-16.1 9.4-22.91 3-3.45 6.82-6.31 11.45-8.6 4.62-2.25 8.99-3.5 13.1-3.71.12 1.08.17 2.17.17 3.25z"/></svg> <span style="color:rgba(123,110,232,0.6);">macOS v2.0.3+</span></span>
-            </div>
-          </div>
-        </div>
-        <p id="homeProNote" style="font-size:0.72rem;color:var(--muted);margin-bottom:4px;margin-top:-8px;">
-          <span style="color:var(--green);"><span id="homeVersionLabel">v2.0.1</span> goes live in <span id="homeLaunchTimer">--:--:--</span></span>
-        </p>
-        <p id="homeIntroNote" style="display:none;font-size:0.7rem;color:var(--muted);margin-bottom:16px;letter-spacing:0.2px;"></p>
-
-        <div class="featured-cta">
-          <span class="btn-feat-primary">Compare Tiers &amp; Purchase</span>
-          <span class="featured-cta-note">One-time purchase &middot; Mac &amp; Windows</span>
-        </div>
-      </div>
-    </a>
-    </div><!-- /featured-wrap -->
-
-    <!-- SECONDARY PRODUCTS -->
-    <div class="secondary-grid">
-
-      <a href="selectacrates.html" class="sec-card green" id="cratesCard">
-        <div class="sec-top">
-          <div style="display:flex;align-items:center;gap:8px;">
-            <svg width="20" height="20" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="8" y="28" width="56" height="32" rx="4" stroke="#2ecc40" stroke-width="2.5" fill="none"/>
-              <line x1="26" y1="28" x2="26" y2="60" stroke="#2ecc40" stroke-width="1.8" opacity="0.5"/>
-              <line x1="46" y1="28" x2="46" y2="60" stroke="#2ecc40" stroke-width="1.8" opacity="0.5"/>
-              <rect x="13" y="13" width="10" height="18" rx="5" stroke="#2ecc40" stroke-width="2.2" fill="none"/>
-              <circle cx="18" cy="22" r="1.5" fill="#2ecc40"/>
-              <rect x="31" y="10" width="10" height="21" rx="5" stroke="#2ecc40" stroke-width="2.2" fill="none"/>
-              <circle cx="36" cy="20" r="1.5" fill="#2ecc40"/>
-              <rect x="49" y="13" width="10" height="18" rx="5" stroke="#2ecc40" stroke-width="2.2" fill="none"/>
-              <circle cx="54" cy="22" r="1.5" fill="#2ecc40"/>
-            </svg>
-            <div class="sec-name">Selecta Crates</div>
-          </div>
-          <span class="sec-badge badge-soon" id="cratesBadge">Soon</span>
-        </div>
-        <p class="sec-desc">Premium DJ library packs — years of curated music, organized and ready to drop.</p>
-        <div class="sec-foot">
-          <span class="sec-meta">Browse Genre Crates</span>
-          <span class="sec-arrow">&#8594;</span>
-        </div>
-      </a>
-
-      <a href="selectasoundfx.html" class="sec-card green" id="sfxCard">
-        <div class="sec-top">
-          <div style="display:flex;align-items:center;gap:8px;">
-            <svg width="20" height="20" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="9"  y="38" width="8" height="22" rx="4" stroke="#2ecc40" stroke-width="2.2" fill="none"/>
-              <rect x="21" y="22" width="8" height="38" rx="4" stroke="#2ecc40" stroke-width="2.2" fill="none"/>
-              <rect x="33" y="12" width="8" height="48" rx="4" stroke="#2ecc40" stroke-width="2.2" fill="none"/>
-              <rect x="45" y="28" width="8" height="32" rx="4" stroke="#2ecc40" stroke-width="2.2" fill="none"/>
-              <rect x="57" y="42" width="8" height="18" rx="4" stroke="#2ecc40" stroke-width="2.2" fill="none"/>
-            </svg>
-            <div class="sec-name">Selecta Sound FX</div>
-          </div>
-          <span class="sec-badge badge-date" id="sfxBadge">June 7</span>
-        </div>
-        <p class="sec-desc">Premium DJ sound effects — drops, sirens, stabs and more for any genre.</p>
-        <div class="sec-foot">
-          <span class="sec-meta">Browse Packs</span>
-          <span class="sec-arrow">&#8594;</span>
-        </div>
-      </a>
-
-      <a href="https://juggernautmusic.gumroad.com/l/folderfix" target="_blank" rel="noopener noreferrer" class="sec-card green">
-        <div class="sec-top">
-          <div style="display:flex;align-items:center;gap:8px;">
-            <img src="folderfix-icon-transparent.png" alt="FolderFix" style="width:22px;height:22px;object-fit:contain;"/>
-            <div class="sec-name">FolderFix</div>
-          </div>
-          <span class="sec-badge badge-live">Free</span>
-        </div>
-        <p class="sec-desc">Fix Folders on your Mac for free. Windows soon.</p>
-        <div class="sec-foot">
-          <span class="sec-meta">Get it on Gumroad</span>
-          <span class="sec-arrow">&#8594;</span>
-        </div>
-      </a>
-
-      <div class="sec-card gold dim">
-        <div class="sec-top">
-          <div style="display:flex;align-items:center;gap:8px;">
-            <svg width="20" height="20" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="9" y="16" width="54" height="46" rx="5" stroke="#ffc107" stroke-width="2.5" fill="none"/>
-              <line x1="9" y1="30" x2="63" y2="30" stroke="#ffc107" stroke-width="2.5"/>
-              <line x1="23" y1="10" x2="23" y2="22" stroke="#ffc107" stroke-width="2.5" stroke-linecap="round"/>
-              <line x1="49" y1="10" x2="49" y2="22" stroke="#ffc107" stroke-width="2.5" stroke-linecap="round"/>
-              <polyline points="24,46 32,54 48,38" stroke="#ffc107" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            <div class="sec-name">Selecta Bookings</div>
-          </div>
-          <span class="sec-badge badge-date">Aug 1</span>
-        </div>
-        <p class="sec-desc">DJ booking management — gigs, contracts, invoices, and client communications. To be listed, contact <a href="mailto:info@selectahub.com" style="color:inherit;text-decoration:underline;" onclick="event.stopPropagation()">support</a>.</p>
-        <div class="sec-foot">
-          <span class="sec-meta">Coming Aug 1</span>
-        </div>
-      </div>
-
-    </div><!-- /secondary-grid -->
-
-    <!-- ABOUT + COMMUNITY -->
-    <div class="lower-grid">
-
-      <div class="about-card">
-        <p class="about-eyebrow">About</p>
-        <h2 class="about-heading">BUILT FOR <span class="g">DJs.</span></h2>
-        <p class="about-body">
-          <strong>Selecta Hub</strong> is a growing suite of tools, music resources, and community built for DJs —
-          crate management, curated libraries, sound effects, live radio, and bookings, all in one place.
-        </p>
-      </div>
-
-      <a href="https://chat.whatsapp.com/BCyfZkn0THvGNXu088QtlU?mode=gi_t" target="_blank" rel="noopener noreferrer" class="community-card">
-        <img src="whatsapp.png" alt="WhatsApp" class="wa-icon" width="40" height="40"/>
-        <div class="comm-body">
-          <div class="comm-title">Join the Community</div>
-          <p class="comm-desc">The Selecta Hub WhatsApp group — chat about music, share resources, and connect with other DJs.</p>
-        </div>
-        <span class="comm-arrow">&#8594;</span>
-      </a>
-
-    </div><!-- /lower-grid -->
-
-    <!-- CONTACT FORM -->
-    <details class="contact-toggle">
-      <summary class="contact-summary">
-        <div>
-          <span class="contact-eyebrow">Get in Touch</span>
-          <span class="contact-title">Send us a message</span>
-        </div>
-        <span class="contact-chevron">&#9660;</span>
-      </summary>
-      <div class="contact-body">
-        <form action="https://api.web3forms.com/submit" method="POST" class="contact-form">
-          <input type="hidden" name="access_key" value="3bb9a24e-e6be-4a7d-9232-56d59bb7c729">
-          <input type="hidden" name="subject" value="Selecta Hub — Contact Form">
-          <input type="hidden" name="redirect" value="https://selectahub.com">
-          <div class="form-row">
-            <div class="form-group">
-              <label class="form-label">Name</label>
-              <input type="text" name="name" class="form-input" placeholder="Your name" required>
-            </div>
-            <div class="form-group">
-              <label class="form-label">Email</label>
-              <input type="email" name="email" class="form-input" placeholder="your@email.com" required>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Message</label>
-            <textarea name="message" class="form-input form-textarea" placeholder="What's on your mind?" required></textarea>
-          </div>
-          <button type="submit" class="form-submit">Send Message</button>
-        </form>
-      </div>
-    </details>
-
-  </main>
-
-  <!-- FOOTER -->
-  <div class="footer-wrap">
-    <footer>
-      <div class="footer-left">
-        <span class="footer-copy">&copy; 2026 Juggernaut Music Group. All rights reserved.</span>
-        <a href="mailto:info@selectahub.com" class="footer-link">info@selectahub.com</a>
-        <a href="privacy.html" class="footer-link">Privacy Policy</a>
-        <a href="terms.html"   class="footer-link">Terms of Use</a>
-      </div>
-      <div class="footer-right">
-        <a href="https://www.instagram.com/selecta.hub/" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Instagram">
-          <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-        </a>
-        <a href="https://x.com/selectahub" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="X">
-          <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.747l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-        </a>
-        <a href="https://www.tiktok.com/@selecta.hub" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="TikTok">
-          <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.79 1.52V6.78a4.85 4.85 0 01-1.02-.09z"/></svg>
-        </a>
-      </div>
-    </footer>
-  </div>
+  <footer>© Selecta Hub</footer>
 
   <script>
-    const hamburger = document.getElementById('hamburger');
-    const mobileMenu = document.getElementById('mobileMenu');
-    hamburger.addEventListener('click', () => {
-      const open = mobileMenu.classList.toggle('open');
-      hamburger.classList.toggle('open', open);
-      document.body.style.overflow = open ? 'hidden' : '';
-    });
-    function closeMenu() {
-      mobileMenu.classList.remove('open');
-      hamburger.classList.remove('open');
-      document.body.style.overflow = '';
+    // Deadline = 24 hours from deploy. Edit this value to your actual upload time if you want it exact.
+    var MAINTENANCE_END = new Date("2026-06-27T02:10:04Z").getTime();
+
+    var countdownEl = document.getElementById("countdown");
+    var doneMsgEl = document.getElementById("doneMsg");
+    var hh = document.getElementById("hh");
+    var mm = document.getElementById("mm");
+    var ss = document.getElementById("ss");
+
+    function pad(n) { return n < 10 ? "0" + n : "" + n; }
+
+    function tick() {
+      var diff = MAINTENANCE_END - Date.now();
+      if (diff <= 0) {
+        countdownEl.style.display = "none";
+        doneMsgEl.style.display = "block";
+        return;
+      }
+      var totalSec = Math.floor(diff / 1000);
+      var hours = Math.floor(totalSec / 3600);
+      var mins = Math.floor((totalSec % 3600) / 60);
+      var secs = totalSec % 60;
+      hh.textContent = pad(hours);
+      mm.textContent = pad(mins);
+      ss.textContent = pad(secs);
     }
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
 
-    // ── LAUNCH COUNTDOWNS ──
-    (function() {
-      var TARGET_PRO    = new Date('2026-06-15T07:00:00Z');
-      var INTRO_END     = new Date('2026-07-29T07:00:00Z'); // Both intro prices end July 29
-      var TARGET_CRATES = new Date('2026-07-01T07:00:00Z');
-      var TARGET_SFX    = new Date('2026-06-06T10:01:00Z');
-
-      function pad2(n) { return String(n).padStart(2, '0'); }
-
-      function updateMetaTags() {
-        var basicPrice = Date.now() >= INTRO_END ? PRICES.basic.regular : PRICES.basic.intro;
-        var proPrice   = Date.now() >= INTRO_END ? PRICES.pro.regular   : PRICES.pro.intro;
-        var desc   = document.querySelector('meta[name="description"]');
-        var ogDesc = document.querySelector('meta[property="og:description"]');
-        if (desc)   desc.setAttribute('content',  'Selecta Hub — DJ tools for Serato. Selecta Tool Basic ' + basicPrice + ' \xb7 Pro ' + proPrice + '. Crates & Sound FX available now.');
-        if (ogDesc) ogDesc.setAttribute('content', 'DJ tools for Serato. Selecta Tool Basic ' + basicPrice + ' \xb7 Pro ' + proPrice + ' \xb7 Selecta Crates \xb7 Sound FX.');
-      }
-      updateMetaTags();
-
-      var introCountdownTimer = null;
-
-      function updateIntroNote() {
-        var el = document.getElementById('homeIntroNote');
-        if (!el) return;
-        var diff = INTRO_END - Date.now();
-        if (diff <= 0) {
-          el.style.display = 'none';
-          if (introCountdownTimer) { clearInterval(introCountdownTimer); introCountdownTimer = null; }
-          return;
-        }
-        var d = Math.floor(diff / 86400000);
-        var h = Math.floor((diff % 86400000) / 3600000);
-        var m = Math.floor((diff % 3600000)  / 60000);
-        var s = Math.floor((diff % 60000)    / 1000);
-        el.innerHTML =
-          '<span style="color:rgba(212,175,55,0.75);font-weight:600;">Intro prices end in&nbsp;</span>' +
-          '<span style="color:#D4AF37;font-weight:800;font-variant-numeric:tabular-nums;">' +
-          d + 'd&nbsp;' + pad2(h) + ':' + pad2(m) + ':' + pad2(s) +
-          '</span>' +
-          '';
-        el.style.display = 'block';
-      }
-
-      // ── Both prices expire together on July 29 ──
-      function introExpired() {
-        var priceBasic = document.getElementById('homePillBasicPrice');
-        var origBasic  = document.getElementById('homePillBasicOrig');
-        if (priceBasic) priceBasic.textContent = PRICES.basic.regular;
-        if (origBasic)  origBasic.textContent  = PRICES.basic.orig;
-        var pricePro = document.getElementById('homePillProPrice');
-        var origPro  = document.getElementById('homePillProOrig');
-        if (pricePro) pricePro.textContent = PRICES.pro.regular;
-        if (origPro)  origPro.textContent  = PRICES.pro.orig;
-        var priceProPlus = document.getElementById('homePillProPlusPrice');
-        var origProPlus  = document.getElementById('homePillProPlusOrig');
-        if (priceProPlus) priceProPlus.textContent = PRICES.proPlus.regular;
-        if (origProPlus)  origProPlus.textContent  = PRICES.proPlus.orig;
-        updateIntroNote();
-        updateMetaTags();
-      }
-
-      // ── Launch → unlock both pills, flip status badge, start intro countdown ──
-      function proGoLive() {
-        var pillPro   = document.getElementById('homePillPro');
-        var pillBasic = document.getElementById('homePillBasic');
-        var note      = document.getElementById('homeProNote');
-        var status    = document.getElementById('toolStatus');
-        if (pillPro)   pillPro.classList.remove('locked');
-        if (pillBasic) pillBasic.classList.remove('locked');
-        if (note) note.innerHTML = '<span style="color:var(--green);">&#10003; v' + APP_VERSION + ' available now</span>';
-        if (status) {
-          status.removeAttribute('style');
-          status.textContent = 'Live';
-        }
-        clearInterval(proLaunchTimer);
-
-        if (Date.now() >= INTRO_END) {
-          introExpired();
-        } else {
-          updateIntroNote();
-          introCountdownTimer = setInterval(updateIntroNote, 1000);
-          // Fallback: fire introExpired when time is up
-          var discTimer = setInterval(function() {
-            if (Date.now() >= INTRO_END) { clearInterval(discTimer); introExpired(); }
-          }, 5000);
-        }
-      }
-
-      function updateProLaunchTimer() {
-        var diff = TARGET_PRO - Date.now();
-        if (diff <= 0) { proGoLive(); return; }
-        var el = document.getElementById('homeLaunchTimer');
-        if (!el) return;
-        var days  = Math.floor(diff / 86400000);
-        var hours = Math.floor((diff % 86400000) / 3600000);
-        var mins  = Math.floor((diff % 3600000)  / 60000);
-        var secs  = Math.floor((diff % 60000)    / 1000);
-        el.textContent = days > 0
-          ? days + 'd ' + pad2(hours) + ':' + pad2(mins) + ':' + pad2(secs)
-          : pad2(hours) + ':' + pad2(mins) + ':' + pad2(secs);
-      }
-      var proLaunchTimer;
-      if (Date.now() >= TARGET_PRO) { proGoLive(); }
-      else { updateProLaunchTimer(); proLaunchTimer = setInterval(updateProLaunchTimer, 1000); }
-
-      // ── Crates flip ──
-      function cratesGoLive() {
-        var card   = document.getElementById('cratesCard');
-        var badge  = document.getElementById('cratesBadge');
-        var nav    = document.getElementById('navCrates');
-        var mobile = document.getElementById('mobileCrates');
-        if (card)   card.classList.remove('sec-card-locked');
-        if (badge)  { badge.className = 'sec-badge badge-live'; badge.textContent = 'Live'; }
-        if (nav)    nav.classList.remove('nav-link-disabled');
-        if (mobile) mobile.classList.remove('nav-link-disabled');
-        clearInterval(cratesTimer);
-      }
-      var cratesTimer = setInterval(function() {
-        if (Date.now() >= TARGET_CRATES) cratesGoLive();
-      }, 30000);
-      if (Date.now() >= TARGET_CRATES) cratesGoLive();
-
-      // ── Sound FX flip ──
-      function sfxGoLive() {
-        var card   = document.getElementById('sfxCard');
-        var badge  = document.getElementById('sfxBadge');
-        var nav    = document.getElementById('navSfx');
-        var mobile = document.getElementById('mobileSfx');
-        if (card)   card.classList.remove('sec-card-locked');
-        if (badge)  { badge.className = 'sec-badge badge-live'; badge.textContent = 'Live'; }
-        if (nav)    nav.classList.remove('nav-link-disabled');
-        if (mobile) mobile.classList.remove('nav-link-disabled');
-        clearInterval(sfxTimer);
-      }
-      var sfxTimer = setInterval(function() {
-        if (Date.now() >= TARGET_SFX) sfxGoLive();
-      }, 30000);
-      if (Date.now() >= TARGET_SFX) sfxGoLive();
-    })();
+    tick();
+    setInterval(tick, 1000);
   </script>
-
-  <script>
-    var homeVersionLabel = document.getElementById('homeVersionLabel');
-    if (homeVersionLabel) homeVersionLabel.textContent = 'v' + APP_VERSION;
-
-    // Seed Pro Plus pill from shared PRICES constant
-    var ppPrice = document.getElementById('homePillProPlusPrice');
-    var ppOrig  = document.getElementById('homePillProPlusOrig');
-    if (ppPrice) ppPrice.textContent = PRICES.proPlus.intro;
-    if (ppOrig)  ppOrig.textContent  = PRICES.proPlus.orig;
-  </script>
-
 </body>
 </html>
