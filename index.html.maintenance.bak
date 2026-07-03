@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Selecta Hub — Scheduled Maintenance</title>
+  <link rel="icon" href="SH_TRANSPARENT_NEW.ico" />
+  <link rel="apple-touch-icon" href="SH_TRANSPARENT_NEW.png" />
+  <meta name="robots" content="noindex" />
+  <style>
+    :root {
+      --bg: #0b0d12;
+      --bg2: #141821;
+      --fg: #f2f4f8;
+      --muted: #9aa3b2;
+      --accent: #4f8cff;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: radial-gradient(circle at 50% 30%, var(--bg2), var(--bg) 70%);
+      color: var(--fg);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 24px;
+    }
+    .logo {
+      width: 140px;
+      height: auto;
+      margin-bottom: 28px;
+      filter: drop-shadow(0 6px 24px rgba(0,0,0,0.5));
+    }
+    h1 {
+      font-size: clamp(1.5rem, 4vw, 2.4rem);
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 12px;
+    }
+    p.sub {
+      color: var(--muted);
+      font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+      max-width: 520px;
+      line-height: 1.55;
+      margin-bottom: 36px;
+    }
+    .countdown {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .unit {
+      background: var(--bg2);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 14px;
+      padding: 18px 20px;
+      min-width: 84px;
+    }
+    .unit .num {
+      font-size: clamp(1.8rem, 6vw, 2.8rem);
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      color: var(--fg);
+    }
+    .unit .label {
+      margin-top: 6px;
+      font-size: 0.7rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .done-msg {
+      display: none;
+      font-size: clamp(1.1rem, 3vw, 1.5rem);
+      font-weight: 600;
+      color: var(--accent);
+      max-width: 520px;
+      line-height: 1.5;
+    }
+    footer {
+      position: absolute;
+      bottom: 20px;
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+  </style>
+</head>
+<body>
+  <img class="logo" src="SH_TRANSPARENT_NEW.png" alt="Selecta Hub" />
+  <h1>Scheduled Maintenance</h1>
+  <p class="sub">We're making improvements behind the scenes. Selecta Hub will be back online shortly — thanks for your patience.</p>
+
+  <div class="countdown" id="countdown">
+    <div class="unit"><div class="num" id="hh">24</div><div class="label">Hours</div></div>
+    <div class="unit"><div class="num" id="mm">00</div><div class="label">Minutes</div></div>
+    <div class="unit"><div class="num" id="ss">00</div><div class="label">Seconds</div></div>
+  </div>
+
+  <p class="done-msg" id="doneMsg">Under maintenance — redeploying soon.</p>
+
+  <footer>© Selecta Hub</footer>
+
+  <script>
+    // Deadline = 24 hours from deploy. Edit this value to your actual upload time if you want it exact.
+    var MAINTENANCE_END = new Date("2026-06-27T02:10:04Z").getTime();
+
+    var countdownEl = document.getElementById("countdown");
+    var doneMsgEl = document.getElementById("doneMsg");
+    var hh = document.getElementById("hh");
+    var mm = document.getElementById("mm");
+    var ss = document.getElementById("ss");
+
+    function pad(n) { return n < 10 ? "0" + n : "" + n; }
+
+    function tick() {
+      var diff = MAINTENANCE_END - Date.now();
+      if (diff <= 0) {
+        countdownEl.style.display = "none";
+        doneMsgEl.style.display = "block";
+        return;
+      }
+      var totalSec = Math.floor(diff / 1000);
+      var hours = Math.floor(totalSec / 3600);
+      var mins = Math.floor((totalSec % 3600) / 60);
+      var secs = totalSec % 60;
+      hh.textContent = pad(hours);
+      mm.textContent = pad(mins);
+      ss.textContent = pad(secs);
+    }
+
+    tick();
+    setInterval(tick, 1000);
+  </script>
+</body>
+</html>

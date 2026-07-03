@@ -574,14 +574,13 @@
     .gumroad-text strong { color: var(--text); }
 
     .payment-pills {
-      display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
       margin-top: 10px;
+      font-size: 0.82rem; line-height: 1.7;
     }
-    .payment-pill {
-      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.3px;
-      color: var(--text);
-      background: var(--card-2); border: 1px solid var(--border);
-      padding: 5px 12px; border-radius: 100px;
+    .payment-pill { color: var(--text); font-weight: 600; }
+    .payment-pill:not(:last-child)::after {
+      content: '\00b7'; color: var(--muted); font-weight: 400;
+      margin: 0 8px;
     }
 
     .yt-card {
@@ -882,7 +881,7 @@
       </div>
     </div>
     <div id="launchBanner">
-      <span class="launch-label" id="launchLabel">v2.0.3 goes live in</span>
+      <span class="launch-label" id="launchLabel">v2.0.4 goes live in</span>
       <span id="launchTimer">--:--:--</span>
     </div>
   </section>
@@ -916,7 +915,7 @@
           </div>
           <div class="tier-price">$29.99 <span class="tier-price-orig">$49.99</span></div>
           <p class="tier-price-note" id="basicPriceNote">Introductory price &middot; One-time purchase.</p>
-          <span class="tier-version" id="basicVersion">v2.0.3</span><span class="tier-intro-cd basic-cd" id="basicCountdown"></span>
+          <span class="tier-version" id="basicVersion">v2.0.4</span><span class="tier-intro-cd basic-cd" id="basicCountdown"></span>
           <a href="https://juggernautmusic.gumroad.com/l/selectatool" target="_blank" rel="noopener noreferrer" class="btn-tier btn-basic" id="basicBtn1">
             Get Basic &mdash; $29.99 <span class="btn-orig-price">$49.99</span>
           </a>
@@ -1007,7 +1006,7 @@
           </div>
           <div class="tier-price">$54.99 <span class="tier-price-orig">$99.99</span></div>
           <p class="tier-price-note" id="proPriceNote">Introductory price &middot; One-time purchase.</p>
-          <span class="tier-version" id="proVersion">v2.0.3</span><span class="tier-intro-cd pro-cd" id="proCountdown"></span>
+          <span class="tier-version" id="proVersion">v2.0.4</span><span class="tier-intro-cd pro-cd" id="proCountdown"></span>
           <a href="https://juggernautmusic.gumroad.com/l/selectatoolpro" target="_blank" rel="noopener noreferrer" class="btn-tier btn-pro" id="proBtn1">
             Get Pro &mdash; $54.99 <span class="btn-orig-price">$99.99</span>
           </a>
@@ -1161,11 +1160,11 @@
           </div>
           <p style="font-size:0.72rem;color:rgba(123,110,232,0.6);margin-top:6px;display:flex;align-items:center;gap:4px;">
             <svg viewBox="0 0 170 170" xmlns="http://www.w3.org/2000/svg" fill="currentColor" style="width:11px;height:11px;flex-shrink:0;"><path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.2-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.93.21-9.84-1.96-14.75-6.52-3.13-2.73-7.04-7.41-11.73-14.04-5.03-7.08-9.17-15.29-12.41-24.65-3.47-10.11-5.21-19.9-5.21-29.38 0-10.86 2.35-20.22 7.05-28.07 3.69-6.3 8.61-11.27 14.75-14.92 6.15-3.65 12.79-5.51 19.95-5.63 3.91 0 9.05 1.21 15.43 3.59 6.36 2.39 10.45 3.6 12.24 3.6 1.34 0 5.88-1.42 13.57-4.24 7.28-2.62 13.42-3.7 18.45-3.27 13.63 1.1 23.87 6.47 30.68 16.15-12.19 7.39-18.22 17.73-18.1 31 .11 10.34 3.86 18.94 11.23 25.77 3.34 3.17 7.07 5.62 11.22 7.36-.9 2.61-1.85 5.11-2.86 7.51zM119.11 7.24c0 8.1-2.96 15.67-8.86 22.67-7.12 8.32-15.73 13.13-25.07 12.37a25.1 25.1 0 0 1-.19-3.07c0-7.78 3.39-16.1 9.4-22.91 3-3.45 6.82-6.31 11.45-8.6 4.62-2.25 8.99-3.5 13.1-3.71.12 1.08.17 2.17.17 3.25z"/></svg>
-            macOS only &middot; v2.0.3 or later
+            macOS only &middot; v2.0.4 or later
           </p>
           <div class="tier-price" id="proPlusPrice">$144.99 <span class="tier-price-orig" id="proPlusOrig">$270</span></div>
           <p class="tier-price-note" id="proPlusPriceNote">Introductory price &middot; One-time purchase.</p>
-          <span class="tier-version" id="proPlusVersion">v2.0.3</span><span class="tier-intro-cd pro-plus-cd" id="proPlusCountdown"></span>
+          <span class="tier-version" id="proPlusVersion">v2.0.4</span><span class="tier-intro-cd pro-plus-cd" id="proPlusCountdown"></span>
           <a href="https://juggernautmusic.gumroad.com/l/toolproplus" target="_blank" rel="noopener noreferrer" class="btn-tier btn-pro-plus" id="proPlusBtn1">
             Get Pro Plus &mdash; $144.99 <span class="btn-orig-price">$270</span>
           </a>
@@ -1460,7 +1459,7 @@
 
         <details class="faq-item-toggle">
           <summary class="faq-q">What is Pro Plus and who is it for?<span class="faq-q-icon">&#43;</span></summary>
-          <p class="faq-a">Pro Plus includes everything in Basic and Pro, plus a <strong>3-seat license</strong> — install on up to 3 machines or share with up to 3 users. It also adds seat revoke &amp; transfer (up to 3× within 30 days), the ability to purchase extra seats at the intro price for up to 60 days, WhatsApp &amp; SMS direct support, exclusive special genre crates, a Sound FX bundle, early beta access, and streaming playlist import from Apple Music, Deezer &amp; Spotify. It's built for DJs who work across multiple setups, run a sound system, or want the best value across a crew. <strong>Pro Plus is available on Mac only (v2.0.3 and later).</strong> Windows users interested in Pro Plus should contact us at <a href="mailto:info@selectahub.com">info@selectahub.com</a>.</p>
+          <p class="faq-a">Pro Plus includes everything in Basic and Pro, plus a <strong>3-seat license</strong> — install on up to 3 machines or share with up to 3 users. It also adds seat revoke &amp; transfer (up to 3× within 30 days), the ability to purchase extra seats at the intro price for up to 60 days, WhatsApp &amp; SMS direct support, exclusive special genre crates, a Sound FX bundle, early beta access, and streaming playlist import from Apple Music, Deezer &amp; Spotify. It's built for DJs who work across multiple setups, run a sound system, or want the best value across a crew. <strong>Pro Plus is available on Mac only (v2.0.5 and later).</strong> Windows users interested in Pro Plus should contact us at <a href="mailto:info@selectahub.com">info@selectahub.com</a>.</p>
         </details>
 
         <details class="faq-item-toggle">
@@ -1541,7 +1540,7 @@
     <!-- Corporate / multi-seat -->
     <div class="info-card">
       <p class="info-card-head">Multi-seat &amp; corporate licenses</p>
-      Running a <strong>business, radio station or sound system?</strong> Multi-seat and corporate licenses are available. Contact us at <a href="mailto:info@selectahub.com">info@selectahub.com</a> or through our social channels for more info.
+      Running a <strong>business, radio station or sound system?</strong> Multi-seat and corporate licenses are available. Contact us at <a href="mailto:info@selectahub.com">info@selectahub.com</a> or through our social channels for more info. Already on <strong>Pro Plus</strong>? You can add more seats beyond the initial 3 at any time &mdash; just reach out to support.
     </div>
 
 
@@ -1592,7 +1591,7 @@
     // ── LAUNCH COUNTDOWN ──
     (function() {
       var target        = new Date('2026-06-15T07:00:00Z'); // June 15 03:00 AM EDT
-      var introPriceEnd = new Date('2026-07-29T07:00:00Z'); // Both intro prices end July 29
+      var introPriceEnd = new Date('2026-08-01T07:00:00Z'); // Both intro prices end Aug 1 (extended 30 days for downtime)
 
       function pad(n) { return String(n).padStart(2, '0'); }
 
