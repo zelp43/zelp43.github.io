@@ -5,8 +5,8 @@
   <link rel="icon" type="image/x-icon" href="SH_TRANSPARENT_NEW.ico"/>
   <link rel="apple-touch-icon" href="SH_TRANSPARENT_NEW.png"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Terms of Use — Selecta Hub</title>
-  <meta name="description" content="Selecta Hub Terms of Use — the rules governing use of our site and products."/>
+  <title>Terms of Use · Selecta Hub</title>
+  <meta name="description" content="Selecta Hub Terms of Use: the rules governing use of our site and products."/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
   <style>
     :root {
@@ -19,198 +19,266 @@
       --muted:    #666666;
       --green:    #2ecc40;
       --gold:     #ffc107;
+      --wa:       #25d366;
     }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body {
       background: var(--black);
       color: var(--text);
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      min-height: 100vh;
       -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
     }
-    body::before {
-      content: '';
-      position: fixed; inset: 0; z-index: 0; pointer-events: none;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-      background-size: 200px; opacity: 0.35;
-    }
-    nav {
-      position: sticky; top: 0; z-index: 200;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 32px; height: 64px;
-      border-bottom: 1px solid var(--border);
-      background: rgba(10,10,10,0.88);
-      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-    }
-    .nav-brand {
-      display: flex; align-items: center; gap: 10px;
-      text-decoration: none; color: var(--text);
-    }
-    .nav-logo { width: 30px; height: 30px; object-fit: contain; display: block; }
-    .nav-wordmark { font-size: 1rem; font-weight: 800; letter-spacing: 1.5px; }
-    .nav-back {
-      font-size: 0.82rem; font-weight: 500; color: var(--muted);
-      text-decoration: none; padding: 6px 12px; border-radius: 6px;
-      transition: color 0.18s, background 0.18s;
-    }
-    .nav-back:hover { color: var(--text); background: rgba(255,255,255,0.06); }
+    a { color: inherit; }
+    .wrap { max-width: 1180px; margin: 0 auto; padding: 0 40px; }
+    @media (max-width: 640px) { .wrap { padding: 0 22px; } }
 
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(16px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
+    /* ── MARQUEE ── */
+    .marquee { background: var(--card); border-bottom: 1px solid var(--border); overflow: hidden; white-space: nowrap; padding: 9px 0; }
+    .marquee-track { display: inline-block; padding-left: 100%; animation: scroll 28s linear infinite; font-size: 0.72rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
+    .marquee-track span { margin: 0 22px; }
+    .marquee-track span.g { color: var(--green); }
+    .marquee-track span.y { color: var(--gold); }
+    @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
 
-    .page-wrap {
-      position: relative; z-index: 1;
-      max-width: 720px; margin: 0 auto; padding: 56px 24px 96px;
-      animation: fadeUp 0.5s ease both;
-    }
-    .page-eyebrow {
-      font-size: 0.6rem; font-weight: 700; letter-spacing: 3px;
-      text-transform: uppercase; color: var(--muted); margin-bottom: 10px;
-    }
-    .page-title {
-      font-size: clamp(1.8rem, 5vw, 2.8rem);
-      font-weight: 900; letter-spacing: -1px; line-height: 1.05;
-      margin-bottom: 8px;
-    }
-    .page-title .g { color: var(--green); }
-    .page-updated {
-      font-size: 0.75rem; color: var(--muted); margin-bottom: 40px;
-    }
+    /* ── HEADER ── */
+    header { padding: 26px 0 0; position: sticky; top: 0; z-index: 200; background: var(--black); }
+    .head-row { display: flex; align-items: center; justify-content: space-between; }
+    .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .brand img { width: 34px; height: 34px; object-fit: contain; }
+    .brand-word { font-size: 1.05rem; font-weight: 800; letter-spacing: 0.5px; color: var(--text); }
+    nav { display: flex; gap: 30px; }
+    .nav-link { font-size: 0.82rem; font-weight: 600; text-decoration: none; color: var(--muted); position: relative; padding-bottom: 2px; }
+    .nav-link::after { content: ''; position: absolute; left: 0; right: 100%; bottom: 0; height: 1.5px; background: var(--green); transition: right 0.25s ease; }
+    .nav-link:hover { color: var(--text); }
+    .nav-link:hover::after { right: 0; }
+    .head-rule { height: 1px; background: var(--border); margin-top: 22px; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px; background: none; border: none; outline: none; }
+    .hamburger span { display: block; width: 22px; height: 2px; background: var(--text); border-radius: 2px; transition: transform 0.25s, opacity 0.25s; }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    @media (max-width: 640px) { nav { display: none; } .hamburger { display: flex; } }
 
-    .doc-section { margin-bottom: 36px; }
+    .mobile-menu {
+      display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(10,10,10,0.98); backdrop-filter: blur(16px);
+      z-index: 500; flex-direction: column; align-items: center; justify-content: center;
+      gap: 10px; opacity: 0; transition: opacity 0.22s;
+    }
+    .mobile-menu.open { display: flex; opacity: 1; }
+    .mobile-link { font-size: 1.3rem; font-weight: 800; letter-spacing: -0.01em; color: var(--muted); text-decoration: none; padding: 10px 20px; }
+    .mobile-link:hover { color: var(--text); }
+    .mobile-back { display: flex; align-items: center; justify-content: center; }
+    .mobile-socials { display: flex; align-items: center; gap: 12px; margin-top: 26px; }
+    .mobile-social-btn {
+      display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 10px;
+      background: var(--card-2); border: 1px solid var(--border); color: var(--muted); text-decoration: none;
+    }
+    .mobile-social-btn:hover { border-color: var(--border-h); color: var(--text); }
+    .mobile-social-btn svg { width: 18px; height: 18px; fill: currentColor; }
+
+    /* ── DOC PAGE ── */
+    .doc-hero { padding: 56px 0 40px; border-bottom: 1px solid var(--border); }
+    .doc-eyebrow { font-size: 0.75rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--green); margin-bottom: 18px; }
+    .doc-eyebrow::before { content: '● '; }
+    .doc-title { font-size: clamp(2.4rem, 7vw, 4.6rem); font-weight: 900; letter-spacing: -0.03em; line-height: 0.98; text-transform: uppercase; color: var(--text); }
+    .doc-title .out { -webkit-text-stroke: 1.5px var(--text); color: var(--black); }
+    .doc-updated { font-size: 0.82rem; color: var(--muted); margin-top: 22px; }
+
+    .doc-body { max-width: 680px; margin: 0 auto; padding: 50px 0 70px; }
+    .doc-section { margin-bottom: 46px; }
+    .doc-section:last-child { margin-bottom: 0; }
     .doc-section h2 {
-      font-size: 0.95rem; font-weight: 700; color: var(--text);
-      margin-bottom: 10px; padding-bottom: 8px;
+      font-size: 0.78rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--text); margin-bottom: 16px; padding-bottom: 14px;
       border-bottom: 1px solid var(--border);
     }
     .doc-section p, .doc-section li {
-      font-size: 0.88rem; color: var(--muted); line-height: 1.8;
+      font-size: 1rem; color: var(--muted); line-height: 1.85;
     }
-    .doc-section p + p { margin-top: 10px; }
-    .doc-section ul { padding-left: 18px; margin-top: 8px; }
-    .doc-section li { margin-bottom: 6px; }
-    .doc-section a { color: var(--green); text-decoration: none; }
-    .doc-section a:hover { text-decoration: underline; }
-    strong { color: var(--text); font-weight: 600; }
+    .doc-section p + p { margin-top: 16px; }
+    .doc-section ul { padding-left: 20px; margin-top: 14px; }
+    .doc-section li { margin-bottom: 12px; }
+    .doc-section li:last-child { margin-bottom: 0; }
+    .doc-section a { color: var(--text); text-decoration: underline; text-underline-offset: 3px; }
+    .doc-section a:hover { color: var(--green); }
+    .doc-section strong { color: var(--text); font-weight: 700; }
 
-    .footer-wrap { position: relative; z-index: 1; border-top: 1px solid var(--border); }
-    footer {
-      max-width: 1100px; margin: 0 auto; padding: 24px;
-      display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
-    }
-    .footer-left { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
-    .footer-copy { font-size: 0.75rem; color: var(--muted); }
-    .footer-link { font-size: 0.75rem; color: var(--muted); text-decoration: none; transition: color 0.18s; }
-    .footer-link:hover { color: var(--text); }
-
-    @media (max-width: 480px) {
-      nav { padding: 0 18px; }
-      .page-wrap { padding: 40px 18px 72px; }
-    }
+    /* ── FOOTER ── */
+    footer { border-top: 1px solid var(--border); padding: 22px 0 40px; }
+    .foot-row { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .foot-copy { font-size: 0.75rem; color: var(--muted); }
+    .foot-links { display: flex; gap: 22px; flex-wrap: wrap; }
+    .foot-link { font-size: 0.75rem; color: var(--muted); text-decoration: none; }
+    .foot-link:hover { color: var(--text); }
+    .foot-social { display: flex; gap: 14px; }
+    .foot-social a { color: var(--muted); }
+    .foot-social a:hover { color: var(--text); }
+    .foot-social svg { width: 15px; height: 15px; fill: currentColor; }
   </style>
 </head>
 <body>
 
-  <!-- NAV -->
-  <nav>
-    <a href="/" class="nav-brand">
-      <img src="SH_TRANSPARENT_NEW.png" alt="Selecta Hub logo" class="nav-logo" width="30" height="30"/>
-      <span class="nav-wordmark">SELECTA HUB</span>
-    </a>
-    <a href="/" class="nav-back">&#8592; Back to Home</a>
-  </nav>
-
-  <div class="page-wrap">
-    <p class="page-eyebrow">Legal</p>
-    <h1 class="page-title">TERMS OF <span class="g">USE</span></h1>
-    <p class="page-updated">Last updated: June 6, 2026</p>
-
-    <div class="doc-section">
-      <h2>1. Acceptance of Terms</h2>
-      <p>By accessing or using <strong>selectahub.com</strong> or any Selecta Hub product (including Selecta Tool, Selecta Crates, Selecta Sound FX, and FolderFix), you agree to be bound by these Terms of Use. If you do not agree, please do not use our site or products.</p>
-      <p>These terms are issued by Juggernaut Music Group, the company behind Selecta Hub.</p>
-    </div>
-
-    <div class="doc-section">
-      <h2>2. Use of the Site</h2>
-      <p>You may use this site for lawful purposes only. You agree not to:</p>
-      <ul>
-        <li>Use the site in any way that violates applicable local, national, or international laws or regulations.</li>
-        <li>Attempt to gain unauthorised access to any part of the site or its related systems.</li>
-        <li>Scrape, copy, or redistribute content from this site without our written permission.</li>
-        <li>Transmit any unsolicited or unauthorised advertising or promotional material.</li>
-      </ul>
-    </div>
-
-    <div class="doc-section">
-      <h2>3. Products and Licenses</h2>
-      <p><strong>Selecta Tool</strong> and other paid software products are sold as one-time purchases and are licensed, not sold. Your license is personal and non-transferable. You may not:</p>
-      <ul>
-        <li>Redistribute, resell, or sublicense any Selecta Hub software.</li>
-        <li>Reverse-engineer, decompile, or modify the software.</li>
-        <li>Share license keys or use a single license across more installations than permitted.</li>
-      </ul>
-      <p><strong>Selecta Crates and Selecta Sound FX</strong> are DJ distribution products — they are intended exclusively for working DJs and are not general music releases for arbitrary listeners. By purchasing these products you confirm that you are a DJ using the content for DJ performance and preparation purposes only.</p>
-      <p>We strongly encourage all users to support artists and labels by purchasing music through official channels (record stores, streaming platforms, label stores, and digital retailers). Selecta Crates is a curated DJ tool, not a substitute for supporting the artists whose music you play.</p>
-      <p>If you have any concern or dispute relating to the distribution or content of Selecta Crates or Selecta Sound FX, please contact us immediately at <a href="mailto:info@selectahub.com">info@selectahub.com</a> before taking any other action and we will work to resolve it promptly.</p>
-    </div>
-
-    <div class="doc-section">
-      <h2>4. Payments and Refunds</h2>
-      <p>All purchases are processed through our third-party payment providers. Prices are in USD and are subject to change without notice.</p>
-      <p>Due to the digital nature of our products, all sales are generally final. If you experience a technical issue preventing you from accessing a purchased product, contact us at <a href="mailto:info@selectahub.com">info@selectahub.com</a> and we will work to resolve it.</p>
-    </div>
-
-    <div class="doc-section">
-      <h2>5. Intellectual Property</h2>
-      <p>All content on this site — including text, graphics, logos, product names, and software — is the property of Juggernaut Music Group or its licensors and is protected by applicable intellectual property laws. Nothing on this site grants you any right to use our trademarks or branding without prior written consent.</p>
-    </div>
-
-    <div class="doc-section">
-      <h2>6. Third-Party Links</h2>
-      <p>This site may contain links to third-party websites (e.g. Gumroad, WhatsApp, social media). These links are provided for convenience only. We have no control over the content of those sites and accept no responsibility for them or for any loss or damage that may arise from your use of them.</p>
-    </div>
-
-    <div class="doc-section">
-      <h2>7. Disclaimer of Warranties</h2>
-      <p>Selecta Hub products and this site are provided on an "as is" and "as available" basis without warranties of any kind, either express or implied. We do not warrant that the site will be uninterrupted, error-free, or free of viruses or other harmful components.</p>
-    </div>
-
-    <div class="doc-section">
-      <h2>8. Limitation of Liability</h2>
-      <p>To the fullest extent permitted by law, Juggernaut Music Group shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising out of your use of, or inability to use, our site or products — even if we have been advised of the possibility of such damages.</p>
-    </div>
-
-    <div class="doc-section">
-      <h2>9. Changes to These Terms</h2>
-      <p>We reserve the right to update these Terms of Use at any time. When we do, we will revise the "Last updated" date at the top of this page. Continued use of the site or our products after changes are posted constitutes your acceptance of the updated terms.</p>
-    </div>
-
-    <div class="doc-section">
-      <h2>10. Governing Law</h2>
-      <p>These terms are governed by and construed in accordance with applicable law. Any disputes arising in connection with these terms shall be subject to the exclusive jurisdiction of the relevant courts.</p>
-    </div>
-
-    <div class="doc-section">
-      <h2>11. Contact</h2>
-      <p>Questions about these Terms? Reach us at <a href="mailto:info@selectahub.com">info@selectahub.com</a>.</p>
+  <div class="marquee">
+    <div class="marquee-track">
+      <span class="g">SELECTA TOOL · CRATE MANAGEMENT FOR SERATO</span>
+      <span>SOUND FX PACKS AVAILABLE NOW</span>
+      <span class="y">SELECTA CRATES DROPPING SOON</span>
+      <span>BUILT FOR SERATO DJ PRO</span>
+      <span class="g">SELECTA TOOL · CRATE MANAGEMENT FOR SERATO</span>
+      <span>SOUND FX PACKS AVAILABLE NOW</span>
+      <span class="y">SELECTA CRATES DROPPING SOON</span>
+      <span>BUILT FOR SERATO DJ PRO</span>
     </div>
   </div>
 
-  <!-- FOOTER -->
-  <div class="footer-wrap">
+  <div class="wrap">
+    <header>
+      <div class="head-row">
+        <a href="index.html" class="brand">
+          <img src="SH_TRANSPARENT_NEW.png" alt="Selecta Hub logo"/>
+          <span class="brand-word">SELECTA HUB</span>
+        </a>
+        <nav>
+          <a href="selectatool.html" class="nav-link">Selecta Tool</a>
+          <a href="selectacrates.html" class="nav-link">Crates</a>
+          <a href="selectasoundfx.html" class="nav-link">Sound FX</a>
+          <a href="mailto:info@selectahub.com" class="nav-link">Contact</a>
+        </nav>
+        <button class="hamburger" id="hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
+      </div>
+      <div class="head-rule"></div>
+    </header>
+
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="index.html" class="mobile-link">Home</a>
+      <a href="#" class="mobile-link mobile-back" onclick="history.back();return false;" aria-label="Back"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></a>
+      <a href="selectatool.html" class="mobile-link">Selecta Tool</a>
+      <a href="selectacrates.html" class="mobile-link">Crates</a>
+      <a href="selectasoundfx.html" class="mobile-link">Sound FX</a>
+      <a href="mailto:info@selectahub.com" class="mobile-link">Contact</a>
+      <div class="mobile-socials">
+        <a href="https://www.instagram.com/selecta.hub/" target="_blank" rel="noopener noreferrer" class="mobile-social-btn" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+        <a href="https://x.com/selectahub" target="_blank" rel="noopener noreferrer" class="mobile-social-btn" aria-label="X"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.747l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+        <a href="https://www.tiktok.com/@selecta.hub" target="_blank" rel="noopener noreferrer" class="mobile-social-btn" aria-label="TikTok"><svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.79 1.52V6.78a4.85 4.85 0 01-1.02-.09z"/></svg></a>
+        <a href="https://chat.whatsapp.com/BCyfZkn0THvGNXu088QtlU?mode=gi_t" target="_blank" rel="noopener noreferrer" class="mobile-social-btn" aria-label="WhatsApp"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+      </div>
+    </div>
+
+    <section class="doc-hero">
+      <div class="doc-eyebrow">Legal</div>
+      <h1 class="doc-title">TERMS<br><span class="out">OF USE.</span></h1>
+      <p class="doc-updated">Last updated: June 6, 2026</p>
+    </section>
+
+    <div class="doc-body">
+      <div class="doc-section">
+        <h2>1. Acceptance of Terms</h2>
+        <p>By accessing or using <strong>selectahub.com</strong> or any Selecta Hub product (including Selecta Tool, Selecta Crates, Selecta Sound FX, and FolderFix), you agree to be bound by these Terms of Use. If you do not agree, please do not use our site or products.</p>
+        <p>These terms are issued by Juggernaut Music Group, the company behind Selecta Hub.</p>
+      </div>
+
+      <div class="doc-section">
+        <h2>2. Use of the Site</h2>
+        <p>You may use this site for lawful purposes only. You agree not to:</p>
+        <ul>
+          <li>Use the site in any way that violates applicable local, national, or international laws or regulations.</li>
+          <li>Attempt to gain unauthorised access to any part of the site or its related systems.</li>
+          <li>Scrape, copy, or redistribute content from this site without our written permission.</li>
+          <li>Transmit any unsolicited or unauthorised advertising or promotional material.</li>
+        </ul>
+      </div>
+
+      <div class="doc-section">
+        <h2>3. Products and Licenses</h2>
+        <p><strong>Selecta Tool</strong> and other paid software products are sold as one-time purchases and are licensed, not sold. Your license is personal and non-transferable. You may not:</p>
+        <ul>
+          <li>Redistribute, resell, or sublicense any Selecta Hub software.</li>
+          <li>Reverse-engineer, decompile, or modify the software.</li>
+          <li>Share license keys or use a single license across more installations than permitted.</li>
+        </ul>
+        <p><strong>Selecta Crates and Selecta Sound FX</strong> are DJ distribution products: they are intended exclusively for working DJs and are not general music releases for arbitrary listeners. By purchasing these products you confirm that you are a DJ using the content for DJ performance and preparation purposes only.</p>
+        <p>We strongly encourage all users to support artists and labels by purchasing music through official channels (record stores, streaming platforms, label stores, and digital retailers). Selecta Crates is a curated DJ tool, not a substitute for supporting the artists whose music you play.</p>
+        <p>If you have any concern or dispute relating to the distribution or content of Selecta Crates or Selecta Sound FX, please contact us immediately at <a href="mailto:info@selectahub.com">info@selectahub.com</a> before taking any other action and we will work to resolve it promptly.</p>
+      </div>
+
+      <div class="doc-section">
+        <h2>4. Payments and Refunds</h2>
+        <p>All purchases are processed through our third-party payment providers. Prices are in USD and are subject to change without notice.</p>
+        <p>Due to the digital nature of our products, all sales are generally final. If you experience a technical issue preventing you from accessing a purchased product, contact us at <a href="mailto:info@selectahub.com">info@selectahub.com</a> and we will work to resolve it.</p>
+      </div>
+
+      <div class="doc-section">
+        <h2>5. Intellectual Property</h2>
+        <p>All content on this site — including text, graphics, logos, product names, and software — is the property of Juggernaut Music Group or its licensors and is protected by applicable intellectual property laws. Nothing on this site grants you any right to use our trademarks or branding without prior written consent.</p>
+      </div>
+
+      <div class="doc-section">
+        <h2>6. Third-Party Links</h2>
+        <p>This site may contain links to third-party websites (e.g. Gumroad, WhatsApp, social media). These links are provided for convenience only. We have no control over the content of those sites and accept no responsibility for them or for any loss or damage that may arise from your use of them.</p>
+      </div>
+
+      <div class="doc-section">
+        <h2>7. Disclaimer of Warranties</h2>
+        <p>Selecta Hub products and this site are provided on an "as is" and "as available" basis without warranties of any kind, either express or implied. We do not warrant that the site will be uninterrupted, error-free, or free of viruses or other harmful components.</p>
+      </div>
+
+      <div class="doc-section">
+        <h2>8. Limitation of Liability</h2>
+        <p>To the fullest extent permitted by law, Juggernaut Music Group shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising out of your use of, or inability to use, our site or products, even if we have been advised of the possibility of such damages.</p>
+      </div>
+
+      <div class="doc-section">
+        <h2>9. Changes to These Terms</h2>
+        <p>We reserve the right to update these Terms of Use at any time. When we do, we will revise the "Last updated" date at the top of this page. Continued use of the site or our products after changes are posted constitutes your acceptance of the updated terms.</p>
+      </div>
+
+      <div class="doc-section">
+        <h2>10. Governing Law</h2>
+        <p>These terms are governed by and construed in accordance with applicable law. Any disputes arising in connection with these terms shall be subject to the exclusive jurisdiction of the relevant courts.</p>
+      </div>
+
+      <div class="doc-section">
+        <h2>11. Contact</h2>
+        <p>Questions about these Terms? Reach us at <a href="mailto:info@selectahub.com">info@selectahub.com</a>.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
     <footer>
-      <div class="footer-left">
-        <span class="footer-copy">&copy; 2026 Juggernaut Music Group. All rights reserved.</span>
-        <a href="privacy.html" class="footer-link">Privacy Policy</a>
-        <a href="terms.html"   class="footer-link">Terms of Use</a>
+      <div class="foot-row">
+        <span class="foot-copy">© 2026 Juggernaut Music Group. All rights reserved.</span>
+        <div class="foot-links">
+          <a href="mailto:info@selectahub.com" class="foot-link">info@selectahub.com</a>
+          <a href="privacy.html" class="foot-link">Privacy Policy</a>
+          <a href="terms.html" class="foot-link">Terms of Use</a>
+        </div>
+        <div class="foot-social">
+          <a href="https://www.instagram.com/selecta.hub/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+          <a href="https://x.com/selectahub" target="_blank" rel="noopener noreferrer" aria-label="X"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.747l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+          <a href="https://www.tiktok.com/@selecta.hub" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.79 1.52V6.78a4.85 4.85 0 01-1.02-.09z"/></svg></a>
+        </div>
       </div>
     </footer>
   </div>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburger.addEventListener('click', () => {
+      const open = mobileMenu.classList.toggle('open');
+      hamburger.classList.toggle('open', open);
+      document.body.style.overflow = open ? 'hidden' : '';
+    });
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') { mobileMenu.classList.remove('open'); hamburger.classList.remove('open'); document.body.style.overflow = ''; }
+    });
+    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      mobileMenu.classList.remove('open'); hamburger.classList.remove('open'); document.body.style.overflow = '';
+    }));
+  </script>
 
 </body>
 </html>

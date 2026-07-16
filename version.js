@@ -1,4 +1,4 @@
-const APP_VERSION = '2.0.5';
+const APP_VERSION = '2.0.7';
 
 const PRICES = {
   basic:   { intro: '$29.99',  regular: '$39.99',  orig: '$49.99' },
