@@ -9,23 +9,24 @@
   <meta property="og:type" content="website"/>
   <meta property="og:url" content="https://selectahub.com/selectacrates.html"/>
   <meta property="og:title" content="Selecta Crates · Curated DJ Music Libraries"/>
-  <meta property="og:description" content="Years of curated music, genre-sorted and ready to load. Pick your genre and download instantly."/>
+  <meta property="og:description" content="Curated music libraries by genre. Browse the crates below."/>
   <meta property="og:image" content="https://selectahub.com/og-social-card.png"/>
   <meta name="twitter:card" content="summary_large_image"/>
-  <meta name="description" content="Selecta Crates: premium curated DJ music libraries by genre. Dancehall, Reggae, Afrobeats, Hip Hop and more."/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <meta name="description" content="Selecta Crates: curated DJ music libraries by genre."/>
+  <link href="https://api.fontshare.com/v2/css?f[]=resist-sans@700,800,900&amp;display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
   <style>
     :root {
-      --black:    #0a0a0a;
-      --card:     #111111;
-      --card-2:   #161616;
-      --border:   #222222;
+      --black: #0a0a0a;
+      --card: #111111;
+      --card-2: #161616;
+      --border: #222222;
       --border-h: #333333;
-      --text:     #eeeeee;
-      --muted:    #666666;
-      --green:    #2ecc40;
-      --gold:     #ffc107;
-      --wa:       #25d366;
+      --text: #eeeeee;
+      --muted: #666666;
+      --green: #2ecc40;
+      --gold: #ffc107;
+      --wa: #25d366;
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
@@ -34,20 +35,30 @@
       color: var(--text);
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       -webkit-font-smoothing: antialiased;
+      position: relative;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background: rgba(10,10,10,0.86);
+      pointer-events: none;
+    }
+    .bg-photo {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background: url('serato-hero-bg-selecta-tool.jpg') center center / cover no-repeat;
+      filter: blur(1.5px) brightness(0.85);
+      opacity: 0.8;
+      transform: scale(1.05);
     }
     a { color: inherit; }
-    .wrap { max-width: 1180px; margin: 0 auto; padding: 0 40px; }
+    .wrap { max-width: 1180px; margin: 0 auto; padding: 0 40px; background: transparent; }
     @media (max-width: 640px) { .wrap { padding: 0 22px; } }
 
-    /* ── MARQUEE ── */
-    .marquee { background: var(--card); border-bottom: 1px solid var(--border); overflow: hidden; white-space: nowrap; padding: 9px 0; }
-    .marquee-track { display: inline-block; padding-left: 100%; animation: scroll 28s linear infinite; font-size: 0.72rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
-    .marquee-track span { margin: 0 22px; }
-    .marquee-track span.g { color: var(--green); }
-    .marquee-track span.y { color: var(--gold); }
-    @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
-
-    /* ── HEADER ── */
     header { padding: 26px 0 0; position: sticky; top: 0; z-index: 200; background: var(--black); }
     .head-row { display: flex; align-items: center; justify-content: space-between; }
     .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
@@ -61,25 +72,41 @@
     .nav-link-current { color: var(--text); pointer-events: none; }
     .nav-link-current::after { right: 0; background: var(--gold); }
     .head-rule { height: 1px; background: var(--border); margin-top: 22px; }
-    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px; background: none; border: none; outline: none; }
-    .hamburger span { display: block; width: 22px; height: 2px; background: var(--text); border-radius: 2px; transition: transform 0.25s, opacity 0.25s; }
-    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-    .hamburger.open span:nth-child(2) { opacity: 0; }
-    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .hamburger {
+      display: none; position: relative; align-items: center; justify-content: center; width: 46px; height: 46px;
+      cursor: pointer; padding: 0; background: rgba(26,26,26,0.94);
+      border: 1px solid rgba(255,255,255,0.12); border-radius: 15px; outline: none;
+      box-shadow: 0 12px 28px rgba(0,0,0,0.3);
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); transition: transform 0.22s ease, border-color 0.22s ease, background 0.22s ease;
+    }
+    .hamburger:hover { transform: translateY(-1px); border-color: rgba(255,255,255,0.22); background: rgba(34,34,34,0.96); }
+    .hamburger span {
+      display: block; position: absolute; width: 20px; height: 2px; border-radius: 999px;
+      background: rgba(245,245,245,0.92);
+      transition: transform 0.32s cubic-bezier(.22,1,.36,1), opacity 0.22s ease, width 0.22s ease;
+    }
+    .hamburger span:nth-child(1) { transform: translateY(-6px); }
+    .hamburger span:nth-child(2) { transform: translateY(0); }
+    .hamburger span:nth-child(3) { transform: translateY(6px); }
+    .hamburger.open span:nth-child(1) { transform: translateY(0) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; width: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(0) rotate(-45deg); }
     @media (max-width: 640px) { nav { display: none; } .hamburger { display: flex; } }
 
     .mobile-menu {
-      display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(10,10,10,0.98); backdrop-filter: blur(16px);
-      z-index: 500; flex-direction: column; align-items: center; justify-content: center;
-      gap: 10px; opacity: 0; transition: opacity 0.22s;
+      position: fixed; top: 100px; right: 16px; left: auto; bottom: auto; width: min(272px, calc(100vw - 32px));
+      padding: 14px; background: linear-gradient(180deg, rgba(34,34,34,0.94), rgba(10,10,10,0.97));
+      border: 1px solid rgba(255,255,255,0.12); border-radius: 24px; box-shadow: 0 28px 70px rgba(0,0,0,0.42), inset 0 1px 0 rgba(255,255,255,0.08);
+      backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); z-index: 500; display: flex; flex-direction: column;
+      align-items: stretch; justify-content: flex-start; gap: 4px; opacity: 0; visibility: hidden; pointer-events: none;
+      transform: translate3d(0, -14px, 0) scale(0.96); transform-origin: top right;
+      transition: opacity 0.22s ease, transform 0.32s cubic-bezier(.22,1,.36,1), visibility 0.22s ease;
     }
-    .mobile-menu.open { display: flex; opacity: 1; }
-    .mobile-link { font-size: 1.3rem; font-weight: 800; letter-spacing: -0.01em; color: var(--muted); text-decoration: none; padding: 10px 20px; }
-    .mobile-link:hover { color: var(--text); }
-    .mobile-back { display: flex; align-items: center; justify-content: center; }
+    .mobile-menu.open { opacity: 1; visibility: visible; pointer-events: auto; transform: translate3d(0, 0, 0) scale(1); }
+    .mobile-link { font-size: 0.98rem; font-weight: 800; letter-spacing: -0.01em; color: var(--muted); text-decoration: none; padding: 11px 12px; border-radius: 12px; text-align: left; transition: background 0.18s ease, color 0.18s ease, transform 0.18s ease; }
+    .mobile-link:hover, .mobile-link:focus-visible { background: rgba(255,255,255,0.05); color: var(--text); transform: translateX(2px); }
     .mobile-link-current { color: var(--gold); }
-    .mobile-socials { display: flex; align-items: center; gap: 12px; margin-top: 26px; }
+    .mobile-socials { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 14px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.08); }
     .mobile-social-btn {
       display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 10px;
       background: var(--card-2); border: 1px solid var(--border); color: var(--muted); text-decoration: none;
@@ -87,47 +114,74 @@
     .mobile-social-btn:hover { border-color: var(--border-h); color: var(--text); }
     .mobile-social-btn svg { width: 18px; height: 18px; fill: currentColor; }
 
-    /* ── HERO ── */
     .hero { padding: 70px 0 40px; }
-    .hero-kicker { font-size: 0.75rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--green); margin-bottom: 18px; }
-    .hero-kicker::before { content: '● '; }
-    .hero-kicker.soon { color: var(--gold); }
-    .hero-title { font-size: clamp(3rem, 8vw, 6.4rem); font-weight: 900; letter-spacing: -0.04em; line-height: 0.94; text-transform: uppercase; color: var(--text); }
-    .hero-title .g { color: var(--green); }
-    .hero-desc { max-width: 560px; font-size: 1rem; color: var(--muted); line-height: 1.65; margin-top: 22px; }
+    .hero-head { margin-bottom: 8px; opacity: 0; transform: translate3d(0, 30px, 0); filter: blur(8px); transition: opacity 0.7s ease, transform 0.85s cubic-bezier(.2,.8,.2,1), filter 0.85s ease; }
+    .hero-foot { display: flex; justify-content: space-between; align-items: flex-end; gap: 30px; margin-top: 26px; flex-wrap: wrap; opacity: 0; transform: translate3d(0, 30px, 0); filter: blur(8px); transition: opacity 0.7s ease, transform 0.85s cubic-bezier(.2,.8,.2,1), filter 0.85s ease; }
+    .hero-head.is-visible, .hero-foot.is-visible { opacity: 1; transform: translate3d(0, 0, 0); filter: blur(0); }
+    .hero-title {
+      font-family: 'Resist Sans Display', 'Resist Sans', 'Inter', sans-serif;
+      font-size: clamp(3rem, 8.5vw, 6.6rem);
+      font-weight: 900;
+      letter-spacing: 0.01em;
+      line-height: 0.9;
+      text-transform: uppercase;
+      color: var(--text);
+    }
+    .hero-title .out {
+      color: var(--text);
+      -webkit-text-stroke: 0;
+      text-shadow: 0 0 18px rgba(255,255,255,0.08);
+    }
+    .hero-title-metal {
+      background: linear-gradient(115deg, #7a7d80 0%, #e8e8e8 22%, #ffffff 40%, #9a9a9a 55%, #f2f2f2 72%, #6e7174 100%);
+      background-size: 220% auto;
+      -webkit-background-clip: text; background-clip: text;
+      color: transparent; -webkit-text-fill-color: transparent;
+      animation: metallic-shine 5s ease-in-out infinite alternate;
+    }
+    @keyframes metallic-shine { to { background-position: 220% center; } }
+    .hero-desc { max-width: 460px; font-size: 1rem; font-weight: 500; color: var(--text); line-height: 1.65; }
+    .hero-tag { font-size: 0.75rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); text-align: right; white-space: nowrap; }
+    [data-animate="hero-word"], [data-animate="hero-char"] { opacity: 0; display: inline-block; }
+    [data-animate="hero-word"] {
+      transform: translate3d(0.4em, -0.35em, 0) rotate(7deg) scale(0.92, 0.28);
+      transform-origin: top left;
+      transition: opacity 0.35s ease, transform 0.82s cubic-bezier(.16,1,.3,1);
+    }
+    [data-animate="hero-char"] {
+      transform: translate3d(-0.18em, 0.4em, 0) rotate(18deg);
+      transition: opacity 0.3s ease, transform 0.7s cubic-bezier(.2,.9,.25,1.2);
+    }
+    [data-animate="hero-word"].is-visible, [data-animate="hero-char"].is-visible {
+      opacity: 1;
+      transform: translate3d(0, 0, 0) rotate(0) scale(1);
+    }
 
     .rule-thick { height: 2px; background: var(--text); margin-top: 30px; }
-
-    /* ── COUNTDOWN ── */
-    .countdown-row { display: flex; align-items: baseline; gap: 20px; flex-wrap: wrap; padding: 26px 0; border-bottom: 1px solid var(--border); }
-    .countdown-row.is-hidden { display: none; }
-    .countdown-label { font-size: 0.72rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); }
-    .countdown-nums { font-size: 1.6rem; font-weight: 900; letter-spacing: -0.01em; color: var(--text); font-variant-numeric: tabular-nums; }
-    .countdown-nums span.unit { font-size: 0.9rem; font-weight: 700; color: var(--muted); margin-right: 10px; }
-
-    /* ── GENRE LIST ── */
     .section-label { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding: 40px 0 10px; }
     .section-label h2 { font-size: 0.78rem; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; color: var(--text); }
 
     .genre-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
     @media (max-width: 860px) { .genre-grid { grid-template-columns: repeat(2, 1fr); } }
     @media (max-width: 540px) { .genre-grid { grid-template-columns: 1fr; } }
-
-    .genre-item { display: flex; align-items: center; justify-content: flex-start; gap: 10px; padding: 20px 30px 20px 0; border-top: 1px solid var(--border); text-decoration: none; color: var(--text); }
+    .genre-item {
+      display: flex; align-items: center; justify-content: flex-start; gap: 12px;
+      padding: 20px 0; border-top: 1px solid var(--border); text-decoration: none; color: var(--text);
+      opacity: 0; transform: translate3d(0, 24px, 0); transition: opacity 0.5s ease, transform 0.7s cubic-bezier(.2,.8,.2,1), color 0.2s ease;
+    }
     .genre-grid > .genre-item:nth-last-child(-n+3) { border-bottom: 1px solid var(--border); }
     @media (max-width: 860px) { .genre-grid > .genre-item:nth-last-child(-n+3) { border-bottom: none; } .genre-grid > .genre-item:nth-last-child(-n+2) { border-bottom: 1px solid var(--border); } }
     @media (max-width: 540px) { .genre-grid > .genre-item:nth-last-child(-n+2) { border-bottom: none; } .genre-grid > .genre-item:last-child { border-bottom: 1px solid var(--border); } }
-    .genre-name { font-size: 0.95rem; font-weight: 700; letter-spacing: -0.01em; }
-    .genre-arrow { font-size: 0.9rem; color: var(--muted); flex-shrink: 0; transition: color 0.2s, transform 0.2s; }
+    .genre-item.is-visible { opacity: 1; transform: translate3d(0, 0, 0); }
+    .genre-name { font-size: 0.95rem; font-weight: 800; letter-spacing: -0.01em; color: var(--text); }
     .genre-item:hover .genre-name { color: var(--green); }
-    .genre-item:hover .genre-arrow { color: var(--green); transform: translateX(3px); }
-    .genre-item.locked { opacity: 0.4; pointer-events: none; }
+    .genre-item.locked { opacity: 1; pointer-events: none; }
+    .genre-item.locked.is-visible { opacity: 1; }
 
-    /* ── NOTE ── */
-    .note-row { padding: 28px 0 60px; border-top: 1px solid var(--border); margin-top: 0; font-size: 0.88rem; color: var(--muted); line-height: 1.7; }
+    .note-row { padding: 28px 0 60px; border-top: 1px solid var(--border); margin-top: 0; font-size: 0.88rem; color: rgba(255,255,255,0.9); line-height: 1.7; opacity: 0; transform: translate3d(0, 24px, 0); transition: opacity 0.5s ease, transform 0.7s cubic-bezier(.2,.8,.2,1); }
+    .note-row.is-visible { opacity: 1; transform: translate3d(0, 0, 0); }
     .note-row a { color: var(--green); text-decoration: underline; }
 
-    /* ── ABOUT / COMMUNITY BAND ── */
     .band { display: grid; grid-template-columns: 1fr 1fr; }
     @media (max-width: 760px) { .band { grid-template-columns: 1fr; } }
     .band-about { padding: 36px 40px; background: var(--card); }
@@ -136,7 +190,6 @@
     .band-about h3 .g { color: var(--green); }
     .band-about p { font-size: 0.88rem; color: var(--muted); line-height: 1.65; max-width: 420px; }
     .band-about strong { color: var(--text); font-weight: 700; }
-
     .band-comm { background: var(--wa); color: var(--black); padding: 36px 40px; display: flex; flex-direction: column; justify-content: center; text-decoration: none; }
     .band-comm .comm-top { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
     .band-comm .wa-icon { width: 32px; height: 32px; object-fit: contain; }
@@ -147,7 +200,6 @@
     .band-comm .go .arrow { transition: transform 0.2s; }
     .band-comm:hover .go .arrow { transform: translateX(5px); }
 
-    /* ── FOOTER ── */
     footer { border-top: 1px solid var(--border); padding: 22px 0 40px; }
     .foot-row { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
     .foot-copy { font-size: 0.75rem; color: var(--muted); }
@@ -161,19 +213,7 @@
   </style>
 </head>
 <body>
-
-  <div class="marquee">
-    <div class="marquee-track">
-      <span class="g">SELECTA TOOL · CRATE MANAGEMENT MADE SIMPLE</span>
-      <span>SOUND FX PACKS AVAILABLE NOW</span>
-      <span class="y">SELECTA CRATES DROPPING SOON</span>
-      <span>BUILT FOR SERATO DJ PRO</span>
-      <span class="g">SELECTA TOOL · CRATE MANAGEMENT MADE SIMPLE</span>
-      <span>SOUND FX PACKS AVAILABLE NOW</span>
-      <span class="y">SELECTA CRATES DROPPING SOON</span>
-      <span>BUILT FOR SERATO DJ PRO</span>
-    </div>
-  </div>
+  <div class="bg-photo"></div>
 
   <div class="wrap">
     <header>
@@ -184,7 +224,7 @@
         </a>
         <nav>
           <a href="selectatool.html" class="nav-link">Selecta Tool</a>
-          <span class="nav-link nav-link-current" id="navCrates">Crates</span>
+          <span class="nav-link nav-link-current">Crates</span>
           <a href="selectasoundfx.html" class="nav-link" id="navSfx">Sound FX</a>
           <a href="mailto:info@selectahub.com" class="nav-link">Contact</a>
         </nav>
@@ -195,9 +235,8 @@
 
     <div class="mobile-menu" id="mobileMenu">
       <a href="index.html" class="mobile-link">Home</a>
-      <a href="#" class="mobile-link mobile-back" onclick="history.back();return false;" aria-label="Back"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></a>
       <a href="selectatool.html" class="mobile-link">Selecta Tool</a>
-      <span class="mobile-link mobile-link-current" id="mobileCrates">Crates</span>
+      <span class="mobile-link mobile-link-current">Crates</span>
       <a href="selectasoundfx.html" class="mobile-link" id="mobileSfx">Sound FX</a>
       <a href="mailto:info@selectahub.com" class="mobile-link">Contact</a>
       <div class="mobile-socials">
@@ -209,120 +248,45 @@
     </div>
 
     <section class="hero">
-      <div class="hero-kicker soon" id="cratesKicker">Coming Soon</div>
-      <h1 class="hero-title">SELECTA<br><span class="g">CRATES.</span></h1>
-      <p class="hero-desc">Years of curated music, genre-sorted and ready to load into any DJ software. Browse the genres below, downloads coming soon.</p>
+      <div class="hero-head" data-hero-fade>
+        <h1 class="hero-title" id="cratesHeroTitle"><span class="hero-title-metal" data-animate="hero-word">SELECTA</span><br><span class="out" data-animate="hero-word">CRATES.</span></h1>
+      </div>
+      <div class="hero-foot" data-hero-fade>
+        <p class="hero-desc" id="cratesHeroSub">Curated music libraries by genre. Browse the crates below. Downloads landing soon.</p>
+        <div class="hero-tag">Coming Soon</div>
+      </div>
     </section>
 
     <div class="rule-thick"></div>
 
-    <div class="countdown-row" id="pageCountdown">
-      <span class="countdown-label">Live in</span>
-      <span class="countdown-nums"><span class="unit">D</span><span id="cdDays">--</span> &nbsp; <span class="unit">H</span><span id="cdHours">--</span> &nbsp; <span class="unit">M</span><span id="cdMins">--</span> &nbsp; <span class="unit">S</span><span id="cdSecs">--</span></span>
-    </div>
-
     <div class="section-label">
-      <h2>Browse by Genre</h2>
+      <h2>Genres</h2>
     </div>
 
     <div class="genre-grid">
-
-      <a class="genre-item locked" href="https://juggernautmusic.gumroad.com/l/dancehalllib" target="_blank" rel="noopener noreferrer">
-        <span class="genre-name">Dancehall</span>
-        <span class="genre-arrow">&#8594;</span>
-      </a>
-
-      <a class="genre-item locked" href="https://juggernautmusic.gumroad.com/l/reggaelib" target="_blank" rel="noopener noreferrer">
-        <span class="genre-name">Reggae</span>
-        <span class="genre-arrow">&#8594;</span>
-      </a>
-
-      <a class="genre-item locked" href="https://juggernautmusic.gumroad.com/l/socalib" target="_blank" rel="noopener noreferrer">
-        <span class="genre-name">Soca</span>
-        <span class="genre-arrow">&#8594;</span>
-      </a>
-
-      <a class="genre-item locked" href="https://juggernautmusic.gumroad.com/l/hiphoplib" target="_blank" rel="noopener noreferrer">
-        <span class="genre-name">Hip Hop &amp; Trap</span>
-        <span class="genre-arrow">&#8594;</span>
-      </a>
-
-      <a class="genre-item locked" href="https://juggernautmusic.gumroad.com/l/rblib" target="_blank" rel="noopener noreferrer">
-        <span class="genre-name">R&amp;B</span>
-        <span class="genre-arrow">&#8594;</span>
-      </a>
-
-      <a class="genre-item locked" href="https://juggernautmusic.gumroad.com/l/afrolib" target="_blank" rel="noopener noreferrer">
-        <span class="genre-name">Afrobeats &amp; Amapiano</span>
-        <span class="genre-arrow">&#8594;</span>
-      </a>
-
-      <a class="genre-item locked" href="https://juggernautmusic.gumroad.com/l/basshalllib" target="_blank" rel="noopener noreferrer">
-        <span class="genre-name">Basshall</span>
-        <span class="genre-arrow">&#8594;</span>
-      </a>
-
-      <a class="genre-item locked" href="https://juggernautmusic.gumroad.com/l/bailefunklib" target="_blank" rel="noopener noreferrer">
-        <span class="genre-name">Baile Funk</span>
-        <span class="genre-arrow">&#8594;</span>
-      </a>
-
-      <a class="genre-item locked" href="https://juggernautmusic.gumroad.com/l/countryrocklib" target="_blank" rel="noopener noreferrer">
-        <span class="genre-name">Country, Rock &amp; Heavy Metal</span>
-        <span class="genre-arrow">&#8594;</span>
-      </a>
-
-      <a class="genre-item locked" href="https://juggernautmusic.gumroad.com/l/ukdrillgrimelib" target="_blank" rel="noopener noreferrer">
-        <span class="genre-name">Drill, Grime &amp; UK Garage</span>
-        <span class="genre-arrow">&#8594;</span>
-      </a>
-
-      <a class="genre-item locked" href="https://juggernautmusic.gumroad.com/l/gospellib" target="_blank" rel="noopener noreferrer">
-        <span class="genre-name">Gospel</span>
-        <span class="genre-arrow">&#8594;</span>
-      </a>
-
-      <a class="genre-item locked" href="https://juggernautmusic.gumroad.com/l/clubhouseedm" target="_blank" rel="noopener noreferrer">
-        <span class="genre-name">Club, EDM &amp; House</span>
-        <span class="genre-arrow">&#8594;</span>
-      </a>
-
-      <a class="genre-item locked" href="https://juggernautmusic.gumroad.com/l/jerseyclublib" target="_blank" rel="noopener noreferrer">
-        <span class="genre-name">Jersey Club</span>
-        <span class="genre-arrow">&#8594;</span>
-      </a>
-
-      <a class="genre-item locked" href="https://juggernautmusic.gumroad.com/l/kompalib" target="_blank" rel="noopener noreferrer">
-        <span class="genre-name">Kompa &amp; Zouk</span>
-        <span class="genre-arrow">&#8594;</span>
-      </a>
-
-      <a class="genre-item locked" href="https://juggernautmusic.gumroad.com/l/latinlib" target="_blank" rel="noopener noreferrer">
-        <span class="genre-name">Latin &amp; Reggaeton</span>
-        <span class="genre-arrow">&#8594;</span>
-      </a>
-
-      <a class="genre-item locked" href="https://juggernautmusic.gumroad.com/l/dancediscolib" target="_blank" rel="noopener noreferrer">
-        <span class="genre-name">New Disco &amp; New Jack Swing</span>
-        <span class="genre-arrow">&#8594;</span>
-      </a>
-
-      <a class="genre-item locked" href="https://juggernautmusic.gumroad.com/l/popurbanlib" target="_blank" rel="noopener noreferrer">
-        <span class="genre-name">Pop</span>
-        <span class="genre-arrow">&#8594;</span>
-      </a>
-
-      <a class="genre-item locked" href="https://juggernautmusic.gumroad.com/l/freecrates" target="_blank" rel="noopener noreferrer">
-        <span class="genre-name">Free Music</span>
-        <span class="genre-arrow">&#8594;</span>
-      </a>
-
+      <a class="genre-item locked" href="https://juggernautmusic.gumroad.com/l/dancehalllib" target="_blank" rel="noopener noreferrer" data-reveal><span class="genre-name">Dancehall</span></a>
+      <a class="genre-item locked" href="https://juggernautmusic.gumroad.com/l/reggaelib" target="_blank" rel="noopener noreferrer" data-reveal><span class="genre-name">Reggae</span></a>
+      <a class="genre-item locked" href="https://juggernautmusic.gumroad.com/l/socalib" target="_blank" rel="noopener noreferrer" data-reveal><span class="genre-name">Soca</span></a>
+      <a class="genre-item locked" href="https://juggernautmusic.gumroad.com/l/hiphoplib" target="_blank" rel="noopener noreferrer" data-reveal><span class="genre-name">Hip Hop &amp; Trap</span></a>
+      <a class="genre-item locked" href="https://juggernautmusic.gumroad.com/l/rblib" target="_blank" rel="noopener noreferrer" data-reveal><span class="genre-name">R&amp;B</span></a>
+      <a class="genre-item locked" href="https://juggernautmusic.gumroad.com/l/afrolib" target="_blank" rel="noopener noreferrer" data-reveal><span class="genre-name">Afrobeats &amp; Amapiano</span></a>
+      <a class="genre-item locked" href="https://juggernautmusic.gumroad.com/l/basshalllib" target="_blank" rel="noopener noreferrer" data-reveal><span class="genre-name">Basshall</span></a>
+      <a class="genre-item locked" href="https://juggernautmusic.gumroad.com/l/bailefunklib" target="_blank" rel="noopener noreferrer" data-reveal><span class="genre-name">Baile Funk</span></a>
+      <a class="genre-item locked" href="https://juggernautmusic.gumroad.com/l/countryrocklib" target="_blank" rel="noopener noreferrer" data-reveal><span class="genre-name">Country, Rock &amp; Heavy Metal</span></a>
+      <a class="genre-item locked" href="https://juggernautmusic.gumroad.com/l/ukdrillgrimelib" target="_blank" rel="noopener noreferrer" data-reveal><span class="genre-name">Drill, Grime &amp; UK Garage</span></a>
+      <a class="genre-item locked" href="https://juggernautmusic.gumroad.com/l/gospellib" target="_blank" rel="noopener noreferrer" data-reveal><span class="genre-name">Gospel</span></a>
+      <a class="genre-item locked" href="https://juggernautmusic.gumroad.com/l/clubhouseedm" target="_blank" rel="noopener noreferrer" data-reveal><span class="genre-name">Club, EDM &amp; House</span></a>
+      <a class="genre-item locked" href="https://juggernautmusic.gumroad.com/l/jerseyclublib" target="_blank" rel="noopener noreferrer" data-reveal><span class="genre-name">Jersey Club</span></a>
+      <a class="genre-item locked" href="https://juggernautmusic.gumroad.com/l/kompalib" target="_blank" rel="noopener noreferrer" data-reveal><span class="genre-name">Kompa &amp; Zouk</span></a>
+      <a class="genre-item locked" href="https://juggernautmusic.gumroad.com/l/latinlib" target="_blank" rel="noopener noreferrer" data-reveal><span class="genre-name">Latin &amp; Reggaeton</span></a>
+      <a class="genre-item locked" href="https://juggernautmusic.gumroad.com/l/dancediscolib" target="_blank" rel="noopener noreferrer" data-reveal><span class="genre-name">New Disco &amp; New Jack Swing</span></a>
+      <a class="genre-item locked" href="https://juggernautmusic.gumroad.com/l/popurbanlib" target="_blank" rel="noopener noreferrer" data-reveal><span class="genre-name">Pop</span></a>
+      <a class="genre-item locked" href="https://juggernautmusic.gumroad.com/l/freecrates" target="_blank" rel="noopener noreferrer" data-reveal><span class="genre-name">Free Music</span></a>
     </div>
 
-    <div class="note-row">
-      Don't see your genre? Email us at <a href="mailto:info@selectahub.com">info@selectahub.com</a>, we'll add it to the list.
+    <div class="note-row" data-reveal>
+      Don't see your genre? Email us at <a href="mailto:info@selectahub.com">info@selectahub.com</a>.
     </div>
-
   </div>
 
   <div class="band">
@@ -361,53 +325,96 @@
   </div>
 
   <script>
-    const hamburger = document.getElementById('hamburger');
-    const mobileMenu = document.getElementById('mobileMenu');
-    hamburger.addEventListener('click', () => {
-      const open = mobileMenu.classList.toggle('open');
-      hamburger.classList.toggle('open', open);
-      document.body.style.overflow = open ? 'hidden' : '';
-    });
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Escape') { mobileMenu.classList.remove('open'); hamburger.classList.remove('open'); document.body.style.overflow = ''; }
-    });
-    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-      mobileMenu.classList.remove('open'); hamburger.classList.remove('open'); document.body.style.overflow = '';
-    }));
-
-    // ── CRATES COUNTDOWN ──
     (function() {
-      var TARGET = new Date('2026-07-01T07:00:00Z');
-      var dEl = document.getElementById('cdDays');
-      var hEl = document.getElementById('cdHours');
-      var mEl = document.getElementById('cdMins');
-      var sEl = document.getElementById('cdSecs');
-      function pad(n) { return String(n).padStart(2, '0'); }
+      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var heroTitle = document.getElementById('cratesHeroTitle');
+      var heroSub = document.getElementById('cratesHeroSub');
+      var heroFadeTargets = document.querySelectorAll('[data-hero-fade]');
+      var revealTargets = document.querySelectorAll('[data-reveal]');
 
-      // NOTE: products aren't for sale yet, so genre links stay locked
-      // regardless of the countdown. Restore the old goLive() body
-      // (unlocking .genre-item and swapping the kicker text) when it's
-      // actually time to launch.
-      function goLive() {
-        clearInterval(timer);
-        var cd = document.getElementById('pageCountdown');
-        if (cd) cd.classList.add('is-hidden');
+      function splitWords(element) {
+        if (!element) return [];
+        var source = element.getAttribute('data-source-text') || element.textContent;
+        element.setAttribute('data-source-text', source);
+        element.textContent = '';
+        var words = source.split(' ');
+        return words.map(function(word, index) {
+          var span = document.createElement('span');
+          span.textContent = word;
+          span.setAttribute('data-animate', 'hero-char');
+          span.style.transitionDelay = (0.42 + index * 0.05) + 's';
+          element.appendChild(span);
+          if (index < words.length - 1) element.appendChild(document.createTextNode(' '));
+          return span;
+        }).filter(Boolean);
       }
 
-      function tick() {
-        var diff = TARGET - Date.now();
-        if (diff <= 0) { goLive(); return; }
-        dEl.textContent = pad(Math.floor(diff / 86400000));
-        hEl.textContent = pad(Math.floor((diff % 86400000) / 3600000));
-        mEl.textContent = pad(Math.floor((diff % 3600000) / 60000));
-        sEl.textContent = pad(Math.floor((diff % 60000) / 1000));
+      var titleWords = heroTitle ? Array.prototype.slice.call(heroTitle.querySelectorAll('[data-animate="hero-word"]')) : [];
+      titleWords.forEach(function(word, index) {
+        word.style.transitionDelay = (0.14 + index * 0.09) + 's';
+      });
+      var subWords = splitWords(heroSub);
+
+      function revealHero() {
+        titleWords.forEach(function(word) { word.classList.add('is-visible'); });
+        subWords.forEach(function(word) { word.classList.add('is-visible'); });
+        heroFadeTargets.forEach(function(target, index) {
+          window.setTimeout(function() { target.classList.add('is-visible'); }, 100 + index * 90);
+        });
       }
 
-      var timer;
-      if (Date.now() >= TARGET) { goLive(); }
-      else { tick(); timer = setInterval(tick, 1000); }
+      function initReveals() {
+        if (!('IntersectionObserver' in window) || reduceMotion) {
+          revealTargets.forEach(function(target) { target.classList.add('is-visible'); });
+          return;
+        }
+        var observer = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          });
+        }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+
+        revealTargets.forEach(function(target, index) {
+          target.style.transitionDelay = Math.min(index * 0.04, 0.24) + 's';
+          observer.observe(target);
+        });
+      }
+
+      if (reduceMotion) {
+        revealHero();
+        initReveals();
+      } else if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function() {
+          requestAnimationFrame(revealHero);
+          initReveals();
+        });
+      } else {
+        requestAnimationFrame(revealHero);
+        initReveals();
+      }
     })();
-  </script>
 
+    var hamburger = document.getElementById('hamburger');
+    var mobileMenu = document.getElementById('mobileMenu');
+    function setMobileMenu(open) {
+      mobileMenu.classList.toggle('open', open);
+      hamburger.classList.toggle('open', open);
+      hamburger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+    hamburger.addEventListener('click', function(e) {
+      e.stopPropagation();
+      setMobileMenu(!mobileMenu.classList.contains('open'));
+    });
+    mobileMenu.addEventListener('click', function(e) { e.stopPropagation(); });
+    document.addEventListener('click', function() { setMobileMenu(false); });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') setMobileMenu(false);
+    });
+    mobileMenu.querySelectorAll('a').forEach(function(a) {
+      a.addEventListener('click', function() { setMobileMenu(false); });
+    });
+  </script>
 </body>
 </html>

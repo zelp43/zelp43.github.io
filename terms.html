@@ -53,24 +53,41 @@
     .nav-link:hover { color: var(--text); }
     .nav-link:hover::after { right: 0; }
     .head-rule { height: 1px; background: var(--border); margin-top: 22px; }
-    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px; background: none; border: none; outline: none; }
-    .hamburger span { display: block; width: 22px; height: 2px; background: var(--text); border-radius: 2px; transition: transform 0.25s, opacity 0.25s; }
-    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-    .hamburger.open span:nth-child(2) { opacity: 0; }
-    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .hamburger {
+      display: none; position: relative; align-items: center; justify-content: center; width: 46px; height: 46px;
+      cursor: pointer; padding: 0; background: rgba(26,26,26,0.94);
+      border: 1px solid rgba(255,255,255,0.12); border-radius: 15px; outline: none;
+      box-shadow: 0 12px 28px rgba(0,0,0,0.3);
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); transition: transform 0.22s ease, border-color 0.22s ease, background 0.22s ease;
+    }
+    .hamburger:hover { transform: translateY(-1px); border-color: rgba(255,255,255,0.22); background: rgba(34,34,34,0.96); }
+    .hamburger span {
+      display: block; position: absolute; width: 20px; height: 2px; border-radius: 999px;
+      background: rgba(245,245,245,0.92);
+      transition: transform 0.32s cubic-bezier(.22,1,.36,1), opacity 0.22s ease, width 0.22s ease;
+    }
+    .hamburger span:nth-child(1) { transform: translateY(-6px); }
+    .hamburger span:nth-child(2) { transform: translateY(0); }
+    .hamburger span:nth-child(3) { transform: translateY(6px); }
+    .hamburger.open span:nth-child(1) { transform: translateY(0) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; width: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(0) rotate(-45deg); }
     @media (max-width: 640px) { nav { display: none; } .hamburger { display: flex; } }
 
     .mobile-menu {
-      display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(10,10,10,0.98); backdrop-filter: blur(16px);
-      z-index: 500; flex-direction: column; align-items: center; justify-content: center;
-      gap: 10px; opacity: 0; transition: opacity 0.22s;
+      position: fixed; top: 100px; right: 16px; left: auto; bottom: auto; width: min(272px, calc(100vw - 32px));
+      padding: 14px; background: linear-gradient(180deg, rgba(34,34,34,0.94), rgba(10,10,10,0.97));
+      border: 1px solid rgba(255,255,255,0.12); border-radius: 24px; box-shadow: 0 28px 70px rgba(0,0,0,0.42), inset 0 1px 0 rgba(255,255,255,0.08);
+      backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); z-index: 500; display: flex; flex-direction: column;
+      align-items: stretch; justify-content: flex-start; gap: 4px; opacity: 0; visibility: hidden; pointer-events: none;
+      transform: translate3d(0, -14px, 0) scale(0.96); transform-origin: top right;
+      transition: opacity 0.22s ease, transform 0.32s cubic-bezier(.22,1,.36,1), visibility 0.22s ease;
     }
-    .mobile-menu.open { display: flex; opacity: 1; }
-    .mobile-link { font-size: 1.3rem; font-weight: 800; letter-spacing: -0.01em; color: var(--muted); text-decoration: none; padding: 10px 20px; }
+    .mobile-menu.open { opacity: 1; visibility: visible; pointer-events: auto; transform: translate3d(0, 0, 0) scale(1); }
+    .mobile-link { font-size: 0.98rem; font-weight: 800; letter-spacing: -0.01em; color: var(--muted); text-decoration: none; padding: 11px 12px; border-radius: 12px; text-align: left; transition: background 0.18s ease, color 0.18s ease, transform 0.18s ease; }
     .mobile-link:hover { color: var(--text); }
-    .mobile-back { display: flex; align-items: center; justify-content: center; }
-    .mobile-socials { display: flex; align-items: center; gap: 12px; margin-top: 26px; }
+    .mobile-link:hover, .mobile-link:focus-visible { background: rgba(255,255,255,0.05); color: var(--text); transform: translateX(2px); }
+    .mobile-socials { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 14px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.08); }
     .mobile-social-btn {
       display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 10px;
       background: var(--card-2); border: 1px solid var(--border); color: var(--muted); text-decoration: none;
@@ -153,7 +170,6 @@
 
     <div class="mobile-menu" id="mobileMenu">
       <a href="index.html" class="mobile-link">Home</a>
-      <a href="#" class="mobile-link mobile-back" onclick="history.back();return false;" aria-label="Back"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></a>
       <a href="selectatool.html" class="mobile-link">Selecta Tool</a>
       <a href="selectacrates.html" class="mobile-link">Crates</a>
       <a href="selectasoundfx.html" class="mobile-link">Sound FX</a>
@@ -267,16 +283,22 @@
   <script>
     const hamburger = document.getElementById('hamburger');
     const mobileMenu = document.getElementById('mobileMenu');
-    hamburger.addEventListener('click', () => {
-      const open = mobileMenu.classList.toggle('open');
+    function setMobileMenu(open) {
+      mobileMenu.classList.toggle('open', open);
       hamburger.classList.toggle('open', open);
-      document.body.style.overflow = open ? 'hidden' : '';
+      hamburger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+    hamburger.addEventListener('click', e => {
+      e.stopPropagation();
+      setMobileMenu(!mobileMenu.classList.contains('open'));
     });
+    mobileMenu.addEventListener('click', e => e.stopPropagation());
+    document.addEventListener('click', () => setMobileMenu(false));
     document.addEventListener('keydown', e => {
-      if (e.key === 'Escape') { mobileMenu.classList.remove('open'); hamburger.classList.remove('open'); document.body.style.overflow = ''; }
+      if (e.key === 'Escape') setMobileMenu(false);
     });
     mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-      mobileMenu.classList.remove('open'); hamburger.classList.remove('open'); document.body.style.overflow = '';
+      setMobileMenu(false);
     }));
   </script>
 
