@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
-  <link rel="icon" type="image/x-icon" href="SH_TRANSPARENT_NEW.ico"/>
-  <link rel="apple-touch-icon" href="SH_TRANSPARENT_NEW.png"/>
+  <link rel="icon" type="image/png" href="favicon-64.png"/>
+  <link rel="apple-touch-icon" href="logo-mark-180.png"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Selecta Hub · DJ Tools &amp; Resources</title>
   <meta property="og:type" content="website"/>
@@ -13,6 +13,8 @@
   <meta property="og:image" content="https://selectahub.com/og-social-card.png"/>
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="description" content="DJ tools, crates, and sound effects built for serious DJs. Selecta Tool, Crates, Sound FX and more."/>
+  <link rel="preload" as="image" href="serato-hero-bg-1600.jpg"/>
+  <link rel="preload" as="image" href="newbg-1600.jpg"/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
   <style>
     :root {
@@ -52,7 +54,7 @@
     }
     .bg-photo {
       position: fixed; inset: 0; z-index: -1;
-      background: url('serato-hero-bg.jpg') center center / cover no-repeat;
+      background: url('serato-hero-bg-1600.jpg') center center / cover no-repeat;
       filter: blur(4px) brightness(0.55);
       opacity: 0.5;
       transform: scale(1.1) translate3d(var(--bg-shift-x, 0px), var(--bg-shift-y, 0px), 0);
@@ -189,7 +191,7 @@
     }
     .hero-cine::before {
       content: ''; position: absolute; inset: 0; z-index: 0;
-      background: url('newbg.png') center top / cover no-repeat;
+      background: url('newbg-1600.jpg') center top / cover no-repeat;
       transform: scale(1.03) translate3d(var(--hero-pan-x, 0px), var(--hero-pan-y, 0px), 0);
       transition: transform 0.45s ease-out;
     }
@@ -448,7 +450,7 @@
 
   <div class="intro-screen" id="introScreen" aria-hidden="true">
     <div class="intro-mark">
-      <img src="SH_TRANSPARENT_NEW.png" alt=""/>
+      <img src="logo-mark-96.png" alt="" width="70" height="70"/>
     </div>
   </div>
 
@@ -466,7 +468,7 @@
     <div class="wrap">
       <div class="head-row">
         <a href="/" class="brand">
-          <img src="SH_TRANSPARENT_NEW.png" alt="Selecta Hub logo"/>
+          <img src="logo-mark-96.png" alt="Selecta Hub logo" width="34" height="34"/>
           <span class="brand-word">SELECTA HUB</span>
         </a>
         <nav>
@@ -497,7 +499,7 @@
 
   <section class="hero-cine reveal-clip" id="heroCine">
     <div class="hero-cine-inner">
-      <img src="st2logo.png" alt="Selecta Tool logo" class="hero-cine-logo" data-hero-fade/>
+      <img src="st2logo-144.png" alt="Selecta Tool logo" class="hero-cine-logo" data-hero-fade width="64" height="64"/>
       <h1 class="hero-cine-title" id="heroTitle"><span class="metal" data-animate="hero-word">Selecta</span> <span class="g" data-animate="hero-word">Tool</span></h1>
       <p class="hero-cine-sub" id="heroSub">The complete library toolkit for DJs.</p>
       <div class="hero-cine-btns" data-hero-fade>
@@ -527,7 +529,7 @@
         <span class="prod-status live" id="sfxBadge">Live</span>
       </a>
       <a href="https://juggernautmusic.gumroad.com/l/folderfix" target="_blank" rel="noopener noreferrer" class="prod-row" data-animate>
-        <span class="prod-name prod-name-icon"><img src="folderfix-icon-transparent.png" alt="FolderFix" width="30" height="30"/> FolderFix</span>
+        <span class="prod-name prod-name-icon"><img src="folderfix-icon-transparent-96.png" alt="FolderFix" width="30" height="30" loading="lazy" decoding="async"/> FolderFix</span>
         <span class="prod-desc">Fix Folders on your Mac for free. Windows soon.</span>
         <span class="prod-status live">Free</span>
       </a>
@@ -562,7 +564,7 @@
       </div>
       <a href="https://chat.whatsapp.com/BCyfZkn0THvGNXu088QtlU?mode=gi_t" target="_blank" rel="noopener noreferrer" class="band-comm" data-animate>
         <div class="comm-top">
-          <img src="whatsapp.png" alt="WhatsApp" class="wa-icon"/>
+          <img src="whatsapp-64.png" alt="WhatsApp" class="wa-icon" width="24" height="24" loading="lazy" decoding="async"/>
           <div class="kicker">Community</div>
         </div>
         <h3>Join the WhatsApp group</h3>
@@ -622,6 +624,10 @@
       var root = document.documentElement;
       var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       var introScreen = document.getElementById('introScreen');
+      var hasSeenIntro = false;
+      try {
+        hasSeenIntro = window.sessionStorage.getItem('sh_intro_seen') === '1';
+      } catch (error) {}
       var hero = document.getElementById('heroCine');
       var heroTitle = document.getElementById('heroTitle');
       var heroSub = document.getElementById('heroSub');
@@ -666,26 +672,29 @@
 
       function initIntro() {
         if (!introScreen) return revealHero();
-        if (reduceMotion) {
+        if (reduceMotion || hasSeenIntro) {
           introScreen.remove();
           revealHero();
           return;
         }
         root.classList.add('is-animating');
+        try {
+          window.sessionStorage.setItem('sh_intro_seen', '1');
+        } catch (error) {}
         requestAnimationFrame(function() {
           introScreen.classList.add('is-ready');
         });
         window.setTimeout(function() {
           introScreen.classList.add('is-exit');
-        }, 900);
+        }, 420);
         window.setTimeout(function() {
           introScreen.classList.add('hidden');
           revealHero();
           root.classList.remove('is-animating');
-        }, 1325);
+        }, 650);
         window.setTimeout(function() {
           if (introScreen && introScreen.parentNode) introScreen.parentNode.removeChild(introScreen);
-        }, 1900);
+        }, 900);
       }
 
       function initScrollReveals() {
