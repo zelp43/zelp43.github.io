@@ -33,14 +33,6 @@
     .wrap { max-width: 1180px; margin: 0 auto; padding: 0 40px; }
     @media (max-width: 640px) { .wrap { padding: 0 22px; } }
 
-    /* ── MARQUEE ── */
-    .marquee { background: var(--card); border-bottom: 1px solid var(--border); overflow: hidden; white-space: nowrap; padding: 9px 0; }
-    .marquee-track { display: inline-block; padding-left: 100%; animation: scroll 28s linear infinite; font-size: 0.72rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
-    .marquee-track span { margin: 0 22px; }
-    .marquee-track span.g { color: var(--green); }
-    .marquee-track span.y { color: var(--gold); }
-    @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
-
     /* ── HEADER ── */
     header { padding: 26px 0 0; position: sticky; top: 0; z-index: 200; background: var(--black); }
     .head-row { display: flex; align-items: center; justify-content: space-between; }
@@ -97,10 +89,7 @@
 
     /* ── DOC PAGE ── */
     .doc-hero { padding: 56px 0 40px; border-bottom: 1px solid var(--border); }
-    .doc-eyebrow { font-size: 0.75rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--green); margin-bottom: 18px; }
-    .doc-eyebrow::before { content: '● '; }
     .doc-title { font-size: clamp(2.4rem, 7vw, 4.6rem); font-weight: 900; letter-spacing: -0.03em; line-height: 0.98; text-transform: uppercase; color: var(--text); }
-    .doc-title .out { -webkit-text-stroke: 1.5px var(--text); color: var(--black); }
     .doc-updated { font-size: 0.82rem; color: var(--muted); margin-top: 22px; }
 
     .doc-body { max-width: 680px; margin: 0 auto; padding: 50px 0 70px; }
@@ -115,7 +104,7 @@
       font-size: 1rem; color: var(--muted); line-height: 1.85;
     }
     .doc-section p + p { margin-top: 16px; }
-    .doc-section ul { padding-left: 20px; margin-top: 14px; }
+    .doc-section ul { list-style: none; padding-left: 0; margin-top: 14px; }
     .doc-section li { margin-bottom: 12px; }
     .doc-section li:last-child { margin-bottom: 0; }
     .doc-section a { color: var(--text); text-decoration: underline; text-underline-offset: 3px; }
@@ -136,19 +125,6 @@
   </style>
 </head>
 <body>
-
-  <div class="marquee">
-    <div class="marquee-track">
-      <span class="g">SELECTA TOOL · CRATE MANAGEMENT FOR SERATO</span>
-      <span>SOUND FX PACKS AVAILABLE NOW</span>
-      <span class="y">SELECTA CRATES DROPPING SOON</span>
-      <span>BUILT FOR SERATO DJ PRO</span>
-      <span class="g">SELECTA TOOL · CRATE MANAGEMENT FOR SERATO</span>
-      <span>SOUND FX PACKS AVAILABLE NOW</span>
-      <span class="y">SELECTA CRATES DROPPING SOON</span>
-      <span>BUILT FOR SERATO DJ PRO</span>
-    </div>
-  </div>
 
   <div class="wrap">
     <header>
@@ -183,9 +159,8 @@
     </div>
 
     <section class="doc-hero">
-      <div class="doc-eyebrow">Legal</div>
-      <h1 class="doc-title">PRIVACY<br><span class="out">POLICY.</span></h1>
-      <p class="doc-updated">Last updated: June 6, 2026</p>
+      <h1 class="doc-title">PRIVACY<br>POLICY.</h1>
+      <p class="doc-updated">Last updated: July 24, 2026</p>
     </section>
 
     <div class="doc-body">
@@ -239,22 +214,33 @@
       </div>
 
       <div class="doc-section">
-        <h2>7. Your Rights</h2>
+        <h2>7. Security</h2>
+        <p>We take reasonable technical and organisational measures to protect the information we collect from loss, misuse, and unauthorised access. However, no method of transmission over the internet or electronic storage is 100% secure, and we cannot guarantee absolute security.</p>
+      </div>
+
+      <div class="doc-section">
+        <h2>8. Legal Disclosure &amp; Business Transfers</h2>
+        <p>We may disclose your information where required to do so by law, or where we believe in good faith that disclosure is necessary to comply with a legal obligation, protect and defend our rights or property, investigate possible wrongdoing, or protect the safety of our users or the public.</p>
+        <p>If Juggernaut Music Group is involved in a merger, acquisition, or sale of assets, your information may be transferred as part of that transaction. We will notify you of any such change and any choices you may have.</p>
+      </div>
+
+      <div class="doc-section">
+        <h2>9. Your Rights</h2>
         <p>Depending on your location, you may have rights to access, correct, or delete personal data we hold about you. To exercise any of these rights, contact us at <a href="mailto:info@selectahub.com">info@selectahub.com</a>.</p>
       </div>
 
       <div class="doc-section">
-        <h2>8. Children's Privacy</h2>
+        <h2>10. Children's Privacy</h2>
         <p>Selecta Hub is not directed at anyone under 16. We do not knowingly collect personal information from anyone under 16. If you believe we have inadvertently collected such data, please contact us and we will promptly delete it.</p>
       </div>
 
       <div class="doc-section">
-        <h2>9. Changes to This Policy</h2>
+        <h2>11. Changes to This Policy</h2>
         <p>We may update this Privacy Policy from time to time. When we do, we will revise the "Last updated" date at the top of this page. Continued use of our site or products after changes constitutes your acceptance of the updated policy.</p>
       </div>
 
       <div class="doc-section">
-        <h2>10. Contact</h2>
+        <h2>12. Contact</h2>
         <p>Questions about this Privacy Policy? Reach us at <a href="mailto:info@selectahub.com">info@selectahub.com</a>.</p>
       </div>
     </div>

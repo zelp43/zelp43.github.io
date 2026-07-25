@@ -198,23 +198,25 @@
     .info-row strong { color: var(--text); font-weight: 900; }
     .info-row a { color: var(--green); text-decoration: underline; }
 
-    .band { display: grid; grid-template-columns: 1fr 1fr; }
+    .band { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
     @media (max-width: 760px) { .band { grid-template-columns: 1fr; } }
-    .band-about { padding: 36px 40px; background: var(--card); }
-    .band-about .kicker { font-size: 0.72rem; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
-    .band-about h3 { font-size: 1.5rem; font-weight: 900; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 12px; color: var(--text); }
+    .band-about { padding: 18px 28px 18px 0; }
+    .band-about .kicker { font-size: 0.65rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+    .band-about h3 { font-size: 0.95rem; font-weight: 800; letter-spacing: -0.01em; line-height: 1.2; margin-bottom: 5px; color: var(--text); }
     .band-about h3 .g { color: var(--green); }
-    .band-about p { font-size: 0.88rem; color: var(--muted); line-height: 1.65; max-width: 420px; }
+    .band-about p { font-size: 0.78rem; color: var(--muted); line-height: 1.5; max-width: 420px; }
     .band-about strong { color: var(--text); font-weight: 700; }
-    .band-comm { background: var(--wa); color: var(--black); padding: 36px 40px; display: flex; flex-direction: column; justify-content: center; text-decoration: none; }
-    .band-comm .comm-top { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
-    .band-comm .wa-icon { width: 32px; height: 32px; object-fit: contain; }
-    .band-comm .kicker { font-size: 0.72rem; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; opacity: 0.7; }
-    .band-comm h3 { font-size: 1.5rem; font-weight: 900; letter-spacing: -0.02em; margin-bottom: 10px; }
-    .band-comm p { font-size: 0.86rem; opacity: 0.85; line-height: 1.6; max-width: 380px; margin-bottom: 14px; }
-    .band-comm .go { display: inline-flex; align-items: center; gap: 8px; font-weight: 800; font-size: 0.85rem; letter-spacing: 0.5px; text-transform: uppercase; }
+    .band-comm { padding: 18px 0 18px 28px; border-left: 1px solid var(--border); display: flex; flex-direction: column; justify-content: center; text-decoration: none; }
+    @media (max-width: 760px) { .band-comm { border-left: none; border-top: 1px solid var(--border); padding: 18px 0; } }
+    .band-comm .comm-top { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+    .band-comm .wa-icon { width: 16px; height: 16px; object-fit: contain; }
+    .band-comm .kicker { font-size: 0.65rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
+    .band-comm h3 { font-size: 0.95rem; font-weight: 800; letter-spacing: -0.01em; margin-bottom: 4px; color: var(--text); }
+    .band-comm p { font-size: 0.78rem; color: var(--muted); line-height: 1.5; max-width: 380px; margin-bottom: 8px; }
+    .band-comm .go { display: inline-flex; align-items: center; gap: 6px; font-weight: 700; font-size: 0.78rem; letter-spacing: 0.3px; text-transform: uppercase; color: var(--wa); }
     .band-comm .go .arrow { transition: transform 0.2s; }
-    .band-comm:hover .go .arrow { transform: translateX(5px); }
+    .band-comm:hover .go .arrow { transform: translateX(4px); }
+    .band-comm:hover h3 { color: var(--wa); }
 
     footer { border-top: 1px solid var(--border); padding: 22px 0 40px; }
     .foot-row { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
@@ -322,21 +324,23 @@
     </div>
   </div>
 
-  <div class="band">
-    <div class="band-about">
-      <div class="kicker">About</div>
-      <h3>Built for <span class="g">DJs.</span></h3>
-      <p><strong>Selecta Hub</strong> is a growing suite of tools, music resources, and community built for DJs: crate management, curated libraries, sound effects, live radio, and bookings, all in one place.</p>
-    </div>
-    <a href="https://chat.whatsapp.com/BCyfZkn0THvGNXu088QtlU?mode=gi_t" target="_blank" rel="noopener noreferrer" class="band-comm">
-      <div class="comm-top">
-        <img src="whatsapp-64.png" alt="WhatsApp" class="wa-icon" width="32" height="32" loading="lazy" decoding="async"/>
-        <div class="kicker">Community</div>
+  <div class="wrap">
+    <div class="band">
+      <div class="band-about">
+        <div class="kicker">About</div>
+        <h3>Built for <span class="g">DJs.</span></h3>
+        <p><strong>Selecta Hub</strong> is a growing suite of tools, music resources, and community built for DJs: crate management, curated libraries, sound effects, live radio, and bookings, all in one place.</p>
       </div>
-      <h3>Join the WhatsApp group</h3>
-      <p>Chat about music, share resources, and connect with other DJs and selectors.</p>
-      <span class="go">Join now <span class="arrow">→</span></span>
-    </a>
+      <a href="https://chat.whatsapp.com/BCyfZkn0THvGNXu088QtlU?mode=gi_t" target="_blank" rel="noopener noreferrer" class="band-comm">
+        <div class="comm-top">
+          <img src="whatsapp-64.png" alt="WhatsApp" class="wa-icon" width="32" height="32" loading="lazy" decoding="async"/>
+          <div class="kicker">Community</div>
+        </div>
+        <h3>Join the WhatsApp group</h3>
+        <p>Chat about music, share resources, and connect with other DJs and selectors.</p>
+        <span class="go">Join now <span class="arrow">→</span></span>
+      </a>
+    </div>
   </div>
 
   <div class="wrap">

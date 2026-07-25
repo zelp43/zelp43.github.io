@@ -154,7 +154,7 @@
         A new version of Selecta Tool is ready.<br/>
         Choose your platform below to get started.
       </p>
-      <div class="version-tag" id="versionPill">v2.0.4</div>
+      <div class="version-tag" id="versionPill">v2.0.9</div>
 
       <div class="options">
 
@@ -203,7 +203,7 @@
           <div class="option-body">
             <div class="option-title">Windows</div>
             <p class="option-desc">Windows 10 / 11 · .exe</p>
-            <p class="option-desc option-note-warn">Major updates &amp; bug fixes only · not actively developed alongside Mac</p>
+            <p class="option-desc option-note-warn" id="winDevWarn" style="display:none;">Frozen at v<span id="windowsFrozenVersion"></span> · major updates &amp; bug fixes only, not actively developed alongside Mac</p>
           </div>
           <span class="option-arrow">&#8594;</span>
         </a>
@@ -238,6 +238,12 @@
     document.getElementById('doc-readme').href     = DOWNLOADS.readme;
     document.getElementById('doc-eula').href       = DOWNLOADS.eula;
     document.getElementById('doc-manual').href     = DOWNLOADS.manual;
+
+    var winDevWarn = document.getElementById('winDevWarn');
+    if (winDevWarn && isVersionAtLeast(APP_VERSION, WINDOWS_STALE_THRESHOLD)) {
+      document.getElementById('windowsFrozenVersion').textContent = WINDOWS_FROZEN_VERSION;
+      winDevWarn.style.display = '';
+    }
   </script>
 </body>
 </html>
