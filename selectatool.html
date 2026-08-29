@@ -1180,15 +1180,13 @@
 
     // ── LAUNCH COUNTDOWN ──
     (function() {
-      var target        = new Date('2026-06-15T07:00:00Z'); // June 15 03:00 AM EDT
-      var introPriceEnd = new Date('2026-08-23T07:00:00Z'); // Intro prices end 30 days out
+      var introPriceEnd = new Date('2026-09-15T07:00:00Z'); // Intro prices end — must match index.html INTRO_END
 
-      var launchLabelEl = document.getElementById('launchLabel');
-      if (Date.now() < target) {
-        if (launchLabelEl) launchLabelEl.textContent = 'v' + APP_VERSION + ' goes live in';
-      } else {
-        if (launchLabelEl) { launchLabelEl.textContent = 'Available Now'; launchLabelEl.style.color = 'var(--green)'; }
-      }
+      // When the clock runs out nothing on the page changes: prices, buttons and
+      // notes all stay on the current (intro) values until new pricing is pushed
+      // in a manual redeploy. The flip code below is kept intact — set this to
+      // true to restore the automatic switch. Keep in sync with index.html.
+      var AUTO_FLIP_PRICING = false;
 
       function pad(n) { return String(n).padStart(2, '0'); }
 
@@ -1201,8 +1199,9 @@
       }, true);
 
       function updateMeta() {
-        var bp = Date.now() >= introPriceEnd ? PRICES.basic.regular : PRICES.basic.intro;
-        var pp = Date.now() >= introPriceEnd ? PRICES.pro.regular   : PRICES.pro.intro;
+        var flip = AUTO_FLIP_PRICING && Date.now() >= introPriceEnd;
+        var bp = flip ? PRICES.basic.regular : PRICES.basic.intro;
+        var pp = flip ? PRICES.pro.regular   : PRICES.pro.intro;
         var d  = document.querySelector('meta[name="description"]');
         var og = document.querySelector('meta[property="og:description"]');
         if (d)  d.setAttribute('content',  'Selecta Tool · DJ crate management for Serato. Basic ' + bp + ' \xb7 Pro ' + pp + '. Mac Intel, Apple Silicon & Windows 10/11.');
@@ -1237,6 +1236,9 @@
           if (bc)  bc.classList.remove('visible');
           if (pc)  pc.classList.remove('visible');
           if (ppc) ppc.classList.remove('visible');
+          // Deadline passed: retire the inline countdowns and stop here. Prices,
+          // buttons and notes keep their current values until a manual redeploy.
+          if (!AUTO_FLIP_PRICING) return;
           // Flip Basic
           var bPrice = document.querySelector('.tier-card.basic .tier-price');
           if (bPrice) bPrice.innerHTML = PRICES.basic.regular + ' <span class="tier-price-orig">' + PRICES.basic.orig + '</span>';
@@ -1265,34 +1267,13 @@
         }
       }
 
-      function goLive() {
-        clearInterval(launchTimer);
-        // Unlock all buttons
-        document.body.classList.remove('pre-launch');
-        // Start inline intro price countdown (1 s tick)
-        tickIntroCountdown();
-        setInterval(tickIntroCountdown, 1000);
-        updateMeta();
-      }
-
-      function tick() {
-        var diff = target - Date.now();
-        if (diff <= 0) { goLive(); return; }
-        var days  = Math.floor(diff / 86400000);
-        var hours = Math.floor((diff % 86400000) / 3600000);
-        var mins  = Math.floor((diff % 3600000)  / 60000);
-        var secs  = Math.floor((diff % 60000)    / 1000);
-        var el    = document.getElementById('launchTimer');
-        if (el) {
-          el.textContent = days > 0
-            ? days + 'd ' + pad(hours) + ':' + pad(mins) + ':' + pad(secs)
-            : pad(hours) + ':' + pad(mins) + ':' + pad(secs);
-        }
-      }
-
-      var launchTimer;
-      if (Date.now() >= target) { goLive(); }
-      else { tick(); launchTimer = setInterval(tick, 1000); }
+      // v2.0.9 launched 2026-06-15 and the pre-launch countdown UI has since been
+      // removed from this page, so the tiers unlock and the intro-price countdown
+      // starts straight away.
+      document.body.classList.remove('pre-launch');
+      tickIntroCountdown();
+      setInterval(tickIntroCountdown, 1000);
+      updateMeta();
     })();
 
     // Mobile plan tabs · carousel: clicked card floats to top, rest follow in original order

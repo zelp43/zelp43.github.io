@@ -29,6 +29,7 @@
       --gold:     #ffc107;
       --wa:       #25d366;
       --plus:     #b9a3ff;
+      --sc:       #ff5500;
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
@@ -135,7 +136,8 @@
     @media (max-width: 640px) { nav { display: none; } .hamburger { display: flex; } }
 
     .mobile-menu {
-      position: fixed; top: 100px; right: 16px; left: auto; bottom: auto; width: min(272px, calc(100vw - 32px));
+      position: fixed; top: var(--menu-top, 100px); right: 16px; left: auto; bottom: auto; width: min(272px, calc(100vw - 32px));
+      max-height: calc(100dvh - var(--menu-top, 100px) - 16px); overflow-y: auto; -webkit-overflow-scrolling: touch;
       padding: 14px; background: linear-gradient(180deg, rgba(34,34,34,0.94), rgba(10,10,10,0.97));
       border: 1px solid rgba(255,255,255,0.12); border-radius: 24px; box-shadow: 0 28px 70px rgba(0,0,0,0.42), inset 0 1px 0 rgba(255,255,255,0.08);
       backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); z-index: 500; display: flex; flex-direction: column;
@@ -165,24 +167,42 @@
     .hero-tag { font-size: 0.75rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); text-align: right; white-space: nowrap; }
 
 
-    /* ── ANNOUNCE BANNER ── */
-    .announce {
-      display: block; position: relative; z-index: 210; text-decoration: none;
-      background: linear-gradient(90deg, #007a2e 0%, #12a63f 42%, #ffc107 100%);
-      padding: 2px 16px; text-align: center;
+    /* ── HERO COUNTDOWN ── */
+    .hero-countdown {
+      margin-top: 16px; font-size: 0.78rem; font-weight: 500; color: var(--muted);
+      text-shadow: 0 1px 8px rgba(0,0,0,0.7);
     }
-    .announce-inner {
-      display: inline-flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap;
-      color: #0a0a0a; font-size: 0.68rem; font-weight: 800; letter-spacing: 0.35px;
+    .hero-countdown-timer {
+      font-weight: 700; color: #cfcfcf; font-variant-numeric: tabular-nums;
     }
-    .announce-msg { text-transform: uppercase; }
-    .announce-timer {
-      font-variant-numeric: tabular-nums; font-weight: 900; letter-spacing: 0.5px;
-      background: rgba(10,10,10,0.16); padding: 2px 8px; border-radius: 30px;
+    @media (max-width: 640px) {
+      .hero-countdown { text-align: center; }
     }
-    .announce-cta { display: inline-flex; align-items: center; gap: 5px; text-transform: uppercase; text-decoration: underline; text-underline-offset: 3px; }
-    .announce:hover .announce-cta { opacity: 0.75; }
-    @media (max-width: 560px) { .announce-inner { font-size: 0.72rem; gap: 8px; } }
+
+    /* ── SOUNDCLOUD ── */
+    .soundcloud {
+      display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 26px;
+      margin-bottom: 46px; padding: 26px 28px; border-radius: 14px;
+      border: 1px solid var(--border); text-decoration: none; color: var(--text);
+      background: linear-gradient(120deg, rgba(255,85,0,0.10), rgba(22,22,22,0.9) 46%, var(--card));
+      transition: border-color 0.18s, transform 0.18s;
+    }
+    a.soundcloud:hover { border-color: var(--sc); transform: translateY(-3px); }
+    .soundcloud-logo { width: 58px; height: auto; flex-shrink: 0; }
+    .soundcloud-kicker { font-size: 0.65rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--sc); margin-bottom: 6px; }
+    .soundcloud h3 { font-size: 1.18rem; font-weight: 800; letter-spacing: -0.01em; margin-bottom: 6px; }
+    .soundcloud p { font-size: 0.85rem; color: var(--muted); line-height: 1.55; max-width: 460px; }
+    .soundcloud .go {
+      display: inline-flex; align-items: center; gap: 6px; white-space: nowrap;
+      font-weight: 800; font-size: 0.75rem; letter-spacing: 0.3px; text-transform: uppercase; color: var(--sc);
+    }
+    .soundcloud .go .arrow { transition: transform 0.2s; }
+    a.soundcloud:hover .go .arrow { transform: translateX(4px); }
+    a.soundcloud:hover h3 { color: var(--sc); }
+    @media (max-width: 700px) {
+      .soundcloud { grid-template-columns: 1fr; gap: 14px; text-align: left; }
+      .soundcloud-logo { width: 46px; }
+    }
 
     /* ── CINEMATIC HERO ── */
     .hero-cine {
@@ -468,14 +488,6 @@
 
   <div class="bg-photo"></div>
 
-  <a class="announce" id="announceBanner" href="selectatool.html">
-    <span class="announce-inner">
-      <span class="announce-msg">Selecta Tool intro pricing ends soon</span>
-      <span class="announce-timer" id="announceTimer">--d --:--:--</span>
-      <span class="announce-cta">Get it now</span>
-    </span>
-  </a>
-
   <header>
     <div class="wrap">
       <div class="head-row">
@@ -518,6 +530,10 @@
         <a href="selectatool.html" class="btn-primary">Download Selecta Tool <span class="arrow">→</span></a>
         <a href="#other-products" class="btn-ghost">Browse other products <span class="arrow">↓</span></a>
       </div>
+      <p class="hero-countdown" id="heroCountdown" data-hero-fade>
+        <span id="heroCountdownLabel">Intro pricing ending soon</span>
+        <span class="hero-countdown-timer" id="heroCountdownTimer"></span>
+      </p>
     </div>
     <div class="hero-cine-orbit" data-hero-fade aria-hidden="true"><span></span><i></i></div>
   </section>
@@ -563,7 +579,36 @@
         <span class="prod-desc">DJ booking management: gigs, contracts, invoices, and client communications. To be listed, contact <a href="mailto:info@selectahub.com" onclick="event.stopPropagation()">support</a>.</span>
         <span class="prod-status soon">Soon</span>
       </div>
+      <div class="prod-row locked" data-animate>
+        <span class="prod-name prod-name-icon">
+          <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA0MCI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmY4ODAwIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjZmYzMzAwIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PGcgZmlsbD0idXJsKCNnKSI+PHJlY3QgeD0iMiIgeT0iMjIiIHdpZHRoPSIzIiBoZWlnaHQ9IjEwIiByeD0iMS41Ii8+PHJlY3QgeD0iNy41IiB5PSIxNiIgd2lkdGg9IjMiIGhlaWdodD0iMTYiIHJ4PSIxLjUiLz48cmVjdCB4PSIxMyIgeT0iMTAiIHdpZHRoPSIzIiBoZWlnaHQ9IjIyIiByeD0iMS41Ii8+PHJlY3QgeD0iMTguNSIgeT0iMTQiIHdpZHRoPSIzIiBoZWlnaHQ9IjE4IiByeD0iMS41Ii8+PHJlY3QgeD0iMjQiIHk9IjgiIHdpZHRoPSIzIiBoZWlnaHQ9IjI0IiByeD0iMS41Ii8+PHJlY3QgeD0iMjgiIHk9IjIyIiB3aWR0aD0iMjgiIGhlaWdodD0iMTAiLz48Y2lyY2xlIGN4PSIzNiIgY3k9IjIyIiByPSI4Ii8+PGNpcmNsZSBjeD0iNDciIGN5PSIxOSIgcj0iMTEiLz48Y2lyY2xlIGN4PSI1NiIgY3k9IjI0IiByPSI4Ii8+PC9nPjwvc3ZnPgo=" alt="SoundCloud" width="22" height="14" loading="lazy" decoding="async"/>
+          Selecta SoundCloud
+        </span>
+        <span class="prod-desc">Mixes, edits and exclusive selections from the Selecta Hub crew, free to stream.</span>
+        <span class="prod-status soon">Soon</span>
+      </div>
     </div>
+
+    <!--
+      SELECTA SOUNDCLOUD — full section, parked until we have a real profile URL.
+      The simple "Soon" row above is what ships in the meantime. To go live:
+      drop this block back in below the product list, swap the placeholder href
+      for the real soundcloud.com URL, and delete the "Soon" row. Styles for it
+      are still in the stylesheet under "── SOUNDCLOUD ──".
+
+        <div class="section-label" id="soundcloud-section" data-animate>
+      <h2>Selecta SoundCloud</h2>
+    </div>
+    <a href="https://soundcloud.com/selectahub" target="_blank" rel="noopener noreferrer" class="soundcloud" data-animate>
+      <img class="soundcloud-logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA0MCI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmY4ODAwIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjZmYzMzAwIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PGcgZmlsbD0idXJsKCNnKSI+PHJlY3QgeD0iMiIgeT0iMjIiIHdpZHRoPSIzIiBoZWlnaHQ9IjEwIiByeD0iMS41Ii8+PHJlY3QgeD0iNy41IiB5PSIxNiIgd2lkdGg9IjMiIGhlaWdodD0iMTYiIHJ4PSIxLjUiLz48cmVjdCB4PSIxMyIgeT0iMTAiIHdpZHRoPSIzIiBoZWlnaHQ9IjIyIiByeD0iMS41Ii8+PHJlY3QgeD0iMTguNSIgeT0iMTQiIHdpZHRoPSIzIiBoZWlnaHQ9IjE4IiByeD0iMS41Ii8+PHJlY3QgeD0iMjQiIHk9IjgiIHdpZHRoPSIzIiBoZWlnaHQ9IjI0IiByeD0iMS41Ii8+PHJlY3QgeD0iMjgiIHk9IjIyIiB3aWR0aD0iMjgiIGhlaWdodD0iMTAiLz48Y2lyY2xlIGN4PSIzNiIgY3k9IjIyIiByPSI4Ii8+PGNpcmNsZSBjeD0iNDciIGN5PSIxOSIgcj0iMTEiLz48Y2lyY2xlIGN4PSI1NiIgY3k9IjI0IiByPSI4Ii8+PC9nPjwvc3ZnPgo=" alt="SoundCloud" width="58" height="36" loading="lazy" decoding="async"/>
+      <div>
+        <div class="soundcloud-kicker">Listen</div>
+        <h3>Selecta Hub on SoundCloud</h3>
+        <p>Mixes, edits and exclusive selections from the Selecta Hub crew. Free to stream, new uploads dropping regularly.</p>
+      </div>
+      <span class="go">Open SoundCloud <span class="arrow">→</span></span>
+    </a>
+    -->
 
   </div>
 
@@ -773,11 +818,24 @@
   <script>
     const hamburger = document.getElementById('hamburger');
     const mobileMenu = document.getElementById('mobileMenu');
+    // Anchor the panel just under the hamburger rather than at a fixed top: the
+    // header can shift vertically as the page scrolls, and a fixed top would then
+    // sit on top of the button.
+    function positionMobileMenu() {
+      const r = hamburger.getBoundingClientRect();
+      document.documentElement.style.setProperty('--menu-top', Math.round(r.bottom + 10) + 'px');
+    }
     function setMobileMenu(open) {
+      if (open) positionMobileMenu();
       mobileMenu.classList.toggle('open', open);
       hamburger.classList.toggle('open', open);
       hamburger.setAttribute('aria-expanded', open ? 'true' : 'false');
     }
+    positionMobileMenu();
+    window.addEventListener('resize', positionMobileMenu);
+    window.addEventListener('scroll', () => {
+      if (mobileMenu.classList.contains('open')) positionMobileMenu();
+    }, { passive: true });
     hamburger.addEventListener('click', e => {
       e.stopPropagation();
       setMobileMenu(!mobileMenu.classList.contains('open'));
@@ -793,15 +851,19 @@
 
     // ── LAUNCH COUNTDOWNS ──
     (function() {
-      var TARGET_PRO    = new Date('2026-06-15T07:00:00Z');
-      var INTRO_END     = new Date('2026-08-23T07:00:00Z');
-      var TARGET_SFX    = new Date('2026-06-06T10:01:00Z');
+      var INTRO_END  = new Date('2026-09-15T07:00:00Z');
+      var TARGET_SFX = new Date('2026-06-06T10:01:00Z');
 
-      function pad2(n) { return String(n).padStart(2, '0'); }
+      // The intro deadline no longer flips prices on its own — when the clock runs
+      // out the site keeps advertising the current (intro) price until new pricing
+      // is pushed in a manual redeploy. Flip this to true to restore the automatic
+      // switch to PRICES.*.regular at INTRO_END. Keep in sync with selectatool.html.
+      var AUTO_FLIP_PRICING = false;
 
       function updateMetaTags() {
-        var basicPrice = Date.now() >= INTRO_END ? PRICES.basic.regular : PRICES.basic.intro;
-        var proPrice   = Date.now() >= INTRO_END ? PRICES.pro.regular   : PRICES.pro.intro;
+        var flip = AUTO_FLIP_PRICING && Date.now() >= INTRO_END;
+        var basicPrice = flip ? PRICES.basic.regular : PRICES.basic.intro;
+        var proPrice   = flip ? PRICES.pro.regular   : PRICES.pro.intro;
         var desc   = document.querySelector('meta[name="description"]');
         var ogDesc = document.querySelector('meta[property="og:description"]');
         if (desc)   desc.setAttribute('content',  'Selecta Hub: DJ tools for Serato. Selecta Tool Basic ' + basicPrice + ' \xb7 Pro ' + proPrice + '. Crates & Sound FX available now.');
@@ -809,78 +871,12 @@
       }
       updateMetaTags();
 
-      var introCountdownTimer = null;
-
-      function updateIntroNote() {
-        var el = document.getElementById('homeIntroNote');
-        if (!el) return;
-        var diff = INTRO_END - Date.now();
-        if (diff <= 0) {
-          el.style.display = 'none';
-          if (introCountdownTimer) { clearInterval(introCountdownTimer); introCountdownTimer = null; }
-          return;
-        }
-        var d = Math.floor(diff / 86400000);
-        var h = Math.floor((diff % 86400000) / 3600000);
-        var m = Math.floor((diff % 3600000)  / 60000);
-        var s = Math.floor((diff % 60000)    / 1000);
-        el.innerHTML = '<span style="color:var(--gold);font-weight:600;">Intro prices end in&nbsp;</span><span style="color:var(--gold);font-weight:800;font-variant-numeric:tabular-nums;">' + d + 'd&nbsp;' + pad2(h) + ':' + pad2(m) + ':' + pad2(s) + '</span>';
-        el.style.display = 'block';
+      // Re-run once at the deadline so a long-open tab picks up the new prices.
+      // No-op while AUTO_FLIP_PRICING is false, but kept so re-enabling is one flag.
+      if (AUTO_FLIP_PRICING) {
+        var untilIntroEnd = INTRO_END - Date.now();
+        if (untilIntroEnd > 0 && untilIntroEnd < 2147483647) setTimeout(updateMetaTags, untilIntroEnd);
       }
-
-      function introExpired() {
-        var priceBasic = document.getElementById('homePillBasicPrice');
-        var origBasic  = document.getElementById('homePillBasicOrig');
-        if (priceBasic) priceBasic.textContent = PRICES.basic.regular;
-        if (origBasic)  origBasic.textContent  = PRICES.basic.orig;
-        var pricePro = document.getElementById('homePillProPrice');
-        var origPro  = document.getElementById('homePillProOrig');
-        if (pricePro) pricePro.textContent = PRICES.pro.regular;
-        if (origPro)  origPro.textContent  = PRICES.pro.orig;
-        var priceProPlus = document.getElementById('homePillProPlusPrice');
-        var origProPlus  = document.getElementById('homePillProPlusOrig');
-        if (priceProPlus) priceProPlus.textContent = PRICES.proPlus.regular;
-        if (origProPlus)  origProPlus.textContent  = PRICES.proPlus.orig;
-        updateIntroNote();
-        updateMetaTags();
-      }
-
-      function proGoLive() {
-        var pillPro   = document.getElementById('homePillPro');
-        var pillBasic = document.getElementById('homePillBasic');
-        var note      = document.getElementById('homeProNote');
-        var status    = document.getElementById('toolStatus');
-        if (pillPro)   pillPro.classList.remove('locked');
-        if (pillBasic) pillBasic.classList.remove('locked');
-        if (note) note.innerHTML = '<span style="color:var(--green);">✓ v' + APP_VERSION + ' available now</span>';
-        if (status) { status.style.color = 'var(--green)'; status.textContent = 'Live'; }
-        clearInterval(proLaunchTimer);
-
-        if (Date.now() >= INTRO_END) {
-          introExpired();
-        } else {
-          updateIntroNote();
-          introCountdownTimer = setInterval(updateIntroNote, 1000);
-          var discTimer = setInterval(function() {
-            if (Date.now() >= INTRO_END) { clearInterval(discTimer); introExpired(); }
-          }, 5000);
-        }
-      }
-
-      function updateProLaunchTimer() {
-        var diff = TARGET_PRO - Date.now();
-        if (diff <= 0) { proGoLive(); return; }
-        var el = document.getElementById('homeLaunchTimer');
-        if (!el) return;
-        var days  = Math.floor(diff / 86400000);
-        var hours = Math.floor((diff % 86400000) / 3600000);
-        var mins  = Math.floor((diff % 3600000)  / 60000);
-        var secs  = Math.floor((diff % 60000)    / 1000);
-        el.textContent = days > 0 ? days + 'd ' + pad2(hours) + ':' + pad2(mins) + ':' + pad2(secs) : pad2(hours) + ':' + pad2(mins) + ':' + pad2(secs);
-      }
-      var proLaunchTimer;
-      if (Date.now() >= TARGET_PRO) { proGoLive(); }
-      else { updateProLaunchTimer(); proLaunchTimer = setInterval(updateProLaunchTimer, 1000); }
 
       function sfxGoLive() {
         var badge  = document.getElementById('sfxBadge');
@@ -893,41 +889,34 @@
       }
       var sfxTimer = setInterval(function() { if (Date.now() >= TARGET_SFX) sfxGoLive(); }, 30000);
       if (Date.now() >= TARGET_SFX) sfxGoLive();
+
     })();
   </script>
 
-  <script>
-    var homeVersionLabel = document.getElementById('homeVersionLabel');
-    if (homeVersionLabel) homeVersionLabel.textContent = 'v' + APP_VERSION;
-    var homeLaunchLabel = document.getElementById('homeLaunchLabel');
-    if (homeLaunchLabel) homeLaunchLabel.textContent = 'v' + APP_VERSION + ' goes live in';
-
-    var ppPrice = document.getElementById('homePillProPlusPrice');
-    var ppOrig  = document.getElementById('homePillProPlusOrig');
-    if (ppPrice) ppPrice.textContent = PRICES.proPlus.intro;
-    if (ppOrig)  ppOrig.textContent  = PRICES.proPlus.orig;
-  </script>
 
   <script>
-    // ── ANNOUNCE BANNER COUNTDOWN ──
+    // ── HERO INTRO-PRICING COUNTDOWN ──
+    // Kept in its own block (like the old announce banner) so a failure in the
+    // pricing/meta script above can never stop the clock from ticking.
     (function() {
-      var END = new Date('2026-08-23T07:00:00Z');
-      var timer  = document.getElementById('announceTimer');
-      var msg    = document.querySelector('#announceBanner .announce-msg');
+      var END     = new Date('2026-09-15T07:00:00Z');
+      var cdTimer = document.getElementById('heroCountdownTimer');
       function pad(n) { return String(n).padStart(2, '0'); }
       function tick() {
         var diff = END - Date.now();
         if (diff <= 0) {
-          if (msg)   msg.textContent = 'Selecta Tool — available now';
-          if (timer) timer.style.display = 'none';
+          // Deadline passed: drop the clock but keep the line, so it reads as a
+          // plain "Intro pricing ending soon". Nothing else on the site changes —
+          // new pricing goes out in a manual redeploy.
+          if (cdTimer) cdTimer.textContent = '';
           clearInterval(t);
           return;
         }
         var d = Math.floor(diff / 86400000);
         var h = Math.floor((diff % 86400000) / 3600000);
         var m = Math.floor((diff % 3600000)  / 60000);
-        var s = Math.floor((diff % 60000)    / 1000);
-        if (timer) timer.textContent = d + 'd ' + pad(h) + ':' + pad(m) + ':' + pad(s);
+        var sec = Math.floor((diff % 60000)  / 1000);
+        if (cdTimer) cdTimer.textContent = '\u2014 ' + d + 'd ' + pad(h) + ':' + pad(m) + ':' + pad(sec);
       }
       tick();
       var t = setInterval(tick, 1000);
