@@ -1,12 +1,12 @@
-const APP_VERSION = '2.0.9';
-const WINDOWS_FROZEN_VERSION = '2.0.9';
-const WINDOWS_STALE_THRESHOLD = '2.1';
+const APP_VERSION = '2.2';
 
-const PRICES = {
-  basic:   { intro: '$29.99',  regular: '$39.99',  orig: '$49.99' },
-  pro:     { intro: '$54.99',  regular: '$64.99',  orig: '$99.99' },
-  proPlus: { intro: '$144.99', regular: '$174.99', orig: '$270'   }
-};
+// Version of the shipping Windows build. Normally the same as APP_VERSION.
+// The "Windows is behind" notice on the site appears automatically whenever
+// this is LOWER than APP_VERSION, i.e. only once Windows actually falls behind
+// Mac. Keep the two in step and no notice is shown.
+const WINDOWS_VERSION = '2.2';
+
+// Prices live in price.js.
 
 function isVersionAtLeast(version, target) {
   var v = version.split('.').map(Number);

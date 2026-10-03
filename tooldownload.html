@@ -2,6 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
+  <meta name="robots" content="noindex,nofollow"/>
+  <!-- Handed out after purchase only: keep it out of search results. -->
+  <meta name="robots" content="noindex, nofollow"/>
   <link rel="icon" type="image/png" href="favicon-64.png"/>
   <link rel="apple-touch-icon" href="logo-mark-180.png"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -166,7 +169,7 @@
         Your copy of Selecta Tool is ready to download.<br/>
         Choose your platform below to get started.
       </p>
-      <div class="version-tag" id="versionPill">v2.0.9</div>
+      <div class="version-tag" id="versionPill">v2.2</div>
 
       <div class="license-note">
         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-1 6h2v2h-2V7zm0 4h2v6h-2v-6z"/></svg>
@@ -204,7 +207,7 @@
           <div class="option-body">
             <div class="option-title">Windows</div>
             <p class="option-desc">Windows 10 / 11 · .exe</p>
-            <p class="option-desc option-note-warn" id="winDevWarn" style="display:none;">Frozen at v<span id="windowsFrozenVersion"></span> · major updates &amp; bug fixes only, not actively developed alongside Mac</p>
+            <p class="option-desc option-note-warn" id="winDevWarn" style="display:none;">Frozen at v<span id="windowsVersion"></span> · major updates &amp; bug fixes only, not actively developed alongside Mac</p>
           </div>
           <span class="option-arrow">&#8594;</span>
         </a>
@@ -241,8 +244,9 @@
     document.getElementById('doc-manual').href     = DOWNLOADS.manual;
 
     var winDevWarn = document.getElementById('winDevWarn');
-    if (winDevWarn && isVersionAtLeast(APP_VERSION, WINDOWS_STALE_THRESHOLD)) {
-      document.getElementById('windowsFrozenVersion').textContent = WINDOWS_FROZEN_VERSION;
+    // Only shown once the Windows build has actually fallen behind Mac.
+    if (winDevWarn && !isVersionAtLeast(WINDOWS_VERSION, APP_VERSION)) {
+      document.getElementById('windowsVersion').textContent = WINDOWS_VERSION;
       winDevWarn.style.display = '';
     }
   </script>

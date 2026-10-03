@@ -1,0 +1,229 @@
+/* ──────────────────────────────────────────────────────────────────────────
+   NEWS ARTICLES — shared by every news-*.html page.
+
+   Built on the same system as privacy.html / terms.html: a big uppercase
+   masthead, a 680px text column, and small letterspaced section labels sitting
+   on hairline rules. Flat surfaces throughout — no gradient fills, no glow
+   panels, no drop shadows. The rules and the type do the work.
+   ────────────────────────────────────────────────────────────────────────── */
+
+:root {
+  --black:    #0a0a0a;
+  --card:     #111111;
+  --card-2:   #161616;
+  --border:   #222222;
+  --border-h: #333333;
+  --text:     #f5f5f5;
+  --muted:    #9a9a9a;
+  --green:    #2ecc40;
+  --gold:     #ffc107;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: var(--black);
+  color: var(--text);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; }
+img { max-width: 100%; }
+
+.wrap { max-width: 1180px; margin: 0 auto; padding: 0 40px; }
+@media (max-width: 640px) { .wrap { padding: 0 22px; } }
+
+/* ── HEADER ── (identical to privacy.html / terms.html) */
+header { padding: 26px 0 0; position: sticky; top: 0; z-index: 200; background: var(--black); }
+.head-row { display: flex; align-items: center; justify-content: space-between; }
+.brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+.brand img { width: 34px; height: 34px; object-fit: contain; }
+.brand-word { font-size: 1.05rem; font-weight: 800; letter-spacing: 0.5px; color: var(--text); }
+nav { display: flex; gap: 30px; }
+.nav-link { font-size: 0.82rem; font-weight: 600; text-decoration: none; color: var(--muted); position: relative; padding-bottom: 2px; }
+.nav-link::after { content: ''; position: absolute; left: 0; right: 100%; bottom: 0; height: 1.5px; background: var(--green); transition: right 0.25s ease; }
+.nav-link:hover { color: var(--text); }
+.nav-link:hover::after { right: 0; }
+.head-rule { height: 1px; background: var(--border); margin-top: 22px; }
+.hamburger {
+  display: none; position: relative; align-items: center; justify-content: center; width: 46px; height: 46px;
+  cursor: pointer; padding: 0; background: rgba(26,26,26,0.94);
+  border: 1px solid rgba(255,255,255,0.12); border-radius: 15px; outline: none;
+  transition: transform 0.22s ease, border-color 0.22s ease, background 0.22s ease;
+}
+.hamburger:hover { transform: translateY(-1px); border-color: rgba(255,255,255,0.22); background: rgba(34,34,34,0.96); }
+.hamburger span {
+  display: block; position: absolute; width: 20px; height: 2px; border-radius: 999px;
+  background: rgba(245,245,245,0.92);
+  transition: transform 0.32s cubic-bezier(.22,1,.36,1), opacity 0.22s ease, width 0.22s ease;
+}
+.hamburger span:nth-child(1) { transform: translateY(-6px); }
+.hamburger span:nth-child(3) { transform: translateY(6px); }
+.hamburger.open span:nth-child(1) { transform: translateY(0) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; width: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(0) rotate(-45deg); }
+@media (max-width: 640px) { nav { display: none; } .hamburger { display: flex; } }
+
+.mobile-menu {
+  position: fixed; top: var(--menu-top, 100px); right: 16px; left: auto; bottom: auto; width: min(272px, calc(100vw - 32px));
+  max-height: calc(100dvh - var(--menu-top, 100px) - 16px); overflow-y: auto;
+  padding: 14px; background: rgba(18,18,18,0.97);
+  border: 1px solid rgba(255,255,255,0.12); border-radius: 18px;
+  z-index: 500; display: flex; flex-direction: column;
+  align-items: stretch; gap: 4px; opacity: 0; visibility: hidden; pointer-events: none;
+  transform: translate3d(0, -14px, 0) scale(0.96); transform-origin: top right;
+  transition: opacity 0.22s ease, transform 0.32s cubic-bezier(.22,1,.36,1), visibility 0.22s ease;
+}
+.mobile-menu.open { opacity: 1; visibility: visible; pointer-events: auto; transform: translate3d(0, 0, 0) scale(1); }
+.mobile-link { font-size: 0.98rem; font-weight: 800; letter-spacing: -0.01em; color: var(--muted); text-decoration: none; padding: 11px 12px; border-radius: 10px; text-align: left; transition: background 0.18s ease, color 0.18s ease; }
+.mobile-link:hover, .mobile-link:focus-visible { background: rgba(255,255,255,0.05); color: var(--text); }
+
+/* ── MASTHEAD ── */
+.art-hero { padding: 44px 0 34px; border-bottom: 1px solid var(--border); }
+.back-link {
+  display: inline-flex; align-items: center; gap: 8px; margin-bottom: 34px;
+  font-size: 0.72rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--muted); text-decoration: none; transition: color 0.18s ease;
+}
+.back-link:hover { color: var(--text); }
+.back-link .arrow { transition: transform 0.2s ease; }
+.back-link:hover .arrow { transform: translateX(-4px); }
+
+.art-line {
+  display: flex; align-items: center; gap: 14px; margin-bottom: 22px;
+  font-size: 0.72rem; font-weight: 500; letter-spacing: 1.8px; text-transform: uppercase; color: var(--muted);
+}
+.art-line .sep { width: 18px; height: 1px; background: var(--border-h); }
+
+/* Hepta Slab, set in normal case at a text weight. The uppercase 900-weight
+   display face belongs to the products; a story should read, not shout. The
+   same face carries the section headers, so the page reads as one voice. */
+.art-title {
+  font-family: 'Hepta Slab', Georgia, serif;
+  font-size: clamp(1.95rem, 4.6vw, 3.1rem); font-weight: 600;
+  letter-spacing: -0.012em; line-height: 1.16; color: var(--text);
+}
+.art-title .g { color: var(--green); }
+.art-lede {
+  max-width: 660px; margin-top: 22px;
+  font-size: 1.08rem; color: var(--muted); line-height: 1.7;
+}
+.art-lede strong { color: var(--text); font-weight: 700; }
+
+/* ── FIGURE ──
+   A flat, bordered frame. Deliberately plain: when a real screenshot or photo
+   replaces the placeholder logo it should sit in a neutral frame, not a
+   coloured glow. */
+.art-figure { margin: 40px 0 0; }
+.art-figure .frame {
+  display: grid; place-items: center; aspect-ratio: 16 / 7;
+  background: #0e0e0e; border: 1px solid rgba(255,255,255,0.07); border-radius: 16px; overflow: hidden;
+}
+/* A real photo should fill the frame — give the img class="fill". */
+.art-figure .frame img.fill { width: 100%; max-width: none; height: 100%; object-fit: cover; }
+.art-figure-portrait .frame {
+  width: min(100%, 680px); margin-inline: auto; aspect-ratio: 4 / 3;
+}
+.art-figure-portrait .frame img.fill { object-position: center 28%; }
+.art-figure-portrait figcaption { width: min(100%, 680px); margin-inline: auto; }
+.art-figure .frame img { width: 22%; max-width: 180px; height: auto; object-fit: contain; }
+.art-figure.is-serato .frame img { width: 12%; max-width: 104px; }
+.art-figure figcaption {
+  margin-top: 12px; font-size: 0.72rem; letter-spacing: 1px; text-transform: uppercase; color: var(--muted);
+}
+@media (max-width: 640px) {
+  .art-figure .frame { aspect-ratio: 16 / 9; }
+  .art-figure .frame img { width: 34%; }
+  .art-figure.is-serato .frame img { width: 22%; }
+}
+
+/* ── BODY ── */
+.art-body { max-width: 680px; margin: 0 auto; padding: 50px 0 60px; }
+.art-section { margin-bottom: 46px; }
+.art-section:last-child { margin-bottom: 0; }
+.art-section h2 {
+  font-family: 'Hepta Slab', Georgia, serif;
+  font-size: 0.74rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 18px; padding-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+}
+.art-section p, .art-section li { font-size: 1rem; color: var(--muted); line-height: 1.85; }
+.art-section p + p { margin-top: 16px; }
+.art-section strong { color: var(--text); font-weight: 700; }
+.art-section a { color: var(--text); text-decoration: underline; text-underline-offset: 3px; }
+.art-section a:hover { color: var(--green); }
+/* Buttons are links too, but they carry their own treatment. */
+.art-section a.btn-solid, .art-section a.btn-line { text-decoration: none; }
+.art-section a.btn-solid:hover { color: #052b0e; }
+
+/* Ruled list — a change list should scan like a list of rows, not carry
+   decorative bullets. */
+.art-section ul { list-style: none; margin-top: 4px; }
+/* Keep a trailing paragraph clear of the list, or it reads as one more row. */
+.art-section ul + p { margin-top: 20px; }
+.art-section li { padding: 13px 0; border-bottom: 1px solid var(--border); }
+.art-section li:first-child { border-top: 1px solid var(--border); }
+
+/* ── NOTE ── rules top and bottom, no fill, no accent bar */
+.art-note { margin: 34px 0; padding: 20px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.art-note .note-label { display: block; font-size: 0.68rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+.art-note p { font-size: 0.95rem; }
+
+/* ── BUTTONS ── flat, no gradient, no sheen */
+.art-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 36px; }
+.btn-solid {
+  display: inline-flex; align-items: center; gap: 8px; text-decoration: none;
+  background: var(--green); color: #052b0e;
+  font-weight: 800; font-size: 0.78rem; letter-spacing: 0.3px; text-transform: uppercase;
+  padding: 12px 22px; border-radius: 999px; border: 1.5px solid var(--green);
+  transition: background 0.16s ease, border-color 0.16s ease;
+}
+.btn-solid:hover { background: #29b939; border-color: #29b939; }
+.btn-line {
+  display: inline-flex; align-items: center; gap: 8px; text-decoration: none;
+  background: transparent; color: var(--text);
+  font-weight: 800; font-size: 0.78rem; letter-spacing: 0.3px; text-transform: uppercase;
+  padding: 12px 22px; border-radius: 999px; border: 1.5px solid var(--border-h);
+  transition: border-color 0.16s ease, color 0.16s ease;
+}
+.btn-line:hover { border-color: var(--green); color: var(--green); }
+.btn-solid .arrow, .btn-line .arrow { transition: transform 0.2s ease; }
+.btn-solid:hover .arrow, .btn-line:hover .arrow { transform: translateX(4px); }
+@media (max-width: 560px) {
+  .art-actions { flex-direction: column; align-items: stretch; }
+  .btn-solid, .btn-line { justify-content: center; }
+}
+
+/* ── MORE NEWS ── ruled rows, matching the product list on the home page */
+.more-label { padding: 40px 0 8px; }
+.more-label h2 { font-family: 'Hepta Slab', Georgia, serif; font-size: 0.78rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); }
+.more-row {
+  display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 24px;
+  padding: 24px 0; border-top: 1px solid var(--border); text-decoration: none; color: var(--text);
+}
+.more-row:last-of-type { border-bottom: 1px solid var(--border); }
+.more-row .more-date { display: block; font-size: 0.68rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 7px; }
+.more-row h3 {
+  font-family: 'Hepta Slab', Georgia, serif;
+  font-size: 1.18rem; font-weight: 600; letter-spacing: -0.005em; line-height: 1.32;
+  transition: color 0.18s ease;
+}
+.more-row .arrow { color: var(--muted); font-size: 1.1rem; transition: transform 0.2s ease, color 0.18s ease; }
+.more-row:hover h3 { color: var(--green); }
+.more-row:hover .arrow { color: var(--green); transform: translateX(5px); }
+@media (max-width: 560px) { .more-row h3 { font-size: 1rem; } }
+
+/* ── FOOTER ── */
+footer { border-top: 1px solid var(--border); margin-top: 46px; padding: 22px 0 40px; }
+.foot-row { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+.foot-copy { font-size: 0.75rem; color: var(--muted); }
+.foot-links { display: flex; gap: 22px; flex-wrap: wrap; }
+.foot-link { font-size: 0.75rem; color: var(--muted); text-decoration: none; }
+.foot-link:hover { color: var(--text); }
+.foot-social { display: flex; gap: 14px; }
+.foot-social a { color: var(--muted); }
+.foot-social a:hover { color: var(--text); }
+.foot-social svg { width: 15px; height: 15px; fill: currentColor; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+}

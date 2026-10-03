@@ -1,0 +1,16 @@
+# The direct download and update pages are handed out to customers after
+# purchase. Keeping them out of search stops them becoming a free download
+# route (and burning R2 egress).
+User-agent: *
+Disallow: /tooldownload.html
+Disallow: /toolupdate.html
+Disallow: /toolmessage.html
+Disallow: /index_light.html
+Disallow: /indexsep12.html
+Disallow: /selectabookings.html
+Disallow: /selectahubradio.html
+Disallow: /selectatoolmac.html
+Disallow: /selectatoolpro.html
+Disallow: /crate
+
+Sitemap: https://selectahub.com/sitemap.xml

@@ -2,6 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
+  <meta name="robots" content="noindex,nofollow"/>
+  <!-- Handed out after purchase only: keep it out of search results. -->
+  <meta name="robots" content="noindex, nofollow"/>
   <link rel="icon" type="image/png" href="favicon-64.png"/>
   <link rel="apple-touch-icon" href="logo-mark-180.png"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -65,6 +68,7 @@
       font-size: 0.95rem; color: var(--muted);
       line-height: 1.7; margin-bottom: 6px;
     }
+    .subtitle strong { color: var(--text); font-weight: 700; }
 
     .version-tag {
       font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; color: var(--muted);
@@ -150,11 +154,14 @@
       <img src="st2logo-144.png" alt="Selecta Tool" class="hero-logo" width="72" height="72"/>
 
       <h1 class="page-title">NEW <span class="g">UPDATE</span></h1>
+      <!-- The second line names the headline feature of the current release.
+           Swap it when the next version ships; the version number itself is
+           read from APP_VERSION below, so it is not repeated here. -->
       <p class="subtitle">
-        A new version of Selecta Tool is ready.<br/>
-        Choose your platform below to get started.
+        A new version of Selecta Tool is ready, on Mac and Windows.<br/>
+        This one adds the <strong>Gig Desk</strong> &mdash; bookings, invoices and money tracking on Pro &amp; Pro Plus.
       </p>
-      <div class="version-tag" id="versionPill">v2.0.9</div>
+      <div class="version-tag" id="versionPill">v2.2</div>
 
       <div class="options">
 
@@ -203,7 +210,7 @@
           <div class="option-body">
             <div class="option-title">Windows</div>
             <p class="option-desc">Windows 10 / 11 · .exe</p>
-            <p class="option-desc option-note-warn" id="winDevWarn" style="display:none;">Frozen at v<span id="windowsFrozenVersion"></span> · major updates &amp; bug fixes only, not actively developed alongside Mac</p>
+            <p class="option-desc option-note-warn" id="winDevWarn" style="display:none;">Frozen at v<span id="windowsVersion"></span> · major updates &amp; bug fixes only, not actively developed alongside Mac</p>
           </div>
           <span class="option-arrow">&#8594;</span>
         </a>
@@ -240,8 +247,9 @@
     document.getElementById('doc-manual').href     = DOWNLOADS.manual;
 
     var winDevWarn = document.getElementById('winDevWarn');
-    if (winDevWarn && isVersionAtLeast(APP_VERSION, WINDOWS_STALE_THRESHOLD)) {
-      document.getElementById('windowsFrozenVersion').textContent = WINDOWS_FROZEN_VERSION;
+    // Only shown once the Windows build has actually fallen behind Mac.
+    if (winDevWarn && !isVersionAtLeast(WINDOWS_VERSION, APP_VERSION)) {
+      document.getElementById('windowsVersion').textContent = WINDOWS_VERSION;
       winDevWarn.style.display = '';
     }
   </script>

@@ -1,0 +1,7 @@
+{
+  "name": "selecta-hub-site",
+  "private": true,
+  "scripts": {
+    "check": "node check-site.mjs"
+  }
+}

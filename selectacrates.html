@@ -13,8 +13,11 @@
   <meta property="og:image" content="https://selectahub.com/og-social-card.png"/>
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="description" content="Selecta Crates: curated DJ music libraries by genre."/>
+  <link rel="canonical" href="https://selectahub.com/selectacrates.html"/>
   <link href="https://api.fontshare.com/v2/css?f[]=resist-sans@700,800,900&amp;display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="site.css"/>
+  <script src="site.js" defer></script>
   <style>
     :root {
       --black: #0a0a0a;
@@ -23,7 +26,7 @@
       --border: #222222;
       --border-h: #333333;
       --text: #eeeeee;
-      --muted: #666666;
+      --muted: #8a8a8a;
       --green: #2ecc40;
       --gold: #ffc107;
       --wa: #25d366;
@@ -215,6 +218,7 @@
   </style>
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
   <div class="bg-photo"></div>
 
   <header>
@@ -226,11 +230,11 @@
         </a>
         <nav>
           <a href="selectatool.html" class="nav-link">Selecta Tool</a>
-          <span class="nav-link nav-link-current">Crates</span>
+          <span class="nav-link nav-link-current" aria-current="page">Crates</span>
           <a href="selectasoundfx.html" class="nav-link" id="navSfx">Sound FX</a>
           <a href="mailto:info@selectahub.com" class="nav-link">Contact</a>
         </nav>
-        <button class="hamburger" id="hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
+        <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu"><span></span><span></span><span></span></button>
       </div>
     </div>
     <div class="head-rule"></div>
@@ -239,7 +243,7 @@
   <div class="mobile-menu" id="mobileMenu">
       <a href="index.html" class="mobile-link">Home</a>
       <a href="selectatool.html" class="mobile-link">Selecta Tool</a>
-      <span class="mobile-link mobile-link-current">Crates</span>
+      <span class="mobile-link mobile-link-current" aria-current="page">Crates</span>
       <a href="selectasoundfx.html" class="mobile-link" id="mobileSfx">Sound FX</a>
       <a href="mailto:info@selectahub.com" class="mobile-link">Contact</a>
       <div class="mobile-socials">
@@ -250,6 +254,7 @@
       </div>
   </div>
 
+  <main id="main-content" tabindex="-1">
   <div class="wrap">
 
     <section class="hero">
@@ -269,24 +274,24 @@
     </div>
 
     <div class="genre-grid">
-      <a class="genre-item locked" href="https://juggernautmusic.gumroad.com/l/dancehalllib" target="_blank" rel="noopener noreferrer" data-reveal><span class="genre-name">Dancehall</span></a>
-      <a class="genre-item locked" href="https://juggernautmusic.gumroad.com/l/reggaelib" target="_blank" rel="noopener noreferrer" data-reveal><span class="genre-name">Reggae</span></a>
-      <a class="genre-item locked" href="https://juggernautmusic.gumroad.com/l/socalib" target="_blank" rel="noopener noreferrer" data-reveal><span class="genre-name">Soca</span></a>
-      <a class="genre-item locked" href="https://juggernautmusic.gumroad.com/l/hiphoplib" target="_blank" rel="noopener noreferrer" data-reveal><span class="genre-name">Hip Hop &amp; Trap</span></a>
-      <a class="genre-item locked" href="https://juggernautmusic.gumroad.com/l/rblib" target="_blank" rel="noopener noreferrer" data-reveal><span class="genre-name">R&amp;B</span></a>
-      <a class="genre-item locked" href="https://juggernautmusic.gumroad.com/l/afrolib" target="_blank" rel="noopener noreferrer" data-reveal><span class="genre-name">Afrobeats &amp; Amapiano</span></a>
-      <a class="genre-item locked" href="https://juggernautmusic.gumroad.com/l/basshalllib" target="_blank" rel="noopener noreferrer" data-reveal><span class="genre-name">Basshall</span></a>
-      <a class="genre-item locked" href="https://juggernautmusic.gumroad.com/l/bailefunklib" target="_blank" rel="noopener noreferrer" data-reveal><span class="genre-name">Baile Funk</span></a>
-      <a class="genre-item locked" href="https://juggernautmusic.gumroad.com/l/countryrocklib" target="_blank" rel="noopener noreferrer" data-reveal><span class="genre-name">Country, Rock &amp; Heavy Metal</span></a>
-      <a class="genre-item locked" href="https://juggernautmusic.gumroad.com/l/ukdrillgrimelib" target="_blank" rel="noopener noreferrer" data-reveal><span class="genre-name">Drill, Grime &amp; UK Garage</span></a>
-      <a class="genre-item locked" href="https://juggernautmusic.gumroad.com/l/gospellib" target="_blank" rel="noopener noreferrer" data-reveal><span class="genre-name">Gospel</span></a>
-      <a class="genre-item locked" href="https://juggernautmusic.gumroad.com/l/clubhouseedm" target="_blank" rel="noopener noreferrer" data-reveal><span class="genre-name">Club, EDM &amp; House</span></a>
-      <a class="genre-item locked" href="https://juggernautmusic.gumroad.com/l/jerseyclublib" target="_blank" rel="noopener noreferrer" data-reveal><span class="genre-name">Jersey Club</span></a>
-      <a class="genre-item locked" href="https://juggernautmusic.gumroad.com/l/kompalib" target="_blank" rel="noopener noreferrer" data-reveal><span class="genre-name">Kompa &amp; Zouk</span></a>
-      <a class="genre-item locked" href="https://juggernautmusic.gumroad.com/l/latinlib" target="_blank" rel="noopener noreferrer" data-reveal><span class="genre-name">Latin &amp; Reggaeton</span></a>
-      <a class="genre-item locked" href="https://juggernautmusic.gumroad.com/l/dancediscolib" target="_blank" rel="noopener noreferrer" data-reveal><span class="genre-name">New Disco &amp; New Jack Swing</span></a>
-      <a class="genre-item locked" href="https://juggernautmusic.gumroad.com/l/popurbanlib" target="_blank" rel="noopener noreferrer" data-reveal><span class="genre-name">Pop</span></a>
-      <a class="genre-item locked" href="https://juggernautmusic.gumroad.com/l/freecrates" target="_blank" rel="noopener noreferrer" data-reveal><span class="genre-name">Free Music</span></a>
+      <div class="genre-item locked" data-reveal><span class="genre-name">Dancehall</span></div>
+      <div class="genre-item locked" data-reveal><span class="genre-name">Reggae</span></div>
+      <div class="genre-item locked" data-reveal><span class="genre-name">Soca</span></div>
+      <div class="genre-item locked" data-reveal><span class="genre-name">Hip Hop &amp; Trap</span></div>
+      <div class="genre-item locked" data-reveal><span class="genre-name">R&amp;B</span></div>
+      <div class="genre-item locked" data-reveal><span class="genre-name">Afrobeats &amp; Amapiano</span></div>
+      <div class="genre-item locked" data-reveal><span class="genre-name">Basshall</span></div>
+      <div class="genre-item locked" data-reveal><span class="genre-name">Baile Funk</span></div>
+      <div class="genre-item locked" data-reveal><span class="genre-name">Country, Rock &amp; Heavy Metal</span></div>
+      <div class="genre-item locked" data-reveal><span class="genre-name">Drill, Grime &amp; UK Garage</span></div>
+      <div class="genre-item locked" data-reveal><span class="genre-name">Gospel</span></div>
+      <div class="genre-item locked" data-reveal><span class="genre-name">Club, EDM &amp; House</span></div>
+      <div class="genre-item locked" data-reveal><span class="genre-name">Jersey Club</span></div>
+      <div class="genre-item locked" data-reveal><span class="genre-name">Kompa &amp; Zouk</span></div>
+      <div class="genre-item locked" data-reveal><span class="genre-name">Latin &amp; Reggaeton</span></div>
+      <div class="genre-item locked" data-reveal><span class="genre-name">New Disco &amp; New Jack Swing</span></div>
+      <div class="genre-item locked" data-reveal><span class="genre-name">Pop</span></div>
+      <div class="genre-item locked" data-reveal><span class="genre-name">Free Music</span></div>
     </div>
 
     <div class="note-row" data-reveal>
@@ -312,6 +317,8 @@
       </a>
     </div>
   </div>
+
+  </main>
 
   <div class="wrap">
     <footer>

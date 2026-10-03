@@ -7,7 +7,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Privacy Policy · Selecta Hub</title>
   <meta name="description" content="Selecta Hub Privacy Policy: how we collect, use, and protect your information."/>
+  <link rel="canonical" href="https://selectahub.com/privacy.html"/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="site.css"/>
+  <script src="site.js" defer></script>
   <style>
     :root {
       --black:    #0a0a0a;
@@ -16,7 +19,7 @@
       --border:   #222222;
       --border-h: #333333;
       --text:     #eeeeee;
-      --muted:    #666666;
+      --muted:    #8a8a8a;
       --green:    #2ecc40;
       --gold:     #ffc107;
       --wa:       #25d366;
@@ -126,6 +129,8 @@
 </head>
 <body>
 
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
   <div class="wrap">
     <header>
       <div class="head-row">
@@ -139,7 +144,7 @@
           <a href="selectasoundfx.html" class="nav-link">Sound FX</a>
           <a href="mailto:info@selectahub.com" class="nav-link">Contact</a>
         </nav>
-        <button class="hamburger" id="hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
+        <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu"><span></span><span></span><span></span></button>
       </div>
       <div class="head-rule"></div>
     </header>
@@ -158,6 +163,7 @@
       </div>
     </div>
 
+    <main id="main-content" tabindex="-1">
     <section class="doc-hero">
       <h1 class="doc-title">PRIVACY<br>POLICY.</h1>
       <p class="doc-updated">Last updated: July 24, 2026</p>
@@ -244,6 +250,7 @@
         <p>Questions about this Privacy Policy? Reach us at <a href="mailto:info@selectahub.com">info@selectahub.com</a>.</p>
       </div>
     </div>
+    </main>
   </div>
 
   <div class="wrap">

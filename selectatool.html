@@ -5,16 +5,23 @@
   <link rel="icon" type="image/png" href="favicon-64.png"/>
   <link rel="apple-touch-icon" href="logo-mark-180.png"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Selecta Tool · Basic &amp; Pro | Selecta Hub</title>
+  <title>Selecta Tool · Basic, Pro &amp; Pro Plus | Selecta Hub</title>
+  <link rel="canonical" href="https://selectahub.com/selectatool.html"/>
   <meta property="og:type" content="website"/>
   <meta property="og:url" content="https://selectahub.com/selectatool.html"/>
   <meta property="og:title" content="Selecta Tool · Choose Your Tier"/>
-  <meta property="og:description" content="Serato crate management for serious DJs. Compare Basic ($29.99) and Pro ($54.99)."/>
+  <meta property="og:description" content="Serato crate management for serious DJs, plus the Gig Desk for bookings and invoicing on Pro &amp; Pro Plus. Compare Basic ($29.99), Pro ($54.99) and Pro Plus ($144.99, 3 seats)."/>
   <meta property="og:image" content="https://selectahub.com/og-social-card.png"/>
   <meta name="twitter:card" content="summary_large_image"/>
-  <meta name="description" content="Selecta Tool · DJ crate management for Serato. Basic $29.99 · Pro $54.99. Mac Intel, Apple Silicon &amp; Windows 10/11."/>
+  <meta name="description" content="Selecta Tool · DJ crate management for Serato, with the Gig Desk (bookings, quotes, invoices &amp; money) on Pro &amp; Pro Plus. Basic $29.99 · Pro $54.99 · Pro Plus $144.99 (3 seats). Mac Intel, Apple Silicon &amp; Windows 10/11."/>
   <link rel="preload" as="image" href="serato-hero-bg-selecta-tool-1600.jpg"/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="preconnect" href="https://api.fontshare.com" crossorigin/>
+  <link href="https://api.fontshare.com/v2/css?f[]=resist-sans@700,800,900&amp;display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="site.css"/>
+  <script src="site.js" defer></script>
   <style>
     :root {
       --black:    #0a0a0a;
@@ -23,14 +30,15 @@
       --border:   #222222;
       --border-h: #333333;
       --text:     #eeeeee;
-      --muted:    #666666;
+      --muted:    #8a8a8a;
       --green:    #2ecc40;
       --gold:     #ffc107;
       --wa:       #25d366;
       --plus:     #b9a3ff;
+      --head-h:   83px;
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; scroll-padding-top: calc(var(--head-h) + 12px); }
     body {
       background: var(--black);
       color: var(--text);
@@ -40,26 +48,23 @@
       overflow-x: hidden;
     }
     body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      background: rgba(10,10,10,0.78);
-      pointer-events: none;
+      content: ''; position: fixed; inset: 0; z-index: -1;
+      background: rgba(10,10,10,0.86); pointer-events: none;
     }
     .bg-photo {
-      position: fixed; inset: 0; z-index: -1;
+      position: fixed; inset: 0; z-index: -2;
       background: url('serato-hero-bg-selecta-tool-1600.jpg') center center / cover no-repeat;
       filter: blur(1.5px) brightness(0.85);
       opacity: 0.8;
       transform: scale(1.05);
-      z-index: -2;
     }
     a { color: inherit; }
+    :focus-visible { outline: 2px solid var(--green); outline-offset: 3px; border-radius: 4px; }
+    .hamburger:focus-visible { outline: 2px solid var(--green); outline-offset: 3px; }
     .wrap { max-width: 1180px; margin: 0 auto; padding: 0 40px; background: transparent; }
     @media (max-width: 640px) { .wrap { padding: 0 22px; } }
 
-    /* ── HEADER ── */
+    /* ── HEADER (shared with Crates / Sound FX) ── */
     header { padding: 26px 0 0; position: sticky; top: 0; z-index: 200; background: var(--black); }
     .head-row { display: flex; align-items: center; justify-content: space-between; }
     .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
@@ -70,16 +75,16 @@
     .nav-link::after { content: ''; position: absolute; left: 0; right: 100%; bottom: 0; height: 1.5px; background: var(--green); transition: right 0.25s ease; }
     .nav-link:hover { color: var(--text); }
     .nav-link:hover::after { right: 0; }
-    .nav-link.current { color: var(--text); }
-    .nav-link.current::after { right: 0; }
-    .nav-link-disabled { pointer-events: none !important; opacity: 0.3; }
+    .nav-link-current { color: var(--text); pointer-events: none; }
+    .nav-link-current::after { right: 0; background: var(--gold); }
     .head-rule { height: 1px; background: var(--border); margin-top: 22px; }
     .hamburger {
       display: none; position: relative; align-items: center; justify-content: center; width: 46px; height: 46px;
       cursor: pointer; padding: 0; background: rgba(26,26,26,0.94);
       border: 1px solid rgba(255,255,255,0.12); border-radius: 15px; outline: none;
       box-shadow: 0 12px 28px rgba(0,0,0,0.3);
-      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); transition: transform 0.22s ease, border-color 0.22s ease, background 0.22s ease;
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      transition: transform 0.22s ease, border-color 0.22s ease, background 0.22s ease;
     }
     .hamburger:hover { transform: translateY(-1px); border-color: rgba(255,255,255,0.22); background: rgba(34,34,34,0.96); }
     .hamburger span {
@@ -88,7 +93,6 @@
       transition: transform 0.32s cubic-bezier(.22,1,.36,1), opacity 0.22s ease, width 0.22s ease;
     }
     .hamburger span:nth-child(1) { transform: translateY(-6px); }
-    .hamburger span:nth-child(2) { transform: translateY(0); }
     .hamburger span:nth-child(3) { transform: translateY(6px); }
     .hamburger.open span:nth-child(1) { transform: translateY(0) rotate(45deg); }
     .hamburger.open span:nth-child(2) { opacity: 0; width: 0; }
@@ -96,33 +100,36 @@
     @media (max-width: 640px) { nav { display: none; } .hamburger { display: flex; } }
 
     .mobile-menu {
-      position: fixed; top: 100px; right: 16px; left: auto; bottom: auto; width: min(272px, calc(100vw - 32px));
+      position: fixed; top: 100px; right: 16px; width: min(272px, calc(100vw - 32px));
       padding: 14px; background: linear-gradient(180deg, rgba(34,34,34,0.94), rgba(10,10,10,0.97));
-      border: 1px solid rgba(255,255,255,0.12); border-radius: 24px; box-shadow: 0 28px 70px rgba(0,0,0,0.42), inset 0 1px 0 rgba(255,255,255,0.08);
-      backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); z-index: 500; display: flex; flex-direction: column;
-      align-items: stretch; justify-content: flex-start; gap: 4px; opacity: 0; visibility: hidden; pointer-events: none;
+      border: 1px solid rgba(255,255,255,0.12); border-radius: 24px;
+      box-shadow: 0 28px 70px rgba(0,0,0,0.42), inset 0 1px 0 rgba(255,255,255,0.08);
+      backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); z-index: 500;
+      display: flex; flex-direction: column; gap: 4px; opacity: 0; visibility: hidden; pointer-events: none;
       transform: translate3d(0, -14px, 0) scale(0.96); transform-origin: top right;
       transition: opacity 0.22s ease, transform 0.32s cubic-bezier(.22,1,.36,1), visibility 0.22s ease;
     }
     .mobile-menu.open { opacity: 1; visibility: visible; pointer-events: auto; transform: translate3d(0, 0, 0) scale(1); }
-    .mobile-link { font-size: 0.98rem; font-weight: 800; letter-spacing: -0.01em; color: var(--muted); text-decoration: none; padding: 11px 12px; border-radius: 12px; text-align: left; transition: background 0.18s ease, color 0.18s ease, transform 0.18s ease; }
-    .mobile-link:hover { color: var(--text); }
+    .mobile-link { font-size: 0.98rem; font-weight: 800; letter-spacing: -0.01em; color: var(--muted); text-decoration: none; padding: 11px 12px; border-radius: 12px; transition: background 0.18s ease, color 0.18s ease, transform 0.18s ease; }
     .mobile-link:hover, .mobile-link:focus-visible { background: rgba(255,255,255,0.05); color: var(--text); transform: translateX(2px); }
-    .mobile-link.current { color: var(--text); }
+    .mobile-link-current { color: var(--gold); }
     .mobile-socials { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 14px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.08); }
-    .mobile-social-btn {
-      display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 10px;
-      background: var(--card-2); border: 1px solid var(--border); color: var(--muted); text-decoration: none;
-    }
+    .mobile-social-btn { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 10px; background: var(--card-2); border: 1px solid var(--border); color: var(--muted); text-decoration: none; }
     .mobile-social-btn:hover { border-color: var(--border-h); color: var(--text); }
     .mobile-social-btn svg { width: 18px; height: 18px; fill: currentColor; }
 
     /* ── HERO ── */
-    .hero { padding: 70px 0 40px; }
-    .hero-logo-row { display: flex; align-items: center; gap: 18px; margin-bottom: 6px; }
-    .hero-logo { width: 56px; height: 56px; object-fit: contain; flex-shrink: 0; }
-    .hero-title { font-size: clamp(3rem, 8.5vw, 6.6rem); font-weight: 900; letter-spacing: -0.04em; line-height: 0.92; text-transform: uppercase; color: var(--text); }
-    .hero-title .out { -webkit-text-stroke: 1.5px var(--text); color: var(--black); }
+    .hero { padding: 70px 0 34px; }
+    .hero-head { margin-bottom: 8px; display: flex; align-items: center; gap: 22px; }
+    .hero-logo { width: clamp(48px, 7vw, 92px); height: auto; object-fit: contain; flex-shrink: 0; }
+    @media (max-width: 640px) { .hero-head { gap: 14px; } }
+    .hero-title {
+      font-family: 'Resist Sans Display', 'Resist Sans', 'Inter', sans-serif;
+      font-size: clamp(1.6rem, 5.2vw, 3.9rem);
+      font-weight: 900; letter-spacing: 0.01em; line-height: 1;
+      text-transform: uppercase; color: var(--text); white-space: nowrap;
+    }
+    .hero-title .out { color: var(--text); text-shadow: 0 0 18px rgba(255,255,255,0.08); }
     .hero-title-metal {
       background: linear-gradient(115deg, #7a7d80 0%, #e8e8e8 22%, #ffffff 40%, #9a9a9a 55%, #f2f2f2 72%, #6e7174 100%);
       background-size: 220% auto;
@@ -130,242 +137,297 @@
       color: transparent; -webkit-text-fill-color: transparent;
       animation: metallic-shine 5s ease-in-out infinite alternate;
     }
-    @keyframes metallic-shine {
-      to { background-position: 220% center; }
-    }
-    .hero-foot { display: flex; justify-content: space-between; align-items: flex-end; gap: 30px; margin-top: 30px; flex-wrap: wrap; }
-    .hero-desc { max-width: 460px; font-size: 1rem; color: var(--muted); line-height: 1.65; }
-    .hero-tag { font-size: 0.75rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); text-align: right; white-space: nowrap; }
-    .hero-logo-row,
-    .hero-foot,
-    .compat-row {
-      opacity: 0;
-      transform: translate3d(0, 30px, 0);
-      filter: blur(8px);
-      transition: opacity 0.7s ease, transform 0.85s cubic-bezier(.2,.8,.2,1), filter 0.85s ease;
-    }
-    .hero-logo-row.is-visible,
-    .hero-foot.is-visible,
-    .compat-row.is-visible {
-      opacity: 1;
-      transform: translate3d(0, 0, 0);
-      filter: blur(0);
-    }
-    [data-animate="hero-word"],
-    [data-animate="hero-char"] {
-      opacity: 0;
-      display: inline-block;
-    }
-    [data-animate="hero-word"] {
-      transform: translate3d(0.4em, -0.35em, 0) rotate(7deg) scale(0.92, 0.28);
-      transform-origin: top left;
-      transition: opacity 0.35s ease, transform 0.82s cubic-bezier(.16,1,.3,1);
-    }
-    [data-animate="hero-char"] {
-      transform: translate3d(-0.18em, 0.4em, 0) rotate(18deg);
-      transition: opacity 0.3s ease, transform 0.7s cubic-bezier(.2,.9,.25,1.2);
-    }
-    [data-animate="hero-word"].is-visible,
-    [data-animate="hero-char"].is-visible {
-      opacity: 1;
-      transform: translate3d(0, 0, 0) rotate(0) scale(1);
-    }
+    @keyframes metallic-shine { to { background-position: 220% center; } }
+    .hero-foot { display: flex; justify-content: space-between; align-items: flex-end; gap: 30px; margin-top: 26px; flex-wrap: wrap; }
+    .hero-desc { max-width: 470px; font-size: 1rem; font-weight: 500; color: var(--text); line-height: 1.65; }
+    .hero-tag { font-size: 0.75rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); text-align: right; white-space: nowrap; }
 
-    .compat-row { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; margin-top: 26px; }
+    .compat-row { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; margin-top: 30px; }
     .compat-with-label { font-size: 0.68rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); }
     .compat-item { display: flex; align-items: center; gap: 7px; }
     .compat-item svg, .compat-item img { width: 17px; height: 17px; flex-shrink: 0; display: block; }
     .compat-item span { font-size: 0.78rem; color: var(--muted); font-weight: 500; white-space: nowrap; }
+    @media (max-width: 640px) { .compat-row { flex-direction: column; align-items: flex-start; gap: 12px; } }
+
+    /* ── WALKTHROUGH BUTTON ──
+       Points at DOWNLOADS.walkthrough (downloads.js). While that is empty the
+       button renders in its .is-soon state: greyed, not clickable, labelled
+       "Coming soon". Paste the URL in and it goes live with no markup change. */
+    .walkthrough-row { margin-top: 26px; }
+    .btn-walkthrough {
+      display: inline-flex; align-items: center; gap: 12px; text-decoration: none;
+      padding: 9px 20px 9px 11px; border-radius: 999px;
+      background: rgba(255,255,255,0.05); border: 1.5px solid rgba(255,255,255,0.14);
+      color: var(--text); font-weight: 800; font-size: 0.78rem; letter-spacing: 0.3px; text-transform: uppercase;
+      transition: border-color 0.18s ease, background 0.18s ease, transform 0.18s ease;
+    }
+    .btn-walkthrough .play {
+      display: grid; place-items: center; width: 34px; height: 24px; border-radius: 7px;
+      background: #e0243a; flex-shrink: 0; transition: background 0.18s ease, transform 0.18s ease;
+    }
+    .btn-walkthrough .play svg { width: 10px; height: 12px; fill: #fff; margin-left: 1px; }
+    .btn-walkthrough .label-note { font-weight: 600; text-transform: none; letter-spacing: 0; color: var(--muted); }
+    .btn-walkthrough:hover { border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.08); transform: translateY(-2px); }
+    .btn-walkthrough:hover .play { background: #ff2d46; transform: scale(1.06); }
+    .btn-walkthrough.is-soon { pointer-events: none; opacity: 0.55; }
+    .btn-walkthrough.is-soon .play { background: #4a4a4a; }
     @media (max-width: 640px) {
-      .compat-row { flex-direction: column; align-items: flex-start; gap: 12px; }
+      .btn-walkthrough { width: 100%; justify-content: center; }
     }
 
-    .rule-thick { height: 2px; background: var(--text); margin-top: 40px; }
-
-    /* ── TIER TABS (mobile) ── */
-    .tier-tabs { display: none; gap: 26px; padding: 30px 0 8px; }
-    .tier-tab {
-      background: none; border: none; cursor: pointer; font-family: 'Inter', sans-serif;
-      font-size: 0.78rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
-      color: var(--muted); padding: 0 0 8px; opacity: 0.55; transition: opacity 0.2s;
-      position: relative; appearance: none; -webkit-appearance: none; border-radius: 0;
+    /* ── FREE TRIAL ──
+       Every value comes from TRIAL (trial.js). The markup ships `hidden` and
+       only the script unhides it, so with trial.js set to off — or missing —
+       nothing here renders and the page falls back to exactly what it was.
+       Deliberately quiet: it sits at the foot of the page, under licensing. */
+    .trial { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 24px; align-items: center; border-bottom: 1px solid var(--border); padding: 20px 0; }
+    .trial[hidden] { display: none; }
+    .trial-kicker { display: block; font-size: 0.64rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--green); margin-bottom: 7px; }
+    .trial-title { font-size: 0.95rem; font-weight: 800; letter-spacing: -0.01em; color: var(--text); line-height: 1.25; }
+    .trial-copy { font-size: 0.8rem; color: var(--muted); line-height: 1.6; max-width: 520px; margin-top: 5px; }
+    .trial-side { display: flex; flex-direction: column; align-items: flex-end; gap: 7px; }
+    .btn-trial {
+      display: inline-flex; align-items: center; justify-content: center;
+      font-size: 0.72rem; font-weight: 800; letter-spacing: 0.3px; text-decoration: none;
+      padding: 10px 20px; border-radius: 999px; white-space: nowrap;
+      background: transparent; border: 1px solid var(--border-h); color: var(--text);
+      transition: border-color 0.18s ease, background 0.18s ease;
     }
-    .tier-tab::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      height: 2px;
-      background: currentColor;
-      transform: scaleX(0);
-      transform-origin: left center;
-      transition: transform 0.2s ease;
+    .btn-trial:hover { border-color: var(--text); background: rgba(255,255,255,0.05); }
+    /* Same treatment as the walkthrough button while its URL is still empty. */
+    .btn-trial.is-soon { pointer-events: none; opacity: 0.55; }
+    .trial-foot { font-size: 0.7rem; color: var(--muted); line-height: 1.5; }
+    /* Countdown to TRIAL.releaseAt. Small on purpose — it is a timestamp, not
+       a banner. Tabular figures so the digits do not jiggle each second. */
+    .trial-count { display: flex; align-items: baseline; gap: 9px; }
+    .trial-count[hidden] { display: none; }
+    .trial-count-label { font-size: 0.6rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
+    .trial-count-time {
+      font-size: 0.82rem; font-weight: 800; letter-spacing: 0.5px; color: var(--green);
+      font-variant-numeric: tabular-nums; font-feature-settings: 'tnum' 1;
     }
-    .tier-tab[data-target="basic"] { color: var(--green); }
-    .tier-tab[data-target="pro"] { color: var(--gold); }
-    .tier-tab[data-target="pro-plus"] { color: var(--plus); }
-    .tier-tab.tab-on { opacity: 1; }
-    .tier-tab.tab-on::after { transform: scaleX(1); }
-
-    /* ── TIER GRID / CARD ── */
-    .compare-section { padding: 10px 0 60px; }
-    .tier-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; }
-    .tier-card { border-top: 1px solid var(--border); padding: 30px 26px 34px; display: flex; flex-direction: column; }
-    .tier-grid:not(.stacked) .tier-card { border-left: 1px solid var(--border); }
-    .tier-grid:not(.stacked) .tier-card:first-child { border-left: none; }
-    @media (max-width: 900px) {
-      .tier-tabs { display: flex; }
-      .tier-grid { display: flex; flex-direction: column; gap: 0; }
-      .tier-card { width: 100%; border-left: none !important; }
-      .tier-card:first-child { border-top: 1px solid var(--border); }
+    .trial-count-time .u { font-size: 0.68rem; font-weight: 700; color: var(--muted); margin-left: 1px; }
+    @media (max-width: 760px) {
+      .trial { grid-template-columns: 1fr; gap: 14px; }
+      .trial-side { align-items: flex-start; }
+      .btn-trial { width: 100%; }
     }
 
-    .tier-name-row { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; margin-bottom: 10px; }
-    .tier-name { font-size: 1rem; font-weight: 800; letter-spacing: -0.2px; color: var(--text); }
-    .tier-card.pro .tier-name { color: var(--gold); }
-    .tier-card.pro-plus .tier-name { color: var(--plus); }
+    [data-hero-fade] { opacity: 0; transform: translate3d(0, 30px, 0); filter: blur(8px); transition: opacity 0.7s ease, transform 0.85s cubic-bezier(.2,.8,.2,1), filter 0.85s ease; }
+    [data-hero-fade].is-visible { opacity: 1; transform: translate3d(0,0,0); filter: blur(0); }
+    [data-animate="hero-word"], [data-animate="hero-char"] { opacity: 0; display: inline-block; }
+    [data-animate="hero-word"] { transform: translate3d(0.4em, -0.35em, 0) rotate(7deg) scale(0.92, 0.28); transform-origin: top left; transition: opacity 0.35s ease, transform 0.82s cubic-bezier(.16,1,.3,1); }
+    [data-animate="hero-char"] { transform: translate3d(-0.18em, 0.4em, 0) rotate(18deg); transition: opacity 0.3s ease, transform 0.7s cubic-bezier(.2,.9,.25,1.2); }
+    [data-animate="hero-word"].is-visible, [data-animate="hero-char"].is-visible { opacity: 1; transform: translate3d(0,0,0) rotate(0) scale(1); }
+    [data-reveal] { opacity: 0; transform: translate3d(0, 24px, 0); transition: opacity 0.5s ease, transform 0.7s cubic-bezier(.2,.8,.2,1); }
+    [data-reveal].is-visible { opacity: 1; transform: translate3d(0,0,0); }
 
-    .tier-badge { font-size: 0.66rem; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; white-space: nowrap; }
-    .badge-live { color: var(--green); }
-    .badge-date { color: var(--muted); }
-    .badge-soon { color: var(--gold); }
-    .badge-best-value { color: var(--plus); margin-right: 10px; }
-
-    .tier-seats { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
-    .seat-computer { width: 16px; height: 16px; color: var(--muted); flex-shrink: 0; }
-    .tier-card.basic .seat-computer { color: var(--green); }
-    .tier-card.pro .seat-computer { color: var(--gold); }
-    .tier-card.pro-plus .seat-computer { color: var(--plus); }
-    .tier-seats-label { font-size: 0.74rem; font-weight: 600; letter-spacing: 0.2px; color: var(--muted); }
-
-    .plus-compat-note { font-size: 0.72rem; color: var(--muted); margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
-    .plus-compat-note svg { width: 11px; height: 11px; flex-shrink: 0; color: var(--plus); }
-
-    .tier-price {
-      font-size: 2.1rem; font-weight: 900; letter-spacing: -1px; line-height: 1; margin-bottom: 6px;
-      background-size: 220% auto;
-      -webkit-background-clip: text; background-clip: text;
-      color: transparent; -webkit-text-fill-color: transparent;
-      animation: metallic-shine 3s ease-in-out infinite alternate;
-    }
-    .tier-card.basic .tier-price { background-image: linear-gradient(115deg, #145c1c 0%, #7be08c 22%, #eafff0 40%, #2ecc40 55%, #b8ffca 72%, #0f4716 100%); }
-    .tier-card.pro .tier-price { background-image: linear-gradient(115deg, #7a5c00 0%, #ffdb70 22%, #fff8e1 40%, #ffc107 55%, #ffe9a8 72%, #6b4f00 100%); }
-    .tier-card.pro-plus .tier-price { background-image: linear-gradient(115deg, #4a3b80 0%, #d8ccff 22%, #f5f2ff 40%, #b9a3ff 55%, #e4dbff 72%, #3d2f6b 100%); }
-    .tier-price-orig { font-size: 0.95rem; font-weight: 500; color: var(--muted); -webkit-text-fill-color: var(--muted); text-decoration: line-through; margin-left: 4px; }
-
-    .tier-price-note { font-size: 0.75rem; color: var(--muted); margin-bottom: 6px; }
-    .tier-version { display: inline-block; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.6px; color: var(--muted); margin-bottom: 20px; }
-
-    .tier-intro-cd { display: none; font-size: 0.66rem; font-weight: 700; letter-spacing: 0.3px; font-variant-numeric: tabular-nums; margin-left: 7px; }
-    .tier-intro-cd.visible { display: inline; }
-    .basic-cd { color: var(--green); }
-    .pro-cd { color: var(--gold); }
-    .pro-plus-cd { color: var(--plus); }
-
-    /* solid button */
-    .btn-tier {
-      display: flex; align-items: baseline; justify-content: center; gap: 8px; width: fit-content;
-      font-family: 'Inter', sans-serif; font-size: 0.86rem; font-weight: 800; letter-spacing: 0.3px;
-      text-decoration: none; color: var(--black); background: var(--text); border: none; border-radius: 8px;
-      padding: 13px 22px; margin-top: 16px; transition: opacity 0.18s, transform 0.15s, box-shadow 0.15s;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.42), 0 8px 18px rgba(0,0,0,0.18);
-    }
-    .btn-tier:hover { opacity: 0.92; transform: translateY(-1px); box-shadow: inset 0 1px 0 rgba(255,255,255,0.5), 0 10px 22px rgba(0,0,0,0.22); }
-    .btn-tier { background-size: 240% auto; animation: metallic-shine 4.2s ease-in-out infinite alternate; }
-    .btn-basic { background-image: linear-gradient(115deg, #145c1c 0%, #7be08c 22%, #eafff0 40%, #2ecc40 55%, #b8ffca 72%, #0f4716 100%); }
-    .btn-pro { background-image: linear-gradient(115deg, #7a5c00 0%, #ffdb70 22%, #fff8e1 40%, #ffc107 55%, #ffe9a8 72%, #6b4f00 100%); }
-    .btn-pro-plus { background-image: linear-gradient(115deg, #4a3b80 0%, #d8ccff 22%, #f5f2ff 40%, #b9a3ff 55%, #e4dbff 72%, #3d2f6b 100%); }
-    .btn-orig-price { font-size: 0.72rem; font-weight: 500; text-decoration: line-through; color: rgba(10,10,10,0.55); }
-
-    .btn-pro-locked, .btn-pro-plus-soon, .btn-pro-soon {
-      color: var(--muted) !important; background: var(--card-2) !important; border: 2px solid var(--border-h) !important;
-      cursor: not-allowed !important; pointer-events: none;
-    }
-
-    .tier-head { margin-bottom: 22px; }
-    .feat-includes-banner {
-      font-size: 0.84rem; font-weight: 700; color: var(--text);
-      padding: 14px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
-      margin-bottom: 4px; display: flex; align-items: baseline; gap: 8px; line-height: 1.4;
-    }
-    .feat-includes-banner .inc-check { color: var(--green); flex-shrink: 0; }
-    .tier-card.pro .feat-includes-banner .inc-check { color: var(--gold); }
-    .tier-card.pro-plus .feat-includes-banner .inc-check { color: var(--plus); }
-    .feat-includes-banner .inc-note { display: block; font-size: 0.7rem; font-weight: 500; color: var(--muted); margin-top: 3px; }
-
-    .feat-section-label { font-size: 0.62rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); padding: 4px 0 10px; }
-
-    .feat-list { flex: 1; list-style: none; padding: 0; }
-    .feat-item { display: flex; align-items: flex-start; gap: 10px; padding: 11px 0; font-size: 0.83rem; color: var(--text); border-bottom: 1px solid var(--border); line-height: 1.45; }
-    .feat-item:last-child { border-bottom: none; }
-    .feat-icon { font-size: 0.85rem; flex-shrink: 0; margin-top: 1px; line-height: 1.45; }
-    .feat-icon.check { color: var(--green); }
-    .tier-card.pro .feat-icon.check { color: var(--gold); }
-    .tier-card.pro-plus .feat-icon.check { color: var(--plus); }
-    .feat-icon.dash { color: var(--border-h); }
-    .feat-label { font-weight: 500; }
-    .feat-label-note { display: block; font-size: 0.72rem; font-weight: 400; color: var(--muted); margin-top: 2px; }
-
-    .tier-foot { padding-top: 22px; margin-top: 8px; }
-
-    /* ── INFO / SUPPORT BLOCKS ── */
-    .info-section { padding: 10px 0 70px; display: flex; flex-direction: column; }
-    .info-block { padding: 22px 0; border-top: 1px solid var(--border); font-size: 0.86rem; color: var(--muted); line-height: 1.7; }
-    .info-block:last-child { border-bottom: 1px solid var(--border); }
-    .info-block strong { color: var(--text); font-weight: 700; }
-    .info-block a { color: var(--green); text-decoration: underline; }
-    .info-head { font-size: 0.68rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
-
-    .gumroad-row { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
-    .gumroad-logo { width: 26px; height: 26px; flex-shrink: 0; }
-
-    .payment-pills { margin-top: 8px; font-size: 0.84rem; line-height: 1.8; }
-    .payment-pill { color: var(--text); font-weight: 600; }
-    .payment-pill:not(:last-child)::after { content: '\00b7'; color: var(--muted); font-weight: 400; margin: 0 8px; }
-
-    .yt-card { display: flex; align-items: center; gap: 14px; text-decoration: none; color: var(--text); padding: 4px 0; }
-    .yt-title { font-size: 0.9rem; font-weight: 700; margin-bottom: 2px; }
-    .yt-sub { font-size: 0.78rem; color: var(--muted); }
-    .yt-arrow { color: var(--muted); font-size: 1rem; transition: transform 0.18s, color 0.18s; }
-    .yt-card:hover .yt-arrow { transform: translateX(4px); color: var(--text); }
-
-    /* ── SECTION LABEL / ACCORDION (reviews + FAQ) ── */
-    .section-label { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding: 40px 0 20px; }
+    .section-label { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding: 46px 0 10px; }
     .section-label h2 { font-size: 0.78rem; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; color: var(--text); }
     .section-label .stars { color: var(--gold); font-size: 0.85rem; letter-spacing: 1px; }
 
+    /* ── PRICE / COMPARE MATRIX ── */
+    .mx { --cols: minmax(0, 1.75fr) repeat(3, minmax(92px, 0.62fr)); }
+    .tier-tabs { display: none; gap: 8px; padding: 18px 0 6px; }
+    .tier-tab {
+      flex: 1; background: transparent; border: 1px solid var(--border); border-radius: 10px; cursor: pointer;
+      font-family: 'Inter', sans-serif; font-size: 0.72rem; font-weight: 800; letter-spacing: 1.2px;
+      text-transform: uppercase; color: var(--muted); padding: 11px 6px;
+      transition: color 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+    }
+    .tier-tab.tab-on {
+      color: var(--black); border-color: transparent;
+      background-size: 240% auto;
+      animation: metallic-shine 4.2s ease-in-out infinite alternate;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.42);
+    }
+    .tier-tab[data-target="basic"].tab-on { background-image: linear-gradient(115deg, #145c1c 0%, #7be08c 22%, #eafff0 40%, #2ecc40 55%, #b8ffca 72%, #0f4716 100%); }
+    .tier-tab[data-target="pro"].tab-on   { background-image: linear-gradient(115deg, #7a5c00 0%, #ffdb70 22%, #fff8e1 40%, #ffc107 55%, #ffe9a8 72%, #6b4f00 100%); }
+    .tier-tab[data-target="plus"].tab-on  { background-image: linear-gradient(115deg, #4a3b80 0%, #d8ccff 22%, #f5f2ff 40%, #b9a3ff 55%, #e4dbff 72%, #3d2f6b 100%); }
+
+    .mx-head {
+      display: grid; grid-template-columns: var(--cols);
+      border-top: 1px solid var(--border); background: var(--black);
+    }
+    @media (min-width: 901px) and (min-height: 760px) {
+      .mx-head { position: sticky; top: var(--head-h); z-index: 120; }
+    }
+    .mx-corner { padding: 24px 20px 22px 0; }
+    .mx-corner-label { display: block; font-size: 0.68rem; font-weight: 800; letter-spacing: 2.4px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+    .mx-corner-note { display: block; font-size: 0.8rem; color: var(--muted); line-height: 1.6; max-width: 320px; }
+    .mx-corner-note strong { color: var(--text); font-weight: 700; }
+
+    .tier-col {
+      padding: 24px 18px 22px; border-left: 1px solid var(--border);
+      display: flex; flex-direction: column; align-items: flex-start;
+    }
+    .tier-col.is-best { background: linear-gradient(180deg, rgba(185,163,255,0.075), rgba(185,163,255,0)); }
+    .tier-name { font-size: 0.86rem; font-weight: 800; letter-spacing: -0.01em; color: var(--text); }
+    [data-tier="basic"] .tier-name { color: var(--green); }
+    [data-tier="pro"]   .tier-name { color: var(--gold); }
+    [data-tier="plus"]  .tier-name { color: var(--plus); }
+    .tier-flag { display: block; font-size: 0.6rem; font-weight: 800; letter-spacing: 1.6px; text-transform: uppercase; color: var(--muted); margin-top: 5px; min-height: 0; }
+    .tier-col[data-tier="pro"]  .tier-flag { color: var(--gold); }
+    .tier-col[data-tier="plus"] .tier-flag { color: var(--plus); }
+    .tier-flag.empty { visibility: hidden; }
+    .tier-price { font-size: 1.62rem; font-weight: 900; letter-spacing: -0.045em; line-height: 1; color: var(--text); margin-top: 14px; }
+    .tier-price-orig { font-size: 0.8rem; font-weight: 500; color: var(--muted); text-decoration: line-through; margin-left: 5px; letter-spacing: 0; }
+    .tier-sub { font-size: 0.7rem; color: var(--muted); line-height: 1.5; margin-top: 7px; margin-bottom: 16px; }
+    .tier-sub b { color: var(--text); font-weight: 600; }
+    .btn-tier {
+      display: inline-flex; align-items: center; justify-content: center; gap: 7px; width: 100%;
+      font-size: 0.78rem; font-weight: 800; letter-spacing: 0.3px; text-decoration: none;
+      padding: 11px 14px; border-radius: 8px; margin-top: auto; white-space: nowrap;
+      border: 1px solid transparent; color: var(--black);
+      background-size: 240% auto;
+      animation: metallic-shine 4.2s ease-in-out infinite alternate;
+      transition: filter 0.18s ease, transform 0.15s ease, box-shadow 0.18s ease;
+    }
+    /* Keyed on data-tier alone, not .tier-col, so the closing CTA cards after
+       the FAQ reuse the same three gradients without duplicating them. */
+    [data-tier="basic"] .btn-tier {
+      background-image: linear-gradient(115deg, #145c1c 0%, #7be08c 22%, #eafff0 40%, #2ecc40 55%, #b8ffca 72%, #0f4716 100%);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.42), 0 7px 18px rgba(46,204,64,0.22);
+    }
+    [data-tier="pro"] .btn-tier {
+      background-image: linear-gradient(115deg, #7a5c00 0%, #ffdb70 22%, #fff8e1 40%, #ffc107 55%, #ffe9a8 72%, #6b4f00 100%);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.42), 0 7px 18px rgba(255,193,7,0.22);
+    }
+    [data-tier="plus"] .btn-tier {
+      background-image: linear-gradient(115deg, #4a3b80 0%, #d8ccff 22%, #f5f2ff 40%, #b9a3ff 55%, #e4dbff 72%, #3d2f6b 100%);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.42), 0 7px 18px rgba(185,163,255,0.22);
+    }
+    .btn-tier:hover { transform: translateY(-1px); filter: brightness(1.06); }
+
+    .mx-group {
+      grid-column: 1 / -1; padding: 30px 0 12px;
+      font-size: 0.64rem; font-weight: 800; letter-spacing: 2.4px; text-transform: uppercase; color: var(--muted);
+    }
+    .mx-body { display: grid; grid-template-columns: var(--cols); border-top: 1px solid var(--border); }
+    .mx-row { display: contents; }
+    .mx-cell { border-top: 1px solid var(--border); }
+    .mx-row:first-of-type .mx-cell { border-top: none; }
+    .mx-feat { padding: 15px 26px 15px 0; }
+    .mx-name { display: block; font-size: 0.87rem; font-weight: 600; color: var(--text); line-height: 1.35; }
+    .mx-name .plat { font-size: 0.66rem; font-weight: 500; color: var(--muted); margin-left: 5px; }
+    .mx-note { display: block; font-size: 0.74rem; color: var(--muted); line-height: 1.55; margin-top: 3px; max-width: 480px; }
+    .mx-mark { display: flex; align-items: flex-start; justify-content: center; padding: 14px 8px 15px; border-left: 1px solid var(--border); }
+    .mx-mark span { font-size: 0.95rem; font-weight: 700; line-height: 1.35; }
+    .mx-mark .on::before  { content: '\2713'; }
+    .mx-mark .off::before { content: '\2013'; }
+    .mx-mark .off { color: var(--text); }
+    .mx-mark[data-tier="basic"] .on { color: var(--green); }
+    .mx-mark[data-tier="pro"]   .on { color: var(--gold); }
+    .mx-mark[data-tier="plus"]  .on { color: var(--plus); }
+    .mx-mark.is-best { background: rgba(185,163,255,0.035); }
+    .mx-body .mx-row:hover .mx-cell { background: rgba(255,255,255,0.018); }
+
+
+    /* mobile: one tier at a time */
+    @media (max-width: 900px) {
+      .mx { --cols: minmax(0, 1fr) minmax(74px, 0.34fr); }
+      .tier-tabs { display: flex; }
+      .mx-head { grid-template-columns: minmax(0, 1fr); }
+      .mx-head .mx-corner { display: none; }
+      .tier-col { border-left: none; padding: 22px 0; border-top: 1px solid var(--border); }
+      .mx-head .tier-col:first-of-type { border-top: none; }
+      .tier-col[hidden], .mx-mark[hidden] { display: none !important; }
+      .mx-row.row-off { display: none; }
+      .mx-group.group-off, .mx-body.body-off { display: none; }
+      .mx-feat { padding-right: 14px; }
+      .mx-mark { border-left: none; }
+      .btn-tier { width: auto; min-width: 220px; }
+    }
+
+    /* ── CLOSING CTA ──
+       The tier cards at the top only follow the reader on desktop, where
+       .mx-head is sticky. On a phone they scroll away at the first feature
+       row and the next seven screens (matrix, reviews, FAQ, licensing) carry
+       no way to buy. This row puts the three tiers back at the point where
+       the FAQ has just answered the last objection. */
+    .cta-grid { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .cta-card { display: flex; flex-direction: column; align-items: flex-start; padding: 24px 18px 22px; border-left: 1px solid var(--border); }
+    .cta-card:first-child { border-left: none; padding-left: 0; }
+    .cta-card.is-best { background: linear-gradient(180deg, rgba(185,163,255,0.075), rgba(185,163,255,0)); }
+    .cta-card .tier-price { font-size: 1.32rem; margin-top: 10px; }
+    .cta-card .tier-sub { margin-bottom: 18px; }
+    @media (max-width: 760px) {
+      .cta-grid { grid-template-columns: 1fr; }
+      .cta-card { border-left: none; border-top: 1px solid var(--border); padding: 20px 0; }
+      .cta-card:first-child { border-top: none; }
+      .cta-card .btn-tier { width: 100%; }
+    }
+
+    /* ── REVIEWS ── */
+    .reviews-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 46px; }
+    @media (max-width: 760px) { .reviews-grid { grid-template-columns: 1fr; gap: 0; } }
     .review-row { padding: 20px 0; border-top: 1px solid var(--border); }
-    .review-row:last-child { border-bottom: 1px solid var(--border); }
+    .review-row[hidden] { display: none; }
     .review-header { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin-bottom: 8px; flex-wrap: wrap; }
     .review-dj { font-size: 0.88rem; font-weight: 700; color: var(--text); }
     .review-meta { font-size: 0.74rem; color: var(--muted); margin-top: 2px; }
-    .review-tier-tag { font-size: 0.64rem; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase; flex-shrink: 0; }
-    .review-tier-basic { color: var(--muted); }
+    .review-tier-tag { font-size: 0.62rem; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase; flex-shrink: 0; color: var(--muted); }
     .review-tier-pro { color: var(--gold); }
-    .review-stars { color: var(--gold); font-size: 0.8rem; letter-spacing: 1px; margin-bottom: 7px; }
-    .review-text { font-size: 0.85rem; color: var(--muted); line-height: 1.65; }
-    #reviewsBody { display: none; }
-    #reviewsBody.open { display: block; }
-    .toggle-row {
-      display: flex; align-items: center; justify-content: space-between; gap: 12px;
-      padding: 18px 0; border-top: 1px solid var(--border); cursor: pointer; user-select: none;
+    .review-stars { color: var(--gold); font-size: 0.78rem; letter-spacing: 1px; margin-bottom: 7px; }
+    .review-text { font-size: 0.85rem; color: rgba(255,255,255,0.78); line-height: 1.65; }
+    .more-row { border-top: 1px solid var(--border); padding: 18px 0; }
+    .btn-ghost {
+      background: transparent; border: 1px solid var(--border-h); color: var(--text); cursor: pointer;
+      font-family: 'Inter', sans-serif; font-size: 0.72rem; font-weight: 800; letter-spacing: 1.4px; text-transform: uppercase;
+      padding: 11px 22px; border-radius: 999px; transition: border-color 0.18s ease, background 0.18s ease;
     }
-    .toggle-row-label { font-size: 0.65rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 3px; }
-    .toggle-row-title { font-size: 0.94rem; font-weight: 700; color: var(--text); }
-    .toggle-chevron { color: var(--muted); font-size: 0.75rem; transition: transform 0.22s; flex-shrink: 0; }
-    .toggle-chevron.open { transform: rotate(180deg); }
+    .btn-ghost:hover { border-color: var(--text); background: rgba(255,255,255,0.05); }
 
+    /* ── FAQ ── */
     .faq-item { border-top: 1px solid var(--border); }
-    .faq-q { padding: 15px 0; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 10px; user-select: none; font-size: 0.85rem; font-weight: 600; color: var(--text); }
-    .faq-q-icon { font-size: 0.72rem; color: var(--muted); flex-shrink: 0; transition: transform 0.2s; }
+    .faq-item:last-child { border-bottom: 1px solid var(--border); }
+    .faq-q { width: 100%; background: transparent; border: 0; font-family: inherit; text-align: left; padding: 16px 0; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 14px; user-select: none; font-size: 0.88rem; font-weight: 600; color: var(--text); }
+    .faq-q-icon { font-size: 0.8rem; color: var(--muted); flex-shrink: 0; transition: transform 0.2s, color 0.2s; }
     .faq-q-icon.open { transform: rotate(45deg); color: var(--green); }
     .faq-q.open-q { color: var(--green); }
-    .faq-a { display: none; padding: 0 0 16px; font-size: 0.82rem; color: var(--muted); line-height: 1.7; max-width: 760px; }
+    .faq-a { display: none; padding: 0 0 18px; font-size: 0.83rem; color: var(--muted); line-height: 1.75; max-width: 780px; }
     .faq-a.open { display: block; }
+    .faq-a strong { color: var(--text); font-weight: 700; }
+    .faq-a a { color: var(--green); text-decoration: underline; }
 
-    /* ── FOOTER ── */
-    footer { border-top: 1px solid var(--border); padding: 22px 0 40px; }
+    /* ── INFO GRID ── */
+    .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 46px; border-top: 1px solid var(--border); }
+    @media (max-width: 760px) { .info-grid { grid-template-columns: 1fr; gap: 0; } }
+    .info-block { padding: 22px 0; border-bottom: 1px solid var(--border); font-size: 0.85rem; color: var(--muted); line-height: 1.7; }
+    .info-block.span-2 { grid-column: 1 / -1; }
+    @media (max-width: 760px) { .info-block.span-2 { grid-column: auto; } }
+    .info-block strong { color: var(--text); font-weight: 700; }
+    .info-block a { color: var(--green); text-decoration: underline; }
+    .info-head { font-size: 0.66rem; font-weight: 800; letter-spacing: 2.2px; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+    .info-head.warn { color: var(--gold); }
+    .gumroad-row { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+    .gumroad-logo { width: 26px; height: 26px; flex-shrink: 0; }
+    .payment-pills { margin-top: 10px; font-size: 0.82rem; line-height: 1.9; }
+    .payment-pill { color: var(--text); font-weight: 600; }
+    .payment-pill:not(:last-child)::after { content: '\00b7'; color: var(--muted); font-weight: 400; margin: 0 8px; }
+
+    /* ── BAND (shared with Crates / Sound FX) ── */
+    .band { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); margin-top: 46px; }
+    @media (max-width: 760px) { .band { grid-template-columns: 1fr; } }
+    .band-about { padding: 18px 28px 18px 0; }
+    .band-about .kicker { font-size: 0.65rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+    .band-about h3 { font-size: 0.95rem; font-weight: 800; letter-spacing: -0.01em; line-height: 1.2; margin-bottom: 5px; color: var(--text); }
+    .band-about h3 .g { color: var(--green); }
+    .band-about p { font-size: 0.78rem; color: var(--muted); line-height: 1.5; max-width: 420px; }
+    .band-about strong { color: var(--text); font-weight: 700; }
+    .band-comm { padding: 18px 0 18px 28px; border-left: 1px solid var(--border); display: flex; flex-direction: column; justify-content: center; text-decoration: none; }
+    @media (max-width: 760px) { .band-comm { border-left: none; border-top: 1px solid var(--border); padding: 18px 0; } }
+    .band-comm .comm-top { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+    .band-comm .wa-icon { width: 16px; height: 16px; object-fit: contain; }
+    .band-comm .kicker { font-size: 0.65rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
+    .band-comm h3 { font-size: 0.95rem; font-weight: 800; letter-spacing: -0.01em; margin-bottom: 4px; color: var(--text); }
+    .band-comm p { font-size: 0.78rem; color: var(--muted); line-height: 1.5; max-width: 380px; margin-bottom: 8px; }
+    .band-comm .go { display: inline-flex; align-items: center; gap: 6px; font-weight: 700; font-size: 0.78rem; letter-spacing: 0.3px; text-transform: uppercase; color: var(--wa); }
+    .band-comm .go .arrow { transition: transform 0.2s; }
+    .band-comm:hover .go .arrow { transform: translateX(4px); }
+    .band-comm:hover h3 { color: var(--wa); }
+
+    footer { border-top: 1px solid var(--border); padding: 22px 0 40px; margin-top: 46px; }
     .foot-row { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
     .foot-copy { font-size: 0.75rem; color: var(--muted); }
     .foot-links { display: flex; gap: 22px; flex-wrap: wrap; }
@@ -375,11 +437,18 @@
     .foot-social a { color: var(--muted); }
     .foot-social a:hover { color: var(--text); }
     .foot-social svg { width: 15px; height: 15px; fill: currentColor; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+    }
   </style>
   <script src="version.js"></script>
+  <script src="price.js"></script>
+  <script src="downloads.js"></script>
+  <script src="trial.js"></script>
 </head>
 <body>
-
+  <a class="skip-link" href="#main-content">Skip to content</a>
   <div class="bg-photo"></div>
 
   <header>
@@ -390,40 +459,43 @@
           <span class="brand-word">SELECTA HUB</span>
         </a>
         <nav>
-          <span class="nav-link current">Selecta Tool</span>
-          <a href="selectacrates.html" class="nav-link" id="navCrates">Crates</a>
-          <a href="selectasoundfx.html" class="nav-link" id="navSfx">Sound FX</a>
+          <span class="nav-link nav-link-current" aria-current="page">Selecta Tool</span>
+          <a href="selectacrates.html" class="nav-link">Crates</a>
+          <a href="selectasoundfx.html" class="nav-link">Sound FX</a>
           <a href="mailto:info@selectahub.com" class="nav-link">Contact</a>
         </nav>
-        <button class="hamburger" id="hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
+        <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu"><span></span><span></span><span></span></button>
       </div>
     </div>
     <div class="head-rule"></div>
   </header>
 
   <div class="mobile-menu" id="mobileMenu">
-      <a href="index.html" class="mobile-link">Home</a>
-      <span class="mobile-link current">Selecta Tool</span>
-      <a href="selectacrates.html" class="mobile-link" id="mobileCrates">Crates</a>
-      <a href="selectasoundfx.html" class="mobile-link" id="mobileSfx">Sound FX</a>
-      <a href="mailto:info@selectahub.com" class="mobile-link">Contact</a>
-      <div class="mobile-socials">
-        <a href="https://www.instagram.com/selecta.hub/" target="_blank" rel="noopener noreferrer" class="mobile-social-btn" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
-        <a href="https://x.com/selectahub" target="_blank" rel="noopener noreferrer" class="mobile-social-btn" aria-label="X"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.747l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
-        <a href="https://www.tiktok.com/@selecta.hub" target="_blank" rel="noopener noreferrer" class="mobile-social-btn" aria-label="TikTok"><svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.79 1.52V6.78a4.85 4.85 0 01-1.02-.09z"/></svg></a>
-        <a href="https://chat.whatsapp.com/BCyfZkn0THvGNXu088QtlU?mode=gi_t" target="_blank" rel="noopener noreferrer" class="mobile-social-btn" aria-label="WhatsApp"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
-      </div>
+    <a href="index.html" class="mobile-link">Home</a>
+    <span class="mobile-link mobile-link-current" aria-current="page">Selecta Tool</span>
+    <a href="selectacrates.html" class="mobile-link">Crates</a>
+    <a href="selectasoundfx.html" class="mobile-link">Sound FX</a>
+    <a href="mailto:info@selectahub.com" class="mobile-link">Contact</a>
+    <div class="mobile-socials">
+      <a href="https://www.instagram.com/selecta.hub/" target="_blank" rel="noopener noreferrer" class="mobile-social-btn" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+      <a href="https://x.com/selectahub" target="_blank" rel="noopener noreferrer" class="mobile-social-btn" aria-label="X"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.747l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+      <a href="https://www.tiktok.com/@selecta.hub" target="_blank" rel="noopener noreferrer" class="mobile-social-btn" aria-label="TikTok"><svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.79 1.52V6.78a4.85 4.85 0 01-1.02-.09z"/></svg></a>
+      <a href="https://chat.whatsapp.com/BCyfZkn0THvGNXu088QtlU?mode=gi_t" target="_blank" rel="noopener noreferrer" class="mobile-social-btn" aria-label="WhatsApp"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+    </div>
   </div>
 
+  <main id="main-content" tabindex="-1">
   <div class="wrap">
 
+    <!-- ── HERO ── -->
     <section class="hero">
-      <div class="hero-logo-row" data-hero-fade>
-        <img src="st2logo-144.png" alt="Selecta Tool" class="hero-logo" width="56" height="56"/>
-        <h1 class="hero-title" id="toolHeroTitle"><span class="hero-title-metal" data-animate="hero-word">SELECTA</span><br><span class="out" data-animate="hero-word">TOOL.</span></h1>
+      <div class="hero-head" data-hero-fade>
+        <img src="st2logo-144.png" alt="Selecta Tool" class="hero-logo" width="144" height="144" fetchpriority="high"/>
+        <h1 class="hero-title" id="toolHeroTitle"><span class="hero-title-metal" data-animate="hero-word">SELECTA</span> <span class="out" data-animate="hero-word">TOOL.</span></h1>
       </div>
       <div class="hero-foot" data-hero-fade>
-        <p class="hero-desc" id="toolHeroSub">Build, sort, export, fix and master your Serato library. Choose Basic or Pro below, both ship under the same installer.</p>
+        <p class="hero-desc" id="toolHeroSub">Build, sort, export, fix and master your Serato library.</p>
+        <div class="hero-tag" id="heroVersion">v2.2</div>
       </div>
       <div class="compat-row" data-hero-fade>
         <span class="compat-with-label">Compatible with</span>
@@ -447,370 +519,444 @@
           <span>Windows 10 / 11</span>
         </div>
       </div>
+      <div class="walkthrough-row" data-hero-fade>
+        <a class="btn-walkthrough is-soon" id="walkthroughBtn" href="#" aria-disabled="true">
+          <span class="play" aria-hidden="true"><svg viewBox="0 0 10 12" xmlns="http://www.w3.org/2000/svg"><path d="M0 0l10 6-10 6z"/></svg></span>
+          <span id="walkthroughLabel">Walkthrough <span class="label-note">&middot; coming soon</span></span>
+        </a>
+      </div>
     </section>
 
-    <div class="rule-thick"></div>
+    <!-- ── COMPARE MATRIX ── -->
+    <section class="mx" id="compare">
 
-    <!-- TIER COMPARISON -->
-    <section class="compare-section">
-
-      <div class="tier-tabs">
-        <button class="tier-tab tab-on" data-target="basic">Basic</button>
-        <button class="tier-tab" data-target="pro">Pro</button>
-        <button class="tier-tab" data-target="pro-plus">Pro Plus</button>
+      <div class="section-label">
+        <h2>Pricing &amp; Features</h2>
       </div>
 
-      <div class="tier-grid">
+      <div class="tier-tabs" role="tablist">
+        <button class="tier-tab" data-target="basic" role="tab" aria-selected="false">Basic</button>
+        <button class="tier-tab tab-on" data-target="pro" role="tab" aria-selected="true">Pro</button>
+        <button class="tier-tab" data-target="plus" role="tab" aria-selected="false">Pro Plus</button>
+      </div>
 
-        <!-- ── BASIC ── -->
-        <div class="tier-card basic tab-active">
-          <div class="tier-head">
-            <div class="tier-name-row">
-              <span class="tier-name">Selecta Tool</span>
-              <span class="tier-badge badge-live" id="basicBadge">Live</span>
-            </div>
-            <div class="tier-seats">
-              <svg class="seat-computer" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="2" y="3" width="20" height="13" rx="2" stroke="currentColor" stroke-width="1.8"/>
-                <path d="M8 19h8M12 16v3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-              </svg>
-              <span class="tier-seats-label">1-seat license</span>
-            </div>
-            <div class="tier-price">$29.99 <span class="tier-price-orig">$49.99</span></div>
-            <p class="tier-price-note" id="basicPriceNote">Introductory price &middot; One-time purchase.</p>
-            <span class="tier-version" id="basicVersion">v2.0.9</span><span class="tier-intro-cd basic-cd" id="basicCountdown"></span>
-            <a href="https://juggernautmusic.gumroad.com/l/selectatool" target="_blank" rel="noopener noreferrer" class="btn-tier btn-basic" id="basicBtn1">
-              Get Basic · $29.99 <span class="btn-orig-price">$49.99</span>
-            </a>
-          </div>
-
-          <p class="feat-section-label">Included</p>
-          <ul class="feat-list">
-            <li class="feat-item">
-              <span class="feat-icon check">&#10003;</span>
-              <span>
-                <span class="feat-label">Build Crates from Folder Structure</span>
-                <span class="feat-label-note">Turn any folder hierarchy into Serato crates in one click</span>
-              </span>
-            </li>
-            <li class="feat-item">
-              <span class="feat-icon check">&#10003;</span>
-              <span>
-                <span class="feat-label">Build &amp; export Serato crates</span>
-                <span class="feat-label-note">Create ready-to-load .crate files Serato recognises instantly</span>
-              </span>
-            </li>
-            <li class="feat-item">
-              <span class="feat-icon check">&#10003;</span>
-              <span>
-                <span class="feat-label">Scan folder · auto-populate crate tracks</span>
-                <span class="feat-label-note">Drop a folder and every track inside is added to the crate automatically</span>
-              </span>
-            </li>
-            <li class="feat-item">
-              <span class="feat-icon check">&#10003;</span>
-              <span>
-                <span class="feat-label">Import Apple Music, iTunes &amp; playlist files</span>
-                <span class="feat-label-note">Pull playlists straight from Apple Music or iTunes into Serato crates</span>
-              </span>
-            </li>
-            <li class="feat-item">
-              <span class="feat-icon check">&#10003;</span>
-              <span>
-                <span class="feat-label">Live Library viewer with search &amp; refresh</span>
-                <span class="feat-label-note">Browse your entire Serato library in real time, search and refresh without reopening</span>
-              </span>
-            </li>
-            <li class="feat-item">
-              <span class="feat-icon check">&#10003;</span>
-              <span>
-                <span class="feat-label">In-app mini player · preview any track</span>
-                <span class="feat-label-note">Click any track to hear it before you crate it, no DJ software needed</span>
-              </span>
-            </li>
-            <li class="feat-item">
-              <span class="feat-icon check">&#10003;</span>
-              <span>
-                <span class="feat-label">Duplicate Finder (and Resolver)</span>
-                <span class="feat-label-note">Finds duplicate tracks across the database, removes the copies, and keeps the winning file</span>
-              </span>
-            </li>
-            <li class="feat-item">
-              <span class="feat-icon check">&#10003;</span>
-              <span>
-                <span class="feat-label">Crate export (audio files + tracklist TXT)</span>
-                <span class="feat-label-note">Export the audio files and a plain-text tracklist from any crate</span>
-              </span>
-            </li>
-          </ul>
-
-          <div class="tier-foot">
-            <a href="https://juggernautmusic.gumroad.com/l/selectatool" target="_blank" rel="noopener noreferrer" class="btn-tier btn-basic" id="basicBtn2">
-              Get Basic · $29.99 <span class="btn-orig-price">$49.99</span>
-            </a>
-          </div>
+      <!-- head -->
+      <div class="mx-head">
+        <div class="mx-corner">
+          <span class="mx-corner-label">Compare</span>
+          <span class="mx-corner-note">Every feature, tier by tier. <strong>Pro</strong> includes all of Basic. <strong>Pro Plus</strong> includes all of Pro.</span>
         </div>
 
-        <!-- ── PRO ── -->
-        <div class="tier-card pro live">
-          <div class="tier-head">
-            <div class="tier-name-row">
-              <span class="tier-name">Selecta Tool Pro</span>
-              <span class="tier-badge badge-live" id="proBadge">Live</span>
-            </div>
-            <div class="tier-seats">
-              <svg class="seat-computer" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="2" y="3" width="20" height="13" rx="2" stroke="currentColor" stroke-width="1.8"/>
-                <path d="M8 19h8M12 16v3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-              </svg>
-              <span class="tier-seats-label">1-seat license</span>
-            </div>
-            <div class="tier-price">$54.99 <span class="tier-price-orig">$99.99</span></div>
-            <p class="tier-price-note" id="proPriceNote">Introductory price &middot; One-time purchase.</p>
-            <span class="tier-version" id="proVersion">v2.0.9</span><span class="tier-intro-cd pro-cd" id="proCountdown"></span>
-            <a href="https://juggernautmusic.gumroad.com/l/selectatoolpro" target="_blank" rel="noopener noreferrer" class="btn-tier btn-pro" id="proBtn1">
-              Get Pro · $54.99 <span class="btn-orig-price">$99.99</span>
-            </a>
-          </div>
-
-          <div class="feat-includes-banner">
-            <span class="inc-check">&#10003;</span>
-            <span>Includes all Basic + Pro features
-              <span class="inc-note">Everything in Basic, plus the Pro-exclusive tools below</span>
-            </span>
-          </div>
-          <ul class="feat-list">
-            <li class="feat-item pro-only">
-              <span class="feat-icon check">&#10003;</span>
-              <span>
-                <span class="feat-label">Library Backup &amp; Restore</span>
-                <span class="feat-label-note">.selback archive with full audio + manifest</span>
-              </span>
-            </li>
-            <li class="feat-item pro-only">
-              <span class="feat-icon check">&#10003;</span>
-              <span>
-                <span class="feat-label">Import Backup</span>
-                <span class="feat-label-note">Restore crate structure from .selback, no duplicate files</span>
-              </span>
-            </li>
-            <li class="feat-item pro-only">
-              <span class="feat-icon check">&#10003;</span>
-              <span>
-                <span class="feat-label">Import Manifest</span>
-                <span class="feat-label-note">Seed a new crate structure using your existing tracks</span>
-              </span>
-            </li>
-            <li class="feat-item pro-only">
-              <span class="feat-icon check">&#10003;</span>
-              <span>
-                <span class="feat-label">Library Snapshots</span>
-                <span class="feat-label-note">Multiple libraries on one machine, no duplicates</span>
-              </span>
-            </li>
-            <li class="feat-item pro-only">
-              <span class="feat-icon check">&#10003;</span>
-              <span>
-                <span class="feat-label">Send Tracks Between Crates</span>
-                <span class="feat-label-note">Move or copy tracks across crates instantly</span>
-              </span>
-            </li>
-            <li class="feat-item pro-only">
-              <span class="feat-icon check">&#10003;</span>
-              <span>
-                <span class="feat-label">Replace Records in Library Database</span>
-                <span class="feat-label-note">Replace existing records directly in the Serato database</span>
-              </span>
-            </li>
-            <li class="feat-item pro-only">
-              <span class="feat-icon check">&#10003;</span>
-              <span>
-                <span class="feat-label">File Doctor</span>
-                <span class="feat-label-note">Find and fix every missing or broken file link</span>
-              </span>
-            </li>
-            <li class="feat-item pro-only">
-              <span class="feat-icon check">&#10003;</span>
-              <span>
-                <span class="feat-label">Import Streaming Playlist Links</span>
-                <span class="feat-label-note">Paste an Apple Music, Deezer or Spotify link, matches tracks to your current library. Missing tracks can be added later with File Doctor</span>
-              </span>
-            </li>
-            <li class="feat-item pro-only">
-              <span class="feat-icon check">&#10003;</span>
-              <span>
-                <span class="feat-label">Tag Editor</span>
-                <span class="feat-label-note">Edit metadata in-app, writes to file &amp; Serato DB</span>
-              </span>
-            </li>
-            <li class="feat-item pro-only">
-              <span class="feat-icon check">&#10003;</span>
-              <span>
-                <span class="feat-label">Sampler, 40 samples &times; 4 palettes</span>
-                <span class="feat-label-note">160 sounds total, MIDI mapping &amp; RGB sync</span>
-              </span>
-            </li>
-            <li class="feat-item pro-only">
-              <span class="feat-icon check">&#10003;</span>
-              <span>
-                <span class="feat-label">Cue Studio + VDJ Import</span>
-                <span class="feat-label-note">Visual cue editor, import cues from VirtualDJ</span>
-              </span>
-            </li>
-            <li class="feat-item pro-only">
-              <span class="feat-icon check">&#10003;</span>
-              <span>
-                <span class="feat-label">Selecta &rarr; Serato Workflow <span style="font-size:0.68rem;color:var(--muted);font-weight:500">Mac</span></span>
-                <span class="feat-label-note">Right-click any folder, sends crate to Serato instantly, no app launch needed</span>
-              </span>
-            </li>
-            <li class="feat-item pro-only">
-              <span class="feat-icon check">&#10003;</span>
-              <span>
-                <span class="feat-label">Batch duplicate resolve</span>
-                <span class="feat-label-note">Smart auto-priority: format, bitrate, cues &amp; more</span>
-              </span>
-            </li>
-            <li class="feat-item pro-only">
-              <span class="feat-icon check">&#10003;</span>
-              <span>
-                <span class="feat-label">Exclusive tracks &amp; Sound FX drops</span>
-                <span class="feat-label-note">Pro members get first access to exclusive Selecta Crates &amp; Sound FX releases</span>
-              </span>
-            </li>
-            <li class="feat-item pro-only">
-              <span class="feat-icon check">&#10003;</span>
-              <span class="feat-label">Priority support &amp; early feature access</span>
-            </li>
-          </ul>
-
-          <div class="tier-foot">
-            <a href="https://juggernautmusic.gumroad.com/l/selectatoolpro" target="_blank" rel="noopener noreferrer" class="btn-tier btn-pro" id="proBtn2">
-              Get Pro · $54.99 <span class="btn-orig-price">$99.99</span>
-            </a>
-          </div>
+        <div class="tier-col" data-tier="basic">
+          <span class="tier-name">Selecta Tool</span>
+          <span class="tier-flag empty">·</span>
+          <span class="tier-price" id="basicPrice" data-price="basic">$29.99 <span class="tier-price-orig">$49.99</span></span>
+          <span class="tier-sub" id="basicSub"><b>1-seat license</b><br>Introductory price</span>
+          <a href="https://juggernautmusic.gumroad.com/l/selectatool" target="_blank" rel="noopener noreferrer" class="btn-tier" id="basicBtn1">Get Basic</a>
         </div>
 
-        <!-- ── PRO PLUS ── -->
-        <div class="tier-card pro-plus live">
-          <div class="tier-head">
-            <div class="tier-name-row">
-              <span class="tier-name">Selecta Tool Pro Plus</span>
-              <div style="display:flex;align-items:center;flex-shrink:0;">
-                <span class="tier-badge badge-best-value">Best Value</span>
-                <span class="tier-badge badge-live">Live</span>
-              </div>
-            </div>
-            <div class="tier-seats">
-              <svg class="seat-computer" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="2" y="3" width="20" height="13" rx="2" stroke="currentColor" stroke-width="1.8"/>
-                <path d="M8 19h8M12 16v3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-              </svg>
-              <span class="tier-seats-label">3-seat license</span>
-            </div>
-            <div class="tier-price" id="proPlusPrice">$144.99 <span class="tier-price-orig" id="proPlusOrig">$270</span></div>
-            <p class="tier-price-note" id="proPlusPriceNote">Introductory price &middot; One-time purchase.</p>
-            <span class="tier-version" id="proPlusVersion">v2.0.9</span><span class="tier-intro-cd pro-plus-cd" id="proPlusCountdown"></span>
-            <a href="https://juggernautmusic.gumroad.com/l/toolproplus" target="_blank" rel="noopener noreferrer" class="btn-tier btn-pro-plus" id="proPlusBtn1">
-              Get Pro Plus · $144.99 <span class="btn-orig-price">$270</span>
-            </a>
-          </div>
-
-          <div class="feat-includes-banner">
-            <span class="inc-check">&#10003;</span>
-            <span>Includes everything in Pro &amp; Basic
-              <span class="inc-note">Every Basic and Pro feature included, plus Pro Plus exclusives below</span>
-            </span>
-          </div>
-          <ul class="feat-list">
-            <li class="feat-item pro-plus-only">
-              <span class="feat-icon check">&#10003;</span>
-              <span>
-                <span class="feat-label">3-seat license</span>
-                <span class="feat-label-note">Install on up to 3 machines or assign to 3 users</span>
-              </span>
-            </li>
-            <li class="feat-item pro-plus-only">
-              <span class="feat-icon check">&#10003;</span>
-              <span>
-                <span class="feat-label">Seat revoke &amp; transfer</span>
-                <span class="feat-label-note">Revoke a seat up to 3&times; within 30 days, move machines or reassign users</span>
-              </span>
-            </li>
-            <li class="feat-item pro-plus-only">
-              <span class="feat-icon check">&#10003;</span>
-              <span>
-                <span class="feat-label">Extra seats at a discounted rate</span>
-                <span class="feat-label-note">Need more than 3 seats? Purchase additional seats at the intro price for up to 60 days after your purchase</span>
-              </span>
-            </li>
-            <li class="feat-item pro-plus-only">
-              <span class="feat-icon check">&#10003;</span>
-              <span>
-                <span class="feat-label">Import Streaming Playlist Links</span>
-                <span class="feat-label-note">Paste an Apple Music, Deezer or Spotify link, matches tracks to your current library. Missing tracks can be added later with File Doctor</span>
-              </span>
-            </li>
-            <li class="feat-item pro-plus-only">
-              <span class="feat-icon check">&#10003;</span>
-              <span>
-                <span class="feat-label">WhatsApp &amp; SMS support</span>
-                <span class="feat-label-note">Direct line, skip the email queue</span>
-              </span>
-            </li>
-            <li class="feat-item pro-plus-only">
-              <span class="feat-icon check">&#10003;</span>
-              <span>
-                <span class="feat-label">Exclusive special genre crates</span>
-                <span class="feat-label-note">Curated genre crate packs, included and updated</span>
-              </span>
-            </li>
-            <li class="feat-item pro-plus-only">
-              <span class="feat-icon check">&#10003;</span>
-              <span>
-                <span class="feat-label">Sound FX bundle included</span>
-                <span class="feat-label-note">Pre-organised SFX crates ready to drop in Serato</span>
-              </span>
-            </li>
-            <li class="feat-item pro-plus-only">
-              <span class="feat-icon check">&#10003;</span>
-              <span>
-                <span class="feat-label">Early beta access</span>
-                <span class="feat-label-note">Test new features 2 to 4 weeks before general release</span>
-              </span>
-            </li>
-          </ul>
-
-          <div class="tier-foot">
-            <a href="https://juggernautmusic.gumroad.com/l/toolproplus" target="_blank" rel="noopener noreferrer" class="btn-tier btn-pro-plus" id="proPlusBtn2">
-              Get Pro Plus · $144.99 <span class="btn-orig-price">$270</span>
-            </a>
-          </div>
+        <div class="tier-col" data-tier="pro">
+          <span class="tier-name">Selecta Tool Pro</span>
+          <span class="tier-flag">Most popular</span>
+          <span class="tier-price" id="proPrice" data-price="pro">$54.99 <span class="tier-price-orig">$99.99</span></span>
+          <span class="tier-sub" id="proSub"><b>1-seat license</b><br>Introductory price</span>
+          <a href="https://juggernautmusic.gumroad.com/l/selectatoolpro" target="_blank" rel="noopener noreferrer" class="btn-tier" id="proBtn1">Get Pro</a>
         </div>
 
-      </div><!-- /tier-grid -->
+        <div class="tier-col is-best" data-tier="plus">
+          <span class="tier-name">Selecta Tool Pro Plus</span>
+          <span class="tier-flag">Best value</span>
+          <span class="tier-price" id="proPlusPrice" data-price="proPlus">$144.99 <span class="tier-price-orig">$270.00</span></span>
+          <span class="tier-sub" id="proPlusSub"><b>3-seat license</b><br>Introductory price</span>
+          <a href="https://juggernautmusic.gumroad.com/l/toolproplus" target="_blank" rel="noopener noreferrer" class="btn-tier" id="proPlusBtn1">Get Pro Plus</a>
+        </div>
+      </div>
+
+      <div class="mx-group">Core library tools · included in every tier</div>
+
+      <div class="mx-body">
+
+        <div class="mx-row" data-in="basic pro plus">
+          <div class="mx-cell mx-feat">
+            <span class="mx-name">Build crates from folder structure</span>
+            <span class="mx-note">Turn any folder hierarchy into Serato crates in one click</span>
+          </div>
+          <div class="mx-cell mx-mark" data-tier="basic"><span class="on" aria-hidden="true"></span><span class="sr-only">Basic: included</span></div>
+          <div class="mx-cell mx-mark" data-tier="pro"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro: included</span></div>
+          <div class="mx-cell mx-mark is-best" data-tier="plus"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro Plus: included</span></div>
+        </div>
+
+        <div class="mx-row" data-in="basic pro plus">
+          <div class="mx-cell mx-feat">
+            <span class="mx-name">Build &amp; export Serato crates</span>
+            <span class="mx-note">Create ready-to-load .crate files Serato recognises instantly</span>
+          </div>
+          <div class="mx-cell mx-mark" data-tier="basic"><span class="on" aria-hidden="true"></span><span class="sr-only">Basic: included</span></div>
+          <div class="mx-cell mx-mark" data-tier="pro"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro: included</span></div>
+          <div class="mx-cell mx-mark is-best" data-tier="plus"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro Plus: included</span></div>
+        </div>
+
+        <div class="mx-row" data-in="basic pro plus">
+          <div class="mx-cell mx-feat">
+            <span class="mx-name">Scan folder · auto-populate crate tracks</span>
+            <span class="mx-note">Drop a folder and every track inside is added to the crate automatically</span>
+          </div>
+          <div class="mx-cell mx-mark" data-tier="basic"><span class="on" aria-hidden="true"></span><span class="sr-only">Basic: included</span></div>
+          <div class="mx-cell mx-mark" data-tier="pro"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro: included</span></div>
+          <div class="mx-cell mx-mark is-best" data-tier="plus"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro Plus: included</span></div>
+        </div>
+
+        <div class="mx-row" data-in="basic pro plus">
+          <div class="mx-cell mx-feat">
+            <span class="mx-name">Import Apple Music, iTunes &amp; playlist files</span>
+            <span class="mx-note">Pull playlists straight from Apple Music or iTunes into Serato crates</span>
+          </div>
+          <div class="mx-cell mx-mark" data-tier="basic"><span class="on" aria-hidden="true"></span><span class="sr-only">Basic: included</span></div>
+          <div class="mx-cell mx-mark" data-tier="pro"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro: included</span></div>
+          <div class="mx-cell mx-mark is-best" data-tier="plus"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro Plus: included</span></div>
+        </div>
+
+        <div class="mx-row" data-in="basic pro plus">
+          <div class="mx-cell mx-feat">
+            <span class="mx-name">Live Library viewer with search &amp; refresh</span>
+            <span class="mx-note">Browse your entire Serato library in real time, search and refresh without reopening</span>
+          </div>
+          <div class="mx-cell mx-mark" data-tier="basic"><span class="on" aria-hidden="true"></span><span class="sr-only">Basic: included</span></div>
+          <div class="mx-cell mx-mark" data-tier="pro"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro: included</span></div>
+          <div class="mx-cell mx-mark is-best" data-tier="plus"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro Plus: included</span></div>
+        </div>
+
+        <div class="mx-row" data-in="basic pro plus">
+          <div class="mx-cell mx-feat">
+            <span class="mx-name">In-app mini player · preview any track</span>
+            <span class="mx-note">Click any track to hear it before you crate it, no DJ software needed</span>
+          </div>
+          <div class="mx-cell mx-mark" data-tier="basic"><span class="on" aria-hidden="true"></span><span class="sr-only">Basic: included</span></div>
+          <div class="mx-cell mx-mark" data-tier="pro"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro: included</span></div>
+          <div class="mx-cell mx-mark is-best" data-tier="plus"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro Plus: included</span></div>
+        </div>
+
+        <div class="mx-row" data-in="basic pro plus">
+          <div class="mx-cell mx-feat">
+            <span class="mx-name">Duplicate Finder (and Resolver)</span>
+            <span class="mx-note">Finds duplicate tracks across the database, removes the copies, and keeps the winning file</span>
+          </div>
+          <div class="mx-cell mx-mark" data-tier="basic"><span class="on" aria-hidden="true"></span><span class="sr-only">Basic: included</span></div>
+          <div class="mx-cell mx-mark" data-tier="pro"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro: included</span></div>
+          <div class="mx-cell mx-mark is-best" data-tier="plus"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro Plus: included</span></div>
+        </div>
+
+        <div class="mx-row" data-in="basic pro plus">
+          <div class="mx-cell mx-feat">
+            <span class="mx-name">Crate export (audio files + tracklist TXT)</span>
+            <span class="mx-note">Export the audio files and a plain-text tracklist from any crate</span>
+          </div>
+          <div class="mx-cell mx-mark" data-tier="basic"><span class="on" aria-hidden="true"></span><span class="sr-only">Basic: included</span></div>
+          <div class="mx-cell mx-mark" data-tier="pro"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro: included</span></div>
+          <div class="mx-cell mx-mark is-best" data-tier="plus"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro Plus: included</span></div>
+        </div>
+      </div>
+
+      <div class="mx-group">Pro tools · library repair, backup &amp; performance</div>
+
+      <div class="mx-body">
+
+        <div class="mx-row" data-in="pro plus">
+          <div class="mx-cell mx-feat">
+            <span class="mx-name">Library Backup &amp; Restore</span>
+            <span class="mx-note">.selback archive with full audio + manifest</span>
+          </div>
+          <div class="mx-cell mx-mark" data-tier="basic"><span class="off" aria-hidden="true"></span><span class="sr-only">Basic: not included</span></div>
+          <div class="mx-cell mx-mark" data-tier="pro"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro: included</span></div>
+          <div class="mx-cell mx-mark is-best" data-tier="plus"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro Plus: included</span></div>
+        </div>
+
+        <div class="mx-row" data-in="pro plus">
+          <div class="mx-cell mx-feat">
+            <span class="mx-name">Import Backup</span>
+            <span class="mx-note">Restore crate structure from .selback, no duplicate files</span>
+          </div>
+          <div class="mx-cell mx-mark" data-tier="basic"><span class="off" aria-hidden="true"></span><span class="sr-only">Basic: not included</span></div>
+          <div class="mx-cell mx-mark" data-tier="pro"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro: included</span></div>
+          <div class="mx-cell mx-mark is-best" data-tier="plus"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro Plus: included</span></div>
+        </div>
+
+        <div class="mx-row" data-in="pro plus">
+          <div class="mx-cell mx-feat">
+            <span class="mx-name">Import Manifest</span>
+            <span class="mx-note">Seed a new crate structure using your existing tracks</span>
+          </div>
+          <div class="mx-cell mx-mark" data-tier="basic"><span class="off" aria-hidden="true"></span><span class="sr-only">Basic: not included</span></div>
+          <div class="mx-cell mx-mark" data-tier="pro"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro: included</span></div>
+          <div class="mx-cell mx-mark is-best" data-tier="plus"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro Plus: included</span></div>
+        </div>
+
+        <div class="mx-row" data-in="pro plus">
+          <div class="mx-cell mx-feat">
+            <span class="mx-name">Library Snapshots</span>
+            <span class="mx-note">Multiple libraries on one machine, no duplicates</span>
+          </div>
+          <div class="mx-cell mx-mark" data-tier="basic"><span class="off" aria-hidden="true"></span><span class="sr-only">Basic: not included</span></div>
+          <div class="mx-cell mx-mark" data-tier="pro"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro: included</span></div>
+          <div class="mx-cell mx-mark is-best" data-tier="plus"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro Plus: included</span></div>
+        </div>
+
+        <div class="mx-row" data-in="pro plus">
+          <div class="mx-cell mx-feat">
+            <span class="mx-name">Send Tracks Between Crates</span>
+            <span class="mx-note">Move or copy tracks across crates instantly</span>
+          </div>
+          <div class="mx-cell mx-mark" data-tier="basic"><span class="off" aria-hidden="true"></span><span class="sr-only">Basic: not included</span></div>
+          <div class="mx-cell mx-mark" data-tier="pro"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro: included</span></div>
+          <div class="mx-cell mx-mark is-best" data-tier="plus"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro Plus: included</span></div>
+        </div>
+
+        <div class="mx-row" data-in="pro plus">
+          <div class="mx-cell mx-feat">
+            <span class="mx-name">Replace Records in Library Database</span>
+            <span class="mx-note">Replace existing records directly in the Serato database</span>
+          </div>
+          <div class="mx-cell mx-mark" data-tier="basic"><span class="off" aria-hidden="true"></span><span class="sr-only">Basic: not included</span></div>
+          <div class="mx-cell mx-mark" data-tier="pro"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro: included</span></div>
+          <div class="mx-cell mx-mark is-best" data-tier="plus"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro Plus: included</span></div>
+        </div>
+
+        <div class="mx-row" data-in="pro plus">
+          <div class="mx-cell mx-feat">
+            <span class="mx-name">File Doctor</span>
+            <span class="mx-note">Find and fix every missing or broken file link</span>
+          </div>
+          <div class="mx-cell mx-mark" data-tier="basic"><span class="off" aria-hidden="true"></span><span class="sr-only">Basic: not included</span></div>
+          <div class="mx-cell mx-mark" data-tier="pro"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro: included</span></div>
+          <div class="mx-cell mx-mark is-best" data-tier="plus"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro Plus: included</span></div>
+        </div>
+
+        <div class="mx-row" data-in="pro plus">
+          <div class="mx-cell mx-feat">
+            <span class="mx-name">Import Streaming Playlist Links</span>
+            <span class="mx-note">Paste an Apple Music, Deezer or Spotify link, matches tracks to your current library. Missing tracks can be added later with File Doctor</span>
+          </div>
+          <div class="mx-cell mx-mark" data-tier="basic"><span class="off" aria-hidden="true"></span><span class="sr-only">Basic: not included</span></div>
+          <div class="mx-cell mx-mark" data-tier="pro"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro: included</span></div>
+          <div class="mx-cell mx-mark is-best" data-tier="plus"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro Plus: included</span></div>
+        </div>
+
+        <div class="mx-row" data-in="pro plus">
+          <div class="mx-cell mx-feat">
+            <span class="mx-name">Tag Editor</span>
+            <span class="mx-note">Edit metadata in-app, writes to file &amp; Serato DB</span>
+          </div>
+          <div class="mx-cell mx-mark" data-tier="basic"><span class="off" aria-hidden="true"></span><span class="sr-only">Basic: not included</span></div>
+          <div class="mx-cell mx-mark" data-tier="pro"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro: included</span></div>
+          <div class="mx-cell mx-mark is-best" data-tier="plus"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro Plus: included</span></div>
+        </div>
+
+        <div class="mx-row" data-in="pro plus">
+          <div class="mx-cell mx-feat">
+            <span class="mx-name">Sampler · 40 samples × 4 palettes</span>
+            <span class="mx-note">160 sounds total, MIDI mapping &amp; RGB sync</span>
+          </div>
+          <div class="mx-cell mx-mark" data-tier="basic"><span class="off" aria-hidden="true"></span><span class="sr-only">Basic: not included</span></div>
+          <div class="mx-cell mx-mark" data-tier="pro"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro: included</span></div>
+          <div class="mx-cell mx-mark is-best" data-tier="plus"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro Plus: included</span></div>
+        </div>
+
+        <div class="mx-row" data-in="pro plus">
+          <div class="mx-cell mx-feat">
+            <span class="mx-name">Cue Studio + VDJ Import</span>
+            <span class="mx-note">Visual cue editor, import cues from VirtualDJ</span>
+          </div>
+          <div class="mx-cell mx-mark" data-tier="basic"><span class="off" aria-hidden="true"></span><span class="sr-only">Basic: not included</span></div>
+          <div class="mx-cell mx-mark" data-tier="pro"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro: included</span></div>
+          <div class="mx-cell mx-mark is-best" data-tier="plus"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro Plus: included</span></div>
+        </div>
+
+        <div class="mx-row" data-in="pro plus">
+          <div class="mx-cell mx-feat">
+            <span class="mx-name">Selecta → Serato Workflow <span class="plat">Mac</span></span>
+            <span class="mx-note">Right-click any folder, sends crate to Serato instantly, no app launch needed</span>
+          </div>
+          <div class="mx-cell mx-mark" data-tier="basic"><span class="off" aria-hidden="true"></span><span class="sr-only">Basic: not included</span></div>
+          <div class="mx-cell mx-mark" data-tier="pro"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro: included</span></div>
+          <div class="mx-cell mx-mark is-best" data-tier="plus"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro Plus: included</span></div>
+        </div>
+
+        <div class="mx-row" data-in="pro plus">
+          <div class="mx-cell mx-feat">
+            <span class="mx-name">Batch duplicate resolve</span>
+            <span class="mx-note">Smart auto-priority: format, bitrate, cues &amp; more</span>
+          </div>
+          <div class="mx-cell mx-mark" data-tier="basic"><span class="off" aria-hidden="true"></span><span class="sr-only">Basic: not included</span></div>
+          <div class="mx-cell mx-mark" data-tier="pro"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro: included</span></div>
+          <div class="mx-cell mx-mark is-best" data-tier="plus"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro Plus: included</span></div>
+        </div>
+
+        <div class="mx-row" data-in="pro plus">
+          <div class="mx-cell mx-feat">
+            <span class="mx-name">Exclusive tracks &amp; Sound FX drops</span>
+            <span class="mx-note">Pro members get first access to exclusive Selecta Crates &amp; Sound FX releases</span>
+          </div>
+          <div class="mx-cell mx-mark" data-tier="basic"><span class="off" aria-hidden="true"></span><span class="sr-only">Basic: not included</span></div>
+          <div class="mx-cell mx-mark" data-tier="pro"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro: included</span></div>
+          <div class="mx-cell mx-mark is-best" data-tier="plus"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro Plus: included</span></div>
+        </div>
+
+        <div class="mx-row" data-in="pro plus">
+          <div class="mx-cell mx-feat">
+            <span class="mx-name">Priority support &amp; early feature access</span>
+          </div>
+          <div class="mx-cell mx-mark" data-tier="basic"><span class="off" aria-hidden="true"></span><span class="sr-only">Basic: not included</span></div>
+          <div class="mx-cell mx-mark" data-tier="pro"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro: included</span></div>
+          <div class="mx-cell mx-mark is-best" data-tier="plus"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro Plus: included</span></div>
+        </div>
+
+      </div>
+
+      <div class="mx-group">Gig Desk · bookings, invoices &amp; money on Pro &amp; Pro Plus</div>
+
+      <div class="mx-body">
+
+        <div class="mx-row" data-in="pro plus">
+          <div class="mx-cell mx-feat">
+            <span class="mx-name">Booking log with double-booking warnings</span>
+            <span class="mx-note">Log every gig, credit each performer on the line-up, and get a warning before you take a clashing date</span>
+          </div>
+          <div class="mx-cell mx-mark" data-tier="basic"><span class="off" aria-hidden="true"></span><span class="sr-only">Basic: not included</span></div>
+          <div class="mx-cell mx-mark" data-tier="pro"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro: included</span></div>
+          <div class="mx-cell mx-mark is-best" data-tier="plus"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro Plus: included</span></div>
+        </div>
+
+        <div class="mx-row" data-in="pro plus">
+          <div class="mx-cell mx-feat">
+            <span class="mx-name">Quotes, invoices, receipts &amp; performance agreements</span>
+            <span class="mx-note">Raised against a booking and branded with your logo, accent colour and social handles in one of four print styles. Numbered only when you issue them, and emails open in your own mail app</span>
+          </div>
+          <div class="mx-cell mx-mark" data-tier="basic"><span class="off" aria-hidden="true"></span><span class="sr-only">Basic: not included</span></div>
+          <div class="mx-cell mx-mark" data-tier="pro"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro: included</span></div>
+          <div class="mx-cell mx-mark is-best" data-tier="plus"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro Plus: included</span></div>
+        </div>
+
+        <div class="mx-row" data-in="pro plus">
+          <div class="mx-cell mx-feat">
+            <span class="mx-name">Money view · collected, expenses &amp; net profit</span>
+            <span class="mx-note">Tracked by month and currency, including cash taken with no paperwork. Exports a financial report PDF or a CSV</span>
+          </div>
+          <div class="mx-cell mx-mark" data-tier="basic"><span class="off" aria-hidden="true"></span><span class="sr-only">Basic: not included</span></div>
+          <div class="mx-cell mx-mark" data-tier="pro"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro: included</span></div>
+          <div class="mx-cell mx-mark is-best" data-tier="plus"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro Plus: included</span></div>
+        </div>
+
+        <div class="mx-row" data-in="pro plus">
+          <div class="mx-cell mx-feat">
+            <span class="mx-name">Multi-currency, tax rate &amp; extra charges</span>
+            <span class="mx-note">USD, CAD, GBP, EUR, JMD, TTD, EC$, CI$ or your own, with one tax rate and two labelled extra charges. Saved clients for repeat work</span>
+          </div>
+          <div class="mx-cell mx-mark" data-tier="basic"><span class="off" aria-hidden="true"></span><span class="sr-only">Basic: not included</span></div>
+          <div class="mx-cell mx-mark" data-tier="pro"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro: included</span></div>
+          <div class="mx-cell mx-mark is-best" data-tier="plus"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro Plus: included</span></div>
+        </div>
+
+        <div class="mx-row" data-in="pro plus">
+          <div class="mx-cell mx-feat">
+            <span class="mx-name">Stored on your machine in a .selgigs file</span>
+            <span class="mx-note">Back it up or move it like any other file. The Gig Desk never touches your Serato library</span>
+          </div>
+          <div class="mx-cell mx-mark" data-tier="basic"><span class="off" aria-hidden="true"></span><span class="sr-only">Basic: not included</span></div>
+          <div class="mx-cell mx-mark" data-tier="pro"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro: included</span></div>
+          <div class="mx-cell mx-mark is-best" data-tier="plus"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro Plus: included</span></div>
+        </div>
+      </div>
+
+      <div class="mx-group">Pro Plus · multi-seat, crew &amp; direct support</div>
+
+      <div class="mx-body">
+
+        <div class="mx-row" data-in="plus">
+          <div class="mx-cell mx-feat">
+            <span class="mx-name">3-seat license</span>
+            <span class="mx-note">Install on up to 3 machines or assign to 3 users</span>
+          </div>
+          <div class="mx-cell mx-mark" data-tier="basic"><span class="off" aria-hidden="true"></span><span class="sr-only">Basic: not included</span></div>
+          <div class="mx-cell mx-mark" data-tier="pro"><span class="off" aria-hidden="true"></span><span class="sr-only">Pro: not included</span></div>
+          <div class="mx-cell mx-mark is-best" data-tier="plus"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro Plus: included</span></div>
+        </div>
+
+        <div class="mx-row" data-in="plus">
+          <div class="mx-cell mx-feat">
+            <span class="mx-name">Seat revoke &amp; transfer</span>
+            <span class="mx-note">Revoke a seat up to 3× within 30 days, move machines or reassign users</span>
+          </div>
+          <div class="mx-cell mx-mark" data-tier="basic"><span class="off" aria-hidden="true"></span><span class="sr-only">Basic: not included</span></div>
+          <div class="mx-cell mx-mark" data-tier="pro"><span class="off" aria-hidden="true"></span><span class="sr-only">Pro: not included</span></div>
+          <div class="mx-cell mx-mark is-best" data-tier="plus"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro Plus: included</span></div>
+        </div>
+
+        <div class="mx-row" data-in="plus">
+          <div class="mx-cell mx-feat">
+            <span class="mx-name">Extra seats at a discounted rate</span>
+            <span class="mx-note">Need more than 3 seats? Purchase additional seats at the intro price for up to 60 days after your purchase</span>
+          </div>
+          <div class="mx-cell mx-mark" data-tier="basic"><span class="off" aria-hidden="true"></span><span class="sr-only">Basic: not included</span></div>
+          <div class="mx-cell mx-mark" data-tier="pro"><span class="off" aria-hidden="true"></span><span class="sr-only">Pro: not included</span></div>
+          <div class="mx-cell mx-mark is-best" data-tier="plus"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro Plus: included</span></div>
+        </div>
+
+        <div class="mx-row" data-in="plus">
+          <div class="mx-cell mx-feat">
+            <span class="mx-name">WhatsApp &amp; SMS support</span>
+            <span class="mx-note">Direct line, skip the email queue</span>
+          </div>
+          <div class="mx-cell mx-mark" data-tier="basic"><span class="off" aria-hidden="true"></span><span class="sr-only">Basic: not included</span></div>
+          <div class="mx-cell mx-mark" data-tier="pro"><span class="off" aria-hidden="true"></span><span class="sr-only">Pro: not included</span></div>
+          <div class="mx-cell mx-mark is-best" data-tier="plus"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro Plus: included</span></div>
+        </div>
+
+        <div class="mx-row" data-in="plus">
+          <div class="mx-cell mx-feat">
+            <span class="mx-name">Exclusive special genre crates</span>
+            <span class="mx-note">Curated genre crate packs, included and updated</span>
+          </div>
+          <div class="mx-cell mx-mark" data-tier="basic"><span class="off" aria-hidden="true"></span><span class="sr-only">Basic: not included</span></div>
+          <div class="mx-cell mx-mark" data-tier="pro"><span class="off" aria-hidden="true"></span><span class="sr-only">Pro: not included</span></div>
+          <div class="mx-cell mx-mark is-best" data-tier="plus"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro Plus: included</span></div>
+        </div>
+
+        <div class="mx-row" data-in="plus">
+          <div class="mx-cell mx-feat">
+            <span class="mx-name">Sound FX bundle included</span>
+            <span class="mx-note">Pre-organised SFX crates ready to drop in Serato</span>
+          </div>
+          <div class="mx-cell mx-mark" data-tier="basic"><span class="off" aria-hidden="true"></span><span class="sr-only">Basic: not included</span></div>
+          <div class="mx-cell mx-mark" data-tier="pro"><span class="off" aria-hidden="true"></span><span class="sr-only">Pro: not included</span></div>
+          <div class="mx-cell mx-mark is-best" data-tier="plus"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro Plus: included</span></div>
+        </div>
+
+        <div class="mx-row" data-in="plus">
+          <div class="mx-cell mx-feat">
+            <span class="mx-name">Early beta access</span>
+            <span class="mx-note">Test new features 2 to 4 weeks before general release</span>
+          </div>
+          <div class="mx-cell mx-mark" data-tier="basic"><span class="off" aria-hidden="true"></span><span class="sr-only">Basic: not included</span></div>
+          <div class="mx-cell mx-mark" data-tier="pro"><span class="off" aria-hidden="true"></span><span class="sr-only">Pro: not included</span></div>
+          <div class="mx-cell mx-mark is-best" data-tier="plus"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro Plus: included</span></div>
+        </div>
+      </div>
 
     </section>
 
-    <!-- REVIEWS -->
-    <div class="toggle-row" id="reviewsToggle">
-      <div>
-        <span class="toggle-row-label">Customer Reviews</span>
-        <span class="toggle-row-title">What DJs Are Saying</span>
-      </div>
-      <div style="display:flex;align-items:center;gap:10px;">
-        <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-        <span class="toggle-chevron" id="reviewsChevron">&#9660;</span>
-      </div>
+    <!-- ── REVIEWS ── -->
+    <div class="section-label">
+      <h2>What DJs Are Saying</h2>
+      <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
     </div>
-    <div id="reviewsBody">
 
-      <!-- PRO reviews first -->
+    <div class="reviews-grid" id="reviewsGrid">
+
       <div class="review-row">
         <div class="review-header">
           <div>
             <div class="review-dj">DJ WittyBlacks</div>
-            <div class="review-meta">Kingston, Jamaica &middot; Selecta Tool Pro</div>
+            <div class="review-meta">Kingston, Jamaica</div>
           </div>
           <span class="review-tier-tag review-tier-pro">Pro</span>
         </div>
@@ -821,20 +967,8 @@
       <div class="review-row">
         <div class="review-header">
           <div>
-            <div class="review-dj">DJ Calico</div>
-            <div class="review-meta">Kingston, Jamaica &middot; Selecta Tool Pro</div>
-          </div>
-          <span class="review-tier-tag review-tier-pro">Pro</span>
-        </div>
-        <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-        <p class="review-text">"I use most of the features but crate export and backup is legendary, highly recommended."</p>
-      </div>
-
-      <div class="review-row">
-        <div class="review-header">
-          <div>
             <div class="review-dj">DJ Blaze One</div>
-            <div class="review-meta">Montego Bay, Jamaica &middot; Selecta Tool Pro</div>
+            <div class="review-meta">Montego Bay, Jamaica</div>
           </div>
           <span class="review-tier-tag review-tier-pro">Pro</span>
         </div>
@@ -846,7 +980,7 @@
         <div class="review-header">
           <div>
             <div class="review-dj">DJ Nyx</div>
-            <div class="review-meta">Seoul, South Korea &middot; Selecta Tool Pro</div>
+            <div class="review-meta">Seoul, South Korea</div>
           </div>
           <span class="review-tier-tag review-tier-pro">Pro</span>
         </div>
@@ -858,7 +992,7 @@
         <div class="review-header">
           <div>
             <div class="review-dj">DJ Kenzo</div>
-            <div class="review-meta">Toronto, Canada &middot; Selecta Tool Pro</div>
+            <div class="review-meta">Toronto, Canada</div>
           </div>
           <span class="review-tier-tag review-tier-pro">Pro</span>
         </div>
@@ -869,8 +1003,32 @@
       <div class="review-row">
         <div class="review-header">
           <div>
+            <div class="review-dj">DJ Calico</div>
+            <div class="review-meta">Kingston, Jamaica</div>
+          </div>
+          <span class="review-tier-tag review-tier-pro">Pro</span>
+        </div>
+        <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="review-text">"I use most of the features but crate export and backup is legendary, highly recommended."</p>
+      </div>
+
+      <div class="review-row">
+        <div class="review-header">
+          <div>
+            <div class="review-dj">DJ Flashpoint</div>
+            <div class="review-meta">Cape Town, South Africa</div>
+          </div>
+          <span class="review-tier-tag">Basic</span>
+        </div>
+        <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="review-text">"Exactly what I needed. Set up all my crates in one session, the scan-folder feature is brilliant. I personally don't need Pro right now but I'd definitely recommend it for power users managing massive libraries. The backup and advanced tools are no joke."</p>
+      </div>
+
+      <div class="review-row" hidden>
+        <div class="review-header">
+          <div>
             <div class="review-dj">DJ Estelle Ray</div>
-            <div class="review-meta">Paris, France &middot; Selecta Tool Pro</div>
+            <div class="review-meta">Paris, France</div>
           </div>
           <span class="review-tier-tag review-tier-pro">Pro</span>
         </div>
@@ -878,11 +1036,11 @@
         <p class="review-text">"Library Snapshots is the feature I didn't know I needed. I manage completely different setups for club nights and private events, keeping them separate with zero overlap is perfect. Solid tool, well built."</p>
       </div>
 
-      <div class="review-row">
+      <div class="review-row" hidden>
         <div class="review-header">
           <div>
             <div class="review-dj">DJ CoreyDon</div>
-            <div class="review-meta">Florida, USA &middot; Selecta Tool Pro</div>
+            <div class="review-meta">Florida, USA</div>
           </div>
           <span class="review-tier-tag review-tier-pro">Pro</span>
         </div>
@@ -890,11 +1048,11 @@
         <p class="review-text">"This bad yf, did buy a program from a youth from England and that mess up me library, never expect this fi work still, big up inna real life."</p>
       </div>
 
-      <div class="review-row">
+      <div class="review-row" hidden>
         <div class="review-header">
           <div>
             <div class="review-dj">DJ Cyclone (Coppershot)</div>
-            <div class="review-meta">Kingston, Jamaica &middot; Selecta Tool Pro</div>
+            <div class="review-meta">Kingston, Jamaica</div>
           </div>
           <span class="review-tier-tag review-tier-pro">Pro</span>
         </div>
@@ -902,74 +1060,61 @@
         <p class="review-text">"This is world class program, everybody wid duplicate affi check it out."</p>
       </div>
 
-      <!-- BASIC reviews -->
-      <div class="review-row">
+      <div class="review-row" hidden>
         <div class="review-header">
           <div>
             <div class="review-dj">DJ JimmyQ</div>
-            <div class="review-meta">@jimmyqja &middot; Selecta Tool Basic</div>
+            <div class="review-meta">@jimmyqja</div>
           </div>
-          <span class="review-tier-tag review-tier-basic">Basic</span>
+          <span class="review-tier-tag">Basic</span>
         </div>
         <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
         <p class="review-text">"I used the program and its solid, no issues so far."</p>
       </div>
 
-      <div class="review-row">
-        <div class="review-header">
-          <div>
-            <div class="review-dj">DJ Flashpoint</div>
-            <div class="review-meta">Cape Town, South Africa &middot; Selecta Tool Basic</div>
-          </div>
-          <span class="review-tier-tag review-tier-basic">Basic</span>
-        </div>
-        <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-        <p class="review-text">"Exactly what I needed. Set up all my crates in one session, the scan-folder feature is brilliant. I personally don't need Pro right now but I'd definitely recommend it for power users managing massive libraries. The backup and advanced tools are no joke."</p>
-      </div>
-
-      <div class="review-row">
+      <div class="review-row" hidden>
         <div class="review-header">
           <div>
             <div class="review-dj">DJ Marisol Vega</div>
-            <div class="review-meta">Madrid, Spain &middot; Selecta Tool Basic</div>
+            <div class="review-meta">Madrid, Spain</div>
           </div>
-          <span class="review-tier-tag review-tier-basic">Basic</span>
+          <span class="review-tier-tag">Basic</span>
         </div>
         <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
         <p class="review-text">"Simple, fast, does exactly what it says. Moved my whole collection over from iTunes without a single issue. Clean app, clean workflow. Five stars."</p>
       </div>
 
-      <div class="review-row">
+      <div class="review-row" hidden>
         <div class="review-header">
           <div>
             <div class="review-dj">DJ Suncrest</div>
-            <div class="review-meta">Speightstown, Barbados &middot; Selecta Tool Basic</div>
+            <div class="review-meta">Speightstown, Barbados</div>
           </div>
-          <span class="review-tier-tag review-tier-basic">Basic</span>
+          <span class="review-tier-tag">Basic</span>
         </div>
         <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
         <p class="review-text">"Been using this from day one and it never let me down. Organizing my soca and reggae crates used to take all night, now I'm done in under an hour. Clean, straightforward, no fluff. Exactly what we needed out here."</p>
       </div>
 
-      <div class="review-row">
+      <div class="review-row" hidden>
         <div class="review-header">
           <div>
             <div class="review-dj">DJ Trini Voltage</div>
-            <div class="review-meta">San Fernando, Trinidad &middot; Selecta Tool Basic</div>
+            <div class="review-meta">San Fernando, Trinidad</div>
           </div>
-          <span class="review-tier-tag review-tier-basic">Basic</span>
+          <span class="review-tier-tag">Basic</span>
         </div>
         <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
         <p class="review-text">"Carnival season had my library in shambles, new tracks dropping every day, crates everywhere. Selecta Tool Basic got everything sorted fast. The scan feature is a lifesaver. Real talk, this is built for DJs who actually work."</p>
       </div>
 
-      <div class="review-row">
+      <div class="review-row" hidden>
         <div class="review-header">
           <div>
             <div class="review-dj">DJ Kross River</div>
-            <div class="review-meta">Linden, Guyana &middot; Selecta Tool Basic</div>
+            <div class="review-meta">Linden, Guyana</div>
           </div>
-          <span class="review-tier-tag review-tier-basic">Basic</span>
+          <span class="review-tier-tag">Basic</span>
         </div>
         <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
         <p class="review-text">"Didn't expect a tool this polished at this price point. Imported all my crates, cleaned up duplicates, and the mini player makes previewing tracks dead simple. Big up the team, this one's a must-have."</p>
@@ -977,113 +1122,192 @@
 
     </div>
 
-    <!-- FAQ -->
-    <div class="toggle-row" id="faqToggle">
-      <div>
-        <span class="toggle-row-label">FAQ</span>
-        <span class="toggle-row-title">Frequently Asked Questions</span>
-      </div>
-      <span class="toggle-chevron" id="faqChevron">&#9660;</span>
+    <div class="more-row">
+      <button class="btn-ghost" id="moreReviews" aria-expanded="false" aria-controls="reviewsGrid">Show all 14 reviews</button>
     </div>
-    <div id="faqBody" style="display:none;">
 
+    <!-- ── FAQ ── -->
+    <div class="section-label">
+      <h2>Frequently Asked Questions</h2>
+    </div>
+
+    <div id="faqBody">
       <div class="faq-item">
-        <div class="faq-q">What is Selecta Tool?<span class="faq-q-icon">&#43;</span></div>
+        <button class="faq-q" type="button" aria-expanded="false">What is Selecta Tool?<span class="faq-q-icon">&#43;</span></button>
         <p class="faq-a">Selecta Tool is a DJ library management app built for Serato DJ Pro. It lets you build and export crates, scan folders, find duplicates, preview tracks, and much more, all outside of Serato. Available for Mac (Intel &amp; Apple Silicon) and Windows 10/11.</p>
       </div>
 
       <div class="faq-item">
-        <div class="faq-q">What's the difference between Basic and Pro?<span class="faq-q-icon">&#43;</span></div>
-        <p class="faq-a">Basic covers the core workflow: crate building, scanning, duplicate finding, track preview, and exporting. Pro adds power-user features: Library Backup &amp; Restore, File Doctor, Tag Editor, Library Snapshots, Cue Studio, the Sampler, and more. Both tiers ship under the same installer.</p>
+        <button class="faq-q" type="button" aria-expanded="false">What's the difference between Basic and Pro?<span class="faq-q-icon">&#43;</span></button>
+        <p class="faq-a">Basic covers the core workflow: crate building, scanning, duplicate finding, track preview, and exporting. Pro adds power-user features: Library Backup &amp; Restore, File Doctor, Tag Editor, Library Snapshots, Cue Studio, the Sampler, the <strong>Gig Desk</strong> for bookings and invoicing, and more. Both tiers ship under the same installer.</p>
       </div>
 
       <div class="faq-item">
-        <div class="faq-q">What is Pro Plus and who is it for?<span class="faq-q-icon">&#43;</span></div>
-        <p class="faq-a">Pro Plus includes everything in Basic and Pro, plus a <strong>3-seat license</strong>: install on up to 3 machines or share with up to 3 users. It also adds seat revoke &amp; transfer (up to 3× within 30 days), the ability to purchase extra seats at the intro price for up to 60 days, WhatsApp &amp; SMS direct support, exclusive special genre crates, a Sound FX bundle, early beta access, and streaming playlist import from Apple Music, Deezer &amp; Spotify. It's built for DJs who work across multiple setups, run a sound system, or want the best value across a crew. <strong>Pro Plus is available on both Mac and Windows (v2.0.9 and later).</strong></p>
+        <button class="faq-q" type="button" aria-expanded="false">What is Pro Plus and who is it for?<span class="faq-q-icon">&#43;</span></button>
+        <p class="faq-a">Pro Plus includes everything in Basic and Pro, the <strong>Gig Desk</strong> included on every seat, plus a <strong>3-seat license</strong>: install on up to 3 machines or share with up to 3 users. It also adds seat revoke &amp; transfer (up to 3× within 30 days), the ability to purchase extra seats at the intro price for up to 60 days, WhatsApp &amp; SMS direct support, exclusive special genre crates, a Sound FX bundle, and early beta access. It's built for DJs who work across multiple setups, run a sound system, or want the best value across a crew. <strong>Pro Plus is available on both Mac and Windows.</strong></p>
       </div>
 
       <div class="faq-item">
-        <div class="faq-q">Is it a subscription or a one-time purchase?<span class="faq-q-icon">&#43;</span></div>
+        <button class="faq-q" type="button" aria-expanded="false">What is the Gig Desk?<span class="faq-q-icon">&#43;</span></button>
+        <p class="faq-a">The <strong>Gig Desk</strong> is a Pro and Pro Plus tab that handles the business side of DJing from inside Selecta Tool. Log your bookings, then raise quotes, invoices, receipts and performance agreements against them, branded with your logo, accent colour and social handles in one of four print styles. It handles multiple currencies (USD, CAD, GBP, EUR, JMD, TTD, EC$, CI$ or your own), one tax rate plus two labelled extra charges, saved clients, line-ups that credit each performer, and double-booking warnings. The Money view tracks collected, expenses and net profit by month and currency, including cash taken with no paperwork, and exports a financial report PDF or a CSV. Documents are numbered only when you issue them, emails open in your own mail app, and everything is stored on your machine in a .selgigs file you can back up or move. <strong>The Gig Desk never touches your Serato library.</strong></p>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" type="button" aria-expanded="false">Is it a subscription or a one-time purchase?<span class="faq-q-icon">&#43;</span></button>
         <p class="faq-a">One-time purchase. Pay once, own it forever. No recurring fees, no expiry.</p>
       </div>
 
       <div class="faq-item">
-        <div class="faq-q">How do I receive my license key after purchasing?<span class="faq-q-icon">&#43;</span></div>
+        <button class="faq-q" type="button" aria-expanded="false">How do I receive my license key after purchasing?<span class="faq-q-icon">&#43;</span></button>
         <p class="faq-a">Your license key is delivered instantly via Gumroad to your email after checkout. Check your spam folder if it doesn't arrive within a few minutes. For direct purchases, the key is sent manually, usually within the same day.</p>
       </div>
 
       <div class="faq-item">
-        <div class="faq-q">Can I upgrade from Basic to Pro later?<span class="faq-q-icon">&#43;</span></div>
+        <button class="faq-q" type="button" aria-expanded="false">Can I upgrade from Basic to Pro later?<span class="faq-q-icon">&#43;</span></button>
         <p class="faq-a">Yes. Purchase Pro at any time and enter your Pro license key in the app's Settings, no reinstall needed. Your existing crates and library data stay intact.</p>
       </div>
 
       <div class="faq-item">
-        <div class="faq-q">Does it work with Serato DJ Lite?<span class="faq-q-icon">&#43;</span></div>
+        <button class="faq-q" type="button" aria-expanded="false">Does it work with Serato DJ Lite?<span class="faq-q-icon">&#43;</span></button>
         <p class="faq-a">Selecta Tool is built and tested for Serato DJ Pro. Serato DJ Lite uses the same library format so basic crate operations may work, but full compatibility is only guaranteed with Serato DJ Pro.</p>
       </div>
 
       <div class="faq-item">
-        <div class="faq-q">Will my Serato library be affected if something goes wrong?<span class="faq-q-icon">&#43;</span></div>
+        <button class="faq-q" type="button" aria-expanded="false">Will my Serato library be affected if something goes wrong?<span class="faq-q-icon">&#43;</span></button>
         <p class="faq-a">Selecta Tool writes to the standard Serato database format. We recommend using the Library Backup feature (Pro) before making large changes. Basic users can export a tracklist TXT before any major operation as a reference.</p>
       </div>
 
       <div class="faq-item">
-        <div class="faq-q">What is your refund policy?<span class="faq-q-icon">&#43;</span></div>
+        <button class="faq-q" type="button" aria-expanded="false">What is your refund policy?<span class="faq-q-icon">&#43;</span></button>
         <p class="faq-a">All sales are final. Due to the digital nature of the product, we do not offer refunds. If you have any issues or questions before purchasing, reach out to us at <a href="mailto:info@selectahub.com">info@selectahub.com</a> and we'll be happy to help.</p>
       </div>
-
     </div>
 
-    <!-- Powered by Gumroad -->
-    <div class="info-block">
-      <p class="info-head">Powered by</p>
-      <div class="gumroad-row">
-        <svg class="gumroad-logo" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2">
-          <g fill-rule="nonzero">
-            <path d="M256 505.999c138.069 0 249.999-111.93 249.999-250s-111.93-250-250-250S6 117.93 6 256s111.93 250 250 250z" fill="#ff90e8"/>
-            <path d="M234.3 381.989c-73.23 0-116.31-58.735-116.31-131.8 0-75.925 47.39-137.53 137.85-137.53 93.334 0 124.924 63.035 126.359 98.85h-67.485c-1.435-20.055-18.67-50.14-60.31-50.14-44.515 0-73.235 38.68-73.235 85.955s28.72 85.96 73.235 85.96c40.205 0 57.44-31.52 64.615-63.04h-64.615V244.46h135.59v131.805h-59.485v-83.095c-4.31 30.085-22.975 88.82-96.21 88.82z" fill="#fff"/>
-          </g>
-        </svg>
-        <div>Selecta Tool is sold securely through <strong>Gumroad</strong>. Your purchase, license key and download are all managed there.</div>
+    <!-- ── CLOSING CTA ──
+         Prices here are driven by the same price.js values as the cards at the
+         top of the page (see the PRICING block below), so the two can't drift.
+         The markup prices are the fallback if price.js fails to load. -->
+    <div class="section-label">
+      <h2>Get Selecta Tool</h2>
+    </div>
+
+    <div class="cta-grid">
+      <div class="cta-card" data-tier="basic">
+        <span class="tier-name">Selecta Tool</span>
+        <span class="tier-price" data-price="basic">$29.99 <span class="tier-price-orig">$49.99</span></span>
+        <span class="tier-sub"><b>1-seat license</b><br>Introductory price</span>
+        <a href="https://juggernautmusic.gumroad.com/l/selectatool" target="_blank" rel="noopener noreferrer" class="btn-tier">Get Basic</a>
+      </div>
+
+      <div class="cta-card" data-tier="pro">
+        <span class="tier-name">Selecta Tool Pro</span>
+        <span class="tier-price" data-price="pro">$54.99 <span class="tier-price-orig">$99.99</span></span>
+        <span class="tier-sub"><b>1-seat license</b><br>Adds the Gig Desk</span>
+        <a href="https://juggernautmusic.gumroad.com/l/selectatoolpro" target="_blank" rel="noopener noreferrer" class="btn-tier">Get Pro</a>
+      </div>
+
+      <div class="cta-card is-best" data-tier="plus">
+        <span class="tier-name">Selecta Tool Pro Plus</span>
+        <span class="tier-price" data-price="proPlus">$144.99 <span class="tier-price-orig">$270.00</span></span>
+        <span class="tier-sub"><b>3-seat license</b><br>Everything, on three machines</span>
+        <a href="https://juggernautmusic.gumroad.com/l/toolproplus" target="_blank" rel="noopener noreferrer" class="btn-tier">Get Pro Plus</a>
       </div>
     </div>
 
-    <!-- Direct purchase options -->
-    <div class="info-block">
-      <p class="info-head">Direct purchase options</p>
-      Prefer not to use Gumroad? Direct purchases are available, reach out via <a href="mailto:info@selectahub.com">info@selectahub.com</a> or our social channels.
-      <div class="payment-pills">
-        <span class="payment-pill">Zelle</span>
-        <span class="payment-pill">CashApp</span>
-        <span class="payment-pill">PayPal</span>
-        <span class="payment-pill">Interac E-Transfer</span>
-        <span class="payment-pill">Scotiabank</span>
-        <span class="payment-pill">National Commercial Bank</span>
+    <!-- ── INFO ── -->
+    <div class="section-label">
+      <h2>Purchasing &amp; Licensing</h2>
+    </div>
+
+    <div class="info-grid">
+      <div class="info-block">
+        <p class="info-head">Powered by</p>
+        <div class="gumroad-row">
+          <svg class="gumroad-logo" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2">
+            <g fill-rule="nonzero">
+              <path d="M256 505.999c138.069 0 249.999-111.93 249.999-250s-111.93-250-250-250S6 117.93 6 256s111.93 250 250 250z" fill="#ff90e8"/>
+              <path d="M234.3 381.989c-73.23 0-116.31-58.735-116.31-131.8 0-75.925 47.39-137.53 137.85-137.53 93.334 0 124.924 63.035 126.359 98.85h-67.485c-1.435-20.055-18.67-50.14-60.31-50.14-44.515 0-73.235 38.68-73.235 85.955s28.72 85.96 73.235 85.96c40.205 0 57.44-31.52 64.615-63.04h-64.615V244.46h135.59v131.805h-59.485v-83.095c-4.31 30.085-22.975 88.82-96.21 88.82z" fill="#fff"/>
+            </g>
+          </svg>
+          <div>Selecta Tool is sold securely through <strong>Gumroad</strong>. Your purchase, license key and download are all managed there.</div>
+        </div>
+      </div>
+
+      <div class="info-block">
+        <p class="info-head">Direct purchase options</p>
+        Prefer not to use Gumroad? Direct purchases are available, reach out via <a href="mailto:info@selectahub.com">info@selectahub.com</a> or our social channels.
+        <div class="payment-pills">
+          <span class="payment-pill">Zelle</span>
+          <span class="payment-pill">CashApp</span>
+          <span class="payment-pill">PayPal</span>
+          <span class="payment-pill">Interac E-Transfer</span>
+          <span class="payment-pill">Scotiabank</span>
+          <span class="payment-pill">National Commercial Bank</span>
+        </div>
+      </div>
+
+      <div class="info-block">
+        <p class="info-head">Upgrading from Basic to Pro?</p>
+        <strong>No new installer, no redownload.</strong> All three tiers run from the same app, your license key is what unlocks the features. Basic users upgrade directly inside the app: go to Settings and enter your Pro or Pro Plus license key. Your crates and library data stay exactly as they are.
+      </div>
+
+      <div class="info-block">
+        <p class="info-head">Multi-seat &amp; corporate licenses</p>
+        <strong>Pro Plus covers three machines on one purchase</strong> — the desktop in your home studio, the rig at your radio station, and the MacBook you actually take to gigs. Same library tools on all three, one license key. Running a <strong>business, radio station or sound system?</strong> Multi-seat and corporate licenses are available. Contact us at <a href="mailto:info@selectahub.com">info@selectahub.com</a> or through our social channels for more info. Already on <strong>Pro Plus</strong>? You can add more seats beyond the initial 3 at any time, just reach out to support.
+      </div>
+
+      <div class="info-block span-2" id="windowsDevNote" style="display:none;">
+        <p class="info-head warn">Windows support</p>
+        Due to low download numbers, <strong>Windows is frozen at v<span id="windowsVersion"></span></strong> and will receive major updates and bug fixes only, it will not be actively developed alongside the Mac version. Mac (Intel &amp; Apple Silicon) remains the primary platform.
       </div>
     </div>
 
-    <!-- Upgrade note -->
-    <div class="info-block">
-      <p class="info-head">Upgrading from Basic to Pro?</p>
-      <strong>No redownload needed.</strong> Basic users can upgrade directly inside the app, go to Settings and enter your Pro license key. That's it.
-    </div>
+    <!-- ── FREE TRIAL ──
+         Driven entirely by TRIAL in trial.js. Ships hidden and stays hidden
+         unless TRIAL.on is true, so a closed trial — or a missing trial.js —
+         leaves no trace of it on the page. Set `on: false` in trial.js to pull
+         it down; nothing here needs editing or deleting.
+         It sits down here deliberately: nothing above points at it. -->
+    <section class="trial" id="trialStrip" hidden aria-labelledby="trialTitle">
+      <div class="trial-main">
+        <span class="trial-kicker" id="trialKicker"></span>
+        <h2 class="trial-title" id="trialTitle"></h2>
+        <p class="trial-copy" id="trialCopy"></p>
+      </div>
+      <div class="trial-side">
+        <!-- Shown only while TRIAL.releaseAt is still ahead of us. -->
+        <p class="trial-count" id="trialCount" hidden>
+          <span class="trial-count-label">Opens in</span>
+          <span class="trial-count-time" id="trialCountTime"></span>
+        </p>
+        <a class="btn-trial is-soon" id="trialBtn" href="#" aria-disabled="true">Free trial</a>
+        <span class="trial-foot" id="trialFoot"></span>
+      </div>
+    </section>
 
-    <!-- Windows notice -->
-    <div class="info-block" id="windowsDevNote" style="display:none;">
-      <p class="info-head" style="color:var(--gold);">Windows support</p>
-      Due to low download numbers, <strong>Windows is frozen at v<span id="windowsFrozenVersion"></span></strong> and will receive major updates and bug fixes only, it will not be actively developed alongside the Mac version. Mac (Intel &amp; Apple Silicon) remains the primary platform.
-    </div>
-
-    <!-- Corporate / multi-seat -->
-    <div class="info-block">
-      <p class="info-head">Multi-seat &amp; corporate licenses</p>
-      Running a <strong>business, radio station or sound system?</strong> Multi-seat and corporate licenses are available. Contact us at <a href="mailto:info@selectahub.com">info@selectahub.com</a> or through our social channels for more info. Already on <strong>Pro Plus</strong>? You can add more seats beyond the initial 3 at any time, just reach out to support.
+    <!-- ── BAND ── -->
+    <div class="band">
+      <div class="band-about">
+        <div class="kicker">About</div>
+        <h3>Built for <span class="g">DJs.</span></h3>
+        <p><strong>Selecta Hub</strong> is a growing suite of tools, music resources, and community built for DJs: crate management, curated libraries, sound effects, live radio, and bookings, all in one place.</p>
+      </div>
+      <a href="https://chat.whatsapp.com/BCyfZkn0THvGNXu088QtlU?mode=gi_t" target="_blank" rel="noopener noreferrer" class="band-comm">
+        <div class="comm-top">
+          <img src="whatsapp-64.png" alt="WhatsApp" class="wa-icon" width="32" height="32" loading="lazy" decoding="async"/>
+          <div class="kicker">Community</div>
+        </div>
+        <h3>Join the WhatsApp group</h3>
+        <p>Chat about music, share resources, and connect with other DJs and selectors.</p>
+        <span class="go">Join now <span class="arrow">→</span></span>
+      </a>
     </div>
 
   </div>
+  </main>
 
-  <footer>
-    <div class="wrap">
+  <div class="wrap">
+    <footer>
       <div class="foot-row">
         <span class="foot-copy">© 2026 Juggernaut Music Group. All rights reserved.</span>
         <div class="foot-links">
@@ -1097,253 +1321,437 @@
           <a href="https://www.tiktok.com/@selecta.hub" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.79 1.52V6.78a4.85 4.85 0 01-1.02-.09z"/></svg></a>
         </div>
       </div>
-    </div>
-  </footer>
+    </footer>
+
+  </div>
 
   <script>
+    // ── HERO ANIMATION (shared with Crates / Sound FX) ──
     (function() {
       var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       var heroTitle = document.getElementById('toolHeroTitle');
       var heroSub = document.getElementById('toolHeroSub');
       var heroFadeTargets = document.querySelectorAll('[data-hero-fade]');
+      var revealTargets = document.querySelectorAll('[data-reveal]');
 
       function splitWords(element) {
         if (!element) return [];
         var source = element.getAttribute('data-source-text') || element.textContent;
         element.setAttribute('data-source-text', source);
         element.textContent = '';
-        var words = source.split(' ');
-        return words.map(function(word, index) {
+        return source.split(' ').map(function(word, index) {
           var span = document.createElement('span');
           span.textContent = word;
           span.setAttribute('data-animate', 'hero-char');
           span.style.transitionDelay = (0.42 + index * 0.05) + 's';
           element.appendChild(span);
-          if (index < words.length - 1) {
-            element.appendChild(document.createTextNode(' '));
-          }
+          element.appendChild(document.createTextNode(' '));
           return span;
-        }).filter(Boolean);
+        });
       }
 
       var titleWords = heroTitle ? Array.prototype.slice.call(heroTitle.querySelectorAll('[data-animate="hero-word"]')) : [];
-      titleWords.forEach(function(word, index) {
-        word.style.transitionDelay = (0.14 + index * 0.09) + 's';
-      });
-      var subChars = splitWords(heroSub);
+      titleWords.forEach(function(word, index) { word.style.transitionDelay = (0.14 + index * 0.09) + 's'; });
+      var subWords = splitWords(heroSub);
 
       function revealHero() {
-        titleWords.forEach(function(word) { word.classList.add('is-visible'); });
-        subChars.forEach(function(char) { char.classList.add('is-visible'); });
-        heroFadeTargets.forEach(function(target, index) {
-          window.setTimeout(function() {
-            target.classList.add('is-visible');
-          }, 100 + index * 90);
+        titleWords.forEach(function(w) { w.classList.add('is-visible'); });
+        subWords.forEach(function(w) { w.classList.add('is-visible'); });
+        heroFadeTargets.forEach(function(t, i) {
+          window.setTimeout(function() { t.classList.add('is-visible'); }, 100 + i * 90);
         });
       }
 
-      if (reduceMotion) {
-        revealHero();
-      } else if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', function() {
-          requestAnimationFrame(revealHero);
-        });
-      } else {
-        requestAnimationFrame(revealHero);
+      function initReveals() {
+        if (!('IntersectionObserver' in window) || reduceMotion) {
+          revealTargets.forEach(function(t) { t.classList.add('is-visible'); });
+          return;
+        }
+        var observer = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          });
+        }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+        revealTargets.forEach(function(t) { observer.observe(t); });
       }
+
+      if (reduceMotion) { revealHero(); initReveals(); }
+      else if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function() { requestAnimationFrame(revealHero); initReveals(); });
+      } else { requestAnimationFrame(revealHero); initReveals(); }
     })();
-  </script>
 
-  <script>
     // ── NAV ──
-    var hamburger = document.getElementById('hamburger');
-    var mobileMenu = document.getElementById('mobileMenu');
-    function setMobileMenu(open) {
-      mobileMenu.classList.toggle('open', open);
-      hamburger.classList.toggle('open', open);
-      hamburger.setAttribute('aria-expanded', open ? 'true' : 'false');
-    }
-    hamburger.addEventListener('click', function(e) {
-      e.stopPropagation();
-      setMobileMenu(!mobileMenu.classList.contains('open'));
-    });
-    mobileMenu.addEventListener('click', function(e) { e.stopPropagation(); });
-    document.addEventListener('click', function() { setMobileMenu(false); });
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') { setMobileMenu(false); }
-    });
-    mobileMenu.querySelectorAll('a').forEach(function(a) {
-      a.addEventListener('click', function() {
-        setMobileMenu(false);
-      });
-    });
-
-    // ── LAUNCH COUNTDOWN ──
     (function() {
-      var introPriceEnd = new Date('2026-09-15T07:00:00Z'); // Intro prices end — must match index.html INTRO_END
-
-      // When the clock runs out nothing on the page changes: prices, buttons and
-      // notes all stay on the current (intro) values until new pricing is pushed
-      // in a manual redeploy. The flip code below is kept intact — set this to
-      // true to restore the automatic switch. Keep in sync with index.html.
-      var AUTO_FLIP_PRICING = false;
-
-      function pad(n) { return String(n).padStart(2, '0'); }
-
-      // Block clicks on all tier buttons until live
-      document.addEventListener('click', function(e) {
-        if (document.body.classList.contains('pre-launch') && e.target.closest('.btn-tier')) {
-          e.preventDefault();
-          e.stopPropagation();
-        }
-      }, true);
-
-      function updateMeta() {
-        var flip = AUTO_FLIP_PRICING && Date.now() >= introPriceEnd;
-        var bp = flip ? PRICES.basic.regular : PRICES.basic.intro;
-        var pp = flip ? PRICES.pro.regular   : PRICES.pro.intro;
-        var d  = document.querySelector('meta[name="description"]');
-        var og = document.querySelector('meta[property="og:description"]');
-        if (d)  d.setAttribute('content',  'Selecta Tool · DJ crate management for Serato. Basic ' + bp + ' \xb7 Pro ' + pp + '. Mac Intel, Apple Silicon & Windows 10/11.');
-        if (og) og.setAttribute('content', 'Serato crate management for serious DJs. Compare Basic (' + bp + ') and Pro (' + pp + ').');
+      var hamburger = document.getElementById('hamburger');
+      var mobileMenu = document.getElementById('mobileMenu');
+      function setMobileMenu(open) {
+        mobileMenu.classList.toggle('open', open);
+        hamburger.classList.toggle('open', open);
+        hamburger.setAttribute('aria-expanded', open ? 'true' : 'false');
       }
-      updateMeta();
-
-      var introFlipped = false;
-
-      function tickIntroCountdown() {
-        var now  = Date.now();
-        var diff = introPriceEnd - now;
-
-        if (diff > 0) {
-          var d = Math.floor(diff / 86400000);
-          var h = Math.floor((diff % 86400000) / 3600000);
-          var m = Math.floor((diff % 3600000)  / 60000);
-          var s = Math.floor((diff % 60000)    / 1000);
-          var label = '· intro price ends in ' + d + 'd ' + pad(h) + ':' + pad(m) + ':' + pad(s);
-          var bc = document.getElementById('basicCountdown');
-          var pc = document.getElementById('proCountdown');
-          var ppc = document.getElementById('proPlusCountdown');
-          if (bc)  { bc.textContent  = label; bc.classList.add('visible'); }
-          if (pc)  { pc.textContent  = label; pc.classList.add('visible'); }
-          if (ppc) { ppc.textContent = label; ppc.classList.add('visible'); }
-        } else if (!introFlipped) {
-          introFlipped = true;
-          // Hide inline countdowns
-          var bc = document.getElementById('basicCountdown');
-          var pc = document.getElementById('proCountdown');
-          var ppc = document.getElementById('proPlusCountdown');
-          if (bc)  bc.classList.remove('visible');
-          if (pc)  pc.classList.remove('visible');
-          if (ppc) ppc.classList.remove('visible');
-          // Deadline passed: retire the inline countdowns and stop here. Prices,
-          // buttons and notes keep their current values until a manual redeploy.
-          if (!AUTO_FLIP_PRICING) return;
-          // Flip Basic
-          var bPrice = document.querySelector('.tier-card.basic .tier-price');
-          if (bPrice) bPrice.innerHTML = PRICES.basic.regular + ' <span class="tier-price-orig">' + PRICES.basic.orig + '</span>';
-          var bNote = document.getElementById('basicPriceNote');
-          if (bNote) bNote.textContent = 'One-time purchase. Yours forever.';
-          var b1 = document.getElementById('basicBtn1'), b2 = document.getElementById('basicBtn2');
-          if (b1) b1.innerHTML = 'Get Basic &middot; ' + PRICES.basic.regular + ' <span class="btn-orig-price">' + PRICES.basic.orig + '</span>';
-          if (b2) b2.innerHTML = 'Get Basic &middot; ' + PRICES.basic.regular + ' <span class="btn-orig-price">' + PRICES.basic.orig + '</span>';
-          // Flip Pro
-          var pEl = document.querySelector('.tier-card.pro .tier-price');
-          if (pEl) pEl.innerHTML = PRICES.pro.regular + ' <span class="tier-price-orig">' + PRICES.pro.orig + '</span>';
-          var pNote = document.getElementById('proPriceNote');
-          if (pNote) pNote.textContent = 'One-time purchase. Yours forever.';
-          var p1 = document.getElementById('proBtn1'), p2 = document.getElementById('proBtn2');
-          if (p1) p1.innerHTML = 'Get Pro &middot; ' + PRICES.pro.regular + ' <span class="btn-orig-price">' + PRICES.pro.orig + '</span>';
-          if (p2) p2.innerHTML = 'Get Pro &middot; ' + PRICES.pro.regular + ' <span class="btn-orig-price">' + PRICES.pro.orig + '</span>';
-          // Flip Pro Plus
-          var ppEl = document.getElementById('proPlusPrice');
-          if (ppEl) ppEl.innerHTML = PRICES.proPlus.regular + ' <span class="tier-price-orig" id="proPlusOrig">' + PRICES.proPlus.orig + '</span>';
-          var ppNote = document.getElementById('proPlusPriceNote');
-          if (ppNote) ppNote.textContent = 'One-time purchase. Yours forever.';
-          var pp1 = document.getElementById('proPlusBtn1'), pp2 = document.getElementById('proPlusBtn2');
-          if (pp1) pp1.innerHTML = 'Get Pro Plus &middot; ' + PRICES.proPlus.regular + ' <span class="btn-orig-price">' + PRICES.proPlus.orig + '</span>';
-          if (pp2) pp2.innerHTML = 'Get Pro Plus &middot; ' + PRICES.proPlus.regular + ' <span class="btn-orig-price">' + PRICES.proPlus.orig + '</span>';
-          updateMeta();
-        }
-      }
-
-      // v2.0.9 launched 2026-06-15 and the pre-launch countdown UI has since been
-      // removed from this page, so the tiers unlock and the intro-price countdown
-      // starts straight away.
-      document.body.classList.remove('pre-launch');
-      tickIntroCountdown();
-      setInterval(tickIntroCountdown, 1000);
-      updateMeta();
+      hamburger.addEventListener('click', function(e) {
+        e.stopPropagation();
+        setMobileMenu(!mobileMenu.classList.contains('open'));
+      });
+      mobileMenu.addEventListener('click', function(e) { e.stopPropagation(); });
+      document.addEventListener('click', function() { setMobileMenu(false); });
+      document.addEventListener('keydown', function(e) { if (e.key === 'Escape') setMobileMenu(false); });
+      mobileMenu.querySelectorAll('a').forEach(function(a) {
+        a.addEventListener('click', function() { setMobileMenu(false); });
+      });
     })();
 
-    // Mobile plan tabs · carousel: clicked card floats to top, rest follow in original order
+    // ── MOBILE TIER SWITCH ──
     (function() {
       var tabs = document.querySelectorAll('.tier-tab');
       if (!tabs.length) return;
-      var cardOrder = ['basic', 'pro', 'pro-plus'];
-      var cardMap = {};
-      document.querySelectorAll('.tier-card').forEach(function(c) {
-        if (c.classList.contains('basic'))         cardMap['basic']    = c;
-        else if (c.classList.contains('pro-plus')) cardMap['pro-plus'] = c;
-        else if (c.classList.contains('pro'))      cardMap['pro']      = c;
-      });
-      var grid = document.querySelector('.tier-grid');
-      function activateTab(tab) {
-        tabs.forEach(function(t) { t.classList.remove('tab-on'); });
-        tab.classList.add('tab-on');
-        var target = tab.dataset.target;
-        if (!grid) return;
-        var newOrder = [target].concat(cardOrder.filter(function(k) { return k !== target; }));
-        newOrder.forEach(function(k) { if (cardMap[k]) grid.appendChild(cardMap[k]); });
+      var mq = window.matchMedia('(max-width: 900px)');
+      var active = 'pro';
+
+      function apply() {
+        var single = mq.matches;
+        document.querySelectorAll('.tier-col, .mx-mark').forEach(function(el) {
+          el.hidden = single && el.dataset.tier !== active;
+        });
+        document.querySelectorAll('.mx-row').forEach(function(row) {
+          var list = (row.dataset.in || '').split(' ');
+          row.classList.toggle('row-off', single && list.indexOf(active) === -1);
+        });
+        // A group heading and its table only belong on screen while that group
+        // still has a row the selected tier actually includes.
+        document.querySelectorAll('.mx-group').forEach(function(group) {
+          var body = group.nextElementSibling;
+          if (!body || !body.classList.contains('mx-body')) return;
+          var live = body.querySelectorAll('.mx-row:not(.row-off)').length;
+          group.classList.toggle('group-off', live === 0);
+          body.classList.toggle('body-off', live === 0);
+        });
       }
       tabs.forEach(function(tab) {
-        tab.addEventListener('click', function() { activateTab(this); });
+        tab.addEventListener('click', function() {
+          tabs.forEach(function(t) {
+            t.classList.remove('tab-on');
+            t.setAttribute('aria-selected', 'false');
+          });
+          tab.classList.add('tab-on');
+          tab.setAttribute('aria-selected', 'true');
+          active = tab.dataset.target;
+          apply();
+        });
+      });
+      (mq.addEventListener ? mq.addEventListener('change', apply) : mq.addListener(apply));
+      apply();
+    })();
+
+    // ── REVIEWS: SHOW ALL ──
+    (function() {
+      var btn = document.getElementById('moreReviews');
+      var hiddenRows = document.querySelectorAll('#reviewsGrid .review-row[hidden]');
+      var total = document.querySelectorAll('#reviewsGrid .review-row').length;
+      var expanded = false;
+      btn.textContent = 'Show all ' + total + ' reviews';
+      btn.addEventListener('click', function() {
+        expanded = !expanded;
+        hiddenRows.forEach(function(r) { r.hidden = !expanded; });
+        btn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+        btn.textContent = expanded ? 'Show fewer reviews' : 'Show all ' + total + ' reviews';
       });
     })();
 
-    // ── REVIEWS / FAQ ACCORDIONS ──
+    // ── FAQ ──
+    document.querySelectorAll('.faq-item .faq-q').forEach(function(q) {
+      var a = q.nextElementSibling;
+      var icon = q.querySelector('.faq-q-icon');
+      q.addEventListener('click', function() {
+        var isOpen = a.classList.toggle('open');
+        q.classList.toggle('open-q', isOpen);
+        q.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        icon.classList.toggle('open', isOpen);
+      });
+    });
+
+    // ── PRICING ──
+    // Values live in price.js (PRICES). The hardcoded prices in the markup are
+    // the fallback, so if price.js ever fails to load nothing disappears.
     (function() {
-      var reviewsToggle = document.getElementById('reviewsToggle');
-      var reviewsBody = document.getElementById('reviewsBody');
-      var reviewsChevron = document.getElementById('reviewsChevron');
-      reviewsToggle.addEventListener('click', function() {
-        var open = reviewsBody.classList.toggle('open');
-        reviewsBody.style.display = open ? 'block' : 'none';
-        reviewsChevron.classList.toggle('open', open);
-      });
-
-      var faqToggle = document.getElementById('faqToggle');
-      var faqBody = document.getElementById('faqBody');
-      var faqChevron = document.getElementById('faqChevron');
-      faqToggle.addEventListener('click', function() {
-        var isHidden = faqBody.style.display === 'none';
-        faqBody.style.display = isHidden ? 'block' : 'none';
-        faqChevron.classList.toggle('open', isHidden);
-      });
-
-      document.querySelectorAll('.faq-item .faq-q').forEach(function(q) {
-        var a = q.nextElementSibling;
-        var icon = q.querySelector('.faq-q-icon');
-        q.addEventListener('click', function() {
-          var isOpen = a.classList.toggle('open');
-          q.classList.toggle('open-q', isOpen);
-          icon.classList.toggle('open', isOpen);
+      if (typeof PRICES === 'undefined') return;
+      // [data-price] rather than an id: the price appears twice now, in the
+      // tier cards at the top and in the closing CTA after the FAQ.
+      [['basic', PRICES.basic], ['pro', PRICES.pro], ['proPlus', PRICES.proPlus]].forEach(function(pair) {
+        if (!pair[1]) return;
+        document.querySelectorAll('[data-price="' + pair[0] + '"]').forEach(function(el) {
+          el.textContent = pair[1].intro + ' ';
+          var orig = document.createElement('span');
+          orig.className = 'tier-price-orig';
+          orig.textContent = pair[1].orig;
+          el.appendChild(orig);
         });
       });
     })();
+
+    // ── FREE TRIAL ──
+    // Reads TRIAL (trial.js) and fills the block at the bottom of the page.
+    // It ships hidden, so `on: false` in trial.js — or no trial.js at all —
+    // means this returns early and the page shows no trial anywhere.
+    (function() {
+      if (typeof TRIAL === 'undefined' || !TRIAL.on) return;
+      var strip = document.getElementById('trialStrip');
+      if (!strip) return;
+
+      document.getElementById('trialKicker').textContent = TRIAL.kicker || 'Free trial';
+      document.getElementById('trialTitle').textContent = TRIAL.title || 'Free trial';
+      document.getElementById('trialCopy').textContent = TRIAL.line || '';
+
+      var btn = document.getElementById('trialBtn');
+      var count = document.getElementById('trialCount');
+      var countTime = document.getElementById('trialCountTime');
+
+      // The button in its open state: live if there is a URL to send people
+      // to, greyed and honest about it if there is not.
+      function openTrial() {
+        count.hidden = true;
+        if (TRIAL.url) {
+          btn.href = TRIAL.url;
+          btn.target = '_blank';
+          btn.rel = 'noopener noreferrer';
+          btn.removeAttribute('aria-disabled');
+          btn.classList.remove('is-soon');
+          btn.textContent = 'Get the free trial';
+        } else {
+          btn.textContent = 'Free trial · link coming soon';
+        }
+      }
+
+      // ── COUNTDOWN ──
+      // A release time in the future holds the button shut and runs the clock
+      // next to it; when the clock runs out the button opens itself, so 3pm
+      // Sunday needs no deploy. A missing, malformed or past releaseAt just
+      // falls through to the open state, which is the old behaviour exactly.
+      var releaseAt = TRIAL.releaseAt ? Date.parse(TRIAL.releaseAt) : NaN;
+
+      if (!isFinite(releaseAt) || releaseAt - Date.now() <= 0) {
+        openTrial();
+      } else {
+        // Label the button with the actual moment, in Eastern time, whatever
+        // zone the reader happens to be in. Older engines without named time
+        // zones fall back to something plainer rather than a wrong hour.
+        var opensLabel = 'Free trial · opens soon';
+        try {
+          opensLabel = 'Opens ' + new Date(releaseAt).toLocaleString('en-US', {
+            timeZone: 'America/New_York',
+            weekday: 'short', hour: 'numeric', minute: '2-digit'
+          }).replace(',', '') + ' ET';
+        } catch (e) { /* keep the fallback */ }
+        btn.textContent = opensLabel;
+
+        var pad = function(n) { return (n < 10 ? '0' : '') + n; };
+        var timer = setInterval(tick, 1000);
+        tick();
+
+        function tick() {
+          var left = releaseAt - Date.now();
+          if (left <= 0) {
+            clearInterval(timer);
+            openTrial();
+            return;
+          }
+          var s = Math.floor(left / 1000);
+          var d = Math.floor(s / 86400);
+          var h = Math.floor(s % 86400 / 3600);
+          var m = Math.floor(s % 3600 / 60);
+          var parts = [];
+          // Days only once there is a day to show, so the row stays short.
+          if (d) parts.push(d + '<span class="u">d</span>');
+          parts.push(pad(h) + '<span class="u">h</span>');
+          parts.push(pad(m) + '<span class="u">m</span>');
+          parts.push(pad(s % 60) + '<span class="u">s</span>');
+          countTime.innerHTML = parts.join(' ');
+          count.hidden = false;
+        }
+      }
+
+      var foot = document.getElementById('trialFoot');
+      if (TRIAL.foot) foot.textContent = TRIAL.foot;
+      else foot.hidden = true;
+
+      strip.hidden = false;
+    })();
+
+    // ── WALKTHROUGH BUTTON ──
+    // Goes live the moment DOWNLOADS.walkthrough (downloads.js) holds a URL.
+    // Until then it stays in its greyed "coming soon" state.
+    (function() {
+      var btn = document.getElementById('walkthroughBtn');
+      if (!btn || typeof DOWNLOADS === 'undefined' || !DOWNLOADS.walkthrough) return;
+      btn.href = DOWNLOADS.walkthrough;
+      btn.target = '_blank';
+      btn.rel = 'noopener noreferrer';
+      btn.removeAttribute('aria-disabled');
+      btn.classList.remove('is-soon');
+      document.getElementById('walkthroughLabel').textContent = 'Watch the walkthrough';
+    })();
+
+    // ── VERSION / WINDOWS NOTICE ──
+    (function() {
+      document.getElementById('heroVersion').textContent = 'v' + APP_VERSION;
+      var note = document.getElementById('windowsDevNote');
+      // Only shown once the Windows build has actually fallen behind Mac.
+      if (note && !isVersionAtLeast(WINDOWS_VERSION, APP_VERSION)) {
+        document.getElementById('windowsVersion').textContent = WINDOWS_VERSION;
+        note.style.display = '';
+      }
+    })();
+
   </script>
-
-  <script>
-    document.getElementById('basicVersion').textContent = 'v' + APP_VERSION;
-    document.getElementById('proVersion').textContent = 'v' + APP_VERSION;
-    document.getElementById('proPlusVersion').textContent = 'v' + APP_VERSION;
-
-    var windowsDevNote = document.getElementById('windowsDevNote');
-    if (windowsDevNote && isVersionAtLeast(APP_VERSION, WINDOWS_STALE_THRESHOLD)) {
-      document.getElementById('windowsFrozenVersion').textContent = WINDOWS_FROZEN_VERSION;
-      windowsDevNote.style.display = '';
+  <script type="application/ld+json" id="structuredData">
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Selecta Tool",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "macOS Big Sur or later (Intel & Apple Silicon), Windows 10, Windows 11",
+      "url": "https://selectahub.com/selectatool.html",
+      "image": "https://selectahub.com/og-social-card.png",
+      "description": "DJ library management for Serato DJ Pro: build and export crates, scan folders, find and resolve duplicates, repair broken file links, edit tags and back up your library.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Juggernaut Music Group",
+        "url": "https://selectahub.com"
+      },
+      "offers": [
+        {
+          "@type": "Offer",
+          "name": "Selecta Tool",
+          "price": "29.99",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock",
+          "url": "https://juggernautmusic.gumroad.com/l/selectatool"
+        },
+        {
+          "@type": "Offer",
+          "name": "Selecta Tool Pro",
+          "price": "54.99",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock",
+          "url": "https://juggernautmusic.gumroad.com/l/selectatoolpro"
+        },
+        {
+          "@type": "Offer",
+          "name": "Selecta Tool Pro Plus",
+          "price": "144.99",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock",
+          "url": "https://juggernautmusic.gumroad.com/l/toolproplus"
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is Selecta Tool?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Selecta Tool is a DJ library management app built for Serato DJ Pro. It lets you build and export crates, scan folders, find duplicates, preview tracks, and much more, all outside of Serato. Available for Mac (Intel & Apple Silicon) and Windows 10/11."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What's the difference between Basic and Pro?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Basic covers the core workflow: crate building, scanning, duplicate finding, track preview, and exporting. Pro adds power-user features: Library Backup & Restore, File Doctor, Tag Editor, Library Snapshots, Cue Studio, the Sampler, the Gig Desk for bookings and invoicing, and more. Both tiers ship under the same installer."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is Pro Plus and who is it for?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Pro Plus includes everything in Basic and Pro, the Gig Desk included on every seat, plus a 3-seat license: install on up to 3 machines or share with up to 3 users. It also adds seat revoke & transfer (up to 3× within 30 days), the ability to purchase extra seats at the intro price for up to 60 days, WhatsApp & SMS direct support, exclusive special genre crates, a Sound FX bundle, and early beta access. It's built for DJs who work across multiple setups, run a sound system, or want the best value across a crew. Pro Plus is available on both Mac and Windows."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the Gig Desk?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The Gig Desk is a Pro and Pro Plus tab that handles the business side of DJing from inside Selecta Tool. Log your bookings, then raise quotes, invoices, receipts and performance agreements against them, branded with your logo, accent colour and social handles in one of four print styles. It handles multiple currencies (USD, CAD, GBP, EUR, JMD, TTD, EC$, CI$ or your own), one tax rate plus two labelled extra charges, saved clients, line-ups that credit each performer, and double-booking warnings. The Money view tracks collected, expenses and net profit by month and currency, including cash taken with no paperwork, and exports a financial report PDF or a CSV. Documents are numbered only when you issue them, emails open in your own mail app, and everything is stored on your machine in a .selgigs file you can back up or move. The Gig Desk never touches your Serato library."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is it a subscription or a one-time purchase?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "One-time purchase. Pay once, own it forever. No recurring fees, no expiry."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I receive my license key after purchasing?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Your license key is delivered instantly via Gumroad to your email after checkout. Check your spam folder if it doesn't arrive within a few minutes. For direct purchases, the key is sent manually, usually within the same day."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I upgrade from Basic to Pro later?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Purchase Pro at any time and enter your Pro license key in the app's Settings, no reinstall needed. Your existing crates and library data stay intact."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does it work with Serato DJ Lite?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Selecta Tool is built and tested for Serato DJ Pro. Serato DJ Lite uses the same library format so basic crate operations may work, but full compatibility is only guaranteed with Serato DJ Pro."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Will my Serato library be affected if something goes wrong?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Selecta Tool writes to the standard Serato database format. We recommend using the Library Backup feature (Pro) before making large changes. Basic users can export a tracklist TXT before any major operation as a reference."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is your refund policy?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "All sales are final. Due to the digital nature of the product, we do not offer refunds. If you have any issues or questions before purchasing, reach out to us at info@selectahub.com and we'll be happy to help."
+          }
+        }
+      ]
     }
+  ]
   </script>
-
+  <script>
+    (function() {
+      if (typeof PRICES === 'undefined') return;
+      var node = document.getElementById('structuredData');
+      if (!node) return;
+      try {
+        var data = JSON.parse(node.textContent);
+        var offers = data[0] && data[0].offers;
+        if (!offers || offers.length < 3) return;
+        offers[0].price = PRICES.basic.intro.replace('$', '');
+        offers[1].price = PRICES.pro.intro.replace('$', '');
+        offers[2].price = PRICES.proPlus.intro.replace('$', '');
+        node.textContent = JSON.stringify(data);
+      } catch (error) {}
+    })();
+  </script>
 </body>
 </html>
