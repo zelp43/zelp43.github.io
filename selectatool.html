@@ -152,8 +152,10 @@
     /* ── WALKTHROUGH BUTTON ──
        Points at DOWNLOADS.walkthrough (downloads.js). While that is empty the
        button renders in its .is-soon state: greyed, not clickable, labelled
-       "Coming soon". Paste the URL in and it goes live with no markup change. */
-    .walkthrough-row { margin-top: 26px; }
+       "Coming soon". Paste the URL in and it goes live with no markup change.
+       It sits low on the page, between licensing and the band, for exactly as
+       long as that URL is empty — see the markup for where it goes back to. */
+    .walkthrough-row { margin-top: 34px; }
     .btn-walkthrough {
       display: inline-flex; align-items: center; gap: 12px; text-decoration: none;
       padding: 9px 20px 9px 11px; border-radius: 999px;
@@ -179,12 +181,14 @@
        Every value comes from TRIAL (trial.js). The markup ships `hidden` and
        only the script unhides it, so with trial.js set to off — or missing —
        nothing here renders and the page falls back to exactly what it was.
-       Deliberately quiet: it sits at the foot of the page, under licensing. */
-    .trial { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 24px; align-items: center; border-bottom: 1px solid var(--border); padding: 20px 0; }
+       It leads the page while the trial is open: straight under the hero,
+       ruled top and bottom so it reads as its own strip rather than as a
+       stray line of the hero. */
+    .trial { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 24px; align-items: center; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 22px 0; margin-top: 12px; }
     .trial[hidden] { display: none; }
     .trial-kicker { display: block; font-size: 0.64rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--green); margin-bottom: 7px; }
-    .trial-title { font-size: 0.95rem; font-weight: 800; letter-spacing: -0.01em; color: var(--text); line-height: 1.25; }
-    .trial-copy { font-size: 0.8rem; color: var(--muted); line-height: 1.6; max-width: 520px; margin-top: 5px; }
+    .trial-title { font-size: 1.08rem; font-weight: 800; letter-spacing: -0.01em; color: var(--text); line-height: 1.25; }
+    .trial-copy { font-size: 0.83rem; color: var(--muted); line-height: 1.6; max-width: 520px; margin-top: 6px; }
     .trial-side { display: flex; flex-direction: column; align-items: flex-end; gap: 7px; }
     .btn-trial {
       display: inline-flex; align-items: center; justify-content: center;
@@ -519,11 +523,29 @@
           <span>Windows 10 / 11</span>
         </div>
       </div>
-      <div class="walkthrough-row" data-hero-fade>
-        <a class="btn-walkthrough is-soon" id="walkthroughBtn" href="#" aria-disabled="true">
-          <span class="play" aria-hidden="true"><svg viewBox="0 0 10 12" xmlns="http://www.w3.org/2000/svg"><path d="M0 0l10 6-10 6z"/></svg></span>
-          <span id="walkthroughLabel">Walkthrough <span class="label-note">&middot; coming soon</span></span>
-        </a>
+    </section>
+
+    <!-- ── FREE TRIAL ──
+         Driven entirely by TRIAL in trial.js. Ships hidden and stays hidden
+         unless TRIAL.on is true, so a closed trial — or a missing trial.js —
+         leaves no trace of it on the page. Set `on: false` in trial.js to pull
+         it down; nothing here needs editing or deleting.
+         Up at the top while the trial is open, so it is the first thing after
+         the hero and ahead of the prices. -->
+    <section class="trial" id="trialStrip" hidden aria-labelledby="trialTitle" data-hero-fade>
+      <div class="trial-main">
+        <span class="trial-kicker" id="trialKicker"></span>
+        <h2 class="trial-title" id="trialTitle"></h2>
+        <p class="trial-copy" id="trialCopy"></p>
+      </div>
+      <div class="trial-side">
+        <!-- Shown only while TRIAL.releaseAt is still ahead of us. -->
+        <p class="trial-count" id="trialCount" hidden>
+          <span class="trial-count-label">Opens in</span>
+          <span class="trial-count-time" id="trialCountTime"></span>
+        </p>
+        <a class="btn-trial is-soon" id="trialBtn" href="#" aria-disabled="true">Free trial</a>
+        <span class="trial-foot" id="trialFoot"></span>
       </div>
     </section>
 
@@ -1262,28 +1284,19 @@
       </div>
     </div>
 
-    <!-- ── FREE TRIAL ──
-         Driven entirely by TRIAL in trial.js. Ships hidden and stays hidden
-         unless TRIAL.on is true, so a closed trial — or a missing trial.js —
-         leaves no trace of it on the page. Set `on: false` in trial.js to pull
-         it down; nothing here needs editing or deleting.
-         It sits down here deliberately: nothing above points at it. -->
-    <section class="trial" id="trialStrip" hidden aria-labelledby="trialTitle">
-      <div class="trial-main">
-        <span class="trial-kicker" id="trialKicker"></span>
-        <h2 class="trial-title" id="trialTitle"></h2>
-        <p class="trial-copy" id="trialCopy"></p>
-      </div>
-      <div class="trial-side">
-        <!-- Shown only while TRIAL.releaseAt is still ahead of us. -->
-        <p class="trial-count" id="trialCount" hidden>
-          <span class="trial-count-label">Opens in</span>
-          <span class="trial-count-time" id="trialCountTime"></span>
-        </p>
-        <a class="btn-trial is-soon" id="trialBtn" href="#" aria-disabled="true">Free trial</a>
-        <span class="trial-foot" id="trialFoot"></span>
-      </div>
-    </section>
+    <!-- ── WALKTHROUGH ──
+         Parked down here while there is no video: DOWNLOADS.walkthrough
+         (downloads.js) is empty, so the button renders greyed and labelled
+         "coming soon", and a dead button has no business in the hero. Once
+         the URL is in and it reads "Watch the walkthrough", move this block
+         back up under .compat-row in the hero and swap data-reveal for
+         data-hero-fade. -->
+    <div class="walkthrough-row" data-reveal>
+      <a class="btn-walkthrough is-soon" id="walkthroughBtn" href="#" aria-disabled="true">
+        <span class="play" aria-hidden="true"><svg viewBox="0 0 10 12" xmlns="http://www.w3.org/2000/svg"><path d="M0 0l10 6-10 6z"/></svg></span>
+        <span id="walkthroughLabel">Walkthrough <span class="label-note">&middot; coming soon</span></span>
+      </a>
+    </div>
 
     <!-- ── BAND ── -->
     <div class="band">
@@ -1493,7 +1506,7 @@
     })();
 
     // ── FREE TRIAL ──
-    // Reads TRIAL (trial.js) and fills the block at the bottom of the page.
+    // Reads TRIAL (trial.js) and fills the block under the hero.
     // It ships hidden, so `on: false` in trial.js — or no trial.js at all —
     // means this returns early and the page shows no trial anywhere.
     (function() {
