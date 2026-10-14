@@ -130,6 +130,7 @@ nav { display: flex; gap: 30px; }
 .art-figure figcaption {
   margin-top: 12px; font-size: 0.72rem; letter-spacing: 1px; text-transform: uppercase; color: var(--muted);
 }
+.art-figure figcaption a:hover { color: var(--green); }
 @media (max-width: 640px) {
   .art-figure .frame { aspect-ratio: 16 / 9; }
   .art-figure .frame img { width: 34%; }

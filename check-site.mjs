@@ -10,7 +10,7 @@ const publicPages = [
   'terms.html',
   'news-selecta-tool.html',
   'news-serato-5-beta.html',
-  'news-kartel-mavado-tour.html',
+  'news-popcaan-us-visa.html',
   'news-selecta-crates.html'
 ];
 

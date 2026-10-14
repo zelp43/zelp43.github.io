@@ -21,3 +21,15 @@ const DOWNLOADS = {
   // button renders greyed and labelled "Coming soon", so nothing 404s.
   walkthrough: '',
 };
+
+// ── FIX BUILDS (toolfix.html) ──
+// Interim builds sent to people who reported bugs. Hosted on Google Drive, not
+// R2. The Mac link is one .zip holding both the Apple Silicon and Intel builds;
+// while it is an empty string the row renders greyed as "Link coming soon".
+// There is no Windows fix build: that row is fixed as "Unavailable" in the page.
+// README / EULA / Manual on that page still come from DOWNLOADS above.
+// No version number is shown on the page: people read it off the lower right
+// of the Selecta Tool home screen or from the file name.
+const FIX_DOWNLOADS = {
+  mac: 'https://drive.google.com/drive/home?dmr=1&ec=wgc-drive-%5Bmodule%5D-goto',
+};
