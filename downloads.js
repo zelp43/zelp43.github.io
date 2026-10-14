@@ -31,5 +31,5 @@ const DOWNLOADS = {
 // No version number is shown on the page: people read it off the lower right
 // of the Selecta Tool home screen or from the file name.
 const FIX_DOWNLOADS = {
-  mac: 'https://drive.google.com/drive/home?dmr=1&ec=wgc-drive-%5Bmodule%5D-goto',
+  mac: 'https://drive.google.com/file/d/1G1OSqjElVVZcr7-bFROdkr7Q-w8tJIZG/view?usp=share_link',
 };
