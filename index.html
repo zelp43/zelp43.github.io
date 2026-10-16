@@ -337,7 +337,6 @@
     .prod-card-desc a { color: inherit; text-decoration: underline; }
     .prod-card.locked { opacity: 0.5; pointer-events: none; }
 
-    .rule-thick { height: 2px; background: var(--text); }
     .section-label { display: flex; align-items: baseline; justify-content: center; text-align: center; gap: 16px; padding: 40px 0 26px; }
     .section-label h2 { font-family: 'Hepta Slab', Georgia, serif; font-size: 0.78rem; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; color: var(--text); }
 
@@ -446,72 +445,143 @@
     }
 
     /* ── LATEST NEWS ──
-       Soft card, not a table: the card carries its own surface and padding,
-       the image sits inset inside it, and the label sits above the headline on
-       the same left edge. Headlines use Hepta Slab so the news block reads
-       editorial rather than shouting like the product type. */
+       A full-width slider in the shape of a streaming-site hero: one story per
+       slide, the photo filling the frame, a heavy uppercase headline and a
+       pill button bottom-left, dots centred underneath. It moves on its own
+       every 5 seconds; people can swipe/drag it or tap a dot. The headline
+       uses the product display type (Inter 900, uppercase) because the slide
+       is a banner, not a story page — the articles keep Hepta Slab. */
     #news { scroll-margin-top: 88px; }
     .news-head { display: flex; align-items: center; gap: 20px; padding: 52px 0 28px; }
     .news-head::before, .news-head::after { content: ''; flex: 1; height: 1px; background: var(--border); }
     .news-head h2 { font-family: 'Hepta Slab', Georgia, serif; font-size: 0.8rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
 
-    .news-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; }
-    @media (max-width: 900px) { .news-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 620px) { .news-grid { grid-template-columns: 1fr; } }
+    .news-slider {
+      position: relative; overflow: hidden;
+      height: clamp(420px, 46vw, 540px);
+      border-radius: 20px; border: 1px solid rgba(255,255,255,0.07);
+      background: #0b0b0b;
+      /* Vertical swipes still scroll the page; horizontal ones move slides. */
+      touch-action: pan-y;
+      user-select: none; -webkit-user-select: none;
+    }
+    .news-track {
+      display: flex; height: 100%;
+      transform: translate3d(calc(var(--ns-index, 0) * -100% + var(--ns-drag, 0px)), 0, 0);
+      transition: transform 0.7s cubic-bezier(.22,1,.36,1);
+      will-change: transform;
+    }
+    .news-slider.is-dragging .news-track { transition: none; }
+    .news-slider.is-dragging { cursor: grabbing; }
 
-    .news-card {
-      display: flex; flex-direction: column; padding: 14px 14px 26px;
-      min-width: 0;
-      border-radius: 18px; border: 1px solid rgba(255,255,255,0.07);
-      background: rgba(255,255,255,0.022);
+    .news-slide {
+      position: relative; flex: 0 0 100%; height: 100%; overflow: hidden;
+      display: flex; align-items: flex-end;
       text-decoration: none; color: var(--text);
-      transition: background 0.22s ease, border-color 0.22s ease, transform 0.22s ease;
+      -webkit-user-drag: none;
     }
-    .news-card:hover { background: rgba(255,255,255,0.045); border-color: rgba(255,255,255,0.14); transform: translateY(-3px); }
-
-    .news-art {
-      display: grid; place-items: center; aspect-ratio: 4 / 3;
-      border-radius: 12px; overflow: hidden;
-      background: #0e0e0e;
+    .news-bg {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; object-position: var(--ns-pos, center);
+      transform: scale(1.06); transition: transform 6s ease-out;
+      -webkit-user-drag: none; pointer-events: none;
     }
-    /* Placeholder logos sit centred with breathing room. A real photo dropped
-       in here should fill the frame instead — give it class="fill". */
-    .news-art img { width: 54%; max-width: 168px; height: auto; object-fit: contain; }
-    .news-art img.fill { width: 100%; max-width: none; height: 100%; object-fit: cover; }
-    .news-art.is-serato img { width: 36%; max-width: 112px; }
-    /* A tall photo in a landscape frame crops from the middle by default,
-       which is exactly where the faces aren't — it takes the heads off. Hold
-       a portrait shot to the top instead. Add is-portrait to the .news-art of
-       any card whose picture is taller than it is wide. */
-    .news-art.is-portrait img.fill { object-position: center top; }
-
-    .news-date {
-      margin: 22px 4px 9px;
-      font-size: 0.72rem; font-weight: 500; letter-spacing: 1.6px; text-transform: uppercase; color: var(--muted);
+    .news-slide.is-active .news-bg { transform: scale(1); }
+    /* Pictures that aren't landscape photos (a portrait, artwork with its own
+       lettering) sit on the right half and fade into black, so the headline
+       never lands on a face or on the artwork's text. */
+    .news-slide.is-right .news-bg {
+      left: auto; right: 0; width: 66%;
+      -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 34%);
+              mask-image: linear-gradient(90deg, transparent 0%, #000 34%);
+    }
+    /* Artwork with its own lettering: shown whole on the right, and the copy
+       column narrows so the two never overlap. */
+    .news-slide.is-art .news-bg {
+      width: 54%; object-fit: contain; object-position: right center;
+      -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 16%);
+              mask-image: linear-gradient(90deg, transparent 0%, #000 16%);
+    }
+    .news-slide.is-art .news-copy { max-width: min(620px, 46%); }
+    .news-shade {
+      position: absolute; inset: 0; pointer-events: none;
+      background:
+        linear-gradient(90deg, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.5) 38%, rgba(0,0,0,0) 70%),
+        linear-gradient(0deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 40%);
+    }
+    .news-copy {
+      position: relative; z-index: 1;
+      max-width: 620px; padding: 0 clamp(26px, 4vw, 46px) clamp(58px, 6vw, 72px);
     }
     .news-title {
-      margin: 0 4px;
-      font-family: 'Hepta Slab', Georgia, serif;
-      font-size: 1.32rem; font-weight: 600; letter-spacing: -0.005em; line-height: 1.3;
-      color: var(--text); transition: color 0.18s ease; overflow-wrap: anywhere;
+      font-size: clamp(2rem, 4.6vw, 3.9rem); font-weight: 900; letter-spacing: -0.04em; line-height: 0.94;
+      text-transform: uppercase; color: var(--text);
+      filter: drop-shadow(0 3px 16px rgba(0,0,0,0.5));
+      overflow-wrap: break-word;
     }
-    .news-card:hover .news-title { color: var(--green); }
-    /* Optional one-liner under a title, for a card that needs to say what
-       landed rather than just that something did. Cards stretch to the tallest
-       in the row, so keep it to a line or two. */
     .news-excerpt {
-      margin: 9px 4px 0;
-      font-size: 0.84rem; font-weight: 500; line-height: 1.55; color: var(--muted);
+      max-width: 470px; margin-top: 14px;
+      font-size: clamp(0.95rem, 1.4vw, 1.1rem); font-weight: 600; line-height: 1.4; color: #ececec;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.6);
     }
-    @media (max-width: 620px) {
+    .news-cta {
+      display: inline-flex; align-items: center; gap: 8px; margin-top: 24px;
+      padding: 12px 24px; border-radius: 999px;
+      background: var(--text); color: #0a0a0a;
+      font-size: 0.82rem; font-weight: 800; letter-spacing: 0.2px;
+      transition: background 0.18s ease, color 0.18s ease;
+    }
+    .news-cta .arrow { transition: transform 0.2s ease; }
+    .news-slide:hover .news-cta { background: var(--green); color: #052b0e; }
+    .news-slide:hover .news-cta .arrow { transform: translateX(4px); }
+    .news-slide:focus-visible { outline: none; }
+    .news-slide:focus-visible .news-cta { outline: 2px solid var(--green); outline-offset: 3px; }
+
+    .news-dots {
+      position: absolute; left: 0; right: 0; bottom: 14px; z-index: 2;
+      display: flex; justify-content: center; gap: 2px;
+    }
+    /* The visible dot is 11px; the button around it is 28px so it is easy to
+       hit with a thumb. */
+    .news-dot {
+      display: grid; place-items: center; width: 28px; height: 28px;
+      padding: 0; border: 0; background: none; cursor: pointer;
+    }
+    .news-dot::before {
+      content: ''; width: 11px; height: 11px; border-radius: 999px;
+      border: 1.5px solid rgba(255,255,255,0.85); background: transparent;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+    .news-dot:hover::before { transform: scale(1.15); }
+    .news-dot[aria-current="true"]::before { background: #fff; }
+    .news-dot:focus-visible { outline: 2px solid var(--green); outline-offset: -2px; border-radius: 999px; }
+
+    @media (max-width: 640px) {
       .news-head { padding: 40px 0 22px; }
-      .news-art { aspect-ratio: 16 / 9; }
-      /* 16:9 is too shallow a band to hold a portrait photo — keep those at
-         4:3 on phones so the whole subject still fits. */
-      .news-art.is-portrait { aspect-ratio: 4 / 3; }
-      .news-art img { width: 34%; }
-      .news-art.is-serato img { width: 22%; }
-      .news-title { font-size: 1.18rem; }
+      /* Phones get a tall card: the picture fills the top, the copy sits on a
+         dark fade at the bottom, and the dots sit under the button. */
+      .news-slider { height: clamp(470px, 132vw, 600px); border-radius: 18px; }
+      .news-slide .news-bg { object-position: var(--ns-pos-m, var(--ns-pos, center)); }
+      .news-slide.is-right .news-bg {
+        width: 100%; height: 64%; bottom: auto;
+        -webkit-mask-image: linear-gradient(180deg, #000 62%, transparent 100%);
+                mask-image: linear-gradient(180deg, #000 62%, transparent 100%);
+      }
+      /* Artwork with its own lettering is shown whole rather than cropped. */
+      /* Size the frame to the artwork itself so the fade runs off its real
+         bottom edge instead of leaving a hard line. */
+      .news-slide.is-art .news-bg { height: auto; aspect-ratio: 3 / 2; object-fit: cover; }
+      .news-slide.is-art .news-copy { max-width: none; }
+      .news-shade { background: linear-gradient(180deg, rgba(0,0,0,0) 30%, rgba(0,0,0,0.62) 56%, rgba(0,0,0,0.92) 100%); }
+      .news-copy { padding: 0 22px 54px; }
+      .news-title { font-size: clamp(1.9rem, 9.4vw, 2.6rem); }
+      .news-excerpt { font-size: 0.92rem; margin-top: 10px; }
+      .news-cta { margin-top: 18px; padding: 11px 22px; }
+      .news-dots { bottom: 10px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .news-track, .news-bg { transition: none; }
+      .news-bg, .news-slide.is-active .news-bg { transform: none; }
     }
 
     /* ── ABOUT / COMMUNITY BAND ── */
@@ -641,55 +711,70 @@
   </section>
 
   <div class="wrap">
-    <div class="rule-thick"></div>
 
 
     <!-- ══ LATEST NEWS ══════════════════════════════════════════════════════
-         Exactly three items, newest first — that is the whole rule. When
-         something new ships, add its card at the top and delete the bottom
-         one, so the row always holds three. Every card needs a matching
-         article page (news-*.html) and a piece of art in .news-art; the art
-         is framed 4:3 (16:9 on phones) and centred, so a transparent logo
-         works as a stand-in until real artwork exists.
+         A slider, newest story first. Keep it to three or four slides: add a
+         new <a class="news-slide"> at the top and drop the oldest. Every slide
+         needs a matching article page (news-*.html) and a real photo in
+         .news-bg — the photo fills the frame, so a bare logo won't work here.
+         The dots are built by the script, so adding a slide is just markup.
 
-         Card one is the standing "Selecta Tool is out" slot. Its version
+         Per-slide framing:
+           style="--ns-pos: …"    object-position for the photo (desktop)
+           style="--ns-pos-m: …"  the same for phones, where the frame is tall
+           class="is-right"       for a portrait or artwork with its own text:
+                                  the picture sits on the right and fades out,
+                                  so the headline never covers it
+           class="is-art"         with is-right, for artwork whose lettering
+                                  must stay whole: it's fitted, not cropped,
+                                  and the headline column narrows to clear it
+
+         Slide one is the standing "Selecta Tool is out" slot. Its version
          number is read from APP_VERSION in version.js, so bumping the release
-         there updates this card, the article page, and the tool page in one
+         there updates this slide, the article page, and the tool page in one
          edit — do not hard-code a number into it. The headline feature of the
-         release goes in the optional .news-excerpt line under the title; swap
-         that line when the next version ships.
+         release goes in its .news-excerpt line; swap that when the next
+         version ships.
     ══════════════════════════════════════════════════════════════════════ -->
     <div class="news-head" id="news" data-animate>
       <h2>Featured</h2>
     </div>
-    <div class="news-grid">
+    <section class="news-slider" id="newsSlider" aria-roledescription="carousel" aria-label="Featured news" data-animate>
+      <div class="news-track" id="newsTrack" aria-live="off">
 
-      <a href="news-selecta-tool.html" class="news-card" data-animate>
-        <div class="news-art">
-          <!-- Placeholder: the Selecta Tool mark. Swap in release artwork when
-               it's ready and keep the same 4:3 framing. -->
-          <img src="st2logo-144.png" alt="Selecta Tool" width="144" height="144" loading="lazy" decoding="async"/>
-        </div>
-        <h3 class="news-title">Selecta Tool <span data-app-version>2.2</span> Is Out</h3>
-        <p class="news-excerpt">Adds the Gig Desk &mdash; bookings, invoices and money tracking on Pro and Pro Plus.</p>
-      </a>
+        <a href="news-selecta-tool.html" class="news-slide" draggable="false" style="--ns-pos: center 34%; --ns-pos-m: 60% center;">
+          <img class="news-bg" src="selecta-tool-studio-hero.jpg" alt="" width="1448" height="1086" decoding="async" draggable="false"/>
+          <span class="news-shade"></span>
+          <div class="news-copy">
+            <h3 class="news-title">Selecta Tool <span data-app-version>2.2</span> Is Out</h3>
+            <p class="news-excerpt">Adds the Gig Desk: bookings, invoices and money tracking on Pro and Pro Plus.</p>
+            <span class="news-cta">Read more <span class="arrow">→</span></span>
+          </div>
+        </a>
 
-      <a href="news-serato-5-beta.html" class="news-card" data-animate>
-        <div class="news-art">
-          <img class="fill" src="serato-lucid-beatgrids.jpg" alt="Introducing Lucid Beatgrids in Serato DJ Pro 5.0" width="744" height="500" loading="lazy" decoding="async"/>
-        </div>
-        <h3 class="news-title">Serato DJ Pro 5.0 Beta Is Here</h3>
-        <p class="news-excerpt">Lucid Beatgrids rebuilds grid analysis for tracks that drift &mdash; open now in the 5.0 public beta.</p>
-      </a>
+        <a href="news-serato-5-beta.html" class="news-slide is-right is-art" draggable="false">
+          <img class="news-bg" src="serato-lucid-beatgrids.jpg" alt="Introducing Lucid Beatgrids in Serato DJ Pro 5.0" width="744" height="500" loading="lazy" decoding="async" draggable="false"/>
+          <span class="news-shade"></span>
+          <div class="news-copy">
+            <h3 class="news-title">Serato DJ Pro 5.0 Beta Is Here</h3>
+            <p class="news-excerpt">Lucid Beatgrids rebuilds grid analysis for tracks that drift. Open now in the 5.0 public beta.</p>
+            <span class="news-cta">Read more <span class="arrow">→</span></span>
+          </div>
+        </a>
 
-      <a href="news-popcaan-us-visa.html" class="news-card" data-animate>
-        <div class="news-art is-portrait">
-          <img class="fill" src="popcaan.jpg" alt="Popcaan on stage in a black cap" width="1200" height="900" loading="lazy" decoding="async"/>
-        </div>
-        <h3 class="news-title">Popcaan Finally Has His US Visa</h3>
-      </a>
+        <a href="news-popcaan-us-visa.html" class="news-slide is-right" draggable="false" style="--ns-pos: center 30%; --ns-pos-m: center 22%;">
+          <img class="news-bg" src="popcaan.jpg" alt="Popcaan on stage in a black cap" width="1200" height="900" loading="lazy" decoding="async" draggable="false"/>
+          <span class="news-shade"></span>
+          <div class="news-copy">
+            <h3 class="news-title">Popcaan Finally Has His US Visa</h3>
+            <span class="news-cta">Read more <span class="arrow">→</span></span>
+          </div>
+        </a>
 
-    </div>
+      </div>
+      <div class="news-dots" id="newsDots" role="group" aria-label="Choose a story"></div>
+    </section>
 
     <!-- SECONDARY PRODUCTS -->
     <div class="section-label" id="other-products" data-animate>
@@ -998,6 +1083,145 @@
       Array.prototype.forEach.call(document.querySelectorAll('[data-app-version]'), function(el) {
         el.textContent = APP_VERSION;
       });
+    })();
+
+    // ── NEWS: SLIDER ──
+    // Moves to the next story every 5 seconds and wraps back to the first.
+    // Swipe (touch) or drag (mouse) to move by hand, tap a dot to jump, or use
+    // the arrow keys once it has focus. It keeps moving while the mouse rests
+    // on it — the slider is big enough on desktop that a hover pause meant it
+    // almost never moved. It holds still mid-drag, while it has keyboard
+    // focus, while it's scrolled off screen or the tab is hidden, and doesn't
+    // auto-advance at all for people who ask for reduced motion.
+    (function() {
+      var slider = document.getElementById('newsSlider');
+      var track = document.getElementById('newsTrack');
+      var dotsWrap = document.getElementById('newsDots');
+      if (!slider || !track || !dotsWrap) return;
+      var slides = Array.prototype.slice.call(track.querySelectorAll('.news-slide'));
+      var count = slides.length;
+      if (!count) return;
+
+      var INTERVAL = 5000;
+      var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var index = 0;
+      var timer = null;
+      var focused = false, onScreen = true, dragging = false;
+
+      var dots = slides.map(function(slide, i) {
+        slide.setAttribute('role', 'group');
+        slide.setAttribute('aria-roledescription', 'slide');
+        slide.setAttribute('aria-label', (i + 1) + ' of ' + count);
+        var dot = document.createElement('button');
+        dot.type = 'button';
+        dot.className = 'news-dot';
+        dot.setAttribute('aria-label', 'Show story ' + (i + 1));
+        dot.addEventListener('click', function() { goTo(i, true); });
+        dotsWrap.appendChild(dot);
+        return dot;
+      });
+      if (count < 2) dotsWrap.hidden = true;
+
+      function render() {
+        track.style.setProperty('--ns-index', index);
+        slides.forEach(function(slide, i) {
+          var active = i === index;
+          slide.classList.toggle('is-active', active);
+          slide.setAttribute('aria-hidden', active ? 'false' : 'true');
+          slide.tabIndex = active ? 0 : -1;
+        });
+        dots.forEach(function(dot, i) {
+          dot.setAttribute('aria-current', i === index ? 'true' : 'false');
+        });
+      }
+      function goTo(i, byUser) {
+        index = (i + count) % count;
+        // Announce changes people make themselves, not the automatic ones.
+        track.setAttribute('aria-live', byUser ? 'polite' : 'off');
+        render();
+        schedule();
+      }
+      function schedule() {
+        clearTimeout(timer);
+        timer = null;
+        if (reduceMotion || count < 2 || focused || dragging || !onScreen || document.hidden) return;
+        timer = setTimeout(function() { goTo(index + 1, false); }, INTERVAL);
+      }
+
+      // Keyboard focus only: a mouse click on a dot also focuses it, and that
+      // shouldn't stop the slider until something else is clicked.
+      slider.addEventListener('focusin', function(e) {
+        var visible = true;
+        try { visible = e.target.matches(':focus-visible'); } catch (err) {}
+        if (visible) { focused = true; schedule(); }
+      });
+      slider.addEventListener('focusout', function(e) {
+        if (!slider.contains(e.relatedTarget)) { focused = false; schedule(); }
+      });
+      document.addEventListener('visibilitychange', schedule);
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(function(entries) {
+          onScreen = entries[0].isIntersecting;
+          schedule();
+        }, { threshold: 0.35 }).observe(slider);
+      }
+      slider.addEventListener('keydown', function(e) {
+        if (e.key === 'ArrowRight') { e.preventDefault(); goTo(index + 1, true); slides[index].focus({ preventScroll: true }); }
+        if (e.key === 'ArrowLeft')  { e.preventDefault(); goTo(index - 1, true); slides[index].focus({ preventScroll: true }); }
+      });
+
+      // ── Swipe / drag ──
+      // Decide the gesture's direction after a few pixels: mostly sideways
+      // moves the slider, mostly up/down is left to the page (touch-action:
+      // pan-y in the CSS). A drag that moved suppresses the link's click.
+      var startX = 0, startY = 0, dx = 0, startTime = 0, pointerId = null, axis = null, suppressClick = false;
+      slider.addEventListener('pointerdown', function(e) {
+        if (e.button !== 0 || e.target.closest('.news-dot')) return;
+        pointerId = e.pointerId;
+        startX = e.clientX; startY = e.clientY; dx = 0; axis = null;
+        startTime = Date.now();
+        suppressClick = false;
+      });
+      slider.addEventListener('pointermove', function(e) {
+        if (e.pointerId !== pointerId) return;
+        var mx = e.clientX - startX, my = e.clientY - startY;
+        if (!axis) {
+          if (Math.abs(mx) < 6 && Math.abs(my) < 6) return;
+          axis = Math.abs(mx) > Math.abs(my) ? 'x' : 'y';
+          if (axis === 'x') {
+            dragging = true;
+            suppressClick = true;
+            slider.classList.add('is-dragging');
+            try { slider.setPointerCapture(e.pointerId); } catch (err) {}
+            schedule();
+          }
+        }
+        if (axis !== 'x') return;
+        dx = mx;
+        track.style.setProperty('--ns-drag', dx + 'px');
+      });
+      function endDrag(e) {
+        if (e.pointerId !== pointerId) return;
+        pointerId = null;
+        if (!dragging) return;
+        dragging = false;
+        slider.classList.remove('is-dragging');
+        track.style.setProperty('--ns-drag', '0px');
+        var width = slider.clientWidth || 1;
+        var fast = Math.abs(dx) > 30 && (Date.now() - startTime) < 280;
+        if (dx < 0 && (fast || -dx > width * 0.18)) goTo(index + 1, true);
+        else if (dx > 0 && (fast || dx > width * 0.18)) goTo(index - 1, true);
+        else schedule();
+      }
+      slider.addEventListener('pointerup', endDrag);
+      slider.addEventListener('pointercancel', endDrag);
+      slider.addEventListener('click', function(e) {
+        if (suppressClick) { e.preventDefault(); e.stopPropagation(); suppressClick = false; }
+      }, true);
+      slider.addEventListener('dragstart', function(e) { e.preventDefault(); });
+
+      render();
+      schedule();
     })();
 
     // ── META PRICING ──

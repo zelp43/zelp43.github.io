@@ -18,7 +18,7 @@
   <meta name="twitter:description" content="Selecta Tool 2.2 is out now for Mac and Windows, adding the Gig Desk — bookings, quotes, invoices and money tracking on Pro and Pro Plus."/>
   <meta name="twitter:image" content="https://selectahub.com/og-social-card.png"/>
   <link rel="canonical" href="https://selectahub.com/news-selecta-tool.html"/>
-  <link href="https://fonts.googleapis.com/css2?family=Hepta+Slab:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="news.css"/>
   <link rel="stylesheet" href="site.css"/>
   <script src="site.js" defer></script>
@@ -57,7 +57,7 @@
 
     <main id="main-content" tabindex="-1">
 
-    <section class="art-hero">
+    <section class="art-hero" style="--hero-bg: url('selecta-tool-studio-hero.jpg'); --hero-pos: 62% 34%;">
       <a href="index.html#news" class="back-link"><span class="arrow">&larr;</span> Featured</a>
       <!-- Section only, deliberately no date: these pages sit up for months
            and a visible date just makes them look stale. -->
@@ -69,10 +69,9 @@
     </section>
 
     <figure class="art-figure">
-      <!-- Placeholder: the Selecta Tool mark. Drop a screenshot of the release
-           in here when you have one; the frame is flat and neutral so a real
-           image sits in it without fighting a background. -->
-      <div class="frame"><img src="st2logo-144.png" alt="Selecta Tool" width="144" height="144"/></div>
+      <!-- The studio photo, with the app on the monitor. Swap for a clean
+           screenshot of the release when there is one; keep class="fill". -->
+      <div class="frame"><img class="fill" src="selecta-tool-studio-hero.jpg" alt="Selecta Tool running on a studio monitor beside a DJ controller" width="1448" height="1086" style="object-position: 62% 34%;"/></div>
       <figcaption>Selecta Tool <span data-app-version>2.2</span> &mdash; Mac &amp; Windows</figcaption>
     </figure>
 
@@ -125,19 +124,23 @@
            Paired with the trial block at the top of selectatool.html, which
            is driven by trial.js. Deliberately carries no date: the link and
            the opening time live in trial.js alone, so there is only ever one
-           place to change them. If TRIAL.on is ever set to false, delete
-           this section too — otherwise it points at something that is gone.
+           place to change them. If TRIAL.on is ever set to false, comment
+           this section out too — otherwise it points at something that is
+           gone. It is commented out now (trial off); uncomment it when the
+           trial comes back.
            ──────────────────────────────────────────────────────────────── -->
+      <!--
       <div class="art-section">
         <h2>There is a free trial, briefly</h2>
         <p>Alongside this release there is a free trial, and it is a <strong>very limited</strong> one in both senses. It runs for a couple of hours, not days, and inside that window you get limited use of build crates, Live Library and Duplicate Finder. Everything else in the app stays locked.</p>
         <p>It is one-time, one machine, one email, and it is open for a limited period rather than as a standing part of the product. It is open now &mdash; the link is at the top of the <a href="selectatool.html#trialStrip">Selecta Tool page</a>, under the hero.</p>
       </div>
+      -->
 
     </div>
 
     <div class="more-label">
-      <h2>More Featured</h2>
+      <h2>More featured</h2>
     </div>
       <a href="news-serato-5-beta.html" class="more-row">
         <span>

@@ -1,10 +1,10 @@
 /* ──────────────────────────────────────────────────────────────────────────
    NEWS ARTICLES — shared by every news-*.html page.
 
-   Built on the same system as privacy.html / terms.html: a big uppercase
-   masthead, a 680px text column, and small letterspaced section labels sitting
-   on hairline rules. Flat surfaces throughout — no gradient fills, no glow
-   panels, no drop shadows. The rules and the type do the work.
+   Built on the product pages' system: Inter throughout, one heavy uppercase
+   headline over a soft blurred backdrop, sentence-case section headings, a
+   680px text column, white pill buttons. Flat surfaces — no gradients, no
+   glow, no drop shadows.
    ────────────────────────────────────────────────────────────────────────── */
 
 :root {
@@ -77,46 +77,60 @@ nav { display: flex; gap: 30px; }
 .mobile-link { font-size: 0.98rem; font-weight: 800; letter-spacing: -0.01em; color: var(--muted); text-decoration: none; padding: 11px 12px; border-radius: 10px; text-align: left; transition: background 0.18s ease, color 0.18s ease; }
 .mobile-link:hover, .mobile-link:focus-visible { background: rgba(255,255,255,0.05); color: var(--text); }
 
-/* ── MASTHEAD ── */
-.art-hero { padding: 44px 0 34px; border-bottom: 1px solid var(--border); }
+/* ── HERO ──
+   Same system as the product pages (selectatool.html and friends): a quiet
+   back link and section label, one heavy uppercase headline in Inter, a
+   muted lede, and the story's own picture pushed far into the background —
+   full-bleed, blurred, low opacity, fading to black. Each page sets that
+   picture with style="--hero-bg: url('…')" on .art-hero; leave it off and
+   the hero is plain black. */
+/* <main> sits inside .wrap here, so the wide backdrop is clipped at the
+   page instead (the same as the product pages). */
+body { overflow-x: hidden; }
+.art-hero { position: relative; isolation: isolate; padding: 64px 0 56px; }
+.art-hero::before {
+  content: ''; position: absolute; z-index: -1;
+  top: 0; bottom: 0; left: calc(50% - 50vw); width: 100vw;
+  background: var(--hero-bg, none) var(--hero-pos, center 35%) / cover no-repeat;
+  filter: blur(7px); opacity: 0.22;
+  -webkit-mask-image: linear-gradient(180deg, #000 55%, transparent 100%);
+          mask-image: linear-gradient(180deg, #000 55%, transparent 100%);
+  pointer-events: none;
+}
 .back-link {
-  display: inline-flex; align-items: center; gap: 8px; margin-bottom: 34px;
-  font-size: 0.72rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
-  color: var(--muted); text-decoration: none; transition: color 0.18s ease;
+  display: inline-flex; align-items: center; gap: 8px; margin-bottom: 30px;
+  font-size: 0.85rem; font-weight: 600; color: var(--muted); text-decoration: none;
+  transition: color 0.18s ease;
 }
 .back-link:hover { color: var(--text); }
 .back-link .arrow { transition: transform 0.2s ease; }
 .back-link:hover .arrow { transform: translateX(-4px); }
 
-.art-line {
-  display: flex; align-items: center; gap: 14px; margin-bottom: 22px;
-  font-size: 0.72rem; font-weight: 500; letter-spacing: 1.8px; text-transform: uppercase; color: var(--muted);
-}
-.art-line .sep { width: 18px; height: 1px; background: var(--border-h); }
+/* The section ("Release", "Serato" …) as a small dotted label, the same
+   shape as the status on the product pages. */
+.art-line { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; font-size: 0.8rem; font-weight: 500; color: var(--muted); }
+.art-line::before { content: ''; width: 7px; height: 7px; border-radius: 999px; background: var(--green); }
+.art-line .sep { display: none; }
 
-/* Hepta Slab, set in normal case at a text weight. The uppercase 900-weight
-   display face belongs to the products; a story should read, not shout. The
-   same face carries the section headers, so the page reads as one voice. */
 .art-title {
-  font-family: 'Hepta Slab', Georgia, serif;
-  font-size: clamp(1.95rem, 4.6vw, 3.1rem); font-weight: 600;
-  letter-spacing: -0.012em; line-height: 1.16; color: var(--text);
+  max-width: 900px;
+  font-size: clamp(2rem, 4.4vw, 3.4rem); font-weight: 800;
+  letter-spacing: -0.03em; line-height: 1; text-transform: uppercase; color: var(--text);
+  overflow-wrap: break-word;
 }
-.art-title .g { color: var(--green); }
+/* Older markup still wraps a word in .g; it no longer changes colour. */
+.art-title .g { color: inherit; }
 .art-lede {
-  max-width: 660px; margin-top: 22px;
-  font-size: 1.08rem; color: var(--muted); line-height: 1.7;
+  max-width: 640px; margin-top: 18px;
+  font-size: 1.05rem; color: var(--muted); line-height: 1.65;
 }
-.art-lede strong { color: var(--text); font-weight: 700; }
+.art-lede strong { color: var(--text); font-weight: 600; }
 
-/* ── FIGURE ──
-   A flat, bordered frame. Deliberately plain: when a real screenshot or photo
-   replaces the placeholder logo it should sit in a neutral frame, not a
-   coloured glow. */
-.art-figure { margin: 40px 0 0; }
+/* ── FIGURE ── a sharp, flat frame for a real photo. */
+.art-figure { margin: 0; }
 .art-figure .frame {
   display: grid; place-items: center; aspect-ratio: 16 / 7;
-  background: #0e0e0e; border: 1px solid rgba(255,255,255,0.07); border-radius: 16px; overflow: hidden;
+  background: #111; border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; overflow: hidden;
 }
 /* A real photo should fill the frame — give the img class="fill". */
 .art-figure .frame img.fill { width: 100%; max-width: none; height: 100%; object-fit: cover; }
@@ -126,35 +140,34 @@ nav { display: flex; gap: 30px; }
 .art-figure-portrait .frame img.fill { object-position: center 28%; }
 .art-figure-portrait figcaption { width: min(100%, 680px); margin-inline: auto; }
 .art-figure .frame img { width: 22%; max-width: 180px; height: auto; object-fit: contain; }
-.art-figure.is-serato .frame img { width: 12%; max-width: 104px; }
-.art-figure figcaption {
-  margin-top: 12px; font-size: 0.72rem; letter-spacing: 1px; text-transform: uppercase; color: var(--muted);
-}
-.art-figure figcaption a:hover { color: var(--green); }
+.art-figure figcaption { margin-top: 12px; font-size: 0.8rem; color: var(--muted); }
+.art-figure figcaption a { text-decoration: underline; text-underline-offset: 3px; }
+.art-figure figcaption a:hover { color: var(--text); }
 @media (max-width: 640px) {
-  .art-figure .frame { aspect-ratio: 16 / 9; }
+  .art-hero { padding: 40px 0 44px; }
+  .back-link { margin-bottom: 22px; }
+  .art-figure .frame { aspect-ratio: 16 / 10; }
+  .art-figure-portrait .frame { aspect-ratio: 4 / 3; }
   .art-figure .frame img { width: 34%; }
-  .art-figure.is-serato .frame img { width: 22%; }
 }
 
 /* ── BODY ── */
-.art-body { max-width: 680px; margin: 0 auto; padding: 50px 0 60px; }
-.art-section { margin-bottom: 46px; }
+.art-body { max-width: 680px; margin: 0 auto; padding: 52px 0 60px; }
+.art-section { margin-bottom: 44px; }
 .art-section:last-child { margin-bottom: 0; }
 .art-section h2 {
-  font-family: 'Hepta Slab', Georgia, serif;
-  font-size: 0.74rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
-  color: var(--muted); margin-bottom: 18px; padding-bottom: 14px;
-  border-bottom: 1px solid var(--border);
+  font-size: clamp(1.2rem, 2vw, 1.4rem); font-weight: 800; letter-spacing: -0.02em;
+  color: var(--text); margin-bottom: 14px;
 }
-.art-section p, .art-section li { font-size: 1rem; color: var(--muted); line-height: 1.85; }
+.art-section p, .art-section li { font-size: 1rem; color: var(--muted); line-height: 1.8; }
 .art-section p + p { margin-top: 16px; }
-.art-section strong { color: var(--text); font-weight: 700; }
+.art-section strong { color: var(--text); font-weight: 600; }
 .art-section a { color: var(--text); text-decoration: underline; text-underline-offset: 3px; }
 .art-section a:hover { color: var(--green); }
 /* Buttons are links too, but they carry their own treatment. */
 .art-section a.btn-solid, .art-section a.btn-line { text-decoration: none; }
-.art-section a.btn-solid:hover { color: #052b0e; }
+.art-section a.btn-solid, .art-section a.btn-solid:hover { color: var(--black); }
+.art-section a.btn-line, .art-section a.btn-line:hover { color: var(--text); }
 
 /* Ruled list — a change list should scan like a list of rows, not carry
    decorative bullets. */
@@ -164,54 +177,46 @@ nav { display: flex; gap: 30px; }
 .art-section li { padding: 13px 0; border-bottom: 1px solid var(--border); }
 .art-section li:first-child { border-top: 1px solid var(--border); }
 
-/* ── NOTE ── rules top and bottom, no fill, no accent bar */
-.art-note { margin: 34px 0; padding: 20px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-.art-note .note-label { display: block; font-size: 0.68rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+/* ── NOTE ── a quiet panel, no accent bar */
+.art-note { margin: 30px 0; padding: 18px 20px; border: 1px solid var(--border); border-radius: 12px; background: rgba(255,255,255,0.02); }
+.art-note .note-label { display: block; font-size: 0.85rem; font-weight: 700; color: var(--text); margin-bottom: 6px; }
 .art-note p { font-size: 0.95rem; }
 
-/* ── BUTTONS ── flat, no gradient, no sheen */
-.art-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 36px; }
-.btn-solid {
+/* ── BUTTONS ── the same white pill as the product pages, plus an outline */
+.art-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 30px; }
+.btn-solid, .btn-line {
   display: inline-flex; align-items: center; gap: 8px; text-decoration: none;
-  background: var(--green); color: #052b0e;
-  font-weight: 800; font-size: 0.78rem; letter-spacing: 0.3px; text-transform: uppercase;
-  padding: 12px 22px; border-radius: 999px; border: 1.5px solid var(--green);
-  transition: background 0.16s ease, border-color 0.16s ease;
+  font-size: 0.86rem; font-weight: 700; padding: 12px 24px; border-radius: 999px;
+  transition: background 0.18s ease, border-color 0.18s ease, color 0.18s ease;
 }
-.btn-solid:hover { background: #29b939; border-color: #29b939; }
-.btn-line {
-  display: inline-flex; align-items: center; gap: 8px; text-decoration: none;
-  background: transparent; color: var(--text);
-  font-weight: 800; font-size: 0.78rem; letter-spacing: 0.3px; text-transform: uppercase;
-  padding: 12px 22px; border-radius: 999px; border: 1.5px solid var(--border-h);
-  transition: border-color 0.16s ease, color 0.16s ease;
-}
-.btn-line:hover { border-color: var(--green); color: var(--green); }
+.btn-solid { background: var(--text); color: var(--black); border: 1px solid var(--text); }
+.btn-solid:hover { background: #ffffff; border-color: #ffffff; }
+.btn-line { background: transparent; color: var(--text); border: 1px solid var(--border-h); }
+.btn-line:hover { border-color: #555; }
 .btn-solid .arrow, .btn-line .arrow { transition: transform 0.2s ease; }
-.btn-solid:hover .arrow, .btn-line:hover .arrow { transform: translateX(4px); }
+.btn-solid:hover .arrow, .btn-line:hover .arrow { transform: translateX(3px); }
 @media (max-width: 560px) {
   .art-actions { flex-direction: column; align-items: stretch; }
   .btn-solid, .btn-line { justify-content: center; }
 }
 
-/* ── MORE NEWS ── ruled rows, matching the product list on the home page */
-.more-label { padding: 40px 0 8px; }
-.more-label h2 { font-family: 'Hepta Slab', Georgia, serif; font-size: 0.78rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); }
+/* ── MORE NEWS ── ruled rows */
+.more-label { padding: 44px 0 12px; }
+.more-label h2 { font-size: clamp(1.2rem, 2vw, 1.4rem); font-weight: 800; letter-spacing: -0.02em; color: var(--text); }
 .more-row {
   display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 24px;
-  padding: 24px 0; border-top: 1px solid var(--border); text-decoration: none; color: var(--text);
+  padding: 22px 0; border-top: 1px solid var(--border); text-decoration: none; color: var(--text);
 }
 .more-row:last-of-type { border-bottom: 1px solid var(--border); }
-.more-row .more-date { display: block; font-size: 0.68rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 7px; }
+.more-row .more-date { display: block; font-size: 0.8rem; color: var(--muted); margin-bottom: 6px; }
 .more-row h3 {
-  font-family: 'Hepta Slab', Georgia, serif;
-  font-size: 1.18rem; font-weight: 600; letter-spacing: -0.005em; line-height: 1.32;
-  transition: color 0.18s ease;
+  font-size: 1.1rem; font-weight: 800; letter-spacing: -0.015em; line-height: 1.25;
+  text-transform: uppercase; transition: color 0.18s ease;
 }
 .more-row .arrow { color: var(--muted); font-size: 1.1rem; transition: transform 0.2s ease, color 0.18s ease; }
-.more-row:hover h3 { color: var(--green); }
-.more-row:hover .arrow { color: var(--green); transform: translateX(5px); }
-@media (max-width: 560px) { .more-row h3 { font-size: 1rem; } }
+.more-row:hover h3 { color: var(--muted); }
+.more-row:hover .arrow { color: var(--text); transform: translateX(5px); }
+@media (max-width: 560px) { .more-row h3 { font-size: 0.98rem; } }
 
 /* ── FOOTER ── */
 footer { border-top: 1px solid var(--border); margin-top: 46px; padding: 22px 0 40px; }

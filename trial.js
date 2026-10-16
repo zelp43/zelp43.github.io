@@ -15,7 +15,7 @@
 const TRIAL = {
 
   // ── THE SWITCH ──
-  on: true,
+  on: false,
 
   // ── RELEASE TIME ──
   // Empty: the trial is open, so the button is live on load and no countdown

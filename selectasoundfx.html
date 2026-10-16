@@ -14,7 +14,6 @@
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="description" content="Selecta Sound FX: premium DJ sound effects for any genre."/>
   <link rel="canonical" href="https://selectahub.com/selectasoundfx.html"/>
-  <link href="https://api.fontshare.com/v2/css?f[]=resist-sans@700,800,900&amp;display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="site.css"/>
   <script src="site.js" defer></script>
@@ -40,23 +39,6 @@
       -webkit-font-smoothing: antialiased;
       position: relative;
       overflow-x: hidden;
-    }
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      background: rgba(10,10,10,0.86);
-      pointer-events: none;
-    }
-    .bg-photo {
-      position: fixed;
-      inset: 0;
-      z-index: -2;
-      background: url('dj-hero-bg.jpg') center center / cover no-repeat;
-      filter: blur(1.5px) brightness(0.85);
-      opacity: 0.8;
-      transform: scale(1.05);
     }
     a { color: inherit; }
     .wrap { max-width: 1180px; margin: 0 auto; padding: 0 40px; background: transparent; }
@@ -117,73 +99,56 @@
     .mobile-social-btn:hover { border-color: var(--border-h); color: var(--text); }
     .mobile-social-btn svg { width: 18px; height: 18px; fill: currentColor; }
 
-    .hero { padding: 70px 0 40px; }
-    .hero-head { margin-bottom: 8px; opacity: 0; transform: translate3d(0, 30px, 0); filter: blur(8px); transition: opacity 0.7s ease, transform 0.85s cubic-bezier(.2,.8,.2,1), filter 0.85s ease; }
-    .hero-foot { display: flex; justify-content: space-between; align-items: flex-end; gap: 30px; margin-top: 26px; flex-wrap: wrap; opacity: 0; transform: translate3d(0, 30px, 0); filter: blur(8px); transition: opacity 0.7s ease, transform 0.85s cubic-bezier(.2,.8,.2,1), filter 0.85s ease; }
-    .hero-head.is-visible, .hero-foot.is-visible { opacity: 1; transform: translate3d(0, 0, 0); filter: blur(0); }
+    /* ── HERO ── (same system as selectatool.html)
+       A small name row with a status, one sentence-case headline, one
+       button, and a photo pushed far into the background: full-bleed,
+       blurred, low opacity, fading to black before the content starts. */
+    main { overflow-x: clip; }
+    .hero { position: relative; isolation: isolate; padding: 96px 0 88px; }
+    .hero::before {
+      content: ''; position: absolute; z-index: -1;
+      top: 0; bottom: 0; left: 50%; width: 100vw;
+      transform: translateX(-50%) scale(1.04);
+      background: url('dj-hero-bg.jpg') center 45% / cover no-repeat;
+      filter: blur(7px); opacity: 0.24;
+      -webkit-mask-image: linear-gradient(180deg, #000 55%, transparent 100%);
+              mask-image: linear-gradient(180deg, #000 55%, transparent 100%);
+      pointer-events: none;
+    }
+    .hero-brand { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 34px; }
+    .hero-name { font-size: 0.95rem; font-weight: 700; color: var(--text); }
+    .hero-status { display: inline-flex; align-items: center; gap: 7px; font-size: 0.78rem; font-weight: 500; color: var(--muted); }
+    .hero-status::before { content: ''; width: 7px; height: 7px; border-radius: 999px; background: var(--green); }
     .hero-title {
-      font-family: 'Resist Sans Display', 'Resist Sans', 'Inter', sans-serif;
-      font-size: clamp(3rem, 8.5vw, 6.6rem);
-      font-weight: 900;
-      letter-spacing: 0.01em;
-      line-height: 0.9;
-      text-transform: uppercase;
-      color: var(--text);
+      font-size: clamp(2.1rem, 4.6vw, 3.6rem); font-weight: 800;
+      letter-spacing: -0.03em; line-height: 1; text-transform: uppercase; color: var(--text); max-width: 760px;
     }
-    .hero-title .out {
-      color: var(--text);
-      -webkit-text-stroke: 0;
-      text-shadow: 0 0 18px rgba(255,255,255,0.08);
+    .hero-desc { max-width: 480px; margin-top: 16px; font-size: 1.02rem; font-weight: 400; color: var(--muted); line-height: 1.6; }
+    .hero-actions { margin-top: 26px; }
+    .btn-hero {
+      display: inline-flex; align-items: center; gap: 8px; text-decoration: none;
+      padding: 12px 24px; border-radius: 999px; background: var(--text); color: var(--black);
+      font-size: 0.86rem; font-weight: 700; transition: background 0.18s ease;
     }
-    .hero-title-metal {
-      background: linear-gradient(115deg, #7a7d80 0%, #e8e8e8 22%, #ffffff 40%, #9a9a9a 55%, #f2f2f2 72%, #6e7174 100%);
-      background-size: 220% auto;
-      -webkit-background-clip: text; background-clip: text;
-      color: transparent; -webkit-text-fill-color: transparent;
-      animation: metallic-shine 5s ease-in-out infinite alternate;
+    .btn-hero:hover { background: #ffffff; }
+    .btn-hero .arrow { transition: transform 0.2s ease; }
+    .btn-hero:hover .arrow { transform: translateX(3px); }
+    [data-hero-fade] { opacity: 0; transform: translate3d(0, 12px, 0); transition: opacity 0.6s ease, transform 0.7s cubic-bezier(.2,.8,.2,1); }
+    [data-hero-fade].is-visible { opacity: 1; transform: translate3d(0,0,0); }
+    @media (max-width: 860px) {
+      .hero { padding: 48px 0 56px; }
+      .hero-brand { margin-bottom: 24px; }
     }
-    @keyframes metallic-shine { to { background-position: 220% center; } }
-    @keyframes button-sheen {
-      from { background-position: 0% 50%; }
-      to { background-position: 100% 50%; }
+    @media (prefers-reduced-motion: reduce) {
+      [data-hero-fade] { transition: none; transform: none; }
     }
-    .hero-desc { max-width: 460px; font-size: 1rem; font-weight: 500; color: var(--text); line-height: 1.65; }
-    .hero-tag { font-size: 0.75rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--green); text-align: right; white-space: nowrap; }
-    .hero-actions { margin-top: 28px; opacity: 0; transform: translate3d(0, 30px, 0); filter: blur(8px); transition: opacity 0.7s ease, transform 0.85s cubic-bezier(.2,.8,.2,1), filter 0.85s ease; }
-    .hero-actions.is-visible { opacity: 1; transform: translate3d(0, 0, 0); filter: blur(0); }
-    .btn-download {
-      display: inline-flex; align-items: center; gap: 10px; font-size: 0.9rem; font-weight: 800; letter-spacing: 0.4px;
-      text-transform: uppercase; text-decoration: none; color: var(--black);
-      background-image: linear-gradient(90deg, #145c1c 0%, #2ecc40 24%, #f1fff4 50%, #2ecc40 76%, #0f4716 100%);
-      background-size: 180% 100%;
-      animation: button-sheen 5.5s ease-in-out infinite alternate;
-      padding: 13px 28px; border-radius: 999px; box-shadow: 0 6px 22px rgba(46,204,64,0.30);
-      transition: opacity 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
-    }
-    .btn-download:hover { opacity: 0.92; transform: translateY(-1px); box-shadow: 0 10px 28px rgba(46,204,64,0.42); }
-    [data-animate="hero-word"], [data-animate="hero-char"] { opacity: 0; display: inline-block; }
-    [data-animate="hero-word"] {
-      transform: translate3d(0.4em, -0.35em, 0) rotate(7deg) scale(0.92, 0.28);
-      transform-origin: top left;
-      transition: opacity 0.35s ease, transform 0.82s cubic-bezier(.16,1,.3,1);
-    }
-    [data-animate="hero-char"] {
-      transform: translate3d(-0.18em, 0.4em, 0) rotate(18deg);
-      transition: opacity 0.3s ease, transform 0.7s cubic-bezier(.2,.9,.25,1.2);
-    }
-    [data-animate="hero-word"].is-visible, [data-animate="hero-char"].is-visible {
-      opacity: 1;
-      transform: translate3d(0, 0, 0) rotate(0) scale(1);
-    }
-
-    .rule-thick { height: 2px; background: var(--text); margin-top: 30px; }
     .count-row { display: flex; align-items: baseline; gap: 16px; padding: 28px 0; border-bottom: 1px solid var(--border); opacity: 0; transform: translate3d(0, 24px, 0); transition: opacity 0.5s ease, transform 0.7s cubic-bezier(.2,.8,.2,1); }
     .count-row.is-visible { opacity: 1; transform: translate3d(0, 0, 0); }
     .count-num { font-size: clamp(1.7rem, 5.2vw, 3rem); font-weight: 900; letter-spacing: -0.03em; line-height: 1; color: var(--green); }
-    .count-label { font-size: 0.72rem; font-weight: 900; letter-spacing: 2.5px; text-transform: uppercase; color: var(--text); }
+    .count-label { font-size: 0.95rem; font-weight: 600; color: var(--muted); }
 
     .section-label { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding: 40px 0 10px; }
-    .section-label h2 { font-size: 0.78rem; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; color: var(--text); }
+    .section-label h2 { font-size: clamp(1.25rem, 2.2vw, 1.55rem); font-weight: 800; letter-spacing: -0.02em; color: var(--text); }
 
     .fx-row {
       display: grid; grid-template-columns: 1fr 2.4fr; align-items: baseline; gap: 24px;
@@ -192,7 +157,7 @@
     }
     .fx-row.is-visible { opacity: 1; transform: translate3d(0, 0, 0); }
     .fx-row:last-child { border-bottom: 1px solid var(--border); }
-    .fx-cat-name { font-size: 1.1rem; font-weight: 900; letter-spacing: -0.01em; color: var(--text); }
+    .fx-cat-name { font-size: 1.1rem; font-weight: 700; letter-spacing: -0.01em; color: var(--text); }
     .fx-cat-desc { font-size: 0.88rem; font-weight: 500; color: rgba(255,255,255,0.92); line-height: 1.6; }
     @media (max-width: 620px) { .fx-row { grid-template-columns: 1fr; row-gap: 4px; } }
 
@@ -235,7 +200,6 @@
 </head>
 <body>
   <a class="skip-link" href="#main-content">Skip to content</a>
-  <div class="bg-photo"></div>
 
   <header>
     <div class="wrap">
@@ -274,23 +238,22 @@
   <div class="wrap">
 
     <section class="hero">
-      <div class="hero-head" data-hero-fade>
-        <h1 class="hero-title" id="sfxHeroTitle"><span class="hero-title-metal" data-animate="hero-word">SELECTA</span><br><span class="out" data-animate="hero-word">SOUND FX.</span></h1>
+      <div class="hero-brand" data-hero-fade>
+        <span class="hero-name">Selecta Sound FX</span>
+        <span class="hero-status">Available now</span>
       </div>
-      <div class="hero-foot" data-hero-fade>
+      <div class="hero-copy" data-hero-fade>
+        <h1 class="hero-title" id="sfxHeroTitle"><span class="sr-only">Selecta Sound FX: </span>Sound effects for every set.</h1>
         <p class="hero-desc" id="sfxHeroSub">Premium DJ sound effects. Drops, sirens, horns, sweeps and stabs. Built for any genre.</p>
-        <div class="hero-tag">Available Now</div>
-      </div>
-      <div class="hero-actions" data-hero-fade>
-        <a href="https://juggernautmusic.gumroad.com/l/soundefx1" target="_blank" rel="noopener noreferrer" class="btn-download">Download Sound FX Pack</a>
+        <div class="hero-actions">
+          <a href="https://juggernautmusic.gumroad.com/l/soundefx1" target="_blank" rel="noopener noreferrer" class="btn-hero">Get the Sound FX pack <span class="arrow" aria-hidden="true">&rarr;</span></a>
+        </div>
       </div>
     </section>
 
-    <div class="rule-thick"></div>
-
     <div class="count-row" data-reveal>
       <span class="count-num">250+</span>
-      <span class="count-label">Premium DJ Sound Effects</span>
+      <span class="count-label">premium DJ sound effects</span>
     </div>
 
     <div class="section-label">
@@ -371,37 +334,10 @@
   <script>
     (function() {
       var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      var heroTitle = document.getElementById('sfxHeroTitle');
-      var heroSub = document.getElementById('sfxHeroSub');
       var heroFadeTargets = document.querySelectorAll('[data-hero-fade]');
       var revealTargets = document.querySelectorAll('[data-reveal]');
 
-      function splitWords(element) {
-        if (!element) return [];
-        var source = element.getAttribute('data-source-text') || element.textContent;
-        element.setAttribute('data-source-text', source);
-        element.textContent = '';
-        var words = source.split(' ');
-        return words.map(function(word, index) {
-          var span = document.createElement('span');
-          span.textContent = word;
-          span.setAttribute('data-animate', 'hero-char');
-          span.style.transitionDelay = (0.42 + index * 0.05) + 's';
-          element.appendChild(span);
-          if (index < words.length - 1) element.appendChild(document.createTextNode(' '));
-          return span;
-        }).filter(Boolean);
-      }
-
-      var titleWords = heroTitle ? Array.prototype.slice.call(heroTitle.querySelectorAll('[data-animate="hero-word"]')) : [];
-      titleWords.forEach(function(word, index) {
-        word.style.transitionDelay = (0.14 + index * 0.09) + 's';
-      });
-      var subWords = splitWords(heroSub);
-
       function revealHero() {
-        titleWords.forEach(function(word) { word.classList.add('is-visible'); });
-        subWords.forEach(function(word) { word.classList.add('is-visible'); });
         heroFadeTargets.forEach(function(target, index) {
           window.setTimeout(function() { target.classList.add('is-visible'); }, 100 + index * 90);
         });
