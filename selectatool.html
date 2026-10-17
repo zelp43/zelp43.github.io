@@ -148,6 +148,8 @@
     .compat-row { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 16px; margin-top: 26px; list-style: none; }
     .compat-item { display: flex; align-items: center; gap: 7px; font-size: 0.78rem; color: var(--muted); white-space: nowrap; }
     .compat-item svg, .compat-item img { width: 15px; height: 15px; flex-shrink: 0; display: block; }
+    .beta-note { max-width: 480px; margin-top: 14px; font-size: 0.78rem; font-style: italic; line-height: 1.55; color: var(--muted); }
+    .beta-note a { color: var(--muted); text-decoration: underline; text-underline-offset: 2px; }
     @media (max-width: 860px) {
       .hero { padding: 48px 0 56px; }
       .hero-brand { margin-bottom: 24px; }
@@ -426,6 +428,13 @@
     .foot-social a { color: var(--muted); }
     .foot-social a:hover { color: var(--text); }
     .foot-social svg { width: 15px; height: 15px; fill: currentColor; }
+    .foot-log { margin-bottom: 22px; padding-bottom: 22px; border-bottom: 1px solid var(--border); }
+    .foot-log-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 10px; }
+    .foot-log-head h4 { margin: 0; font-size: 0.8rem; font-weight: 700; color: var(--text); letter-spacing: .04em; }
+    .foot-log-head span { font-size: 0.7rem; color: var(--muted); }
+    .foot-log ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr)); gap: 6px 28px; }
+    .foot-log li { font-size: 0.75rem; line-height: 1.5; color: var(--muted); }
+    .foot-log li strong { color: var(--text); font-weight: 600; }
 
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
@@ -497,7 +506,7 @@
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#eeeeee" aria-hidden="true">
               <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
             </svg>
-            macOS 11+ (Intel &amp; Apple Silicon)
+            macOS Monterey (12) and later (Intel &amp; Apple Silicon)
           </li>
           <li class="compat-item">
             <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -509,6 +518,7 @@
             Windows 10 / 11
           </li>
         </ul>
+        <p class="beta-note">Selecta Tool works with Serato 5.0, which is still in beta. Serato may change things between beta releases, so use it with care. Once 5.0 is stable, we'll confirm full support here. <a href="news-serato-5-beta.html">Details</a></p>
       </div>
     </section>
 
@@ -1308,6 +1318,20 @@
 
   <div class="wrap">
     <footer>
+      <!-- ── CHANGELOG — replace with the latest release on each update ── -->
+      <div class="foot-log">
+        <div class="foot-log-head"><h4>What's new in 2.2</h4><span>September 2026</span></div>
+        <ul>
+          <li><strong>Gig Desk</strong> (Pro): bookings, clients, quotes, invoices, receipts and agreements, sent as PDFs with your branding.</li>
+          <li><strong>Add Record</strong>: put a track in a crate before you own the file, then attach it later.</li>
+          <li><strong>Streaming Import</strong> now takes an album name as well as a link.</li>
+          <li><strong>Sampler</strong> pad search covers your whole Serato database, not just your crates.</li>
+          <li><strong>Sampler</strong> is safer on stage: Hold pads and MIDI mappings can't leave a sample playing.</li>
+          <li><strong>Backup restore</strong> brings back tracks with no audio as dead records you can repair.</li>
+          <li><strong>Backups</strong> keep your full Serato 4 crate order, nested crates included.</li>
+          <li><strong>Home</strong> fits any window size.</li>
+        </ul>
+      </div>
       <div class="foot-row">
         <span class="foot-copy">© 2026 Juggernaut Music Group. All rights reserved.</span>
         <div class="foot-links">
@@ -1589,7 +1613,7 @@
       "@type": "SoftwareApplication",
       "name": "Selecta Tool",
       "applicationCategory": "MultimediaApplication",
-      "operatingSystem": "macOS Big Sur or later (Intel & Apple Silicon), Windows 10, Windows 11",
+      "operatingSystem": "macOS Monterey (12) or later (Intel & Apple Silicon), Windows 10, Windows 11",
       "url": "https://selectahub.com/selectatool.html",
       "image": "https://selectahub.com/og-social-card.png",
       "description": "DJ library management for Serato DJ Pro: build and export crates, scan folders, find and resolve duplicates, repair broken file links, edit tags and back up your library.",
