@@ -33,3 +33,13 @@ const DOWNLOADS = {
 const FIX_DOWNLOADS = {
   mac: 'https://drive.google.com/drive/home?dmr=1&ec=wgc-drive-%5Bmodule%5D-goto',
 };
+
+// ── BETA BUILDS (toolbeta.html) ──
+// Early-release builds sent privately to individual testers. Hosted on Google
+// Drive like the fix builds. Paste the share link into `mac` and the row goes
+// live; while it is an empty string the row renders greyed as "Link coming soon".
+// There is no Windows beta: that row is fixed as "Unavailable" in the page.
+// README / EULA / Manual on that page still come from DOWNLOADS above.
+const BETA_DOWNLOADS = {
+  mac: '',
+};

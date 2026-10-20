@@ -1,11 +1,12 @@
-# The direct download, update, promo and fix pages are handed out privately
-# (after purchase, as gifts, or to bug reporters). Keeping them out of search
+# The direct download, update, promo, fix and beta pages are handed out privately
+# (after purchase, as gifts, to bug reporters, or to beta testers). Keeping them out of search
 # stops them becoming a free download route (and burning R2 egress).
 User-agent: *
 Disallow: /tooldownload.html
 Disallow: /toolupdate.html
 Disallow: /toolpromo.html
 Disallow: /toolfix.html
+Disallow: /toolbeta.html
 Disallow: /toolmessage.html
 Disallow: /index_light.html
 Disallow: /indexsep12.html

@@ -16,7 +16,7 @@
   <link rel="canonical" href="https://selectahub.com/"/>
   <link rel="preload" as="image" href="serato-hero-bg-1600.jpg"/>
   <link rel="preload" as="image" href="selecta-tool-studio-hero.jpg"/>
-  <link href="https://fonts.googleapis.com/css2?family=Hepta+Slab:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="site.css"/>
   <script src="site.js" defer></script>
   <style>
@@ -337,8 +337,10 @@
     .prod-card-desc a { color: inherit; text-decoration: underline; }
     .prod-card.locked { opacity: 0.5; pointer-events: none; }
 
-    .section-label { display: flex; align-items: baseline; justify-content: center; text-align: center; gap: 16px; padding: 40px 0 26px; }
-    .section-label h2 { font-family: 'Hepta Slab', Georgia, serif; font-size: 0.78rem; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; color: var(--text); }
+    /* Section headings match the product and news pages: Inter, sentence
+       case, left-aligned. */
+    .section-label { display: flex; align-items: baseline; gap: 16px; padding: 48px 0 18px; }
+    .section-label h2 { font-size: clamp(1.25rem, 2.2vw, 1.55rem); font-weight: 800; letter-spacing: -0.02em; color: var(--text); }
 
     @keyframes metallic-shine {
       to { background-position: 220% center; }
@@ -450,11 +452,10 @@
        pill button bottom-left, dots centred underneath. It moves on its own
        every 5 seconds; people can swipe/drag it or tap a dot. The headline
        uses the product display type (Inter 900, uppercase) because the slide
-       is a banner, not a story page — the articles keep Hepta Slab. */
+       is a banner, not a story page. */
     #news { scroll-margin-top: 88px; }
-    .news-head { display: flex; align-items: center; gap: 20px; padding: 52px 0 28px; }
-    .news-head::before, .news-head::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-    .news-head h2 { font-family: 'Hepta Slab', Georgia, serif; font-size: 0.8rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
+    .news-head { padding: 52px 0 18px; }
+    .news-head h2 { font-size: clamp(1.25rem, 2.2vw, 1.55rem); font-weight: 800; letter-spacing: -0.02em; color: var(--text); }
 
     .news-slider {
       position: relative; overflow: hidden;
@@ -753,12 +754,12 @@
           </div>
         </a>
 
-        <a href="news-serato-5-beta.html" class="news-slide is-right is-art" draggable="false">
+        <a href="news-serato-5-released.html" class="news-slide is-right is-art" draggable="false">
           <img class="news-bg" src="serato-lucid-beatgrids.jpg" alt="Introducing Lucid Beatgrids in Serato DJ Pro 5.0" width="744" height="500" loading="lazy" decoding="async" draggable="false"/>
           <span class="news-shade"></span>
           <div class="news-copy">
-            <h3 class="news-title">Serato DJ Pro 5.0 Beta Is Here</h3>
-            <p class="news-excerpt">Lucid Beatgrids rebuilds grid analysis for tracks that drift. Open now in the 5.0 public beta.</p>
+            <h3 class="news-title">Serato DJ Pro 5.0 Is Released</h3>
+            <p class="news-excerpt">Out now on macOS, Windows and iOS, with Lucid Beatgrids. Selecta Tool is compatible.</p>
             <span class="news-cta">Read more <span class="arrow">→</span></span>
           </div>
         </a>

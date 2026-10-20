@@ -9,7 +9,7 @@ const publicPages = [
   'privacy.html',
   'terms.html',
   'news-selecta-tool.html',
-  'news-serato-5-beta.html',
+  'news-serato-5-released.html',
   'news-popcaan-us-visa.html',
   'news-selecta-crates.html'
 ];
