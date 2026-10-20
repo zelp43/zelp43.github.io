@@ -41,5 +41,5 @@ const FIX_DOWNLOADS = {
 // There is no Windows beta: that row is fixed as "Unavailable" in the page.
 // README / EULA / Manual on that page still come from DOWNLOADS above.
 const BETA_DOWNLOADS = {
-  mac: '',
+  mac: 'https://drive.google.com/file/d/1hL9QOjoykxL8r-X6-be8NlucSJ4rqD7K/view?usp=sharing',
 };
