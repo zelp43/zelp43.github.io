@@ -1,5 +1,6 @@
 // Shared behaviour for the news-*.html pages: the mobile menu, and keeping any
-// [data-app-version] text in step with APP_VERSION from version.js.
+// [data-app-version] / [data-windows-version] text in step with APP_VERSION and
+// WINDOWS_VERSION from version.js.
 (function() {
   var hamburger = document.getElementById('hamburger');
   var mobileMenu = document.getElementById('mobileMenu');
@@ -36,6 +37,11 @@
   if (typeof APP_VERSION !== 'undefined') {
     Array.prototype.forEach.call(document.querySelectorAll('[data-app-version]'), function(el) {
       el.textContent = APP_VERSION;
+    });
+  }
+  if (typeof WINDOWS_VERSION !== 'undefined') {
+    Array.prototype.forEach.call(document.querySelectorAll('[data-windows-version]'), function(el) {
+      el.textContent = WINDOWS_VERSION;
     });
   }
 })();

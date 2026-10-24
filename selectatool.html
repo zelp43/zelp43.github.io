@@ -7,6 +7,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Selecta Tool · Basic, Pro &amp; Pro Plus | Selecta Hub</title>
   <link rel="canonical" href="https://selectahub.com/selectatool.html"/>
+  <!-- Staging copy of selectatool.html with the Selecta Pro Trial. Kept out of
+       search until it is swapped in; remove this line when it replaces the live page. -->
+  <meta name="robots" content="noindex"/>
   <meta property="og:type" content="website"/>
   <meta property="og:url" content="https://selectahub.com/selectatool.html"/>
   <meta property="og:title" content="Selecta Tool · Choose Your Tier"/>
@@ -184,13 +187,12 @@
     }
 
     /* ── FREE TRIAL ──
-       Every value comes from TRIAL (trial.js). The markup ships `hidden` and
-       only the script unhides it, so with trial.js set to off — or missing —
+       Every value comes from TRIAL (protrial.js). The markup ships `hidden` and
+       only the script unhides it, so with protrial.js set to off — or missing —
        nothing here renders and the page falls back to exactly what it was.
-       It leads the page while the trial is open: straight under the hero,
-       ruled top and bottom so it reads as its own strip rather than as a
-       stray line of the hero. */
-    .trial { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 24px; align-items: center; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 22px 0; margin-top: 12px; }
+       It sits at the bottom of the page, above the band, so the page leads
+       with the prices. Ruled top and bottom so it reads as its own strip. */
+    .trial { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 24px; align-items: center; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 22px 0; margin-top: 46px; scroll-margin-top: 90px; }
     .trial[hidden] { display: none; }
     .trial-kicker { display: block; font-size: 0.64rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--green); margin-bottom: 7px; }
     .trial-title { font-size: 1.08rem; font-weight: 800; letter-spacing: -0.01em; color: var(--text); line-height: 1.25; }
@@ -206,7 +208,24 @@
     .btn-trial:hover { border-color: var(--text); background: rgba(255,255,255,0.05); }
     /* Same treatment as the walkthrough button while its URL is still empty. */
     .btn-trial.is-soon { pointer-events: none; opacity: 0.55; }
-    .trial-foot { font-size: 0.7rem; color: var(--muted); line-height: 1.5; }
+    .trial-foot { font-size: 0.7rem; color: var(--muted); line-height: 1.5; max-width: 300px; text-align: right; }
+    .trial-notes { grid-column: 1 / -1; list-style: none; display: grid; gap: 7px; max-width: 760px; padding-top: 16px; border-top: 1px solid var(--border); }
+    .trial-notes[hidden] { display: none; }
+    .trial-notes li { position: relative; padding-left: 16px; font-size: 0.78rem; color: var(--muted); line-height: 1.6; }
+    .trial-notes li::before { content: '\2022'; position: absolute; left: 0; color: var(--border-h); }
+    /* "Learn more about the trial", under the Get trial key button. */
+    /* Desktop: hung below the button so Get trial key stays level with the
+       other tiers' buttons; the columns get the room for it underneath. */
+    .trial-more { font-size: 0.72rem; font-weight: 700; color: var(--text); text-decoration: none; border-bottom: 1px solid var(--border-h); white-space: nowrap; }
+    .trial-more:hover { border-bottom-color: var(--text); }
+    @media (min-width: 901px) {
+      .mx.has-trial .tier-col { padding-bottom: 44px; }
+      .tier-col[data-tier="trial"] { position: relative; }
+      .tier-col[data-tier="trial"] .trial-more { position: absolute; left: 50%; bottom: 16px; transform: translateX(-50%); }
+    }
+    @media (max-width: 900px) {
+      .trial-more { display: inline-block; margin-top: 12px; }
+    }
     /* Countdown to TRIAL.releaseAt. Small on purpose — it is a timestamp, not
        a banner. Tabular figures so the digits do not jiggle each second. */
     .trial-count { display: flex; align-items: baseline; gap: 9px; }
@@ -220,6 +239,7 @@
     @media (max-width: 760px) {
       .trial { grid-template-columns: 1fr; gap: 14px; }
       .trial-side { align-items: flex-start; }
+      .trial-foot { text-align: left; max-width: none; }
       .btn-trial { width: 100%; }
     }
 
@@ -311,6 +331,23 @@
     .mx-mark[data-tier="pro"]   .on { color: var(--gold); }
     .mx-mark[data-tier="plus"]  .on { color: var(--plus); }
     .mx-mark.is-best { background: rgba(185,163,255,0.035); }
+
+    /* ── FREE TRIAL COLUMN ──
+       Built entirely by the script from TRIAL.caps (protrial.js); none of it is
+       in the markup, so with the trial off the matrix is the three tiers only.
+       Neutral white rather than a fourth tier colour: it is a way in, not a
+       tier, and must not pull the eye from Most popular / Best value. A cap
+       reads as a short label ("15 fixes") where the tiers show a tick. */
+    .mx.has-trial { --cols: minmax(0, 1.6fr) repeat(4, minmax(96px, 0.6fr)); }
+    [data-tier="trial"] .tier-name { color: var(--text); }
+    .tier-col[data-tier="trial"] .tier-flag { color: var(--muted); }
+    [data-tier="trial"] .btn-tier { background: transparent; color: var(--text); box-shadow: inset 0 0 0 1px var(--border-h); }
+    [data-tier="trial"] .btn-tier:hover { filter: none; box-shadow: inset 0 0 0 1px var(--text); }
+    .mx-mark[data-tier="trial"] .on { color: var(--text); }
+    .mx-mark.mx-cap { flex-direction: column; align-items: center; text-align: center; gap: 2px; }
+    .mx-mark .cap { font-size: 0.74rem; font-weight: 700; color: var(--text); line-height: 1.35; }
+    .mx-mark .cap-note { font-size: 0.64rem; font-weight: 500; color: var(--muted); line-height: 1.35; }
+    .tier-tab[data-target="trial"].tab-on { background: var(--text); color: var(--black); }
     .mx-body .mx-row:hover .mx-cell { background: rgba(255,255,255,0.018); }
 
 
@@ -318,6 +355,7 @@
     @media (max-width: 900px) {
       .mx { --cols: minmax(0, 1fr) minmax(74px, 0.34fr); }
       .tier-tabs { display: flex; }
+      .mx.has-trial { --cols: minmax(0, 1fr) minmax(96px, 0.4fr); }
       .mx-head { grid-template-columns: minmax(0, 1fr); }
       .mx-head .mx-corner { display: none; }
       .tier-col { border-left: none; padding: 22px 0; border-top: 1px solid var(--border); }
@@ -330,24 +368,20 @@
       .btn-tier { width: auto; min-width: 220px; }
     }
 
-    /* ── CLOSING CTA ──
-       The tier cards at the top only follow the reader on desktop, where
-       .mx-head is sticky. On a phone they scroll away at the first feature
-       row and the next seven screens (matrix, reviews, FAQ, licensing) carry
-       no way to buy. This row puts the three tiers back at the point where
-       the FAQ has just answered the last objection. */
-    .cta-grid { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-    .cta-card { display: flex; flex-direction: column; align-items: flex-start; padding: 24px 18px 22px; border-left: 1px solid var(--border); }
-    .cta-card:first-child { border-left: none; padding-left: 0; }
-    .cta-card.is-best { background: linear-gradient(180deg, rgba(185,163,255,0.075), rgba(185,163,255,0)); }
-    .cta-card .tier-price { font-size: 1.32rem; margin-top: 10px; }
-    .cta-card .tier-sub { margin-bottom: 18px; }
-    @media (max-width: 760px) {
-      .cta-grid { grid-template-columns: 1fr; }
-      .cta-card { border-left: none; border-top: 1px solid var(--border); padding: 20px 0; }
-      .cta-card:first-child { border-top: none; }
-      .cta-card .btn-tier { width: 100%; }
+    /* ── BACK TO PRICING ──
+       Replaces the closing row of three tier cards. On a phone the tier cards
+       at the top scroll away at the first feature row, so after the FAQ this
+       one button sends the reader back up to them instead of repeating them. */
+    .to-pricing { display: flex; justify-content: center; padding: 34px 0 6px; }
+    .btn-top {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      font-size: 0.84rem; font-weight: 700; text-decoration: none;
+      padding: 12px 26px; border-radius: 999px;
+      background: transparent; border: 1px solid var(--border-h); color: var(--text);
+      transition: border-color 0.18s ease, background 0.18s ease;
     }
+    .btn-top:hover { border-color: var(--text); background: rgba(255,255,255,0.05); }
+    @media (max-width: 760px) { .btn-top { width: 100%; } }
 
     /* ── REVIEWS ── */
     .reviews-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 46px; }
@@ -443,7 +477,7 @@
   <script src="version.js"></script>
   <script src="price.js"></script>
   <script src="downloads.js"></script>
-  <script src="trial.js"></script>
+  <script src="protrial.js"></script>
 </head>
 <body>
   <a class="skip-link" href="#main-content">Skip to content</a>
@@ -489,7 +523,7 @@
       <div class="hero-brand" data-hero-fade>
         <img src="st2logo-144.png" alt="" class="hero-logo" width="144" height="144"/>
         <span class="hero-name">Selecta Tool</span>
-        <span class="hero-ver" id="heroVersion">v2.2</span>
+        <span class="hero-ver" id="heroVersion">v2.2.2</span>
       </div>
       <div class="hero-copy" data-hero-fade>
         <h1 class="hero-title" id="toolHeroTitle"><span class="sr-only">Selecta Tool: </span>Your Serato library, mastered.</h1>
@@ -518,31 +552,7 @@
             Windows 10 / 11
           </li>
         </ul>
-        <p class="beta-note">Compatible with Serato 3, 4 and 5.</p>
-      </div>
-    </section>
-
-    <!-- ── FREE TRIAL ──
-         Driven entirely by TRIAL in trial.js. Ships hidden and stays hidden
-         unless TRIAL.on is true, so a closed trial — or a missing trial.js —
-         leaves no trace of it on the page. Set `on: false` in trial.js to pull
-         it down; nothing here needs editing or deleting.
-         Up at the top while the trial is open, so it is the first thing after
-         the hero and ahead of the prices. -->
-    <section class="trial" id="trialStrip" hidden aria-labelledby="trialTitle" data-hero-fade>
-      <div class="trial-main">
-        <span class="trial-kicker" id="trialKicker"></span>
-        <h2 class="trial-title" id="trialTitle"></h2>
-        <p class="trial-copy" id="trialCopy"></p>
-      </div>
-      <div class="trial-side">
-        <!-- Shown only while TRIAL.releaseAt is still ahead of us. -->
-        <p class="trial-count" id="trialCount" hidden>
-          <span class="trial-count-label">Opens in</span>
-          <span class="trial-count-time" id="trialCountTime"></span>
-        </p>
-        <a class="btn-trial is-soon" id="trialBtn" href="#" aria-disabled="true">Free trial</a>
-        <span class="trial-foot" id="trialFoot"></span>
+        <p class="beta-note">Compatible with Serato 3, 4 and 5 on both Mac and Windows.</p>
       </div>
     </section>
 
@@ -595,7 +605,7 @@
 
       <div class="mx-body">
 
-        <div class="mx-row" data-in="basic pro plus">
+        <div class="mx-row" data-in="basic pro plus" data-feat="folder-crates">
           <div class="mx-cell mx-feat">
             <span class="mx-name">Build crates from folder structure</span>
             <span class="mx-note">Turn any folder hierarchy into Serato crates in one click</span>
@@ -605,7 +615,7 @@
           <div class="mx-cell mx-mark is-best" data-tier="plus"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro Plus: included</span></div>
         </div>
 
-        <div class="mx-row" data-in="basic pro plus">
+        <div class="mx-row" data-in="basic pro plus" data-feat="build-crates">
           <div class="mx-cell mx-feat">
             <span class="mx-name">Build &amp; export Serato crates</span>
             <span class="mx-note">Create ready-to-load .crate files Serato recognises instantly</span>
@@ -615,7 +625,7 @@
           <div class="mx-cell mx-mark is-best" data-tier="plus"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro Plus: included</span></div>
         </div>
 
-        <div class="mx-row" data-in="basic pro plus">
+        <div class="mx-row" data-in="basic pro plus" data-feat="scan-folder">
           <div class="mx-cell mx-feat">
             <span class="mx-name">Scan folder · auto-populate crate tracks</span>
             <span class="mx-note">Drop a folder and every track inside is added to the crate automatically</span>
@@ -625,7 +635,7 @@
           <div class="mx-cell mx-mark is-best" data-tier="plus"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro Plus: included</span></div>
         </div>
 
-        <div class="mx-row" data-in="basic pro plus">
+        <div class="mx-row" data-in="basic pro plus" data-feat="apple-music">
           <div class="mx-cell mx-feat">
             <span class="mx-name">Import Apple Music, iTunes &amp; playlist files</span>
             <span class="mx-note">Pull playlists straight from Apple Music or iTunes into Serato crates</span>
@@ -635,7 +645,7 @@
           <div class="mx-cell mx-mark is-best" data-tier="plus"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro Plus: included</span></div>
         </div>
 
-        <div class="mx-row" data-in="basic pro plus">
+        <div class="mx-row" data-in="basic pro plus" data-feat="live-library">
           <div class="mx-cell mx-feat">
             <span class="mx-name">Live Library viewer with search &amp; refresh</span>
             <span class="mx-note">Browse your entire Serato library in real time, search and refresh without reopening</span>
@@ -645,7 +655,7 @@
           <div class="mx-cell mx-mark is-best" data-tier="plus"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro Plus: included</span></div>
         </div>
 
-        <div class="mx-row" data-in="basic pro plus">
+        <div class="mx-row" data-in="basic pro plus" data-feat="mini-player">
           <div class="mx-cell mx-feat">
             <span class="mx-name">In-app mini player · preview any track</span>
             <span class="mx-note">Click any track to hear it before you crate it, no DJ software needed</span>
@@ -655,7 +665,7 @@
           <div class="mx-cell mx-mark is-best" data-tier="plus"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro Plus: included</span></div>
         </div>
 
-        <div class="mx-row" data-in="basic pro plus">
+        <div class="mx-row" data-in="basic pro plus" data-feat="duplicate-finder">
           <div class="mx-cell mx-feat">
             <span class="mx-name">Duplicate Finder (and Resolver)</span>
             <span class="mx-note">Finds duplicate tracks across the database, removes the copies, and keeps the winning file</span>
@@ -665,7 +675,7 @@
           <div class="mx-cell mx-mark is-best" data-tier="plus"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro Plus: included</span></div>
         </div>
 
-        <div class="mx-row" data-in="basic pro plus">
+        <div class="mx-row" data-in="basic pro plus" data-feat="crate-export">
           <div class="mx-cell mx-feat">
             <span class="mx-name">Crate export (audio files + tracklist TXT)</span>
             <span class="mx-note">Export the audio files and a plain-text tracklist from any crate</span>
@@ -680,7 +690,7 @@
 
       <div class="mx-body">
 
-        <div class="mx-row" data-in="pro plus">
+        <div class="mx-row" data-in="pro plus" data-feat="library-backup">
           <div class="mx-cell mx-feat">
             <span class="mx-name">Library Backup &amp; Restore</span>
             <span class="mx-note">.selback archive with full audio + manifest</span>
@@ -690,7 +700,7 @@
           <div class="mx-cell mx-mark is-best" data-tier="plus"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro Plus: included</span></div>
         </div>
 
-        <div class="mx-row" data-in="pro plus">
+        <div class="mx-row" data-in="pro plus" data-feat="import-backup">
           <div class="mx-cell mx-feat">
             <span class="mx-name">Import Backup</span>
             <span class="mx-note">Restore crate structure from .selback, no duplicate files</span>
@@ -700,7 +710,7 @@
           <div class="mx-cell mx-mark is-best" data-tier="plus"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro Plus: included</span></div>
         </div>
 
-        <div class="mx-row" data-in="pro plus">
+        <div class="mx-row" data-in="pro plus" data-feat="import-manifest">
           <div class="mx-cell mx-feat">
             <span class="mx-name">Import Manifest</span>
             <span class="mx-note">Seed a new crate structure using your existing tracks</span>
@@ -710,7 +720,7 @@
           <div class="mx-cell mx-mark is-best" data-tier="plus"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro Plus: included</span></div>
         </div>
 
-        <div class="mx-row" data-in="pro plus">
+        <div class="mx-row" data-in="pro plus" data-feat="snapshots">
           <div class="mx-cell mx-feat">
             <span class="mx-name">Library Snapshots</span>
             <span class="mx-note">Multiple libraries on one machine, no duplicates</span>
@@ -720,7 +730,7 @@
           <div class="mx-cell mx-mark is-best" data-tier="plus"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro Plus: included</span></div>
         </div>
 
-        <div class="mx-row" data-in="pro plus">
+        <div class="mx-row" data-in="pro plus" data-feat="send-tracks">
           <div class="mx-cell mx-feat">
             <span class="mx-name">Send Tracks Between Crates</span>
             <span class="mx-note">Move or copy tracks across crates instantly</span>
@@ -730,7 +740,7 @@
           <div class="mx-cell mx-mark is-best" data-tier="plus"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro Plus: included</span></div>
         </div>
 
-        <div class="mx-row" data-in="pro plus">
+        <div class="mx-row" data-in="pro plus" data-feat="replace-records">
           <div class="mx-cell mx-feat">
             <span class="mx-name">Replace Records in Library Database</span>
             <span class="mx-note">Replace existing records directly in the Serato database</span>
@@ -740,7 +750,7 @@
           <div class="mx-cell mx-mark is-best" data-tier="plus"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro Plus: included</span></div>
         </div>
 
-        <div class="mx-row" data-in="pro plus">
+        <div class="mx-row" data-in="pro plus" data-feat="file-doctor">
           <div class="mx-cell mx-feat">
             <span class="mx-name">File Doctor</span>
             <span class="mx-note">Find and fix every missing or broken file link</span>
@@ -750,7 +760,7 @@
           <div class="mx-cell mx-mark is-best" data-tier="plus"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro Plus: included</span></div>
         </div>
 
-        <div class="mx-row" data-in="pro plus">
+        <div class="mx-row" data-in="pro plus" data-feat="streaming-links">
           <div class="mx-cell mx-feat">
             <span class="mx-name">Import Streaming Playlist Links</span>
             <span class="mx-note">Paste an Apple Music, Deezer or Spotify link, matches tracks to your current library. Missing tracks can be added later with File Doctor</span>
@@ -760,7 +770,7 @@
           <div class="mx-cell mx-mark is-best" data-tier="plus"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro Plus: included</span></div>
         </div>
 
-        <div class="mx-row" data-in="pro plus">
+        <div class="mx-row" data-in="pro plus" data-feat="tag-editor">
           <div class="mx-cell mx-feat">
             <span class="mx-name">Tag Editor</span>
             <span class="mx-note">Edit metadata in-app, writes to file &amp; Serato DB</span>
@@ -770,7 +780,7 @@
           <div class="mx-cell mx-mark is-best" data-tier="plus"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro Plus: included</span></div>
         </div>
 
-        <div class="mx-row" data-in="pro plus">
+        <div class="mx-row" data-in="pro plus" data-feat="sampler">
           <div class="mx-cell mx-feat">
             <span class="mx-name">Sampler · 40 samples × 4 palettes</span>
             <span class="mx-note">160 sounds total, MIDI mapping &amp; RGB sync</span>
@@ -780,7 +790,7 @@
           <div class="mx-cell mx-mark is-best" data-tier="plus"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro Plus: included</span></div>
         </div>
 
-        <div class="mx-row" data-in="pro plus">
+        <div class="mx-row" data-in="pro plus" data-feat="cue-studio">
           <div class="mx-cell mx-feat">
             <span class="mx-name">Cue Studio + VDJ Import</span>
             <span class="mx-note">Visual cue editor, import cues from VirtualDJ</span>
@@ -790,7 +800,7 @@
           <div class="mx-cell mx-mark is-best" data-tier="plus"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro Plus: included</span></div>
         </div>
 
-        <div class="mx-row" data-in="pro plus">
+        <div class="mx-row" data-in="pro plus" data-feat="selecta-to-serato">
           <div class="mx-cell mx-feat">
             <span class="mx-name">Selecta → Serato Workflow <span class="plat">Mac</span></span>
             <span class="mx-note">Right-click any folder, sends crate to Serato instantly, no app launch needed</span>
@@ -800,7 +810,7 @@
           <div class="mx-cell mx-mark is-best" data-tier="plus"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro Plus: included</span></div>
         </div>
 
-        <div class="mx-row" data-in="pro plus">
+        <div class="mx-row" data-in="pro plus" data-feat="batch-dupes">
           <div class="mx-cell mx-feat">
             <span class="mx-name">Batch duplicate resolve</span>
             <span class="mx-note">Smart auto-priority: format, bitrate, cues &amp; more</span>
@@ -810,7 +820,7 @@
           <div class="mx-cell mx-mark is-best" data-tier="plus"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro Plus: included</span></div>
         </div>
 
-        <div class="mx-row" data-in="pro plus">
+        <div class="mx-row" data-in="pro plus" data-feat="exclusive-drops">
           <div class="mx-cell mx-feat">
             <span class="mx-name">Exclusive tracks &amp; Sound FX drops</span>
             <span class="mx-note">Pro members get first access to exclusive Selecta Crates &amp; Sound FX releases</span>
@@ -820,7 +830,7 @@
           <div class="mx-cell mx-mark is-best" data-tier="plus"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro Plus: included</span></div>
         </div>
 
-        <div class="mx-row" data-in="pro plus">
+        <div class="mx-row" data-in="pro plus" data-feat="priority-support">
           <div class="mx-cell mx-feat">
             <span class="mx-name">Priority support &amp; early feature access</span>
           </div>
@@ -835,7 +845,7 @@
 
       <div class="mx-body">
 
-        <div class="mx-row" data-in="pro plus">
+        <div class="mx-row" data-in="pro plus" data-feat="gig-bookings">
           <div class="mx-cell mx-feat">
             <span class="mx-name">Booking log with double-booking warnings</span>
             <span class="mx-note">Log every gig, credit each performer on the line-up, and get a warning before you take a clashing date</span>
@@ -845,7 +855,7 @@
           <div class="mx-cell mx-mark is-best" data-tier="plus"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro Plus: included</span></div>
         </div>
 
-        <div class="mx-row" data-in="pro plus">
+        <div class="mx-row" data-in="pro plus" data-feat="gig-documents">
           <div class="mx-cell mx-feat">
             <span class="mx-name">Quotes, invoices, receipts &amp; performance agreements</span>
             <span class="mx-note">Raised against a booking and branded with your logo, accent colour and social handles in one of four print styles. Numbered only when you issue them, and emails open in your own mail app</span>
@@ -855,7 +865,7 @@
           <div class="mx-cell mx-mark is-best" data-tier="plus"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro Plus: included</span></div>
         </div>
 
-        <div class="mx-row" data-in="pro plus">
+        <div class="mx-row" data-in="pro plus" data-feat="gig-money">
           <div class="mx-cell mx-feat">
             <span class="mx-name">Money view · collected, expenses &amp; net profit</span>
             <span class="mx-note">Tracked by month and currency, including cash taken with no paperwork. Exports a financial report PDF or a CSV</span>
@@ -865,7 +875,7 @@
           <div class="mx-cell mx-mark is-best" data-tier="plus"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro Plus: included</span></div>
         </div>
 
-        <div class="mx-row" data-in="pro plus">
+        <div class="mx-row" data-in="pro plus" data-feat="gig-currency">
           <div class="mx-cell mx-feat">
             <span class="mx-name">Multi-currency, tax rate &amp; extra charges</span>
             <span class="mx-note">USD, CAD, GBP, EUR, JMD, TTD, EC$, CI$ or your own, with one tax rate and two labelled extra charges. Saved clients for repeat work</span>
@@ -875,7 +885,7 @@
           <div class="mx-cell mx-mark is-best" data-tier="plus"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro Plus: included</span></div>
         </div>
 
-        <div class="mx-row" data-in="pro plus">
+        <div class="mx-row" data-in="pro plus" data-feat="gig-file">
           <div class="mx-cell mx-feat">
             <span class="mx-name">Stored on your machine in a .selgigs file</span>
             <span class="mx-note">Back it up or move it like any other file. The Gig Desk never touches your Serato library</span>
@@ -890,7 +900,7 @@
 
       <div class="mx-body">
 
-        <div class="mx-row" data-in="plus">
+        <div class="mx-row" data-in="plus" data-feat="seats">
           <div class="mx-cell mx-feat">
             <span class="mx-name">3-seat license</span>
             <span class="mx-note">Install on up to 3 machines or assign to 3 users</span>
@@ -900,7 +910,7 @@
           <div class="mx-cell mx-mark is-best" data-tier="plus"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro Plus: included</span></div>
         </div>
 
-        <div class="mx-row" data-in="plus">
+        <div class="mx-row" data-in="plus" data-feat="seat-transfer">
           <div class="mx-cell mx-feat">
             <span class="mx-name">Seat revoke &amp; transfer</span>
             <span class="mx-note">Revoke a seat up to 3× within 30 days, move machines or reassign users</span>
@@ -910,7 +920,7 @@
           <div class="mx-cell mx-mark is-best" data-tier="plus"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro Plus: included</span></div>
         </div>
 
-        <div class="mx-row" data-in="plus">
+        <div class="mx-row" data-in="plus" data-feat="extra-seats">
           <div class="mx-cell mx-feat">
             <span class="mx-name">Extra seats at a discounted rate</span>
             <span class="mx-note">Need more than 3 seats? Purchase additional seats at the intro price for up to 60 days after your purchase</span>
@@ -920,7 +930,7 @@
           <div class="mx-cell mx-mark is-best" data-tier="plus"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro Plus: included</span></div>
         </div>
 
-        <div class="mx-row" data-in="plus">
+        <div class="mx-row" data-in="plus" data-feat="direct-support">
           <div class="mx-cell mx-feat">
             <span class="mx-name">WhatsApp &amp; SMS support</span>
             <span class="mx-note">Direct line, skip the email queue</span>
@@ -930,7 +940,7 @@
           <div class="mx-cell mx-mark is-best" data-tier="plus"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro Plus: included</span></div>
         </div>
 
-        <div class="mx-row" data-in="plus">
+        <div class="mx-row" data-in="plus" data-feat="genre-crates">
           <div class="mx-cell mx-feat">
             <span class="mx-name">Exclusive special genre crates</span>
             <span class="mx-note">Curated genre crate packs, included and updated</span>
@@ -940,7 +950,7 @@
           <div class="mx-cell mx-mark is-best" data-tier="plus"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro Plus: included</span></div>
         </div>
 
-        <div class="mx-row" data-in="plus">
+        <div class="mx-row" data-in="plus" data-feat="sfx-bundle">
           <div class="mx-cell mx-feat">
             <span class="mx-name">Sound FX bundle included</span>
             <span class="mx-note">Pre-organised SFX crates ready to drop in Serato</span>
@@ -950,7 +960,7 @@
           <div class="mx-cell mx-mark is-best" data-tier="plus"><span class="on" aria-hidden="true"></span><span class="sr-only">Pro Plus: included</span></div>
         </div>
 
-        <div class="mx-row" data-in="plus">
+        <div class="mx-row" data-in="plus" data-feat="early-beta">
           <div class="mx-cell mx-feat">
             <span class="mx-name">Early beta access</span>
             <span class="mx-note">Test new features 2 to 4 weeks before general release</span>
@@ -1202,35 +1212,11 @@
       </div>
     </div>
 
-    <!-- ── CLOSING CTA ──
-         Prices here are driven by the same price.js values as the cards at the
-         top of the page (see the PRICING block below), so the two can't drift.
-         The markup prices are the fallback if price.js fails to load. -->
-    <div class="section-label">
-      <h2>Get Selecta Tool</h2>
-    </div>
-
-    <div class="cta-grid">
-      <div class="cta-card" data-tier="basic">
-        <span class="tier-name">Selecta Tool</span>
-        <span class="tier-price" data-price="basic">$29.99 <span class="tier-price-orig">$49.99</span></span>
-        <span class="tier-sub"><b>1-seat license</b><br>Introductory price</span>
-        <a href="https://juggernautmusic.gumroad.com/l/selectatool" target="_blank" rel="noopener noreferrer" class="btn-tier">Get Basic</a>
-      </div>
-
-      <div class="cta-card" data-tier="pro">
-        <span class="tier-name">Selecta Tool Pro</span>
-        <span class="tier-price" data-price="pro">$54.99 <span class="tier-price-orig">$99.99</span></span>
-        <span class="tier-sub"><b>1-seat license</b><br>Adds the Gig Desk</span>
-        <a href="https://juggernautmusic.gumroad.com/l/selectatoolpro" target="_blank" rel="noopener noreferrer" class="btn-tier">Get Pro</a>
-      </div>
-
-      <div class="cta-card is-best" data-tier="plus">
-        <span class="tier-name">Selecta Tool Pro Plus</span>
-        <span class="tier-price" data-price="proPlus">$144.99 <span class="tier-price-orig">$270.00</span></span>
-        <span class="tier-sub"><b>3-seat license</b><br>Everything, on three machines</span>
-        <a href="https://juggernautmusic.gumroad.com/l/toolproplus" target="_blank" rel="noopener noreferrer" class="btn-tier">Get Pro Plus</a>
-      </div>
+    <!-- ── BACK TO PRICING ──
+         One button back up to the tier cards in Pricing and features, in place
+         of a second set of buy buttons. -->
+    <div class="to-pricing">
+      <a class="btn-top" href="#compare">Back to pricing <span aria-hidden="true">&uarr;</span></a>
     </div>
 
     <!-- ── INFO ── -->
@@ -1294,6 +1280,33 @@
         <span id="walkthroughLabel">Walkthrough <span class="label-note">&middot; coming soon</span></span>
       </a>
     </div>
+
+    <!-- ── FREE TRIAL ──
+         Driven entirely by TRIAL in protrial.js. Ships hidden and stays hidden
+         unless TRIAL.on is true, so a closed trial — or a missing protrial.js —
+         leaves no trace of it on the page. Set `on: false` in protrial.js to pull
+         it down; nothing here needs editing or deleting.
+         Down at the bottom on purpose: the page leads with the prices, and the
+         "Learn more about the trial" link under the trial column's button
+         scrolls here. -->
+    <section class="trial" id="trialStrip" hidden aria-labelledby="trialTitle" data-reveal>
+      <div class="trial-main">
+        <span class="trial-kicker" id="trialKicker"></span>
+        <h2 class="trial-title" id="trialTitle"></h2>
+        <p class="trial-copy" id="trialCopy"></p>
+      </div>
+      <div class="trial-side">
+        <!-- Shown only while TRIAL.releaseAt is still ahead of us. -->
+        <p class="trial-count" id="trialCount" hidden>
+          <span class="trial-count-label">Opens in</span>
+          <span class="trial-count-time" id="trialCountTime"></span>
+        </p>
+        <a class="btn-trial is-soon" id="trialBtn" href="#" aria-disabled="true">Free trial</a>
+        <span class="trial-foot" id="trialFoot"></span>
+      </div>
+      <!-- TRIAL.notes, filled in by the Free trial column script. -->
+      <ul class="trial-notes" id="trialNotes" hidden></ul>
+    </section>
 
     <!-- ── BAND ── -->
     <div class="band">
@@ -1404,6 +1417,115 @@
       });
     })();
 
+    // ── FREE TRIAL COLUMN ──
+    // Adds the Free trial column to the left of Basic from TRIAL.caps
+    // (protrial.js), keyed by each row's data-feat. Runs before the mobile tier
+    // switch below, so that script picks up the extra tab, header and cells as
+    // if they had always been in the markup. Trial off, or protrial.js missing,
+    // and this returns before touching anything.
+    (function() {
+      if (typeof TRIAL === 'undefined' || !TRIAL.on || !TRIAL.caps) return;
+      var mx = document.getElementById('compare');
+      if (!mx) return;
+      var caps = TRIAL.caps;
+
+      function el(tag, cls, text) {
+        var n = document.createElement(tag);
+        if (cls) n.className = cls;
+        if (text != null) n.textContent = text;
+        return n;
+      }
+
+      // Tab, first in line: the tiers then read left to right by price.
+      var tabs = mx.querySelector('.tier-tabs');
+      var tab = el('button', 'tier-tab', 'Free trial');
+      tab.dataset.target = 'trial';
+      tab.setAttribute('role', 'tab');
+      tab.setAttribute('aria-selected', 'false');
+      tabs.insertBefore(tab, tabs.firstChild);
+
+      // Header card, between the corner and Basic.
+      var col = el('div', 'tier-col');
+      col.dataset.tier = 'trial';
+      col.appendChild(el('span', 'tier-name', 'Selecta Pro Trial'));
+      col.appendChild(el('span', 'tier-flag', 'Mac only'));
+      col.appendChild(el('span', 'tier-price', 'Free'));
+      var sub = el('span', 'tier-sub');
+      sub.appendChild(el('b', null, '24 hours of Pro'));
+      sub.appendChild(document.createElement('br'));
+      sub.appendChild(document.createTextNode('Capped use · one per Mac'));
+      col.appendChild(sub);
+      var btn = el('a', 'btn-tier', 'Get trial key');
+      if (TRIAL.url) {
+        btn.href = TRIAL.url;
+        btn.target = '_blank';
+        btn.rel = 'noopener noreferrer';
+      } else {
+        btn.href = '#';
+        btn.setAttribute('aria-disabled', 'true');
+        btn.textContent = 'Link coming soon';
+        btn.style.pointerEvents = 'none';
+        btn.style.opacity = '0.55';
+      }
+      col.appendChild(btn);
+      // Scrolls down to the trial section at the bottom of the page.
+      if (document.getElementById('trialStrip')) {
+        col.appendChild(el('a', 'trial-more', 'Learn more about the trial')).href = '#trialStrip';
+      }
+      var corner = mx.querySelector('.mx-head .mx-corner');
+      corner.parentNode.insertBefore(col, corner.nextSibling);
+      var cornerNote = corner.querySelector('.mx-corner-note');
+      if (cornerNote) cornerNote.appendChild(document.createTextNode(' The free trial is 24 hours of Pro with capped use.'));
+
+      // One cell per row. A feature missing from caps reads as not included,
+      // so a new row can never be promised to trial users by accident.
+      mx.querySelectorAll('.mx-row').forEach(function(row) {
+        var v = caps[row.dataset.feat];
+        var note = null;
+        if (Array.isArray(v)) { note = v[1] || null; v = v[0]; }
+        if (v == null) v = false;
+
+        var cell = el('div', 'mx-cell mx-mark');
+        cell.dataset.tier = 'trial';
+        var sr;
+        if (v === true || v === false) {
+          var mark = el('span', v ? 'on' : 'off');
+          mark.setAttribute('aria-hidden', 'true');
+          cell.appendChild(mark);
+          sr = v ? 'included' : 'not included';
+        } else {
+          var cap = el('span', 'cap', String(v));
+          cap.setAttribute('aria-hidden', 'true');
+          cell.appendChild(cap);
+          sr = String(v);
+        }
+        if (note) {
+          cell.classList.add('mx-cap');
+          var n = el('span', 'cap-note', note);
+          n.setAttribute('aria-hidden', 'true');
+          cell.appendChild(n);
+          sr += ', ' + note;
+        } else if (v !== true && v !== false) {
+          cell.classList.add('mx-cap');
+        }
+        cell.appendChild(el('span', 'sr-only', 'Free trial: ' + sr));
+
+        var feat = row.querySelector('.mx-feat');
+        feat.parentNode.insertBefore(cell, feat.nextSibling);
+        if (v !== false) row.dataset.in = (row.dataset.in + ' trial').trim();
+      });
+
+      // The terms that do not fit in a cell, in the trial section at the
+      // bottom of the page.
+      var ul = document.getElementById('trialNotes');
+      if (ul && TRIAL.notes && TRIAL.notes.length) {
+        TRIAL.notes.forEach(function(t) { ul.appendChild(el('li', null, t)); });
+        ul.hidden = false;
+      }
+
+      mx.classList.add('has-trial');
+    })();
+
     // ── MOBILE TIER SWITCH ──
     (function() {
       var tabs = document.querySelectorAll('.tier-tab');
@@ -1493,8 +1615,8 @@
     })();
 
     // ── FREE TRIAL ──
-    // Reads TRIAL (trial.js) and fills the block under the hero.
-    // It ships hidden, so `on: false` in trial.js — or no trial.js at all —
+    // Reads TRIAL (protrial.js) and fills the block at the bottom of the page.
+    // It ships hidden, so `on: false` in protrial.js — or no protrial.js at all —
     // means this returns early and the page shows no trial anywhere.
     (function() {
       if (typeof TRIAL === 'undefined' || !TRIAL.on) return;
@@ -1519,7 +1641,7 @@
           btn.rel = 'noopener noreferrer';
           btn.removeAttribute('aria-disabled');
           btn.classList.remove('is-soon');
-          btn.textContent = 'Get the free trial';
+          btn.textContent = TRIAL.button || 'Get the free trial';
         } else {
           btn.textContent = 'Free trial · link coming soon';
         }
@@ -1596,10 +1718,14 @@
 
     // ── VERSION / WINDOWS NOTICE ──
     (function() {
-      document.getElementById('heroVersion').textContent = 'v' + APP_VERSION;
+      var winBehind = !isVersionAtLeast(WINDOWS_VERSION, APP_VERSION);
+      // One number while the builds are in step, both once Windows lags.
+      document.getElementById('heroVersion').textContent = winBehind
+        ? 'Mac v' + APP_VERSION + ' · Windows v' + WINDOWS_VERSION
+        : 'v' + APP_VERSION;
       var note = document.getElementById('windowsDevNote');
       // Only shown once the Windows build has actually fallen behind Mac.
-      if (note && !isVersionAtLeast(WINDOWS_VERSION, APP_VERSION)) {
+      if (note && winBehind) {
         document.getElementById('windowsVersion').textContent = WINDOWS_VERSION;
         note.style.display = '';
       }

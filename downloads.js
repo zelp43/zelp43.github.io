@@ -24,22 +24,24 @@ const DOWNLOADS = {
 
 // ── FIX BUILDS (toolfix.html) ──
 // Interim builds sent to people who reported bugs. Hosted on Google Drive, not
-// R2. The Mac link is one .zip holding both the Apple Silicon and Intel builds;
-// while it is an empty string the row renders greyed as "Link coming soon".
-// There is no Windows fix build: that row is fixed as "Unavailable" in the page.
+// R2. The Mac link is one .zip holding both the Apple Silicon and Intel builds.
+// While it is an empty string the Mac card is switched off (not clickable) and
+// the page says there is no fix build. Paste a share link in and it goes live.
+// There is no Windows fix build: that card is fixed as "Unavailable" in the page.
 // README / EULA / Manual on that page still come from DOWNLOADS above.
 // No version number is shown on the page: people read it off the lower right
 // of the Selecta Tool home screen or from the file name.
 const FIX_DOWNLOADS = {
-  mac: 'https://drive.google.com/drive/home?dmr=1&ec=wgc-drive-%5Bmodule%5D-goto',
+  mac: '',
 };
 
 // ── BETA BUILDS (toolbeta.html) ──
 // Early-release builds sent privately to individual testers. Hosted on Google
-// Drive like the fix builds. Paste the share link into `mac` and the row goes
-// live; while it is an empty string the row renders greyed as "Link coming soon".
-// There is no Windows beta: that row is fixed as "Unavailable" in the page.
+// Drive like the fix builds. Paste the share link into `mac` and the card goes
+// live; while it is an empty string the card is switched off (not clickable)
+// and the page says there is no beta build.
+// There is no Windows beta: that card is fixed as "Unavailable" in the page.
 // README / EULA / Manual on that page still come from DOWNLOADS above.
 const BETA_DOWNLOADS = {
-  mac: 'https://drive.google.com/file/d/1hL9QOjoykxL8r-X6-be8NlucSJ4rqD7K/view?usp=sharing',
+  mac: '',
 };

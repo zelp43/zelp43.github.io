@@ -1,10 +1,10 @@
-const APP_VERSION = '2.2';
+const APP_VERSION = '2.2.2';
 
 // Version of the shipping Windows build. Normally the same as APP_VERSION.
 // The "Windows is behind" notice on the site appears automatically whenever
 // this is LOWER than APP_VERSION, i.e. only once Windows actually falls behind
 // Mac. Keep the two in step and no notice is shown.
-const WINDOWS_VERSION = '2.2';
+const WINDOWS_VERSION = '2.2.2';
 
 // Prices live in price.js.
 

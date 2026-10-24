@@ -1,0 +1,150 @@
+/* Shared styles for the Selecta Tool hand-out pages: tooldownload, toolupdate,
+   toolpromo, toolbeta and toolfix. Same palette, header, hero and footer as
+   selectatool.html, so a buyer coming off Gumroad lands on something that
+   looks like the product page they bought from. */
+
+:root {
+  --black:    #0a0a0a;
+  --card:     #111111;
+  --card-2:   #161616;
+  --border:   #222222;
+  --border-h: #333333;
+  --text:     #eeeeee;
+  --muted:    #8a8a8a;
+  --green:    #2ecc40;
+  --gold:     #ffc107;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: var(--black); color: var(--text);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh; display: flex; flex-direction: column;
+}
+a { color: inherit; }
+main { flex: 1; overflow-x: clip; }
+.wrap { width: 100%; max-width: 1180px; margin: 0 auto; padding: 0 40px; }
+@media (max-width: 640px) { .wrap { padding: 0 22px; } }
+
+/* ── HEADER (as on selectatool.html) ── */
+header { padding: 26px 0 0; background: var(--black); }
+.head-row { display: flex; align-items: center; justify-content: space-between; }
+.brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+.brand img { width: 34px; height: 34px; object-fit: contain; }
+.brand-word { font-size: 1.05rem; font-weight: 800; letter-spacing: 0.5px; color: var(--text); }
+nav { display: flex; gap: 30px; }
+.nav-link { font-size: 0.82rem; font-weight: 600; text-decoration: none; color: var(--muted); position: relative; padding-bottom: 2px; }
+.nav-link::after { content: ''; position: absolute; left: 0; right: 100%; bottom: 0; height: 1.5px; background: var(--green); transition: right 0.25s ease; }
+.nav-link:hover { color: var(--text); }
+.nav-link:hover::after { right: 0; }
+.head-rule { height: 1px; background: var(--border); margin-top: 22px; }
+@media (max-width: 640px) { nav { display: none; } }
+
+/* ── HERO ──
+   Same quiet hero as the tool page: brand row, one uppercase headline, a
+   plain line under it, and the studio photo pushed far back behind. */
+.hero { position: relative; isolation: isolate; padding: 72px 0 40px; }
+.hero::before {
+  content: ''; position: absolute; z-index: -1;
+  top: 0; bottom: -80px; left: 50%; width: 100vw;
+  transform: translateX(-50%) scale(1.04);
+  background: url('selecta-tool-studio-hero.jpg') 62% 34% / cover no-repeat;
+  filter: blur(7px); opacity: 0.18;
+  -webkit-mask-image: linear-gradient(180deg, #000 45%, transparent 100%);
+          mask-image: linear-gradient(180deg, #000 45%, transparent 100%);
+  pointer-events: none;
+}
+.hero-brand { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 30px; }
+.hero-logo { width: 30px; height: 30px; object-fit: contain; flex-shrink: 0; }
+.hero-name { font-size: 0.95rem; font-weight: 700; color: var(--text); }
+.hero-ver { font-size: 0.78rem; font-weight: 500; color: var(--muted); margin-left: 2px; }
+.hero-kicker { display: block; font-size: 0.64rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+.hero-title {
+  font-size: clamp(2.1rem, 4.6vw, 3.6rem); font-weight: 800;
+  letter-spacing: -0.03em; line-height: 1; text-transform: uppercase; color: var(--text);
+}
+.hero-title .g { color: var(--green); }
+.hero-desc { max-width: 560px; margin-top: 16px; font-size: 1.02rem; color: var(--muted); line-height: 1.6; }
+.hero-desc strong { color: var(--text); font-weight: 600; }
+@media (max-width: 860px) { .hero { padding: 44px 0 30px; } .hero-brand { margin-bottom: 22px; } }
+
+/* ── NOTES ──
+   One ruled line per note, like the trial strip on the tool page. Gold for
+   "read this before you install", muted for the small print. */
+.notes { display: grid; gap: 0; max-width: 760px; margin-bottom: 34px; }
+.note {
+  display: flex; gap: 12px; align-items: flex-start;
+  padding: 14px 0; border-top: 1px solid var(--border);
+  font-size: 0.84rem; line-height: 1.6; color: var(--muted);
+}
+.note:last-child { border-bottom: 1px solid var(--border); }
+.note svg { flex-shrink: 0; width: 15px; height: 15px; margin-top: 3px; fill: currentColor; }
+.note strong { color: var(--text); font-weight: 600; }
+.note a { color: var(--text); }
+.note.is-key { color: var(--gold); }
+.note.is-key strong { color: var(--gold); }
+
+/* ── DOWNLOAD CARDS ──
+   One card per platform, three across on desktop, stacked on a phone. The
+   button is the whole call to action; the card just says what it is. */
+.dl-label { font-size: 0.68rem; font-weight: 800; letter-spacing: 2.4px; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; }
+.dl-grid { display: grid; grid-template-columns: repeat(var(--n, 3), minmax(0, 1fr)); gap: 14px; }
+.dl-card {
+  display: flex; flex-direction: column; align-items: flex-start;
+  background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+  padding: 22px 20px 20px; transition: border-color 0.18s ease;
+}
+.dl-card:hover { border-color: var(--border-h); }
+.dl-icon { width: 26px; height: 26px; color: var(--text); margin-bottom: 18px; }
+.dl-icon svg { width: 100%; height: 100%; display: block; }
+.dl-name { font-size: 1rem; font-weight: 800; letter-spacing: -0.01em; }
+.dl-sub { font-size: 0.78rem; color: var(--muted); line-height: 1.5; margin-top: 4px; }
+.dl-warn { font-size: 0.74rem; color: var(--gold); line-height: 1.5; margin-top: 6px; }
+.dl-warn[hidden] { display: none; }
+.btn-dl {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%;
+  margin-top: auto; padding: 12px 18px; border-radius: 999px;
+  background: var(--text); color: var(--black); text-decoration: none;
+  font-size: 0.84rem; font-weight: 700; transition: background 0.18s ease;
+}
+.dl-sub + .btn-dl, .dl-warn + .btn-dl { margin-top: 22px; }
+.btn-dl:hover { background: #ffffff; }
+.btn-dl .arrow { transition: transform 0.2s ease; }
+.btn-dl:hover .arrow { transform: translateY(2px); }
+/* Not clickable: no build to hand out. pointer-events off and no href, so a
+   tap does nothing at all rather than opening an empty tab. */
+.dl-card.is-off { background: transparent; }
+.dl-card.is-off .dl-icon, .dl-card.is-off .dl-name { color: var(--muted); }
+.dl-card.is-off .btn-dl { background: transparent; color: var(--muted); box-shadow: inset 0 0 0 1px var(--border-h); pointer-events: none; cursor: default; }
+.dl-card.is-off .btn-dl .arrow { display: none; }
+@media (max-width: 760px) { .dl-grid { grid-template-columns: 1fr; } }
+
+/* ── SIDE LINKS ── Gumroad library, documents. */
+.side-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-top: 26px; padding-top: 20px; border-top: 1px solid var(--border); }
+.docs { display: flex; gap: 22px; flex-wrap: wrap; }
+.doc-link { font-size: 0.8rem; font-weight: 600; color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--border-h); padding-bottom: 1px; }
+.doc-link:hover { color: var(--text); border-bottom-color: var(--text); }
+.lib-link { display: inline-flex; align-items: center; gap: 10px; font-size: 0.8rem; font-weight: 600; color: var(--muted); text-decoration: none; }
+.lib-link svg { width: 20px; height: 20px; flex-shrink: 0; }
+.lib-link:hover { color: var(--text); }
+
+/* ── STATUS ── Beta / fix pages while there is nothing to hand out. */
+.status {
+  display: flex; gap: 14px; align-items: flex-start; max-width: 760px;
+  background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+  padding: 18px 20px; margin-bottom: 34px;
+}
+.status-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--muted); flex-shrink: 0; margin-top: 7px; }
+.status-title { font-size: 0.98rem; font-weight: 800; }
+.status-copy { font-size: 0.84rem; color: var(--muted); line-height: 1.6; margin-top: 4px; }
+.status-copy strong { color: var(--text); font-weight: 600; }
+.status-copy a { color: var(--text); }
+[data-when][hidden] { display: none; }
+
+/* ── FOOTER (as on selectatool.html) ── */
+footer { border-top: 1px solid var(--border); padding: 22px 0 40px; margin-top: 64px; }
+.foot-row { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+.foot-copy { font-size: 0.75rem; color: var(--muted); }
+.foot-links { display: flex; gap: 22px; flex-wrap: wrap; }
+.foot-link { font-size: 0.75rem; color: var(--muted); text-decoration: none; }
+.foot-link:hover { color: var(--text); }

@@ -2,234 +2,99 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
-  <!-- Sent privately to individual beta testers: keep it out of search results. -->
+  <!-- Private: sent to individual testers only. Keep it out of search results. -->
   <meta name="robots" content="noindex, nofollow"/>
   <link rel="icon" type="image/png" href="favicon-64.png"/>
   <link rel="apple-touch-icon" href="logo-mark-180.png"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Selecta Tool Beta | Selecta Hub</title>
-  <meta name="description" content="An early-release beta build of Selecta Tool for invited testers."/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
-  <style>
-    :root {
-      --black:    #0a0a0a;
-      --card:     #111111;
-      --card-2:   #161616;
-      --border:   #222222;
-      --border-h: #333333;
-      --text:     #eeeeee;
-      --muted:    #666666;
-      --green:    #2ecc40;
-      --gold:     #ffc107;
-      --red:      #ff5a4f;
-    }
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--black);
-      color: var(--text);
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      min-height: 100vh;
-      display: flex; flex-direction: column;
-      align-items: center;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    a { color: inherit; }
-    .wrap { width: 100%; max-width: 560px; padding: 0 24px; }
-
-    /* ── BRAND ── */
-    .brand-bar { padding: 40px 0 0; width: 100%; display: flex; justify-content: center; }
-    .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-    .brand img { width: 30px; height: 30px; object-fit: contain; }
-    .brand-word { font-size: 0.95rem; font-weight: 800; letter-spacing: 1.5px; color: var(--text); }
-
-    /* ── CONTAINER ── */
-    .container {
-      display: flex; flex-direction: column;
-      align-items: center; text-align: center;
-      padding: 56px 0 60px;
-      width: 100%;
-    }
-
-    .hero-logo { width: 72px; height: 72px; object-fit: contain; display: block; margin-bottom: 24px; }
-
-    .page-title {
-      font-size: clamp(2rem, 7vw, 3rem);
-      font-weight: 900; letter-spacing: -0.03em; line-height: 1;
-      text-transform: uppercase;
-      margin-bottom: 16px;
-    }
-    .page-title .g { color: var(--green); }
-
-    .subtitle {
-      font-size: 0.95rem; color: var(--muted);
-      line-height: 1.7; margin-bottom: 28px;
-    }
-
-
-    .license-note {
-      display: flex; align-items: flex-start; gap: 10px;
-      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
-      padding: 16px 0;
-      font-size: 0.82rem; color: var(--gold);
-      line-height: 1.6; text-align: left;
-      margin-bottom: 36px; width: 100%;
-    }
-    .license-note svg {
-      flex-shrink: 0; margin-top: 2px;
-      width: 15px; height: 15px; fill: var(--gold);
-    }
-    .license-note strong { font-weight: 800; }
-    /* The beta page stacks two notes: drop the doubled rule between them. */
-    .license-note + .license-note { border-top: none; margin-top: -36px; }
-    .license-note.private { color: var(--red); }
-    .license-note.private svg { fill: var(--red); }
-
-    .beta-tag {
-      display: inline-block;
-      font-size: 0.7rem; font-weight: 800; letter-spacing: 1.5px;
-      color: var(--black); background: var(--gold);
-      padding: 4px 10px; border-radius: 3px;
-      margin-bottom: 18px;
-    }
-
-    /* ── OPTIONS ── */
-    .options {
-      display: flex; flex-direction: column;
-      width: 100%; text-align: left;
-    }
-
-    .option-row {
-      display: flex; align-items: center; gap: 16px;
-      padding: 20px 0;
-      border-top: 1px solid var(--border);
-      text-decoration: none; color: var(--text);
-    }
-    .options .option-row:last-child { border-bottom: 1px solid var(--border); }
-
-    .option-icon {
-      flex-shrink: 0; width: 34px; height: 34px;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .option-icon svg { width: 28px; height: 28px; }
-
-    .option-body { flex: 1; }
-    .option-title {
-      font-size: 0.95rem; font-weight: 800; letter-spacing: -0.2px;
-      line-height: 1.2; margin-bottom: 3px;
-    }
-    .option-row.secondary .option-title { color: var(--gold); }
-
-    .option-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.5; }
-    .option-note-warn { margin-top: 4px; color: var(--gold); font-size: 0.74rem; }
-
-    .option-arrow {
-      font-size: 1rem; color: var(--muted); flex-shrink: 0;
-      transition: transform 0.18s;
-    }
-    .option-row:hover .option-arrow { transform: translateX(4px); }
-    .option-row.secondary:hover .option-title { color: var(--text); text-decoration: underline; }
-    /* Same treatment as the walkthrough button on selectatool.html while its
-       URL is still empty: a row stays greyed until its BETA_DOWNLOADS link is in. */
-    .option-row.is-soon { pointer-events: none; opacity: 0.45; }
-    .option-row.is-soon .option-title { color: var(--muted); }
-
-    /* ── DOC LINKS ── */
-    .doc-links {
-      display: flex; gap: 22px; flex-wrap: wrap; justify-content: center;
-      margin-top: 36px; width: 100%;
-    }
-    .doc-link {
-      font-size: 0.8rem; font-weight: 600; letter-spacing: 0.3px;
-      color: var(--muted); text-decoration: underline; text-underline-offset: 3px;
-    }
-    .doc-link:hover { color: var(--text); }
-
-    /* ── FOOTER ── */
-    footer { border-top: 1px solid var(--border); padding: 22px 0 32px; width: 100%; }
-    .foot-row { display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; }
-    .foot-copy { font-size: 0.75rem; color: var(--muted); }
-    .foot-links { display: flex; gap: 18px; flex-wrap: wrap; justify-content: center; }
-    .foot-link { font-size: 0.75rem; color: var(--muted); text-decoration: none; }
-    .foot-link:hover { color: var(--text); }
-
-    @media (max-width: 480px) {
-      .container { padding: 44px 0 48px; }
-    }
-  </style>
+  <meta name="description" content="Early-release builds of Selecta Tool for invited testers."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="site.css"/>
+  <link rel="stylesheet" href="tooldl.css"/>
   <script src="version.js"></script>
   <script src="downloads.js"></script>
 </head>
-<body>
+<body data-build="beta">
+  <a class="skip-link" href="#main-content">Skip to content</a>
 
-  <div class="brand-bar">
-    <a href="index.html" class="brand">
-      <img src="logo-mark-96.png" alt="Selecta Hub" class="nav-logo" width="30" height="30"/>
-      <span class="brand-word">SELECTA HUB</span>
-    </a>
-  </div>
-
-  <div class="wrap">
-    <div class="container">
-
-      <img src="st2logo-144.png" alt="Selecta Tool" class="hero-logo" width="72" height="72"/>
-
-      <span class="beta-tag">EARLY RELEASE</span>
-      <h1 class="page-title">BETA <span class="g">BUILD</span></h1>
-      <p class="subtitle">
-        You&rsquo;ve been invited to try an early release of Selecta Tool
-        before it ships to everyone.
-      </p>
-
-      <div class="license-note">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-1 6h2v2h-2V7zm0 4h2v6h-2v-6z"/></svg>
-        <span>This is a beta. It is still being tested and <strong>may have bugs</strong>, so keep a backup of your library and don&rsquo;t rely on it for a gig. If something breaks, email <a href="mailto:info@selectahub.com">info@selectahub.com</a> with what happened. When the stable release comes out, replace this build with it. To see which version you have, look at the lower right of the Selecta Tool home screen, or at the file name.</span>
-      </div>
-
-      <div class="license-note private">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zM9 8V6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9z"/></svg>
-        <span>If this link was sent to you, it is for <strong>you only</strong>. Sharing it with other Selecta Tool users is <strong>strictly prohibited</strong>. The developers can&rsquo;t handle support requests from people running builds that weren&rsquo;t meant for them.</span>
-      </div>
-
-      <div class="options">
-
-        <a id="dl-mac" href="#" target="_blank" rel="noopener noreferrer" class="option-row secondary is-soon" aria-disabled="true">
-          <div class="option-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 170 170" fill="currentColor"><path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.2-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.93.21-9.84-1.96-14.75-6.52-3.13-2.73-7.04-7.41-11.73-14.04-5.03-7.08-9.17-15.29-12.41-24.65-3.47-10.11-5.21-19.9-5.21-29.38 0-10.86 2.35-20.22 7.05-28.07 3.69-6.3 8.61-11.27 14.75-14.92 6.15-3.65 12.79-5.51 19.95-5.63 3.91 0 9.05 1.21 15.43 3.59 6.36 2.39 10.45 3.6 12.24 3.6 1.34 0 5.88-1.42 13.57-4.24 7.28-2.62 13.42-3.7 18.45-3.27 13.63 1.1 23.87 6.47 30.68 16.15-12.19 7.39-18.22 17.73-18.1 31 .11 10.34 3.86 18.94 11.23 25.77 3.34 3.17 7.07 5.62 11.22 7.36-.9 2.61-1.85 5.11-2.86 7.51zM119.11 7.24c0 8.1-2.96 15.67-8.86 22.67-7.12 8.32-15.73 13.13-25.07 12.37a25.1 25.1 0 0 1-.19-3.07c0-7.78 3.39-16.1 9.4-22.91 3-3.45 6.82-6.31 11.45-8.6 4.62-2.25 8.99-3.5 13.1-3.71.12 1.08.17 2.17.17 3.25z"/></svg>
-          </div>
-          <div class="option-body">
-            <div class="option-title">Mac</div>
-            <p class="option-desc">Apple Silicon &amp; Intel builds together · .zip<span class="soon-note"> · link coming soon</span></p>
-          </div>
-          <span class="option-arrow">&#8594;</span>
+  <header>
+    <div class="wrap">
+      <div class="head-row">
+        <a href="index.html" class="brand">
+          <img src="logo-mark-96.png" alt="Selecta Hub logo" width="34" height="34"/>
+          <span class="brand-word">SELECTA HUB</span>
         </a>
+        <nav>
+          <a href="selectatool.html" class="nav-link">Selecta Tool</a>
+          <a href="mailto:info@selectahub.com" class="nav-link">Contact</a>
+        </nav>
+      </div>
+    </div>
+    <div class="head-rule"></div>
+  </header>
 
-        <!-- No Windows beta builds: Windows is not actively developed, so this
-             row is permanently greyed rather than waiting on a link. -->
-        <div id="dl-windows" class="option-row secondary is-soon" aria-disabled="true">
-          <div class="option-icon">
-            <svg viewBox="0 0 88 88" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><path d="M0 12.402l35.687-4.86.016 34.423-35.67.203zm35.67 33.529l.028 34.453L.028 75.48.026 45.7zm4.326-39.025L87.314 0v41.527l-47.318.376zm47.329 39.349l-.011 41.34-47.318-6.678-.066-34.739z"/></svg>
-          </div>
-          <div class="option-body">
-            <div class="option-title">Windows</div>
-            <p class="option-desc">Unavailable · not actively developed</p>
-          </div>
-          <span class="option-arrow">&#8594;</span>
+  <main id="main-content" tabindex="-1">
+    <div class="wrap">
+
+      <section class="hero">
+        <div class="hero-brand">
+          <img src="st2logo-144.png" alt="" class="hero-logo" width="30" height="30"/>
+          <span class="hero-name">Selecta Tool</span>
+          <span class="hero-ver" data-version>v2.2</span>
         </div>
-
+        <span class="hero-kicker">Early release</span>
+        <h1 class="hero-title">Beta <span class="g">build</span></h1>
+        <p class="hero-desc">Invited testers get early releases of Selecta Tool here, before they ship to everyone.</p>
+      </section>
+      <div class="status" data-when="none">
+        <span class="status-dot" aria-hidden="true"></span>
+        <div>
+          <p class="status-title">No beta build available</p>
+          <p class="status-copy"><strong>Selecta Tool <span data-version>v2.2</span></strong> is the current stable release, and there's no beta build newer than it. If you were sent this link and expected a build, email <a href="mailto:info@selectahub.com">info@selectahub.com</a>.</p>
+        </div>
+      </div>
+      <div data-when="live" hidden>
+      <div class="notes">
+        <p class="note is-key"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-1 6h2v2h-2V7zm0 4h2v6h-2v-6z"/></svg><span>This is a beta. It's still being tested and <strong>may have bugs</strong>, so keep a backup of your library and don't rely on it for a gig. If something breaks, email <a href="mailto:info@selectahub.com">info@selectahub.com</a> with what happened.</span></p>
+        <p class="note"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg><span>This link is for <strong>you only</strong>. Sharing it with other Selecta Tool users is <strong>strictly prohibited</strong>, and we can't support builds that weren't meant for you.</span></p>
+        <p class="note"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg><span>When the stable release comes out, replace this build with it. Your version is shown in the lower right of the Selecta Tool home screen, and in the file name.</span></p>
+      </div>
       </div>
 
-      <div class="doc-links">
-        <a id="doc-readme" href="#" target="_blank" rel="noopener noreferrer" class="doc-link">README</a>
-        <a id="doc-eula" href="#" target="_blank" rel="noopener noreferrer" class="doc-link">EULA</a>
-        <a id="doc-manual" href="#" target="_blank" rel="noopener noreferrer" class="doc-link">Manual</a>
+      <p class="dl-label">Beta build</p>
+      <div class="dl-grid" style="--n: 2">
+        <!-- Switched off until BETA_DOWNLOADS.mac in downloads.js holds a
+             link: no href and not clickable. tooldl.js turns it on. -->
+        <div class="dl-card is-off" id="dl-mac">
+          <span class="dl-icon"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 170 170" fill="currentColor"><path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.2-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.93.21-9.84-1.96-14.75-6.52-3.13-2.73-7.04-7.41-11.73-14.04-5.03-7.08-9.17-15.29-12.41-24.65-3.47-10.11-5.21-19.9-5.21-29.38 0-10.86 2.35-20.22 7.05-28.07 3.69-6.3 8.61-11.27 14.75-14.92 6.15-3.65 12.79-5.51 19.95-5.63 3.91 0 9.05 1.21 15.43 3.59 6.36 2.39 10.45 3.6 12.24 3.6 1.34 0 5.88-1.42 13.57-4.24 7.28-2.62 13.42-3.7 18.45-3.27 13.63 1.1 23.87 6.47 30.68 16.15-12.19 7.39-18.22 17.73-18.1 31 .11 10.34 3.86 18.94 11.23 25.77 3.34 3.17 7.07 5.62 11.22 7.36-.9 2.61-1.85 5.11-2.86 7.51zM119.11 7.24c0 8.1-2.96 15.67-8.86 22.67-7.12 8.32-15.73 13.13-25.07 12.37a25.1 25.1 0 0 1-.19-3.07c0-7.78 3.39-16.1 9.4-22.91 3-3.45 6.82-6.31 11.45-8.6 4.62-2.25 8.99-3.5 13.1-3.71.12 1.08.17 2.17.17 3.25z"/></svg></span>
+          <span class="dl-name">Mac</span>
+          <span class="dl-sub">No beta build available</span>
+          <a class="btn-dl" aria-disabled="true">Not available</a>
+        </div>
+        <!-- No Windows beta builds: Windows is not actively developed, so
+             this card stays off for good rather than waiting on a link. -->
+        <div class="dl-card is-off">
+          <span class="dl-icon"><svg aria-hidden="true" viewBox="0 0 88 88" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><path d="M0 12.402l35.687-4.86.016 34.423-35.67.203zm35.67 33.529l.028 34.453L.028 75.48.026 45.7zm4.326-39.025L87.314 0v41.527l-47.318.376zm47.329 39.349l-.011 41.34-47.318-6.678-.066-34.739z"/></svg></span>
+          <span class="dl-name">Windows</span>
+          <span class="dl-sub">Unavailable · not actively developed</span>
+          <a class="btn-dl" aria-disabled="true">Not available</a>
+        </div>
+      </div>
+      <div class="side-row">
+        <div class="docs">
+          <a class="doc-link" data-dl="readme" href="#" target="_blank" rel="noopener noreferrer">README</a>
+          <a class="doc-link" data-dl="eula" href="#" target="_blank" rel="noopener noreferrer">EULA</a>
+          <a class="doc-link" data-dl="manual" href="#" target="_blank" rel="noopener noreferrer">Manual</a>
+        </div>
       </div>
 
     </div>
+  </main>
 
+  <div class="wrap">
     <footer>
       <div class="foot-row">
         <span class="foot-copy">© 2026 Juggernaut Music Group. All rights reserved.</span>
@@ -242,20 +107,6 @@
     </footer>
   </div>
 
-  <script>
-    // The Mac installer comes from Google Drive (BETA_DOWNLOADS). The row goes
-    // live once the link is filled in; until then it stays greyed as "link coming soon".
-    if (BETA_DOWNLOADS.mac) {
-      var macRow = document.getElementById('dl-mac');
-      macRow.href = BETA_DOWNLOADS.mac;
-      macRow.classList.remove('is-soon');
-      macRow.removeAttribute('aria-disabled');
-      macRow.querySelector('.soon-note').remove();
-    }
-
-    document.getElementById('doc-readme').href     = DOWNLOADS.readme;
-    document.getElementById('doc-eula').href       = DOWNLOADS.eula;
-    document.getElementById('doc-manual').href     = DOWNLOADS.manual;
-  </script>
+  <script src="tooldl.js"></script>
 </body>
 </html>
